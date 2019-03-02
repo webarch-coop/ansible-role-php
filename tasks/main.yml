@@ -1,0 +1,35 @@
+---
+- name: PHP-FPM present
+  apt:
+    pkg:
+      - php-fpm
+    state: present
+
+- name: Stat /usr/sbin/apache2
+  stat:
+    path: /usr/sbin/apache2
+  register: phpfpm_apache2
+
+- name: Stat /usr/sbin/nginx
+  stat:
+    path: /usr/sbin/nginx
+  register: phpfpm_nginx
+
+- name: Fail if neither Apache or Nginx are installed
+  fail:
+    msg: You need to install either Apache or Nginx
+  when: ( phpfpm_apache2.stat.exists == False ) and ( phpfpm_nginx.stat.exists == False )
+
+- block:
+
+  - name: Include Apache2 tasks
+    include_tasks: apache2.yml
+
+  when: apache2.stat.exists
+
+- block:
+
+  - name: Include Nginx tasks
+    include_tasks: nginx.yml
+
+  when: nginx.stat.exists
