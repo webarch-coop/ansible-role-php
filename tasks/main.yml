@@ -25,11 +25,11 @@
   - name: Include Apache2 tasks
     include_tasks: apache2.yml
 
-  when: apache2.stat.exists
+  when: phpfpm_apache2.stat.exists
 
 - block:
 
   - name: Include Nginx tasks
     include_tasks: nginx.yml
 
-  when: nginx.stat.exists
+  when: phpfpm_nginx.stat.exists
