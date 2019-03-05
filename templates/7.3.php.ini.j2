@@ -312,7 +312,7 @@ serialize_precision = -1
 ; This directive allows you to disable certain functions for security reasons.
 ; It receives a comma-delimited list of function names.
 ; http://php.net/disable-functions
-disable_functions = pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_get_handler,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,pcntl_async_signals,
+disable_functions = {{ phpfpm_disable_functions }}
 
 ; This directive allows you to disable certain classes for security reasons.
 ; It receives a comma-delimited list of class names.
@@ -382,7 +382,7 @@ expose_php = Off
 ; Maximum execution time of each script, in seconds
 ; http://php.net/max-execution-time
 ; Note: This directive is hardcoded to 0 for the CLI SAPI
-max_execution_time = 30
+max_execution_time = {{ phpfpm_max_execution_time }}
 
 ; Maximum amount of time each script may spend parsing request data. It's a good
 ; idea to limit this time on productions servers in order to eliminate unexpectedly
@@ -392,18 +392,18 @@ max_execution_time = 30
 ; Development Value: 60 (60 seconds)
 ; Production Value: 60 (60 seconds)
 ; http://php.net/max-input-time
-max_input_time = 60
+max_input_time = {{ phpfpm_max_input_time }}
 
 ; Maximum input variable nesting level
 ; http://php.net/max-input-nesting-level
 ;max_input_nesting_level = 64
 
 ; How many GET/POST/COOKIE input variables may be accepted
-;max_input_vars = 1000
+max_input_vars = {{ phpfpm_max_input_vars }}
 
 ; Maximum amount of memory a script may consume (128MB)
 ; http://php.net/memory-limit
-memory_limit = 128M
+memory_limit = {{ phpfpm_memory_limit }}
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Error handling and logging ;
@@ -689,7 +689,7 @@ auto_globals_jit = On
 ; Its value may be 0 to disable the limit. It is ignored if POST data reading
 ; is disabled through enable_post_data_reading.
 ; http://php.net/post-max-size
-post_max_size = 8M
+post_max_size = {{ phpfpm_post_max_size }}
 
 ; Automatically add files before PHP document.
 ; http://php.net/auto-prepend-file
@@ -841,10 +841,10 @@ file_uploads = On
 
 ; Maximum allowed size for uploaded files.
 ; http://php.net/upload-max-filesize
-upload_max_filesize = 2M
+upload_max_filesize = {{ phpfpm_upload_max_filesize }}
 
 ; Maximum number of files that can be uploaded via a single request
-max_file_uploads = 20
+max_file_uploads = {{ phpfpm_max_file_uploads }}
 
 ;;;;;;;;;;;;;;;;;;
 ; Fopen wrappers ;
@@ -856,7 +856,7 @@ allow_url_fopen = On
 
 ; Whether to allow include/require to open URLs (like http:// or ftp://) as files.
 ; http://php.net/allow-url-include
-allow_url_include = Off
+allow_url_include = {{ phpfpm_allow_url_include }}
 
 ; Define the anonymous ftp password (your email address). PHP's default setting
 ; for this is empty.
@@ -1779,20 +1779,20 @@ ldap.max_links = -1
 
 [opcache]
 ; Determines if Zend OPCache is enabled
-;opcache.enable=1
+opcache.enable = {{ phpfpm_opcache.enable }}
 
 ; Determines if Zend OPCache is enabled for the CLI version of PHP
 ;opcache.enable_cli=0
 
 ; The OPcache shared memory storage size.
-;opcache.memory_consumption=128
+opcache.memory_consumption = {{ phpfpm_opcache.memory_consumption }}
 
 ; The amount of memory for interned strings in Mbytes.
 ;opcache.interned_strings_buffer=8
 
 ; The maximum number of keys (scripts) in the OPcache hash table.
 ; Only numbers between 200 and 1000000 are allowed.
-;opcache.max_accelerated_files=10000
+opcache.max_accelerated_files = {{ phpfpm_opcache.max_accelerated_files }}
 
 ; The maximum percentage of "wasted" memory until a restart is scheduled.
 ;opcache.max_wasted_percentage=5

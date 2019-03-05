@@ -5,6 +5,18 @@
       - php-fpm
     state: present
 
+- name: Stat /etc/php/7.3/fpm/php.ini
+  stat:
+    path: /usr/sbin/apache2
+  register: phpfpm_phpini73
+
+- name: /etc/php/7.3/fpm/php.ini in place
+  template:
+    src: templates/7.3.php.ini.j2
+    dest: /etc/php/7.3/fpm/php.ini
+    backup: yes
+  when: phpfpm_phpini73.stat.exists
+
 - name: Stat /usr/sbin/apache2
   stat:
     path: /usr/sbin/apache2
