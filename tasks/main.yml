@@ -2,7 +2,7 @@
 - name: PHP-FPM present
   apt:
     pkg:
-      - php-fpm
+      - php7.3-fpm
     state: present
 
 - name: Stat /etc/php/7.3/fpm/php.ini
