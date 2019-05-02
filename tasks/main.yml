@@ -1,47 +1,36 @@
 ---
+- name: Get the Debian release codename
+  shell: "lsb_release -c | awk '{ print $2 }'"
+  register: phpfpm_debian_version_check
+  changed_when: false
+
+- name: Set a fact for the Debian version
+  set_fact:
+    phpfpm_debian_version: "{{ phpfpm_debian_version_check.stdout }}"
+
+- name: Set the PHP version variable on stretch
+  set_fact:
+    phpfpm_version: "7.0"
+  when: phpfpm_debian_version == "stretch"
+
+- name: Set the PHP version variable on buster
+  set_fact:
+    phpfpm_version: "7.3"
+  when: phpfpm_debian_version == "buster"
+
+- name: This role only has support for Debian Stretch and Buster
+  fail:
+    msg: This role only has support for Debian Stretch and Buster
+  when: ( phpfpm_debian_version != "stretch" ) and ( phpfpm_debian_version != "buster" )
+
 - name: PHP-FPM present
   apt:
     pkg:
-      - php7.3-fpm
+      - "php{{ phpfpm_debian_version }}-fpm"
     state: present
 
-- name: Stat /etc/php/7.3/fpm/php.ini
-  stat:
-    path: /usr/sbin/apache2
-  register: phpfpm_phpini73
-
-- name: /etc/php/7.3/fpm/php.ini in place
+- name: "/etc/php/{{ phpfpm_debian_version }}/fpm/php.ini in place"
   template:
-    src: templates/7.3.php.ini.j2
-    dest: /etc/php/7.3/fpm/php.ini
+    src: "templates/{{ phpfpm_debian_version }}.php.ini.j2"
+    dest: "/etc/php/{{ phpfpm_debian_version }}/fpm/php.ini"
     backup: yes
-  when: phpfpm_phpini73.stat.exists
-
-- name: Stat /usr/sbin/apache2
-  stat:
-    path: /usr/sbin/apache2
-  register: phpfpm_apache2
-
-- name: Stat /usr/sbin/nginx
-  stat:
-    path: /usr/sbin/nginx
-  register: phpfpm_nginx
-
-- name: Fail if neither Apache or Nginx are installed
-  fail:
-    msg: You need to install either Apache or Nginx
-  when: ( phpfpm_apache2.stat.exists == False ) and ( phpfpm_nginx.stat.exists == False )
-
-- block:
-
-  - name: Include Apache2 tasks
-    include_tasks: apache2.yml
-
-  when: phpfpm_apache2.stat.exists
-
-- block:
-
-  - name: Include Nginx tasks
-    include_tasks: nginx.yml
-
-  when: phpfpm_nginx.stat.exists
