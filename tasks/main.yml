@@ -33,4 +33,4 @@
   template:
     src: "templates/{{ phpfpm_version }}.php.ini.j2"
     dest: "/etc/php/{{ phpfpm_version }}/fpm/php.ini"
-    backup: yes
+    backup: true
