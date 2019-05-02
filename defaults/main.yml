@@ -7,8 +7,7 @@ phpfpm_post_max_size: 256M
 phpfpm_upload_max_filesize: 128M
 phpfpm_max_file_uploads: 60
 phpfpm_max_input_time: 180
-phpfpm_allow_url_include:  On
+phpfpm_allow_url_include: "On"
 phpfpm_opcache_enable: 1
 phpfpm_opcache_memory_consumption: 1024
 phpfpm_opcache_max_accelerated_files: 100000
-
