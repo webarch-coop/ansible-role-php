@@ -1357,6 +1357,7 @@ session.save_handler = files
 ; does not overwrite the process's umask.
 ; http://php.net/session.save-path
 ;session.save_path = "/var/lib/php/sessions"
+session.save_path = "{{ phpfpm_session_save_path }}"
 
 ; Whether to use strict session mode.
 ; Strict session mode does not accept an uninitialized session ID, and
@@ -1425,7 +1426,8 @@ session.serialize_handler = php
 ; Development Value: 1
 ; Production Value: 1
 ; http://php.net/session.gc-probability
-session.gc_probability = 0
+; https://www.php.net/manual/en/function.session-save-path.php
+session.gc_probability = 1
 
 ; Defines the probability that the 'garbage collection' process is started on every
 ; session initialization. The probability is calculated by using the following equation:
