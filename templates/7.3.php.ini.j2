@@ -1778,6 +1778,10 @@ ldap.max_links = -1
 ;dba.default_handler=
 
 [opcache]
+; See these threads for security issues:
+; https://bugs.php.net/bug.php?id=69090
+; https://bugs.php.net/bug.php?id=67481
+
 ; Determines if Zend OPCache is enabled
 opcache.enable = {{ phpfpm_opcache_enable }}
 
@@ -1801,11 +1805,11 @@ opcache.max_accelerated_files = {{ phpfpm_opcache_max_accelerated_files }}
 ; directory to the script key, thus eliminating possible collisions between
 ; files with the same name (basename). Disabling the directive improves
 ; performance, but may break existing applications.
-;opcache.use_cwd=1
+opcache.use_cwd=1
 
 ; When disabled, you must reset the OPcache manually or restart the
 ; webserver for changes to the filesystem to take effect.
-;opcache.validate_timestamps=1
+opcache.validate_timestamps=1
 
 ; How often (in seconds) to check file timestamps for changes to the shared
 ; memory storage allocation. ("1" means validate once per second, but only
@@ -1895,10 +1899,10 @@ opcache.max_accelerated_files = {{ phpfpm_opcache_max_accelerated_files }}
 ;opcache.huge_code_pages=1
 
 ; Validate cached file permissions.
-;opcache.validate_permission=0
+opcache.validate_permission=1
 
 ; Prevent name collisions in chroot'ed environment.
-;opcache.validate_root=0
+opcache.validate_root=1
 
 ; If specified, it produces opcode dumps for debugging different stages of
 ; optimizations.
