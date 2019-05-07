@@ -23,11 +23,19 @@
     msg: This role only has support for Debian Stretch and Buster
   when: ( phpfpm_debian_version != "stretch" ) and ( phpfpm_debian_version != "buster" )
 
-- name: PHP-FPM present
+- name: PHP-FPM and php-pare present
   apt:
     pkg:
       - "php{{ phpfpm_version }}-fpm"
+      - php-pear
     state: present
+
+- name: PHP packages installed
+  apt:
+    pkg:
+      - "php{{ phpfpm_version }}-{{ item }}"
+    state: present
+  loop: "{{ phpfpm_packages }}"
 
 - name: "/etc/php/{{ phpfpm_version }}/fpm/php.ini in place"
   template:

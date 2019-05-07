@@ -12,3 +12,20 @@ phpfpm_opcache_enable: 1
 phpfpm_opcache_memory_consumption: 1024
 phpfpm_opcache_max_accelerated_files: 100000
 phpfpm_session_save_path: "${TMPDIR}"
+phpfpm_packages:
+  - bcmath
+  - cli
+  - curl
+  - gd
+  - geoip
+  - imagick
+  - imap
+  - intl
+  - json
+  - mcrypt
+  - mysqli
+  - opcache
+  - sqlite3
+  - readline
+  - uploadprogress
+  - xmlrpc
