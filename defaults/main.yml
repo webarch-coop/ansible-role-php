@@ -22,7 +22,6 @@ phpfpm_packages:
   - imap
   - intl
   - json
-  - mcrypt
   - mysqli
   - opcache
   - sqlite3
