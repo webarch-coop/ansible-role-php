@@ -23,7 +23,7 @@
     msg: This role only has support for Debian Stretch and Buster
   when: ( phpfpm_debian_version != "stretch" ) and ( phpfpm_debian_version != "buster" )
 
-- name: PHP-FPM and php-pare present
+- name: PHP-FPM and php-pear present
   apt:
     pkg:
       - "php{{ phpfpm_version }}-fpm"
