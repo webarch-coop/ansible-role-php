@@ -15,7 +15,6 @@ phpfpm_session_save_path: "${TMPDIR}"
 phpfpm_packages:
   - bcmath
   - cli
-  - composer
   - curl
   - gd
   - geoip
