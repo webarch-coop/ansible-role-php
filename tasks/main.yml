@@ -4,24 +4,15 @@
   register: phpfpm_debian_version_check
   changed_when: false
 
-- name: Set a fact for the Debian version
+- name: Set a fact for the Debian and PHP versions
   set_fact:
     phpfpm_debian_version: "{{ phpfpm_debian_version_check.stdout }}"
+    phpfpm_version: "{% if apache_debian_version_check.stdout == 'buster' %}7.3{% elif users_debian_version == 'bionic' %}7.2{% elif apache_debian_version_check.stdout == 'stretch' %}7.0{% endif %}"
 
-- name: Set the PHP version variable on stretch
-  set_fact:
-    phpfpm_version: "7.0"
-  when: phpfpm_debian_version == "stretch"
-
-- name: Set the PHP version variable on buster
-  set_fact:
-    phpfpm_version: "7.3"
-  when: phpfpm_debian_version == "buster"
-
-- name: This role only has support for Debian Stretch and Buster
+- name: This role only has support for Debian Buster, Stretch and Ubuntu Bionic
   fail:
-    msg: This role only has support for Debian Stretch and Buster
-  when: ( phpfpm_debian_version != "stretch" ) and ( phpfpm_debian_version != "buster" )
+    msg: This role only has support for Debian Buster, Stretch and Ubuntu Bionic
+  when: ( phpfpm_debian_version != "buster" ) and ( phpfpm_debian_version != "bionic" ) and ( phpfpm_debian_version != "stretch" )
 
 - name: PHP-FPM, php-pear and composer present
   apt:

@@ -1,6 +1,6 @@
 # PHP-FPM
 
-Ansible role for installing `php-fpm` on Debian Stretch and Debian Buster.
+Ansible role for installing `php-fpm` from the main repos for Debian Buster (PHP 7.3), Ubuntu Bionic (PHP 7.2) and on Debian Stretch (PHP 7.0).
 
 Variables:
 
