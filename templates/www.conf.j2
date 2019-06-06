@@ -250,7 +250,7 @@ pm.status_path = {{ phpfpm_www_pool_pm_status_path }}
 ;       may conflict with a real PHP file.
 ; Default Value: not set
 {% if phpfpm_www_pool_ping_path is defined %}
-ping.path = /ping
+ping.path = {{ phpfpm_www_pool_ping_path }}
 {% endif %}
 
 ; This directive may be used to customize the response of a ping request. The
@@ -262,6 +262,7 @@ ping.path = /ping
 ; Default: not set
 ;access.log = log/$pool.access.log
 
+; {% raw %}
 ; The access log format.
 ; The following syntax is allowed
 ;  %%: the '%' character
@@ -320,6 +321,7 @@ ping.path = /ping
 ;
 ; Default: "%R - %u %t \"%m %r\" %s"
 ;access.format = "%R - %u %t \"%m %r%Q%q\" %s %f %{mili}d %{kilo}M %C%%"
+; {% raw %}
 
 ; The log file for slow requests
 ; Default Value: not set
