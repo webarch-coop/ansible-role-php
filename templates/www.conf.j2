@@ -262,7 +262,8 @@ ping.path = {{ phpfpm_www_pool_ping_path }}
 ; Default: not set
 ;access.log = log/$pool.access.log
 
-; {% raw %}
+; {# This section is marked as raw due to formatting clashes with Jinja2, see
+; http://jinja.pocoo.org/docs/2.10/templates/#escaping #} {% raw %}
 ; The access log format.
 ; The following syntax is allowed
 ;  %%: the '%' character
@@ -321,7 +322,7 @@ ping.path = {{ phpfpm_www_pool_ping_path }}
 ;
 ; Default: "%R - %u %t \"%m %r\" %s"
 ;access.format = "%R - %u %t \"%m %r%Q%q\" %s %f %{mili}d %{kilo}M %C%%"
-; {% raw %}
+; {% endraw %}
 
 ; The log file for slow requests
 ; Default Value: not set
