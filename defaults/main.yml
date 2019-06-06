@@ -12,7 +12,20 @@ phpfpm_allow_url_include: "On"
 phpfpm_session_save_path: "${TMPDIR}"
 phpfpm_opcache_enable: 1
 phpfpm_opcache_memory_consumption: 1024
+phpfpm_opcache_interned_strings_buffer: 8
+phpfpm_opcache_use_cwd: 1
+phpfpm_opcache_validate_timestamps: 1
+phpfpm_opcache_revalidate_freq: 2
+phpfpm_opcache_validate_permission: 1
+phpfpm_opcache_validate_root: 1
 phpfpm_opcache_max_accelerated_files: 100000
+phpfpm_www_pool_enabled: true
+phpfpm_www_pool_pm_start_servers: 2
+phpfpm_www_pool_pm_min_spare_servers: 1
+phpfpm_www_pool_pm_max_spare_servers: 3
+phpfpm_www_pool_pm_max_requests: 500
+phpfpm_www_pool_pm_status_path: /status
+phpfpm_www_pool_ping_path: /ping
 phpfpm_packages:
   - bcmath
   - cli
