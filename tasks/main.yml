@@ -3,16 +3,22 @@
   shell: "lsb_release -c | awk '{ print $2 }'"
   register: phpfpm_debian_version_check
   changed_when: false
+  tags:
+    - phpfpm
 
 - name: Set a fact for the Debian and PHP versions
   set_fact:
     phpfpm_debian_version: "{{ phpfpm_debian_version_check.stdout }}"
     phpfpm_version: "{% if apache_debian_version_check.stdout == 'buster' %}7.3{% elif users_debian_version == 'bionic' %}7.2{% elif apache_debian_version_check.stdout == 'stretch' %}7.0{% endif %}"
+  tags:
+    - phpfpm
 
 - name: This role only has support for Debian Buster, Stretch and Ubuntu Bionic
   fail:
     msg: This role only has support for Debian Buster, Stretch and Ubuntu Bionic
   when: ( phpfpm_debian_version != "buster" ) and ( phpfpm_debian_version != "bionic" ) and ( phpfpm_debian_version != "stretch" )
+  tags:
+    - phpfpm
 
 - name: PHP-FPM, php-pear and composer present
   apt:
@@ -21,6 +27,8 @@
       - "php{{ phpfpm_version }}-fpm"
       - php-pear
     state: present
+  tags:
+    - phpfpm
 
 - name: PHP packages installed
   apt:
@@ -28,9 +36,30 @@
       - "php{{ phpfpm_version }}-{{ item }}"
     state: present
   loop: "{{ phpfpm_packages }}"
+  tags:
+    - phpfpm
 
 - name: "/etc/php/{{ phpfpm_version }}/fpm/php.ini in place"
   template:
     src: "templates/php.ini.j2"
     dest: "/etc/php/{{ phpfpm_version }}/fpm/php.ini"
     backup: true
+  tags:
+    - phpfpm
+
+- name: PHP-FPM www.conf pool disabled
+  file:
+    path: "/etc/php/{{ phpfpm_version }}/fpm/pool.d/www.conf"
+    state: absent
+  when: ( phpfpm_www_pool_enabled is defined ) and ( phpfpm_www_pool_enabled == False )
+  tags:
+    - phpfpm
+
+- name: PHP-FPM www.conf pool enabled
+  template:
+    src: templates/www.conf.j2
+    dest: "/etc/php/{{ phpfpm_version }}/fpm/pool.d/www.conf"
+    backup: true
+  when: ( phpfpm_www_pool_enabled is not defined ) or ( phpfpm_www_pool_enabled == True )
+  tags:
+    - phpfpm
