@@ -9,7 +9,7 @@
 - name: Set a fact for the Debian and PHP versions
   set_fact:
     phpfpm_debian_version: "{{ phpfpm_debian_version_check.stdout }}"
-    phpfpm_version: "{% if apache_debian_version_check.stdout == 'buster' %}7.3{% elif users_debian_version == 'bionic' %}7.2{% elif apache_debian_version_check.stdout == 'stretch' %}7.0{% endif %}"
+    phpfpm_version: "{% if phpfpm_debian_version_check.stdout == 'buster' %}7.3{% elif phpfpm_debian_version_check.stdout == 'bionic' %}7.2{% elif phpfpm_debian_version_check.stdout == 'stretch' %}7.0{% endif %}"
   tags:
     - phpfpm
 
