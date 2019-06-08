@@ -112,7 +112,7 @@ pm = {{ phpfpm_www_pool_pm }}
 ; Note: This value is mandatory.
 pm.max_children = {{ phpfpm_www_pool_pm_max_children }}
 
-{% if phpfpm_www_pool_pm == "dynamic" }}
+{% if phpfpm_www_pool_pm == "dynamic" %}
 ; The number of child processes created on startup.
 ; Note: Used only when pm is set to 'dynamic'
 ; Default Value: min_spare_servers + (max_spare_servers - min_spare_servers) / 2
@@ -129,7 +129,7 @@ pm.min_spare_servers = {{ phpfpm_www_pool_pm_min_spare_servers }}
 pm.max_spare_servers = {{ phpfpm_www_pool_pm_max_spare_servers }}
 {% endif %}
 
-{% if phpfpm_www_pool_pm == "ondemand" }}
+{% if phpfpm_www_pool_pm == "ondemand" %}
 ; The number of seconds after which an idle process will be killed.
 ; Note: Used only when pm is set to 'ondemand'
 ; Default Value: 10s
