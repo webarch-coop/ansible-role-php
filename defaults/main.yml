@@ -43,7 +43,10 @@ phpfpm_packages:
   - json
   - mysqli
   - opcache
+  - pdo
+  - simplexml
   - sqlite3
   - readline
+  - tokenizer
   - uploadprogress
   - xmlrpc
