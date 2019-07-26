@@ -21,7 +21,7 @@ phpfpm_opcache_validate_root: 1
 phpfpm_opcache_max_accelerated_files: 100000
 phpfpm_www_pool_enabled: true
 phpfpm_www_pool_pm: dynamic
-phpfpm_www_pool_pm_max_children: 2
+phpfpm_www_pool_pm_max_children: 4
 phpfpm_www_pool_pm_process_idle_timeout: 10s
 phpfpm_www_pool_pm_start_servers: 2
 phpfpm_www_pool_pm_min_spare_servers: 1
