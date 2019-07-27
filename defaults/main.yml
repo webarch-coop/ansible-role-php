@@ -35,6 +35,7 @@ phpfpm_packages:
   - bcmath
   - cli
   - curl
+  - dom
   - gd
   - geoip
   - imagick

@@ -25,6 +25,7 @@
   apt:
     pkg:
       - composer
+      - php-curl
       - php-date
       - "php{{ phpfpm_version }}-fpm"
       - php-pear
