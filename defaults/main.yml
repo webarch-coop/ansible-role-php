@@ -1,8 +1,8 @@
 ---
-# php_version 7.3 for debian buster 
+# php_version 7.3 for debian buster
 # php_version: 7.3
 php_packages:
-  # - "php{{ phpfpm_version }}-fpm" 
+  # - "php{{ phpfpm_version }}-fpm"
   - php-fpm
   - composer
   - php-curl
