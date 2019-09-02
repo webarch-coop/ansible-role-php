@@ -1,4 +1,41 @@
 ---
+# php_version 7.3 for debian buster 
+# php_version: 7.3
+php_packages:
+  # - "php{{ phpfpm_version }}-fpm" 
+  - php-fpm
+  - composer
+  - php-curl
+  - php-date
+  - php-gd
+  - php-json
+  - php-imagick
+  - php-intl
+  - php-pear
+  - php-xmlrpc
+  - php-zip
+phpfpm_packages:
+  - bcmath
+  - bz2
+  - cli
+  - curl
+  - dom
+  - gd
+  - geoip
+  - imagick
+  - imap
+  - intl
+  - json
+  - mysqli
+  - opcache
+  - pdo
+  - simplexml
+  - sqlite3
+  - readline
+  - tokenizer
+  - uploadprogress
+  - xmlrpc
+  - zip
 phpfpm_disable_functions: pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_get_handler,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,pcntl_async_signals,dl,exec,passthru,pcntl_exec,popen,proc_close,proc_get_status,proc_nice,proc_open,proc_terminate,shell_exec,show_source,symlink,system,system_exec,
 phpfpm_max_execution_time: 180
 phpfpm_max_input_time: 180
@@ -31,23 +68,3 @@ phpfpm_www_pool_pm_max_requests: 500
 # phpfpm_www_pool_pm_status_path: /status
 # if this isn't set then the ping is disabled
 # phpfpm_www_pool_ping_path: /ping
-phpfpm_packages:
-  - bcmath
-  - cli
-  - curl
-  - dom
-  - gd
-  - geoip
-  - imagick
-  - imap
-  - intl
-  - json
-  - mysqli
-  - opcache
-  - pdo
-  - simplexml
-  - sqlite3
-  - readline
-  - tokenizer
-  - uploadprogress
-  - xmlrpc

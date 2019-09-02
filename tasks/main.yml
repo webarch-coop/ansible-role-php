@@ -23,12 +23,7 @@
 
 - name: PHP-FPM, php-date, php-pear and composer present
   apt:
-    pkg:
-      - composer
-      - php-curl
-      - php-date
-      - "php{{ phpfpm_version }}-fpm"
-      - php-pear
+    pkg: "{{ php_packages }}"
     state: present
   tags:
     - phpfpm
