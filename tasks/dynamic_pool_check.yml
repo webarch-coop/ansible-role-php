@@ -10,10 +10,10 @@
   tags:
     - phpfpm
 
-- name: pm.max_children must be greater than 1
+- name: pm.max_children must be greater than or equal to 1
   assert:
     that:
-      - phpfpm_pm_max_children|int > 1
+      - phpfpm_pm_max_children|int >= 1
   tags:
     - phpfpm
 
@@ -38,10 +38,10 @@
   tags:
     - phpfpm
 
-- name: pm.start_servers must be greater than 1
+- name: pm.start_servers must be greater than or equal to 1
   assert:
     that:
-      - phpfpm_pm_start_servers|int > 1
+      - phpfpm_pm_start_servers|int >= 1
   tags:
     - phpfpm
 
@@ -66,10 +66,10 @@
   tags:
     - phpfpm
 
-- name: pm.min_spare_servers must be greater than 1
+- name: pm.min_spare_servers must be greater than or equal to 1
   assert:
     that:
-      - phpfpm_pm_min_spare_servers|int > 1
+      - phpfpm_pm_min_spare_servers|int >= 1
   tags:
     - phpfpm
 
@@ -94,10 +94,10 @@
   tags:
     - phpfpm
 
-- name: pm.max_spare_servers must be greater than 1
+- name: pm.max_spare_servers must be greater than or equal to 1
   assert:
     that:
-      - phpfpm_pm_max_spare_servers|int > 1
+      - phpfpm_pm_max_spare_servers|int >= 1
   tags:
     - phpfpm
 
