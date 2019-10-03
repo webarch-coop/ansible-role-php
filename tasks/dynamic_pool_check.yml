@@ -115,10 +115,10 @@
   tags:
     - phpfpm
 
-- name: pm.max_spare_servers must be greater than pm.min_spare_servers
+- name: pm.max_spare_servers must be greater than or equal to pm.min_spare_servers
   assert:
     that:
-      - phpfpm_pm_max_spare_servers|int > phpfpm_pm_min_spare_servers|int
+      - phpfpm_pm_max_spare_servers|int >= phpfpm_pm_min_spare_servers|int
   tags:
     - phpfpm
 ...
