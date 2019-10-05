@@ -7,7 +7,7 @@
   tags:
     - phpfpm
 
-- name: pm.max_children is defined and is greater than 1 
+- name: pm.max_children is defined and is greater than 1
   assert:
     that:
       - phpfpm_pm_max_children is defined
@@ -16,9 +16,9 @@
     - phpfpm
 
 - name: pm dynamic pool checks
-  block: 
+  block:
 
-    - name: pm.start_servers, pm.min_spare_servers and pm.max_spare_servers is defined 
+    - name: pm.start_servers, pm.min_spare_servers and pm.max_spare_servers is defined
       assert:
         that:
           - phpfpm_pm_start_servers is defined
