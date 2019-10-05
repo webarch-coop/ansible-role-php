@@ -56,11 +56,11 @@
       tags:
         - phpfpm
 
-    # - name: pm.start_servers must be greater than pm.min_spare_servers and less than or equal to pm.max_spare_servers
-    - name: pm.start_servers must be greater than pm.min_spare_servers
+    - name: pm.start_servers must be greater than pm.min_spare_servers and less than or equal to pm.max_spare_servers
       assert:
         that:
           - phpfpm_pm_start_servers|int >= phpfpm_pm_min_spare_servers|int
+          - phpfpm_pm_start_servers|int <= phpfpm_pm_max_spare_servers|int
       tags:
         - phpfpm
 
