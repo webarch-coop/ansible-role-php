@@ -11,7 +11,7 @@
   assert:
     that:
       - phpfpm_pm_max_children is defined
-      - phpfpm_pm_max_children >= 1
+      - phpfpm_pm_max_children|int >= 1
   tags:
     - phpfpm
 
