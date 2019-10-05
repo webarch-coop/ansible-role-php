@@ -27,6 +27,15 @@
       tags:
         - phpfpm
 
+    - name: Print variables for debugging
+      debug:
+        msg:
+          - "phpfpm_pm_start_servers: {{ phpfpm_pm_start_servers }}"
+          - "phpfpm_pm_min_spare_servers: {{ phpfpm_pm_min_spare_servers }}"
+          - "phpfpm_pm_max_spare_servers: {{ phpfpm_pm_max_spare_servers }}"
+        verbosity: 1
+      tags:
+
     - name: pm.max_children, pm.start_servers, pm.min_spare_servers and pm.max_spare_servers are greater than or equal to 1
       assert:
         that:
