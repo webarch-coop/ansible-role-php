@@ -1,8 +1,5 @@
 ---
-# php_version 7.3 for debian buster
-# php_version: 7.3
 php_packages:
-  # - "php{{ phpfpm_version }}-fpm"
   - php-fpm
   - composer
   - php-curl
@@ -60,10 +57,10 @@ phpfpm_www_pool_enabled: true
 phpfpm_www_pool_pm: dynamic
 phpfpm_www_pool_pm_max_children: 4
 phpfpm_www_pool_pm_process_idle_timeout: 10s
-phpfpm_www_pool_pm_start_servers: 2
+phpfpm_www_pool_pm_start_servers: 1
 phpfpm_www_pool_pm_min_spare_servers: 1
-phpfpm_www_pool_pm_max_spare_servers: 3
-phpfpm_www_pool_pm_max_requests: 500
+phpfpm_www_pool_pm_max_spare_servers: 1
+phpfpm_www_pool_pm_max_requests: 1000
 # if this isn't set then the status is disabled
 # phpfpm_www_pool_pm_status_path: /status
 # if this isn't set then the ping is disabled

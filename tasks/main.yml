@@ -53,23 +53,28 @@
   tags:
     - phpfpm
 
-- name: Include dynamic pool server variable checks
-  include_tasks: dynamic_pool_check.yml
-  when: phpfpm_www_pool_pm== "dynamic"
-  vars:
-    phpfpm_pm_max_children: "{{ phpfpm_www_pool_pm_max_children }}"
-    phpfpm_pm_start_servers: "{{ phpfpm_www_pool_pm_start_servers }}"
-    phpfpm_pm_min_spare_servers: "{{ phpfpm_www_pool_pm_min_spare_servers }}"
-    phpfpm_pm_max_spare_servers: "{{ phpfpm_www_pool_pm_max_spare_servers }}"
-  tags:
-    - phpfpm
+- name: Check and enable the www pool
+  block:
 
-- name: PHP-FPM www.conf pool enabled
-  template:
-    src: templates/www.conf.j2
-    dest: "/etc/php/{{ phpfpm_version }}/fpm/pool.d/www.conf"
-    backup: true
+    - name: Include www pool server variable checks
+      include_tasks: pool_check.yml
+      when: phpfpm_www_pool_pm == "dynamic"
+      vars:
+        phpfpm_pm: "{{ phpfpm_www_pool_pm }}"
+        phpfpm_pm_max_children: "{{ phpfpm_www_pool_pm_max_children }}"
+        phpfpm_pm_start_servers: "{{ phpfpm_www_pool_pm_start_servers }}"
+        phpfpm_pm_min_spare_servers: "{{ phpfpm_www_pool_pm_min_spare_servers }}"
+        phpfpm_pm_max_spare_servers: "{{ phpfpm_www_pool_pm_max_spare_servers }}"
+      tags:
+        - phpfpm
+
+    - name: PHP-FPM www.conf pool enabled
+      template:
+        src: templates/www.conf.j2
+        dest: "/etc/php/{{ phpfpm_version }}/fpm/pool.d/www.conf"
+        backup: true
+      tags:
+        - phpfpm
+
   when: ( phpfpm_www_pool_enabled is not defined ) or ( phpfpm_www_pool_enabled == True )
-  tags:
-    - phpfpm
 ...

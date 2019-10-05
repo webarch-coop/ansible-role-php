@@ -1,0 +1,58 @@
+---
+# https://www.php.net/manual/en/install.fpm.configuration.php
+- name: pm is set to static, ondemand or dynamic
+  assert:
+    that:
+      - ( phpfpm_pm == "static" ) or ( phpfpm_pm == "ondemand" ) or ( phpfpm_pm == "dynamic" )
+  tags:
+    - phpfpm
+
+- name: pm.max_children is defined and is greater than 1 
+  assert:
+    that:
+      - phpfpm_pm_max_children is defined
+      - phpfpm_pm_max_children >= 1
+  tags:
+    - phpfpm
+
+- name: pm dynamic pool checks
+  block: 
+
+    - name: pm.start_servers, pm.min_spare_servers and pm.max_spare_servers is defined 
+      assert:
+        that:
+          - phpfpm_pm_start_servers is defined
+          - phpfpm_pm_min_spare_servers is defined
+          - phpfpm_pm_max_spare_servers is defined
+      tags:
+        - phpfpm
+
+    - name: pm.max_children, pm.start_servers, pm.min_spare_servers and pm.max_spare_servers are greater than or equal to 1
+      assert:
+        that:
+          - phpfpm_pm_max_children|int >= 1
+          - phpfpm_pm_start_servers|int >= 1
+          - phpfpm_pm_min_spare_servers|int >= 1
+          - phpfpm_pm_max_spare_servers|int >= 1
+      tags:
+        - phpfpm
+
+    - name: pm.max_children must be greater than or equal to pm.start_servers, pm.min_spare_servers and pm.max_spare_servers
+      assert:
+        that:
+          - phpfpm_pm_max_children|int >= phpfpm_pm_start_servers|int
+          - phpfpm_pm_max_children|int >= phpfpm_pm_min_spare_servers|int
+          - phpfpm_pm_max_children|int >= phpfpm_pm_max_spare_servers|int
+      tags:
+        - phpfpm
+
+    - name: pm.start_servers and pm.max_spare_servers must be greater than pm.min_spare_servers
+      assert:
+        that:
+          - phpfpm_pm_start_servers|int >= phpfpm_pm_min_spare_servers|int
+          - phpfpm_pm_max_spare_servers|int >= phpfpm_pm_min_spare_servers|int
+      tags:
+        - phpfpm
+
+  when: phpfpm_pm == "dynamic"
+...
