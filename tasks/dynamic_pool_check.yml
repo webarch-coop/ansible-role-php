@@ -10,112 +10,26 @@
   tags:
     - phpfpm
 
-- name: pm.max_children must be greater than or equal to 1
+- name: pm.max_children, pm.start_servers, pm.min_spare_servers and pm.max_spare_servers must be greater than or equal to 1
   assert:
     that:
       - phpfpm_pm_max_children|int >= 1
-  tags:
-    - phpfpm
-
-- name: pm.max_children must be greater than or equal to pm.start_servers
-  assert:
-    that:
-      - phpfpm_pm_max_children|int >= phpfpm_pm_start_servers|int
-  tags:
-    - phpfpm
-
-- name: pm.max_children must be greater than or equal to pm.min_spare_servers
-  assert:
-    that:
-      - phpfpm_pm_max_children|int >= phpfpm_pm_min_spare_servers|int
-  tags:
-    - phpfpm
-
-- name: pm.max_children must be greater than or equal to pm.max_spare_servers
-  assert:
-    that:
-      - phpfpm_pm_max_children|int >= phpfpm_pm_max_spare_servers|int
-  tags:
-    - phpfpm
-
-- name: pm.start_servers must be greater than or equal to 1
-  assert:
-    that:
       - phpfpm_pm_start_servers|int >= 1
-  tags:
-    - phpfpm
-
-- name: pm.start_servers must less than or equal to pm.max_children
-  assert:
-    that:
-      - phpfpm_pm_start_servers|int <= phpfpm_pm_max_children|int
-  tags:
-    - phpfpm
-
-- name: pm.start_servers must be greater than or equal to pm.min_spare_servers
-  assert:
-    that:
-      - phpfpm_pm_start_servers|int >= phpfpm_pm_min_spare_servers|int
-  tags:
-    - phpfpm
-
-- name: pm.start_servers must less than or equal to pm.max_spare_servers
-  assert:
-    that:
-      - phpfpm_pm_start_servers|int <= phpfpm_pm_max_spare_servers|int
-  tags:
-    - phpfpm
-
-- name: pm.min_spare_servers must be greater than or equal to 1
-  assert:
-    that:
       - phpfpm_pm_min_spare_servers|int >= 1
-  tags:
-    - phpfpm
-
-- name: pm.min_spare_servers must be less than pm.max_children
-  assert:
-    that:
-      - phpfpm_pm_min_spare_servers|int <= phpfpm_pm_max_children|int
-  tags:
-    - phpfpm
-
-- name: pm.min_spare_servers must be less than or equal to pm.start_servers
-  assert:
-    that:
-      - phpfpm_pm_min_spare_servers|int <= phpfpm_pm_start_servers|int
-  tags:
-    - phpfpm
-
-- name: pm.min_spare_servers must be less than ior equal to pm.max_spare_servers
-  assert:
-    that:
-      - phpfpm_pm_min_spare_servers|int <= phpfpm_pm_max_spare_servers|int
-  tags:
-    - phpfpm
-
-- name: pm.max_spare_servers must be greater than or equal to 1
-  assert:
-    that:
       - phpfpm_pm_max_spare_servers|int >= 1
   tags:
     - phpfpm
 
-- name: pm.max_spare_servers must be less than or equal to pm.max_children
+- name: pm.max_children must be greater than or equal to pm.start_servers, pm.min_spare_servers and pm.max_spare_servers
   assert:
     that:
-      - phpfpm_pm_max_spare_servers|int <= phpfpm_pm_max_children|int
+      - phpfpm_pm_max_children|int >= phpfpm_pm_start_servers|int
+      - phpfpm_pm_max_children|int >= phpfpm_pm_min_spare_servers|int
+      - phpfpm_pm_max_children|int >= phpfpm_pm_max_spare_servers|int
   tags:
     - phpfpm
 
-- name: pm.max_spare_servers must be less than or eualt to pm.start_servers
-  assert:
-    that:
-      - phpfpm_pm_max_spare_servers|int <= phpfpm_pm_start_servers|int
-  tags:
-    - phpfpm
-
-- name: pm.max_spare_servers must be greater than or equal to pm.min_spare_servers
+- name: pm.max_spare_servers must be grater than or equal to pm.min_spare_servers
   assert:
     that:
       - phpfpm_pm_max_spare_servers|int >= phpfpm_pm_min_spare_servers|int
