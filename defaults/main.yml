@@ -23,6 +23,7 @@ phpfpm_packages:
   - imap
   - intl
   - json
+  - mbstring
   - mysqli
   - opcache
   - pdo
