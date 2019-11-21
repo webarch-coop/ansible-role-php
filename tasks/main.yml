@@ -1,7 +1,7 @@
 ---
 - name: Get the Debian release codename
-  shell: "lsb_release -c | awk '{ print $2 }'"
-  register: phpfpm_debian_version_check
+  command: phpquery -V
+  register: phpfpm_version_check
   check_mode: false
   changed_when: false
   tags:
@@ -9,8 +9,8 @@
 
 - name: Set a fact for the Debian and PHP versions
   set_fact:
-    phpfpm_debian_version: "{{ phpfpm_debian_version_check.stdout }}"
-    phpfpm_version: "{% if phpfpm_debian_version_check.stdout == 'buster' %}7.3{% elif phpfpm_debian_version_check.stdout == 'bionic' %}7.2{% elif phpfpm_debian_version_check.stdout == 'stretch' %}7.0{% endif %}"
+    phpfpm_debian_version: "{{ ansible_distribution_release }}"
+    phpfpm_version: "{{ phpfpm_version_check.stdout }}"
   tags:
     - phpfpm
 
