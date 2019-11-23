@@ -45,6 +45,14 @@
   tags:
     - phpfpm
 
+- name: "/etc/php/{{ phpfpm_version }}/cli/php.ini in place"
+  template:
+    src: "templates/cli_php.ini.j2"
+    dest: "/etc/php/{{ phpfpm_version }}/cli/php.ini"
+    backup: true
+  tags:
+    - phpfpm
+
 - name: PHP-FPM www.conf pool disabled
   file:
     path: "/etc/php/{{ phpfpm_version }}/fpm/pool.d/www.conf"

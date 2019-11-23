@@ -67,4 +67,5 @@ phpfpm_www_pool_pm_max_requests: 1000
 # phpfpm_www_pool_pm_status_path: /status
 # if this isn't set then the ping is disabled
 # phpfpm_www_pool_ping_path: /ping
+phpcli_allow_local_infile: "Off"
 ...
