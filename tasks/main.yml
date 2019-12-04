@@ -1,5 +1,5 @@
 ---
-- name: Get the Debian release codename
+- name: Get the version of PHP 
   command: phpquery -V
   register: phpfpm_version_check
   check_mode: false
@@ -14,6 +14,7 @@
   tags:
     - phpfpm
 
+# TODO This should be changed to use assert to check that all the required variables are set
 - name: This role only has support for Debian Buster, Stretch and Ubuntu Bionic
   fail:
     msg: This role only has support for Debian Buster, Stretch and Ubuntu Bionic
@@ -34,6 +35,7 @@
       - "php{{ phpfpm_version }}-{{ item }}"
     state: present
   loop: "{{ phpfpm_packages }}"
+  register: phpfpm_packages_installed
   tags:
     - phpfpm
 
@@ -42,6 +44,7 @@
     src: "templates/php.ini.j2"
     dest: "/etc/php/{{ phpfpm_version }}/fpm/php.ini"
     backup: true
+  register: phpfpm_fpm_ini_in_place
   tags:
     - phpfpm
 
@@ -50,6 +53,7 @@
     src: "templates/cli_php.ini.j2"
     dest: "/etc/php/{{ phpfpm_version }}/cli/php.ini"
     backup: true
+  register: phpfpm_cli_ini_in_place
   tags:
     - phpfpm
 
@@ -58,6 +62,7 @@
     path: "/etc/php/{{ phpfpm_version }}/fpm/pool.d/www.conf"
     state: absent
   when: ( phpfpm_www_pool_enabled is defined ) and ( phpfpm_www_pool_enabled == False )
+  register:  phpfpm_pool_disabled
   tags:
     - phpfpm
 
@@ -73,16 +78,23 @@
         phpfpm_pm_start_servers: "{{ phpfpm_www_pool_pm_start_servers }}"
         phpfpm_pm_min_spare_servers: "{{ phpfpm_www_pool_pm_min_spare_servers }}"
         phpfpm_pm_max_spare_servers: "{{ phpfpm_www_pool_pm_max_spare_servers }}"
-      tags:
-        - phpfpm
 
     - name: PHP-FPM www.conf pool enabled
       template:
         src: templates/www.conf.j2
         dest: "/etc/php/{{ phpfpm_version }}/fpm/pool.d/www.conf"
         backup: true
-      tags:
-        - phpfpm
+      register: phpfpm_pool_enabled
 
   when: ( phpfpm_www_pool_enabled is not defined ) or ( phpfpm_www_pool_enabled == True )
+  tags:
+    - phpfpm
+
+- name: PHP-FPM restarted
+  service:
+    name: "php{{ phpfpm_version }}-fpm"
+    state: restarted
+  when: phpfpm_pool_enabled.changed or phpfpm_pool_disabled.changed or phpfpm_cli_ini_in_place.changed or phpfpm_fpm_ini_in_place.changed or phpfpm_packages_installed.changed
+  tags:
+    - phpfpm
 ...
