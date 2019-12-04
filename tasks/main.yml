@@ -1,5 +1,5 @@
 ---
-- name: Get the version of PHP 
+- name: Get the version of PHP
   command: phpquery -V
   register: phpfpm_version_check
   check_mode: false
@@ -62,7 +62,7 @@
     path: "/etc/php/{{ phpfpm_version }}/fpm/pool.d/www.conf"
     state: absent
   when: ( phpfpm_www_pool_enabled is defined ) and ( phpfpm_www_pool_enabled == False )
-  register:  phpfpm_pool_disabled
+  register: phpfpm_pool_disabled
   tags:
     - phpfpm
 
