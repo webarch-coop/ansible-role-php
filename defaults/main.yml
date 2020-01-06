@@ -76,7 +76,7 @@ phpfpm_disable_functions:
   - proc_nice
   - proc_open
   - proc_terminate
-  - putenv
+  # - putenv
   - shell_exec
   - show_source
   - socket_create
