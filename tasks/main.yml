@@ -41,7 +41,7 @@
       set_fact:
         phpfpm_version: "{{ phpfpm_phpquery_check.stdout }}"
 
-  when: ( phpfpm_phpquery_check is defined ) and ( phpfpm_phpquery_check.stdout == "phpquery" )
+  when: ( phpfpm_phpquery_check is defined ) and ( "phpquery" in phpfpm_phpquery_check.stdout )
   tags:
     - phpfpm
 
