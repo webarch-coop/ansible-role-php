@@ -17,6 +17,7 @@
   apt:
     pkg: "{{ php_packages }}"
     state: present
+    update_cache: false
   tags:
     - phpfpm
 
@@ -50,6 +51,7 @@
     pkg:
       - "php{{ phpfpm_version }}-{{ item }}"
     state: present
+    update_cache: false
   loop: "{{ phpfpm_packages }}"
   register: phpfpm_packages_installed
   tags:
