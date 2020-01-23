@@ -33,13 +33,13 @@
 
     - name: Run phpquery to get the PHP version
       command: phpquery -V
-      register: phpfpm_phpquery_check
+      register: phpfpm_phpquery_version
       check_mode: false
       changed_when: false
 
     - name: Set a fact for the PHP version
       set_fact:
-        phpfpm_version: "{{ phpfpm_phpquery_check.stdout }}"
+        phpfpm_version: "{{ phpfpm_phpquery_version.stdout }}"
 
   when: ( phpfpm_phpquery_check is defined ) and ( "phpquery" in phpfpm_phpquery_check.stdout )
   tags:
