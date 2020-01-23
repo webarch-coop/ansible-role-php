@@ -23,8 +23,8 @@
 - name: Check if phpquery is installed
   shell: which phpquery || echo absent
   check_mode: false
-  register: phpfpm_phpquery_check
-  changed_when: '"phpquery" not in phpfpm_phpquery_check.stdout'
+  register: phpfpm_phpquery_path
+  changed_when: '"phpquery" not in phpfpm_phpquery_path.stdout'
   tags:
     - phpfpm
 
@@ -41,7 +41,7 @@
       set_fact:
         phpfpm_version: "{{ phpfpm_phpquery_version.stdout }}"
 
-  when: ( phpfpm_phpquery_check is defined ) and ( "phpquery" in phpfpm_phpquery_check.stdout )
+  when: ( phpfpm_phpquery_path is defined ) and ( "phpquery" in phpfpm_phpquery_path.stdout )
   tags:
     - phpfpm
 
