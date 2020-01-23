@@ -1,16 +1,32 @@
 ---
-- name: Get the version of PHP
-  command: phpquery -V
-  register: phpfpm_version_check
+- name: Check if phpquery is installed
+  shell: which phpquery || echo absent
   check_mode: false
-  changed_when: false
+  register: phpfpm_phpversion_check
+  changed_when: '"phpquery" not in phpfpm_phpversion_check.stdout'
   tags:
     - phpfpm
 
-- name: Set a fact for the Debian and PHP versions
+- name: Check PHP version
+  block:
+
+    - name: Run phpquery to get the PHP version
+      command: phpquery -V
+      register: phpfpm_php_version_check
+      check_mode: false
+      changed_when: false
+
+    - name: Set a fact for the PHP version
+      set_fact:
+        phpfpm_php_version: "{{ phpfpm_php_version_check.stdout }}"
+
+  when: ( phpfpm_phpversion_check is defined ) and ( phpfpm_phpversion_check.stdout == "phpquery" )
+  tags:
+    - phpfpm
+
+- name: Set a fact for the Debian version
   set_fact:
     phpfpm_debian_version: "{{ ansible_distribution_release }}"
-    phpfpm_version: "{{ phpfpm_version_check.stdout }}"
   tags:
     - phpfpm
 
