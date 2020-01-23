@@ -20,16 +20,6 @@
   tags:
     - phpfpm
 
-- name: PHP packages installed
-  apt:
-    pkg:
-      - "php{{ phpfpm_version }}-{{ item }}"
-    state: present
-  loop: "{{ phpfpm_packages }}"
-  register: phpfpm_packages_installed
-  tags:
-    - phpfpm
-
 - name: Check if phpquery is installed
   shell: which phpquery || echo absent
   check_mode: false
@@ -52,6 +42,16 @@
         phpfpm_version: "{{ phpfpm_phpquery_check.stdout }}"
 
   when: ( phpfpm_phpquery_check is defined ) and ( phpfpm_phpquery_check.stdout == "phpquery" )
+  tags:
+    - phpfpm
+
+- name: PHP packages installed
+  apt:
+    pkg:
+      - "php{{ phpfpm_version }}-{{ item }}"
+    state: present
+  loop: "{{ phpfpm_packages }}"
+  register: phpfpm_packages_installed
   tags:
     - phpfpm
 
