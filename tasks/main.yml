@@ -1,29 +1,4 @@
 ---
-- name: Check if phpquery is installed
-  shell: which phpquery || echo absent
-  check_mode: false
-  register: phpfpm_phpversion_check
-  changed_when: '"phpquery" not in phpfpm_phpversion_check.stdout'
-  tags:
-    - phpfpm
-
-- name: Check PHP version
-  block:
-
-    - name: Run phpquery to get the PHP version
-      command: phpquery -V
-      register: phpfpm_php_version_check
-      check_mode: false
-      changed_when: false
-
-    - name: Set a fact for the PHP version
-      set_fact:
-        phpfpm_php_version: "{{ phpfpm_php_version_check.stdout }}"
-
-  when: ( phpfpm_phpversion_check is defined ) and ( phpfpm_phpversion_check.stdout == "phpquery" )
-  tags:
-    - phpfpm
-
 - name: Set a fact for the Debian version
   set_fact:
     phpfpm_debian_version: "{{ ansible_distribution_release }}"
@@ -52,6 +27,31 @@
     state: present
   loop: "{{ phpfpm_packages }}"
   register: phpfpm_packages_installed
+  tags:
+    - phpfpm
+
+- name: Check if phpquery is installed
+  shell: which phpquery || echo absent
+  check_mode: false
+  register: phpfpm_phpversion_check
+  changed_when: '"phpquery" not in phpfpm_phpversion_check.stdout'
+  tags:
+    - phpfpm
+
+- name: Check PHP version
+  block:
+
+    - name: Run phpquery to get the PHP version
+      command: phpquery -V
+      register: phpfpm_php_version_check
+      check_mode: false
+      changed_when: false
+
+    - name: Set a fact for the PHP version
+      set_fact:
+        phpfpm_php_version: "{{ phpfpm_php_version_check.stdout }}"
+
+  when: ( phpfpm_phpversion_check is defined ) and ( phpfpm_phpversion_check.stdout == "phpquery" )
   tags:
     - phpfpm
 
