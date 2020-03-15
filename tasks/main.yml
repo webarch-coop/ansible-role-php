@@ -61,7 +61,7 @@
   template:
     src: "templates/php.ini.j2"
     dest: "/etc/php/{{ phpfpm_version }}/fpm/php.ini"
-    backup: true
+    backup: false
   register: phpfpm_fpm_ini_in_place
   tags:
     - phpfpm
@@ -70,7 +70,7 @@
   template:
     src: "templates/cli_php.ini.j2"
     dest: "/etc/php/{{ phpfpm_version }}/cli/php.ini"
-    backup: true
+    backup: false
   register: phpfpm_cli_ini_in_place
   tags:
     - phpfpm
@@ -101,7 +101,7 @@
       template:
         src: templates/www.conf.j2
         dest: "/etc/php/{{ phpfpm_version }}/fpm/pool.d/www.conf"
-        backup: true
+        backup: false
       register: phpfpm_pool_enabled
 
   when: ( phpfpm_www_pool_enabled is not defined ) or ( phpfpm_www_pool_enabled == True )
