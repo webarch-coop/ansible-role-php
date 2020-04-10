@@ -9,6 +9,7 @@ php_packages:
   - php-imagick
   - php-intl
   - php-pear
+  - php-soap
   - php-xmlrpc
   - php-zip
 phpfpm_packages:
