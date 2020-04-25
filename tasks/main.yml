@@ -122,6 +122,7 @@
   cron:
     name: "Grep PHP{{ phpfpm_version }} log for pm.max_children"
     hour: "06"
+    minute: "01"
     job: "grep 'server reached pm.max_children setting' /var/log/php{{ phpfpm_version }}-fpm.log | awk '{ print $5 }' | sed 's/]$//' | sort | uniq -c | sort -n"
   when: ( phpfpm_log_grep is defined ) and ( phpfpm_log_grep == True )
   tags:
