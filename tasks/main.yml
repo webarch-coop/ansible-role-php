@@ -115,4 +115,15 @@
   when: phpfpm_pool_enabled.changed or phpfpm_pool_disabled.changed or phpfpm_cli_ini_in_place.changed or phpfpm_fpm_ini_in_place.changed or phpfpm_packages_installed.changed
   tags:
     - phpfpm
+
+# The log rotates once a week by default so this is a fairly crude metric but
+# it is good enough to flag up how often the max_children limits are being hit
+- name: Cron job to email root the results of grepping the logs for pm.max_children
+  cron:
+    name: "Grep PHP{{ phpfpm_version }} log for pm.max_children"
+    hour: "06"
+    job: "grep 'server reached pm.max_children setting' /var/log/php{{ phpfpm_version }}-fpm.log | awk '{ print $5 }' | sed 's/]$//' | sort | uniq -c | sort -n"
+  when: ( phpfpm_log_grep is defined ) and ( phpfpm_log_grep == True )
+  tags:
+    - phpfpm
 ...

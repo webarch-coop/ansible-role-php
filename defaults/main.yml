@@ -117,4 +117,7 @@ phpfpm_www_pool_pm_max_requests: 1000
 # if this isn't set then the ping is disabled
 # phpfpm_www_pool_ping_path: /ping
 phpcli_allow_local_infile: "Off"
+# Enable email to root with results of grepping for pm.max_children
+phpfpm_log_grep: true
+phpfpm_log: "/var/log/php{{ phpfpm_version }}-fpm.log"
 ...
