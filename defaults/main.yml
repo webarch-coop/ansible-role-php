@@ -8,6 +8,7 @@ php_packages:
   - php-json
   - php-imagick
   - php-intl
+  - php-mbstring
   - php-mysql
   - php-pear
   - php-soap
