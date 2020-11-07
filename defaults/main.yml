@@ -5,6 +5,7 @@ php_packages:
   - php-curl
   - php-date
   - php-gd
+  - php-gmp
   - php-json
   - php-imagick
   - php-intl
