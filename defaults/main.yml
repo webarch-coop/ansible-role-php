@@ -64,7 +64,7 @@ phpfpm_disable_functions:
   - system
   - system_exec
   # Process Control is not compiled in by default on Debian so pcntl_
-  # functions will not be available, if they need to be disabled this 
+  # functions will not be available, if they need to be disabled this
   # is the list of the functions:
   # - pcntl_alarm
   # - pcntl_async_signals
