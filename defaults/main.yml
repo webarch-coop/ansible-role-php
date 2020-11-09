@@ -46,34 +46,10 @@ phpfpm_packages:
   - xmlwriter
   - zip
 phpfpm_disable_functions:
-  - pcntl_alarm
-  - pcntl_fork
-  - pcntl_waitpid
-  - pcntl_wait
-  - pcntl_wifexited
-  - pcntl_wifstopped
-  - pcntl_wifsignaled
-  - pcntl_wifcontinued
-  - pcntl_wexitstatus
-  - pcntl_wtermsig
-  - pcntl_wstopsig
-  - pcntl_signal
-  - pcntl_signal_get_handler
-  - pcntl_signal_dispatch
-  - pcntl_get_last_error
-  - pcntl_strerror
-  - pcntl_sigprocmask
-  - pcntl_sigwaitinfo
-  - pcntl_sigtimedwait
-  - pcntl_exec
-  - pcntl_getpriority
-  - pcntl_setpriority
-  - pcntl_async_signals
   - dl
   - exec
   - fsockopen
   - passthru
-  - pcntl_exec
   - popen
   - proc_close
   - proc_get_status
@@ -86,6 +62,32 @@ phpfpm_disable_functions:
   - symlink
   - system
   - system_exec
+  # Process Control is not compiled in by default on Debian so pcntl_
+  # functions will not be available, if they need to be disabled this 
+  # is the list of the functions:
+  # - pcntl_alarm
+  # - pcntl_async_signals
+  # - pcntl_errno
+  # - pcntl_exec
+  # - pcntl_fork
+  # - pcntl_get_last_error
+  # - pcntl_getpriority
+  # - pcntl_setpriority
+  # - pcntl_signal_dispatch
+  # - pcntl_signal_get_handler
+  # - pcntl_signal
+  # - pcntl_sigprocmask
+  # - pcntl_sigtimedwait
+  # - pcntl_sigwaitinfo
+  # - pcntl_strerror
+  # - pcntl_wait
+  # - pcntl_waitpid
+  # - pcntl_wexitstatus
+  # - pcntl_wifexited
+  # - pcntl_wifsignaled
+  # - pcntl_wifstopped
+  # - pcntl_wstopsig
+  # - pcntl_wtermsig
 phpfpm_date_timezone: Europe/London
 phpfpm_max_execution_time: 600
 phpfpm_max_input_time: 600
