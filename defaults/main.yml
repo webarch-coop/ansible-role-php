@@ -51,11 +51,12 @@ phpfpm_disable_functions:
   - fsockopen
   - passthru
   - popen
-  - proc_close
-  - proc_get_status
-  - proc_nice
-  - proc_open
-  - proc_terminate
+  # The proc_ functions are needed by some features of MediaWiki
+  # - proc_close
+  # - proc_get_status
+  # - proc_nice
+  # - proc_open
+  # - proc_terminate
   - shell_exec
   - show_source
   - socket_create
