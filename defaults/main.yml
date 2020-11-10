@@ -46,18 +46,30 @@ phpfpm_packages:
   - xmlwriter
   - zip
 phpfpm_disable_functions:
+  - chgrp
+  - chmod
+  - chown
+  - curl_multi_exec
   - dl
+  - escapeshellarg
+  - escapeshellcmd
   - exec
   - fsockopen
   - passthru
   - popen
-  # The proc_ functions are needed by some features of MediaWiki
+  - posix_kill
+  - posix_mkfifo
+  - posix_setpgid
+  - posix_setsid
+  - posix_setuid
+  # The proc_ functions are used by some features of MediaWiki
   # - proc_close
   # - proc_get_status
   # - proc_nice
   # - proc_open
   # - proc_terminate
-  - shell_exec
+  # The shell_exec function is used by Matomo
+  # - shell_exec
   - show_source
   - socket_create
   - symlink
