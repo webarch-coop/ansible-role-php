@@ -52,9 +52,9 @@ phpfpm_disable_functions:
   - chmod
   - chown
   - dl
-  # The escapeshellarg function is used by MediaWiki
+  # The escapeshell functions are used by MediaWiki
   # - escapeshellarg
-  - escapeshellcmd
+  # - escapeshellcmd
   - exec
   - fsockopen
   - passthru
