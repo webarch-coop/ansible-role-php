@@ -49,7 +49,6 @@ phpfpm_packages:
   - zip
 phpfpm_disable_functions:
   - chgrp
-  - chmod
   - chown
   - dl
   # The escapeshell functions are used by MediaWiki
