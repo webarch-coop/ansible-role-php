@@ -51,7 +51,7 @@ phpfpm_disable_functions:
   - chgrp
   - chown
   - dl
-  # The escapeshell functions are used by MediaWiki
+  # The escapeshell functions are used by MediaWiki and Matomo
   # - escapeshellarg
   # - escapeshellcmd
   - exec
