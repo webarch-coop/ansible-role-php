@@ -18,12 +18,14 @@
       command: which phpquery
       check_mode: false
       register: phpfpm_phpquery_path
-      failed_when: ( "phpquery" not in phpfpm_phpquery_path.stdout )
+      failed_when: phpfpm_phpquery_path.stdout != "/usr/sbin/phpquery"
+      changed_when: phpfpm_phpquery_path.stdout != "/usr/sbin/phpquery"
 
     - name: Run phpquery to get the PHP version
       command: phpquery -V
-      register: phpfpm_phpquery_version
       check_mode: false
+      register: phpfpm_phpquery_version
+      failed_when: phpfpm_phpquery_version.stdout is not version('7.0', '>=')
       changed_when: false
 
     - name: Set a fact for the PHP version
