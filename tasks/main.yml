@@ -89,8 +89,8 @@
     - name: Check the PHP-FPM configuration
       command: "php-fpm{{ phpfpm_version }} --test"
       register: phpfpm_test
-      failed_when: ( "test is successful" not in phpfpm_test.stdout_lines )
-      changed_when: ( "test is successful" not in phpfpm_test.stdout_lines )
+      failed_when: ( "test is successful" not in phpfpm_test.stderr )
+      changed_when: ( "test is successful" not in phpfpm_test.stderr )
 
     # The log rotates once a week by default so this is a fairly crude metric but
     # it is good enough to flag up how often the max_children limits are being hit
