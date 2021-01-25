@@ -5,7 +5,8 @@
     - name: Check that the distro is Debian Buster or Stretch or Ubuntu Bionic
       assert:
         that:
-          - ansible_distribution_release is regex(^buster|bionic|stretch$)
+          - ansible_distribution_release is defined
+          - ansible_distribution_release is regex("^buster|bionic|stretch$")
 
     - name: PHP-FPM, php-date, php-pear and composer present
       apt:
