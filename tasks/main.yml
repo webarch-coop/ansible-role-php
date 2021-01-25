@@ -12,7 +12,8 @@
       apt:
         pkg: "{{ php_packages }}"
         state: present
-        update_cache: false
+        update_cache: true
+      notify: Restart php-fpm
 
     - name: Check if phpquery is present
       command: which phpquery
@@ -28,19 +29,22 @@
       failed_when: phpfpm_phpquery_version.stdout is not version('7.0', '>=')
       changed_when: false
 
-    - name: Set a fact for the PHP version
+    - name: Set a variable for the PHP version
       set_fact:
         phpfpm_version: "{{ phpfpm_phpquery_version.stdout }}"
 
-    - name: "PHP {{ phpfpm_version }} packages installed"
-      apt:
-        pkg:
-          - "php{{ phpfpm_version }}-{{ package }}"
-        state: present
-        update_cache: false
+    - name: Set an array for the PHP packages with version names in to install
+      set_fact:
+        phpfpm_version_packages: "{{ phpfpm_version_packages | default([]) }} + [ 'php{{ phpfpm_version }}-{{ package }}' ]"
       loop: "{{ phpfpm_packages }}"
       loop_control:
         loop_var: package
+
+    - name: "PHP {{ phpfpm_version }} packages installed"
+      apt:
+        pkg: "{{ phpfpm_version_packages }}"
+        state: present
+        update_cache: false
       notify: Restart php-fpm
 
     - name: "/etc/php/{{ phpfpm_version }}/fpm/php.ini in place"
