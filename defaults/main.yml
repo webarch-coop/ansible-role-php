@@ -47,13 +47,15 @@ phpfpm_packages:
   - xmlwriter
   - xsl
   - zip
+# Set this to an empty list prevent disabling of functions
+# phpfpm_disable_functions: [] 
+# Note that pool.d files cannot override settings here
 phpfpm_disable_functions:
   - chgrp
   - chown
+  # curl_multi_exec is used by the MediaWiki VisualEditor and perhaps other things?
+  # - curl_multi_exec
   - dl
-  # The escapeshell functions are used by MediaWiki and Matomo
-  # - escapeshellarg
-  # - escapeshellcmd
   - exec
   - fsockopen
   - passthru
@@ -76,32 +78,6 @@ phpfpm_disable_functions:
   - symlink
   - system
   - system_exec
-  # Process Control is not compiled in by default on Debian so pcntl_
-  # functions will not be available, if they need to be disabled this
-  # is the list of the functions:
-  # - pcntl_alarm
-  # - pcntl_async_signals
-  # - pcntl_errno
-  # - pcntl_exec
-  # - pcntl_fork
-  # - pcntl_get_last_error
-  # - pcntl_getpriority
-  # - pcntl_setpriority
-  # - pcntl_signal_dispatch
-  # - pcntl_signal_get_handler
-  # - pcntl_signal
-  # - pcntl_sigprocmask
-  # - pcntl_sigtimedwait
-  # - pcntl_sigwaitinfo
-  # - pcntl_strerror
-  # - pcntl_wait
-  # - pcntl_waitpid
-  # - pcntl_wexitstatus
-  # - pcntl_wifexited
-  # - pcntl_wifsignaled
-  # - pcntl_wifstopped
-  # - pcntl_wstopsig
-  # - pcntl_wtermsig
 phpfpm_date_timezone: Europe/London
 phpfpm_max_execution_time: 600
 phpfpm_max_input_time: 600
