@@ -39,6 +39,7 @@
       loop: "{{ phpfpm_packages }}"
       loop_control:
         loop_var: package
+        label: "{{ package }}"
 
     - name: "PHP {{ phpfpm_version }} packages installed"
       apt:
