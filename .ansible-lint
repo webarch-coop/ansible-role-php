@@ -1,0 +1,15 @@
+---
+# https://docs.ansible.com/ansible-lint/rules/default_rules.html
+skip_list:
+  # Lines should be no longer than 160 chars
+  - "204"
+  # Commands should not change things if nothing needs doing
+  # - "301"
+  # systemctl used in place of systemd module
+  # - "303"
+  # Use shell only when shell functionality is required
+  # - "305"
+  # Tasks that run when changed should likely be handlers
+  # - "503"
+# vim: syntax=yaml
+...

@@ -48,7 +48,7 @@ phpfpm_packages:
   - xsl
   - zip
 # Set this to an empty list prevent disabling of functions
-# phpfpm_disable_functions: [] 
+# phpfpm_disable_functions: []
 # Note that pool.d files cannot override settings here
 phpfpm_disable_functions:
   - chgrp
