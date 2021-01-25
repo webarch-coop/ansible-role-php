@@ -26,7 +26,7 @@
       command: phpquery -V
       check_mode: false
       register: phpfpm_phpquery_version
-      failed_when: phpfpm_phpquery_version.stdout is not version('7.0', '>=')
+      failed_when: ( phpfpm_phpquery_version.stdout is not version('7.0', '>=') ) or ( phpfpm_phpquery_version.stdout_lines | count > 1 )
       changed_when: false
 
     - name: Set a variable for the PHP version

@@ -1,53 +1,9 @@
 # PHP-FPM
 
-Ansible role for installing `php-fpm` from the main repos for Debian Buster (PHP 7.3), Ubuntu Bionic (PHP 7.2) and on Debian Stretch (PHP 7.0).
+Ansible role for installing `php-fpm` from the distro repos for Debian Buster (PHP 7.3), Ubuntu Bionic (PHP 7.2) and on Debian Stretch (PHP 7.0).
+
+See the [default variables](defaults/main.yml).
 
 This role isn't setup to generate multiple `pool.d` config files, but the [users role is](https://git.coop/webarch/users/blob/master/templates/phpfpm_chroot_user.conf.j2).
 
-Default variables:
-
-```yml
-phpfpm_disable_functions: pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_get_handler,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,pcntl_async_signals,dl,exec,passthru,pcntl_exec,popen,proc_close,proc_get_status,proc_nice,proc_open,proc_terminate,shell_exec,show_source,symlink,system,system_exec,
-phpfpm_max_execution_time: 180
-phpfpm_max_input_time: 180
-phpfpm_max_input_nesting_level: 256
-phpfpm_max_input_vars: 10000
-phpfpm_memory_limit: 256M
-phpfpm_post_max_size: 256M
-phpfpm_upload_max_filesize: 128M
-phpfpm_max_file_uploads: 60
-phpfpm_allow_url_include: "On"
-phpfpm_session_save_path: "${TMPDIR}"
-phpfpm_opcache_enable: 1
-phpfpm_opcache_memory_consumption: 1024
-phpfpm_opcache_interned_strings_buffer: 8
-phpfpm_opcache_use_cwd: 1
-phpfpm_opcache_validate_timestamps: 1
-phpfpm_opcache_revalidate_freq: 2
-phpfpm_opcache_validate_permission: 1
-phpfpm_opcache_validate_root: 1
-phpfpm_opcache_max_accelerated_files: 100000
-phpfpm_www_pool_enabled: true
-phpfpm_www_pool_pm_start_servers: 2
-phpfpm_www_pool_pm_min_spare_servers: 1
-phpfpm_www_pool_pm_max_spare_servers: 3
-phpfpm_www_pool_pm_max_requests: 500
-phpfpm_www_pool_pm_status_path: /status
-phpfpm_www_pool_ping_path: /ping
-phpfpm_packages:
-  - bcmath
-  - cli
-  - curl
-  - gd
-  - geoip
-  - imagick
-  - imap
-  - intl
-  - json
-  - mysqli
-  - opcache
-  - sqlite3
-  - readline
-  - uploadprogress
-  - xmlrpc
-```
+Note that after upgrading from one Debian version to another you will probably have to manually purge the packages from the old version of PHP.
