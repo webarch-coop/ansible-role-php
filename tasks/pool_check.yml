@@ -1,4 +1,5 @@
 ---
+# https://www.php.net/manual/en/install.fpm.configuration.php
 - name: Check that the PHP-FPM pool pm servers and children limits are sane
   block:
 
@@ -7,11 +8,11 @@
         msg:
           - "phpfpm_pm is a {{ phpfpm_pm | type_debug }} with the value: {{ phpfpm_pm }}"
           - "phpfpm_pm_start_servers is a {{ phpfpm_pm_start_servers | type_debug }} with the value: {{ phpfpm_pm_start_servers }}"
+          - "phpfpm_pm_max_children is a {{ phpfpm_pm_max_children | type_debug }} with the value {{ phpfpm_pm_max_children }}"
           - "phpfpm_pm_min_spare_servers is a {{ phpfpm_pm_min_spare_servers | type_debug }} with the value {{ phpfpm_pm_min_spare_servers }}"
           - "phpfpm_pm_max_spare_servers is a {{ phpfpm_pm_max_spare_servers | type_debug }} with the value: {{ phpfpm_pm_max_spare_servers }}"
         verbosity: 2
 
-    # https://www.php.net/manual/en/install.fpm.configuration.php
     - name: Ensure that pm is set to static, ondemand or dynamic
       assert:
         that:
