@@ -86,6 +86,12 @@
 
       when: ( phpfpm_www_pool_enabled is not defined ) or ( phpfpm_www_pool_enabled is defined and phpfpm_www_pool_enabled )
 
+    - name: Check the PHP-FPM configuration
+      command: "php-fpm{{ phpfpm_version }} --test"
+      register: phpfpm_test
+      failed_when: ( "test is successful" not in phpfpm_test.stdout_lines )
+      changed_when: ( "test is successful" not in phpfpm_test.stdout_lines )
+
     # The log rotates once a week by default so this is a fairly crude metric but
     # it is good enough to flag up how often the max_children limits are being hit
     - name: Cron job to email root the results of grepping the logs for pm.max_children
