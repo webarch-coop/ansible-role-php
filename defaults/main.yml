@@ -1,7 +1,6 @@
 ---
 php_packages:
   - php-fpm
-  - composer
   - php-curl
   - php-date
   - php-gd
@@ -15,6 +14,7 @@ php_packages:
   - php-soap
   - php-xmlrpc
   - php-zip
+  - composer
 phpfpm_packages:
   - bcmath
   - bz2

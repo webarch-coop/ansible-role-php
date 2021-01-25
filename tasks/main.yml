@@ -8,18 +8,18 @@
           - ansible_distribution_release is defined
           - ansible_distribution_release is regex("^buster|bionic|stretch$")
 
-    - name: PHP-FPM, php-date, php-pear and composer present
+    - name: Main PHP-FPM packages present
       apt:
         pkg: "{{ php_packages }}"
         state: present
         update_cache: false
 
-    - name: Check if phpquery is installed
+    - name: Check if phpquery is present
       command: which phpquery
       check_mode: false
       register: phpfpm_phpquery_path
-      failed_when: phpfpm_phpquery_path.stdout != "/usr/sbin/phpquery"
-      changed_when: phpfpm_phpquery_path.stdout != "/usr/sbin/phpquery"
+      failed_when: ( "phpquery" not in phpfpm_phpquery_path.stdout )
+      changed_when: ( "phpquery" not in phpfpm_phpquery_path.stdout )
 
     - name: Run phpquery to get the PHP version
       command: phpquery -V
@@ -32,13 +32,15 @@
       set_fact:
         phpfpm_version: "{{ phpfpm_phpquery_version.stdout }}"
 
-    - name: PHP packages installed
+    - name: "PHP {{ phpfpm_version }} packages installed"
       apt:
         pkg:
-          - "php{{ phpfpm_version }}-{{ item }}"
+          - "php{{ phpfpm_version }}-{{ package }}"
         state: present
         update_cache: false
       loop: "{{ phpfpm_packages }}"
+      loop_control:
+        loop_var: package
       notify: Restart php-fpm
 
     - name: "/etc/php/{{ phpfpm_version }}/fpm/php.ini in place"
@@ -82,7 +84,7 @@
             backup: false
           notify: Restart php-fpm
 
-      when: ( phpfpm_www_pool_enabled is not defined ) or ( phpfpm_www_pool_enabled )
+      when: ( phpfpm_www_pool_enabled is not defined ) or ( phpfpm_www_pool_enabled is defined and phpfpm_www_pool_enabled )
 
     # The log rotates once a week by default so this is a fairly crude metric but
     # it is good enough to flag up how often the max_children limits are being hit
