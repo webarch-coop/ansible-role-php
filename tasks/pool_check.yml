@@ -32,7 +32,7 @@
           assert:
             that:
               - phpfpm_pm_start_servers is defined
-              - phpfpm_pm_start_servers is regex("^[0-9]+$") 
+              - phpfpm_pm_start_servers is regex("^[0-9]+$")
               - phpfpm_pm_min_spare_servers is defined
               - phpfpm_pm_min_spare_servers is regex("^[0-9]+$")
               - phpfpm_pm_max_spare_servers is defined
