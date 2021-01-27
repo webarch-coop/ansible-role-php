@@ -62,7 +62,7 @@
         - name: Ensure that pm.max_spare_servers is greater than pm.min_spare_servers
           assert:
             that:
-              - phpfpm_pm_max_spare_servers | int >= phpfpm_pm_min_spare_servers
+              - phpfpm_pm_max_spare_servers | int >= phpfpm_pm_min_spare_servers | int
 
       when: phpfpm_pm == "dynamic"
 
