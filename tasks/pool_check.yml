@@ -23,7 +23,7 @@
         that:
           - phpfpm_pm_max_children is defined
           - ( phpfpm_pm_max_children | string ) is regex("^[0-9]+$")
-          - phpfpm_pm_max_children | int >= 1
+          - ( phpfpm_pm_max_children | int ) >= 1
 
     - name: Conditional pm dynamic pool checks
       block:
@@ -32,11 +32,11 @@
           assert:
             that:
               - phpfpm_pm_start_servers is defined
-              - phpfpm_pm_start_servers is regex("^[0-9]+$")
+              - ( phpfpm_pm_start_servers | string ) is regex("^[0-9]+$")
               - phpfpm_pm_min_spare_servers is defined
-              - phpfpm_pm_min_spare_servers is regex("^[0-9]+$")
+              - ( phpfpm_pm_min_spare_servers | string ) is regex("^[0-9]+$")
               - phpfpm_pm_max_spare_servers is defined
-              - phpfpm_pm_max_spare_servers is regex("^[0-9]+$")
+              - ( phpfpm_pm_max_spare_servers | string ) is regex("^[0-9]+$")
 
         - name: Ensure that pm.max_children, pm.start_servers, pm.min_spare_servers and pm.max_spare_servers are greater than or equal to 1
           assert:
