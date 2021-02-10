@@ -22,7 +22,7 @@
       assert:
         that:
           - phpfpm_pm_max_children is defined
-          - phpfpm_pm_max_children | str is regex("^[0-9]+$")
+          - ( phpfpm_pm_max_children | string ) is regex("^[0-9]+$")
           - phpfpm_pm_max_children | int >= 1
 
     - name: Conditional pm dynamic pool checks
