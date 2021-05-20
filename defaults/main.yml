@@ -58,7 +58,8 @@ phpfpm_disable_functions:
   # - curl_multi_exec
   - dl
   - exec
-  - fsockopen
+  # fsockopen is used by CiviCRM to send email
+  # - fsockopen
   - passthru
   - popen
   - posix_kill
