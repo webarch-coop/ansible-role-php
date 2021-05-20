@@ -52,6 +52,7 @@
       template:
         src: "templates/php.ini.j2"
         dest: "/etc/php/{{ phpfpm_version }}/fpm/php.ini"
+        mode: 0644
         backup: false
       notify: Restart php-fpm
 
@@ -59,6 +60,7 @@
       template:
         src: "templates/cli_php.ini.j2"
         dest: "/etc/php/{{ phpfpm_version }}/cli/php.ini"
+        mode: 0644
         backup: false
       notify: Restart php-fpm
 
