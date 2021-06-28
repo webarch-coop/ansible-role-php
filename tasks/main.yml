@@ -110,5 +110,5 @@
       when: ( phpfpm_log_grep is defined ) and ( phpfpm_log_grep )
 
   tags:
-    - phpfpm
+    - php
 ...

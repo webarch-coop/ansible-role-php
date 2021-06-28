@@ -5,5 +5,5 @@
     state: restarted
   listen: Restart php-fpm
   tags:
-    - phpfpm
+    - php
 ...
