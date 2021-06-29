@@ -1,7 +1,7 @@
 ---
 - name: Restart PHP-FPM
   service:
-    name: "php{{ phpfpm_version }}-fpm"
+    name: "php{{ php_version }}-fpm"
     state: restarted
   listen: Restart php-fpm
   tags:

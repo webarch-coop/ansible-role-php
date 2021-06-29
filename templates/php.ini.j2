@@ -312,8 +312,8 @@ serialize_precision = -1
 ; This directive allows you to disable certain functions for security reasons.
 ; It receives a comma-delimited list of function names.
 ; http://php.net/disable-functions
-{% if phpfpm_disable_functions is defined and phpfpm_disable_functions != [] %}
-disable_functions = {% for func in phpfpm_disable_functions %}{{ func }}{% if not loop.last %},{% endif %}{% endfor %}
+{% if php_disable_functions is defined and php_disable_functions != [] %}
+disable_functions = {% for func in php_disable_functions %}{{ func }}{% if not loop.last %},{% endif %}{% endfor %}
 {% else %}
 disable_functions =
 {% endif %}
@@ -386,7 +386,7 @@ expose_php = Off
 ; Maximum execution time of each script, in seconds
 ; http://php.net/max-execution-time
 ; Note: This directive is hardcoded to 0 for the CLI SAPI
-max_execution_time = {{ phpfpm_max_execution_time }}
+max_execution_time = {{ php_max_execution_time }}
 
 ; Maximum amount of time each script may spend parsing request data. It's a good
 ; idea to limit this time on productions servers in order to eliminate unexpectedly
@@ -396,18 +396,18 @@ max_execution_time = {{ phpfpm_max_execution_time }}
 ; Development Value: 60 (60 seconds)
 ; Production Value: 60 (60 seconds)
 ; http://php.net/max-input-time
-max_input_time = {{ phpfpm_max_input_time }}
+max_input_time = {{ php_max_input_time }}
 
 ; Maximum input variable nesting level
 ; http://php.net/max-input-nesting-level
-max_input_nesting_level = {{ phpfpm_max_input_nesting_level }}
+max_input_nesting_level = {{ php_max_input_nesting_level }}
 
 ; How many GET/POST/COOKIE input variables may be accepted
-max_input_vars = {{ phpfpm_max_input_vars }}
+max_input_vars = {{ php_max_input_vars }}
 
 ; Maximum amount of memory a script may consume (128MB)
 ; http://php.net/memory-limit
-memory_limit = {{ phpfpm_memory_limit }}
+memory_limit = {{ php_memory_limit }}
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Error handling and logging ;
@@ -693,7 +693,7 @@ auto_globals_jit = On
 ; Its value may be 0 to disable the limit. It is ignored if POST data reading
 ; is disabled through enable_post_data_reading.
 ; http://php.net/post-max-size
-post_max_size = {{ phpfpm_post_max_size }}
+post_max_size = {{ php_post_max_size }}
 
 ; Automatically add files before PHP document.
 ; http://php.net/auto-prepend-file
@@ -845,10 +845,10 @@ file_uploads = On
 
 ; Maximum allowed size for uploaded files.
 ; http://php.net/upload-max-filesize
-upload_max_filesize = {{ phpfpm_upload_max_filesize }}
+upload_max_filesize = {{ php_upload_max_filesize }}
 
 ; Maximum number of files that can be uploaded via a single request
-max_file_uploads = {{ phpfpm_max_file_uploads }}
+max_file_uploads = {{ php_max_file_uploads }}
 
 ;;;;;;;;;;;;;;;;;;
 ; Fopen wrappers ;
@@ -860,7 +860,7 @@ allow_url_fopen = On
 
 ; Whether to allow include/require to open URLs (like http:// or ftp://) as files.
 ; http://php.net/allow-url-include
-allow_url_include = {{ phpfpm_allow_url_include }}
+allow_url_include = {{ php_allow_url_include }}
 
 ; Define the anonymous ftp password (your email address). PHP's default setting
 ; for this is empty.
@@ -960,7 +960,7 @@ cli_server.color = On
 [Date]
 ; Defines the default timezone used by the date functions
 ; http://php.net/date.timezone
-date.timezone = {{ phpfpm_date_timezone | default('Europe/London') }}
+date.timezone = {{ php_date_timezone | default('Europe/London') }}
 
 ; http://php.net/date.default-latitude
 ;date.default_latitude = 31.7667
@@ -1163,7 +1163,7 @@ mysqli.max_persistent = -1
 
 ; Allow accessing, from PHP's perspective, local files with LOAD DATA statements
 ; http://php.net/mysqli.allow_local_infile
-mysqli.allow_local_infile = {{ phpfpm_allow_local_infile | default('Off') }}
+mysqli.allow_local_infile = {{ php_allow_local_infile | default('Off') }}
 
 ; Allow or prevent persistent links.
 ; http://php.net/mysqli.allow-persistent
@@ -1361,7 +1361,7 @@ session.save_handler = files
 ; does not overwrite the process's umask.
 ; http://php.net/session.save-path
 ;session.save_path = "/var/lib/php/sessions"
-session.save_path = "{{ phpfpm_session_save_path }}"
+session.save_path = "{{ php_session_save_path }}"
 
 ; Whether to use strict session mode.
 ; Strict session mode does not accept an uninitialized session ID, and
@@ -1789,20 +1789,20 @@ ldap.max_links = -1
 ; https://bugs.php.net/bug.php?id=67481
 
 ; Determines if Zend OPCache is enabled
-opcache.enable = {{ phpfpm_opcache_enable }}
+opcache.enable = {{ php_opcache_enable }}
 
 ; Determines if Zend OPCache is enabled for the CLI version of PHP
 ;opcache.enable_cli=0
 
 ; The OPcache shared memory storage size.
-opcache.memory_consumption = {{ phpfpm_opcache_memory_consumption }}
+opcache.memory_consumption = {{ php_opcache_memory_consumption }}
 
 ; The amount of memory for interned strings in Mbytes.
-opcache.interned_strings_buffer = {{ phpfpm_opcache_interned_strings_buffer }}
+opcache.interned_strings_buffer = {{ php_opcache_interned_strings_buffer }}
 
 ; The maximum number of keys (scripts) in the OPcache hash table.
 ; Only numbers between 200 and 1000000 are allowed.
-opcache.max_accelerated_files = {{ phpfpm_opcache_max_accelerated_files }}
+opcache.max_accelerated_files = {{ php_opcache_max_accelerated_files }}
 
 ; The maximum percentage of "wasted" memory until a restart is scheduled.
 ;opcache.max_wasted_percentage=5
@@ -1811,16 +1811,16 @@ opcache.max_accelerated_files = {{ phpfpm_opcache_max_accelerated_files }}
 ; directory to the script key, thus eliminating possible collisions between
 ; files with the same name (basename). Disabling the directive improves
 ; performance, but may break existing applications.
-opcache.use_cwd = {{ phpfpm_opcache_use_cwd }} 
+opcache.use_cwd = {{ php_opcache_use_cwd }} 
 
 ; When disabled, you must reset the OPcache manually or restart the
 ; webserver for changes to the filesystem to take effect.
-opcache.validate_timestamps = {{ phpfpm_opcache_validate_timestamps }}
+opcache.validate_timestamps = {{ php_opcache_validate_timestamps }}
 
 ; How often (in seconds) to check file timestamps for changes to the shared
 ; memory storage allocation. ("1" means validate once per second, but only
 ; once per request. "0" means always validate)
-opcache.revalidate_freq = {{ phpfpm_opcache_revalidate_freq }}
+opcache.revalidate_freq = {{ php_opcache_revalidate_freq }}
 
 ; Enables or disables file search in include_path optimization
 ;opcache.revalidate_path=0
@@ -1905,10 +1905,10 @@ opcache.revalidate_freq = {{ phpfpm_opcache_revalidate_freq }}
 ;opcache.huge_code_pages=1
 
 ; Validate cached file permissions.
-opcache.validate_permission = {{ phpfpm_opcache_validate_root }} 
+opcache.validate_permission = {{ php_opcache_validate_root }} 
 
 ; Prevent name collisions in chroot'ed environment.
-opcache.validate_root = {{ phpfpm_opcache_max_accelerated_files }} 
+opcache.validate_root = {{ php_opcache_max_accelerated_files }} 
 
 ; If specified, it produces opcode dumps for debugging different stages of
 ; optimizations.

@@ -1,5 +1,5 @@
 ---
-- name: Install and configure PHP-FPM
+- name: Install and configure PHP
   block:
 
     - name: Check that the distro is Debian Bullseye, Buster or Stretch or Ubuntu Focal or Bionic
@@ -8,67 +8,67 @@
           - ansible_distribution_release is defined
           - ansible_distribution_release is regex("^bionic|bullseye|buster|focal|stretch$")
 
-    - name: Main PHP-FPM packages present
+    - name: PHP packages present
       apt:
         pkg: "{{ php_packages }}"
         state: present
         update_cache: true
       notify: Restart php-fpm
 
-    - name: Check if phpquery is present
+    - name: Which phpquery
       command: which phpquery
       check_mode: false
-      register: phpfpm_phpquery_path
-      failed_when: ( "phpquery" not in phpfpm_phpquery_path.stdout )
-      changed_when: ( "phpquery" not in phpfpm_phpquery_path.stdout )
+      register: php_phpquery_path
+      failed_when: ( "phpquery" not in php_phpquery_path.stdout )
+      changed_when: ( "phpquery" not in php_phpquery_path.stdout )
 
     - name: Run phpquery to get the PHP version
       command: phpquery -V
       check_mode: false
-      register: phpfpm_phpquery_version
-      failed_when: ( phpfpm_phpquery_version.stdout is not version('7.0', '>=') ) or ( phpfpm_phpquery_version.stdout_lines | count > 1 )
+      register: php_phpquery_version
+      failed_when: ( php_phpquery_version.stdout is not version('7.0', '>=') ) or ( php_phpquery_version.stdout_lines | count > 1 )
       changed_when: false
 
     - name: Set a variable for the PHP version
       set_fact:
-        phpfpm_version: "{{ phpfpm_phpquery_version.stdout }}"
+        php_version: "{{ php_phpquery_version.stdout | trim }}"
 
-    - name: Set an array for the PHP packages with version names in to install
+    - name: Set an array for the PHP packages with version numbers in their names
       set_fact:
-        phpfpm_version_packages: "{{ phpfpm_version_packages | default([]) }} + [ 'php{{ phpfpm_version }}-{{ package }}' ]"
-      loop: "{{ phpfpm_packages }}"
+        php_version_packages: "{{ php_version_packages | default([]) }} + [ 'php{{ php_version }}-{{ php_package }}' ]"
+      loop: "{{ php_versioned_packages }}"
       loop_control:
-        loop_var: package
-        label: "{{ package }}"
+        loop_var: php_package
+        label: "{{ php_package }}"
 
-    - name: "PHP {{ phpfpm_version }} packages installed"
+    - name: "PHP {{ php_version }} packages installed"
       apt:
-        pkg: "{{ phpfpm_version_packages }}"
+        pkg: "{{ php_version_packages | default([]) }}"
         state: present
         update_cache: false
       notify: Restart php-fpm
 
-    - name: "/etc/php/{{ phpfpm_version }}/fpm/php.ini in place"
+    - name: "PHP-FPM ini config /etc/php/{{ php_version }}/fpm/php.ini in place"
       template:
         src: "templates/php.ini.j2"
-        dest: "/etc/php/{{ phpfpm_version }}/fpm/php.ini"
+        dest: "/etc/php/{{ php_version }}/fpm/php.ini"
         mode: 0644
         backup: false
       notify: Restart php-fpm
 
-    - name: "/etc/php/{{ phpfpm_version }}/cli/php.ini in place"
+    - name: "PHP CLI config /etc/php/{{ php_version }}/cli/php.ini in place"
       template:
         src: "templates/cli_php.ini.j2"
-        dest: "/etc/php/{{ phpfpm_version }}/cli/php.ini"
+        dest: "/etc/php/{{ php_version }}/cli/php.ini"
         mode: 0644
         backup: false
       notify: Restart php-fpm
 
     - name: PHP-FPM www.conf pool disabled
       file:
-        path: "/etc/php/{{ phpfpm_version }}/fpm/pool.d/www.conf"
+        path: "/etc/php/{{ php_version }}/fpm/pool.d/www.conf"
         state: absent
-      when: ( phpfpm_www_pool_enabled is defined ) and ( not phpfpm_www_pool_enabled )
+      when: ( php_www_pool_enabled is defined ) and ( not php_www_pool_enabled )
       notify: Restart php-fpm
 
     - name: Check and enable the www pool
@@ -76,38 +76,38 @@
 
         - name: Include www pool server variable checks
           include_tasks: pool_check.yml
-          when: phpfpm_www_pool_pm == "dynamic"
+          when: php_www_pool_pm == "dynamic"
           vars:
-            phpfpm_pm: "{{ phpfpm_www_pool_pm }}"
-            phpfpm_pm_max_children: "{{ phpfpm_www_pool_pm_max_children }}"
-            phpfpm_pm_start_servers: "{{ phpfpm_www_pool_pm_start_servers }}"
-            phpfpm_pm_min_spare_servers: "{{ phpfpm_www_pool_pm_min_spare_servers }}"
-            phpfpm_pm_max_spare_servers: "{{ phpfpm_www_pool_pm_max_spare_servers }}"
+            php_pm: "{{ php_www_pool_pm }}"
+            php_pm_max_children: "{{ php_www_pool_pm_max_children }}"
+            php_pm_start_servers: "{{ php_www_pool_pm_start_servers }}"
+            php_pm_min_spare_servers: "{{ php_www_pool_pm_min_spare_servers }}"
+            php_pm_max_spare_servers: "{{ php_www_pool_pm_max_spare_servers }}"
 
         - name: PHP-FPM www.conf pool enabled
           template:
             src: templates/www.conf.j2
-            dest: "/etc/php/{{ phpfpm_version }}/fpm/pool.d/www.conf"
+            dest: "/etc/php/{{ php_version }}/fpm/pool.d/www.conf"
             backup: false
           notify: Restart php-fpm
 
-      when: ( phpfpm_www_pool_enabled is not defined ) or ( phpfpm_www_pool_enabled is defined and phpfpm_www_pool_enabled )
+      when: ( php_www_pool_enabled is not defined ) or ( php_www_pool_enabled is defined and php_www_pool_enabled )
 
     - name: Check the PHP-FPM configuration
-      command: "php-fpm{{ phpfpm_version }} --test"
-      register: phpfpm_test
-      failed_when: ( "test is successful" not in phpfpm_test.stderr )
-      changed_when: ( "test is successful" not in phpfpm_test.stderr )
+      command: "php-fpm{{ php_version }} --test"
+      register: php_test
+      failed_when: ( "test is successful" not in php_test.stderr )
+      changed_when: ( "test is successful" not in php_test.stderr )
 
     # The log rotates once a week by default so this is a fairly crude metric but
     # it is good enough to flag up how often the max_children limits are being hit
-    - name: Cron job to email root the results of grepping the logs for pm.max_children
+    - name: Cron job to email root the results of grepping the logs for PHP-FPM pm.max_children
       cron:
-        name: "Grep PHP{{ phpfpm_version }} log for pm.max_children"
+        name: "Grep PHP{{ php_version }} log for pm.max_children"
         hour: "06"
         minute: "01"
-        job: "grep 'server reached pm.max_children setting' /var/log/php{{ phpfpm_version }}-fpm.log | awk '{ print $5 }' | sed 's/]$//' | sort | uniq -c | sort -n"
-      when: ( phpfpm_log_grep is defined ) and ( phpfpm_log_grep )
+        job: "grep 'server reached pm.max_children setting' /var/log/php{{ php_version }}-fpm.log | awk '{ print $5 }' | sed 's/]$//' | sort | uniq -c | sort -n"
+      when: ( php_log_grep is defined ) and ( php_log_grep )
 
   tags:
     - php

@@ -6,24 +6,24 @@
     - name: Print variables for debugging
       debug:
         msg:
-          - "phpfpm_pm is a {{ phpfpm_pm | type_debug }} with the value: {{ phpfpm_pm }}"
-          - "phpfpm_pm_start_servers is a {{ phpfpm_pm_start_servers | type_debug }} with the value: {{ phpfpm_pm_start_servers }}"
-          - "phpfpm_pm_max_children is a {{ phpfpm_pm_max_children | type_debug }} with the value {{ phpfpm_pm_max_children }}"
-          - "phpfpm_pm_min_spare_servers is a {{ phpfpm_pm_min_spare_servers | type_debug }} with the value {{ phpfpm_pm_min_spare_servers }}"
-          - "phpfpm_pm_max_spare_servers is a {{ phpfpm_pm_max_spare_servers | type_debug }} with the value: {{ phpfpm_pm_max_spare_servers }}"
+          - "php_pm is a {{ php_pm | type_debug }} with the value: {{ php_pm }}"
+          - "php_pm_start_servers is a {{ php_pm_start_servers | type_debug }} with the value: {{ php_pm_start_servers }}"
+          - "php_pm_max_children is a {{ php_pm_max_children | type_debug }} with the value {{ php_pm_max_children }}"
+          - "php_pm_min_spare_servers is a {{ php_pm_min_spare_servers | type_debug }} with the value {{ php_pm_min_spare_servers }}"
+          - "php_pm_max_spare_servers is a {{ php_pm_max_spare_servers | type_debug }} with the value: {{ php_pm_max_spare_servers }}"
         verbosity: 2
 
     - name: Ensure that pm is set to static, ondemand or dynamic
       assert:
         that:
-          - phpfpm_pm is regex("^static|ondemand|dynamic$")
+          - php_pm is regex("^static|ondemand|dynamic$")
 
     - name: Ensure that pm.max_children is defined, numeric and is greater than 1
       assert:
         that:
-          - phpfpm_pm_max_children is defined
-          - ( phpfpm_pm_max_children | string ) is regex("^[0-9]+$")
-          - ( phpfpm_pm_max_children | int ) >= 1
+          - php_pm_max_children is defined
+          - ( php_pm_max_children | string ) is regex("^[0-9]+$")
+          - ( php_pm_max_children | int ) >= 1
 
     - name: Conditional pm dynamic pool checks
       block:
@@ -31,40 +31,40 @@
         - name: Ensure that pm.start_servers, pm.min_spare_servers and pm.max_spare_servers are defined and numeric
           assert:
             that:
-              - phpfpm_pm_start_servers is defined
-              - ( phpfpm_pm_start_servers | string ) is regex("^[0-9]+$")
-              - phpfpm_pm_min_spare_servers is defined
-              - ( phpfpm_pm_min_spare_servers | string ) is regex("^[0-9]+$")
-              - phpfpm_pm_max_spare_servers is defined
-              - ( phpfpm_pm_max_spare_servers | string ) is regex("^[0-9]+$")
+              - php_pm_start_servers is defined
+              - ( php_pm_start_servers | string ) is regex("^[0-9]+$")
+              - php_pm_min_spare_servers is defined
+              - ( php_pm_min_spare_servers | string ) is regex("^[0-9]+$")
+              - php_pm_max_spare_servers is defined
+              - ( php_pm_max_spare_servers | string ) is regex("^[0-9]+$")
 
         - name: Ensure that pm.max_children, pm.start_servers, pm.min_spare_servers and pm.max_spare_servers are greater than or equal to 1
           assert:
             that:
-              - phpfpm_pm_max_children | int >= 1
-              - phpfpm_pm_start_servers | int >= 1
-              - phpfpm_pm_min_spare_servers | int >= 1
-              - phpfpm_pm_max_spare_servers | int >= 1
+              - php_pm_max_children | int >= 1
+              - php_pm_start_servers | int >= 1
+              - php_pm_min_spare_servers | int >= 1
+              - php_pm_max_spare_servers | int >= 1
 
         - name: Ensure that pm.max_children is greater than or equal to pm.start_servers, pm.min_spare_servers and pm.max_spare_servers
           assert:
             that:
-              - phpfpm_pm_max_children | int >= phpfpm_pm_start_servers | int
-              - phpfpm_pm_max_children | int >= phpfpm_pm_min_spare_servers | int
-              - phpfpm_pm_max_children | int >= phpfpm_pm_max_spare_servers | int
+              - php_pm_max_children | int >= php_pm_start_servers | int
+              - php_pm_max_children | int >= php_pm_min_spare_servers | int
+              - php_pm_max_children | int >= php_pm_max_spare_servers | int
 
         - name: Ensure that pm.start_servers is be greater than pm.min_spare_servers and less than or equal to pm.max_spare_servers
           assert:
             that:
-              - phpfpm_pm_start_servers | int >= phpfpm_pm_min_spare_servers | int
-              - phpfpm_pm_start_servers | int <= phpfpm_pm_max_spare_servers | int
+              - php_pm_start_servers | int >= php_pm_min_spare_servers | int
+              - php_pm_start_servers | int <= php_pm_max_spare_servers | int
 
         - name: Ensure that pm.max_spare_servers is greater than pm.min_spare_servers
           assert:
             that:
-              - phpfpm_pm_max_spare_servers | int >= phpfpm_pm_min_spare_servers | int
+              - php_pm_max_spare_servers | int >= php_pm_min_spare_servers | int
 
-      when: phpfpm_pm == "dynamic"
+      when: php_pm == "dynamic"
 
   tags:
     - php
