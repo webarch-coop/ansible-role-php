@@ -18,16 +18,20 @@
     - name: Which phpquery
       command: which phpquery
       check_mode: false
+      changed_when: false
       register: php_phpquery_path
-      failed_when: ( "phpquery" not in php_phpquery_path.stdout )
-      changed_when: ( "phpquery" not in php_phpquery_path.stdout )
+      failed_when: php_phpquery_path.rc != 0
 
     - name: Run phpquery to get the PHP version
       command: phpquery -V
+      args:
+        strip_empty_ends: true
       check_mode: false
       changed_when: false
       register: php_phpquery_version
-      failed_when: ( php_phpquery_version.rc is not regex('^0|1$') ) or ( php_phpquery_version.stdout is not version('7.0', '>=') ) or ( php_phpquery_version.stdout_lines | count > 1 )
+      failed_when: >
+        ( php_phpquery_version.stdout_lines | count > 1 ) or
+        ( php_phpquery_version.stdout is not version('7.0', '>=') )
 
     - name: Set a variable for the PHP version
       set_fact:
@@ -95,9 +99,11 @@
 
     - name: Check the PHP-FPM configuration
       command: "php-fpm{{ php_version }} --test"
+      check_mode: false
+      changed_when: false
       register: php_test
       failed_when: ( "test is successful" not in php_test.stderr )
-      changed_when: ( "test is successful" not in php_test.stderr )
+      notify: Restart php-fpm
 
     # The log rotates once a week by default so this is a fairly crude metric but
     # it is good enough to flag up how often the max_children limits are being hit
