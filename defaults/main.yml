@@ -48,9 +48,10 @@ php_versioned_packages:
   - xmlwriter
   - xsl
   - zip
+# NOTE pool.d files cannot enable any functions that are listed as disabled
+# here.
 # Set this to an empty list prevent disabling of functions
 # php_disable_functions: []
-# Note that pool.d files cannot override settings here
 php_disable_functions:
   - chgrp
   - chown
