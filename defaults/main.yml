@@ -54,10 +54,13 @@ php_versioned_packages:
 php_disable_functions:
   - chgrp
   - chown
-  # curl_multi_exec is used by the MediaWiki VisualEditor and perhaps other things?
+  # curl_exec is used by Nextcloud
+  # - curl_exec
+  # curl_multi_exec is used by the MediaWiki VisualEditor
   # - curl_multi_exec
   - dl
-  - exec
+  # exec is used by the Nexcloud ONLYOFFICE app
+  # - exec
   # fsockopen is used by CiviCRM to send email
   # - fsockopen
   - passthru
@@ -91,7 +94,7 @@ php_disable_functions:
   - posix_setpgid
   - posix_setsid
   - posix_setuid
-  # The proc_ functions are used by some features of MediaWiki
+  # The proc_ functions are used by MediaWiki
   # - proc_close
   # - proc_get_status
   # - proc_nice
