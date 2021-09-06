@@ -60,8 +60,7 @@ php_disable_functions:
   # curl_multi_exec is used by the MediaWiki VisualEditor
   # - curl_multi_exec
   - dl
-  # exec is used by the Nexcloud ONLYOFFICE app
-  # - exec
+  - exec
   # fsockopen is used by CiviCRM to send email
   # - fsockopen
   - passthru
