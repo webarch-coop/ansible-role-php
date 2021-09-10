@@ -55,7 +55,7 @@ php_versioned_packages:
 php_disable_functions:
   - chgrp
   - chown
-  # curl_exec is used by Nextcloud, some MediaWiki extensions and the 
+  # curl_exec is used by Nextcloud, some MediaWiki extensions and the
   # WordPress Piwik plugin
   # - curl_exec
   # curl_multi_exec is used by the MediaWiki VisualEditor
