@@ -2,6 +2,7 @@
 galaxy_info:
   role_name: php
   author: Chris Croome
+  namespace: chriscroome
   description: Ansible role for installing PHP-FPM on Debian
   company: Webarchitects Co-operative
   license: license (GPLv3)
