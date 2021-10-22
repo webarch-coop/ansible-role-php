@@ -119,7 +119,7 @@ php_upload_max_filesize: 512M
 php_max_file_uploads: 60
 php_allow_url_include: "On"
 php_allow_local_infile: "Off"
-php_short_open_tag: "Off"
+php_short_open_tag: false
 php_session_save_path: "${TMPDIR}"
 php_opcache_enable: 1
 php_opcache_memory_consumption: 1024

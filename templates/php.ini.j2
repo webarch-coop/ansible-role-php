@@ -194,7 +194,7 @@ engine = On
 ; Development Value: Off
 ; Production Value: Off
 ; http://php.net/short-open-tag
-short_open_tag = {{ php_short_open_tag | default('Off') }}
+short_open_tag = {% if php_short_open_tag is defined and php_short_open_tag %}On{% else %}Off{% endif %}
 
 ; The number of significant digits displayed in floating point numbers.
 ; http://php.net/precision
