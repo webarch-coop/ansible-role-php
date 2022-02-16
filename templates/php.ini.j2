@@ -108,11 +108,6 @@
 ;   Development Value: E_ALL
 ;   Production Value: E_ALL & ~E_DEPRECATED & ~E_STRICT
 
-; html_errors
-;   Default Value: On
-;   Development Value: On
-;   Production value: On
-
 ; log_errors
 ;   Default Value: Off
 ;   Development Value: On
@@ -153,11 +148,6 @@
 ;   Development Value: Off
 ;   Production Value: Off
 
-; track_errors
-;   Default Value: Off
-;   Development Value: On
-;   Production Value: Off
-
 ; variables_order
 ;   Default Value: "EGPCS"
 ;   Development Value: "GPCS"
@@ -194,7 +184,7 @@ engine = On
 ; Development Value: Off
 ; Production Value: Off
 ; http://php.net/short-open-tag
-short_open_tag = {% if php_short_open_tag is defined and php_short_open_tag %}On{% else %}Off{% endif %}
+short_open_tag = {% if php_short_open_tag is defined and php_short_open_tag %}On{% else %}Off{% endif %} 
 
 ; The number of significant digits displayed in floating point numbers.
 ; http://php.net/precision
@@ -294,6 +284,13 @@ implicit_flush = Off
 ; callback-function.
 unserialize_callback_func =
 
+; The unserialize_max_depth specifies the default depth limit for unserialized
+; structures. Setting the depth limit too high may result in stack overflows
+; during unserialization. The unserialize_max_depth ini setting can be
+; overridden by the max_depth option on individual unserialize() calls.
+; A value of 0 disables the depth limit.
+;unserialize_max_depth = 4096
+
 ; When floats & doubles are serialized, store serialize_precision significant
 ; digits after the floating point. The default value ensures that when floats
 ; are decoded with unserialize, the data will remain the same.
@@ -309,16 +306,16 @@ serialize_precision = -1
 ; http://php.net/open-basedir
 ;open_basedir =
 
-; This directive allows you to disable certain functions for security reasons.
+; This directive allows you to disable certain functions.
 ; It receives a comma-delimited list of function names.
 ; http://php.net/disable-functions
 {% if php_disable_functions is defined and php_disable_functions != [] %}
 disable_functions = {% for func in php_disable_functions %}{{ func }}{% if not loop.last %},{% endif %}{% endfor %}
 {% else %}
-disable_functions =
+disable_functions = pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_get_handler,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,pcntl_async_signals,pcntl_unshare
 {% endif %}
 
-; This directive allows you to disable certain classes for security reasons.
+; This directive allows you to disable certain classes.
 ; It receives a comma-delimited list of class names.
 ; http://php.net/disable-classes
 disable_classes =
@@ -368,6 +365,12 @@ zend.enable_gc = On
 ; Default: ""
 ;zend.script_encoding =
 
+; Allows to include or exclude arguments from stack traces generated for exceptions.
+; In production, it is recommended to turn this setting on to prohibit the output 
+; of sensitive information in stack traces
+; Default: Off
+zend.exception_ignore_args = On
+
 ;;;;;;;;;;;;;;;;;
 ; Miscellaneous ;
 ;;;;;;;;;;;;;;;;;
@@ -386,7 +389,7 @@ expose_php = Off
 ; Maximum execution time of each script, in seconds
 ; http://php.net/max-execution-time
 ; Note: This directive is hardcoded to 0 for the CLI SAPI
-max_execution_time = {{ php_max_execution_time }}
+max_execution_time = {{ php_max_execution_time | default('30') }}
 
 ; Maximum amount of time each script may spend parsing request data. It's a good
 ; idea to limit this time on productions servers in order to eliminate unexpectedly
@@ -396,18 +399,26 @@ max_execution_time = {{ php_max_execution_time }}
 ; Development Value: 60 (60 seconds)
 ; Production Value: 60 (60 seconds)
 ; http://php.net/max-input-time
-max_input_time = {{ php_max_input_time }}
+max_input_time = {{ php_max_input_time | default('60') }}
 
 ; Maximum input variable nesting level
 ; http://php.net/max-input-nesting-level
+{% if php_max_input_nesting_level is defined %}
 max_input_nesting_level = {{ php_max_input_nesting_level }}
+{% else %}
+;max_input_nesting_level = 64
+{% endif %}
 
 ; How many GET/POST/COOKIE input variables may be accepted
+{% if php_max_input_vars is defined %}
 max_input_vars = {{ php_max_input_vars }}
+{% else %}
+;max_input_vars = 1000
+{% endif %}
 
-; Maximum amount of memory a script may consume (128MB)
+; Maximum amount of memory a script may consume
 ; http://php.net/memory-limit
-memory_limit = {{ php_memory_limit }}
+memory_limit = {{ php_memory_limit | default('128M') }}
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Error handling and logging ;
@@ -520,7 +531,7 @@ ignore_repeated_errors = Off
 ignore_repeated_source = Off
 
 ; If this parameter is set to Off, then memory leaks will not be shown (on
-; stdout or in the log). This has only effect in a debug compile, and if
+; stdout or in the log). This is only effective in a debug compile, and if
 ; error reporting includes E_WARNING in the allowed list
 ; http://php.net/report-memleaks
 report_memleaks = On
@@ -549,11 +560,8 @@ report_memleaks = On
 ; error message as HTML for easier reading. This directive controls whether
 ; the error message is formatted as HTML or not.
 ; Note: This directive is hardcoded to Off for the CLI SAPI
-; Default Value: On
-; Development Value: On
-; Production value: On
 ; http://php.net/html-errors
-html_errors = On
+;html_errors = On
 
 ; If html_errors is set to On *and* docref_root is not empty, then PHP
 ; produces clickable error messages that direct to a page describing the error
@@ -604,9 +612,11 @@ html_errors = On
 ; control characters. If your logger accepts everything, then no filtering
 ; is needed at all.
 ; Allowed values are:
-;   ascii (only base ASCII characters)
-;   no_ctrl (all characters except control characters)
+;   ascii (all printable ASCII characters and NL)
+;   no-ctrl (all characters except control characters)
 ;   all (all characters)
+;   raw (like "all", but messages are not split at newlines)
+; http://php.net/syslog.filter
 ;syslog.filter = ascii
 
 ;windows.show_crt_warning
@@ -676,7 +686,7 @@ register_argc_argv = Off
 ; first used (Just In Time) instead of when the script starts. If these
 ; variables are not used within a script, having this directive on will result
 ; in a performance gain. The PHP directive register_argc_argv must be disabled
-; for this directive to have any affect.
+; for this directive to have any effect.
 ; http://php.net/auto-globals-jit
 auto_globals_jit = On
 
@@ -693,7 +703,7 @@ auto_globals_jit = On
 ; Its value may be 0 to disable the limit. It is ignored if POST data reading
 ; is disabled through enable_post_data_reading.
 ; http://php.net/post-max-size
-post_max_size = {{ php_post_max_size }}
+post_max_size = {{ php_post_max_size | default('8M') }}
 
 ; Automatically add files before PHP document.
 ; http://php.net/auto-prepend-file
@@ -845,10 +855,10 @@ file_uploads = On
 
 ; Maximum allowed size for uploaded files.
 ; http://php.net/upload-max-filesize
-upload_max_filesize = {{ php_upload_max_filesize }}
+upload_max_filesize = {{ php_upload_max_filesize | default('2M') }}
 
 ; Maximum number of files that can be uploaded via a single request
-max_file_uploads = {{ php_max_file_uploads }}
+max_file_uploads = {{ php_max_file_uploads | default('20') }}
 
 ;;;;;;;;;;;;;;;;;;
 ; Fopen wrappers ;
@@ -860,7 +870,7 @@ allow_url_fopen = On
 
 ; Whether to allow include/require to open URLs (like http:// or ftp://) as files.
 ; http://php.net/allow-url-include
-allow_url_include = {{ php_allow_url_include }}
+allow_url_include = {% if php_allow_url_include is defined and php_allow_url_include %}On{% else %}Off{% endif %}
 
 ; Define the anonymous ftp password (your email address). PHP's default setting
 ; for this is empty.
@@ -914,13 +924,14 @@ default_socket_timeout = 60
 ;
 ;extension=bz2
 ;extension=curl
+;extension=ffi
+;extension=ftp
 ;extension=fileinfo
 ;extension=gd2
 ;extension=gettext
 ;extension=gmp
 ;extension=intl
 ;extension=imap
-;extension=interbase
 ;extension=ldap
 ;extension=mbstring
 ;extension=exif      ; Must be after mbstring as it depends on it
@@ -960,7 +971,11 @@ cli_server.color = On
 [Date]
 ; Defines the default timezone used by the date functions
 ; http://php.net/date.timezone
-date.timezone = {{ php_date_timezone | default('Europe/London') }}
+{% if php_date_timezone is defined %}
+date.timezone = {{ php_date_timezone }}
+{% else %}
+;date.timezone =
+{% endif %}
 
 ; http://php.net/date.default-latitude
 ;date.default_latitude = 31.7667
@@ -1015,7 +1030,18 @@ date.timezone = {{ php_date_timezone | default('Europe/London') }}
 ;intl.use_exceptions = 0
 
 [sqlite3]
+; Directory pointing to SQLite3 extensions
+; http://php.net/sqlite3.extension-dir
 ;sqlite3.extension_dir =
+
+; SQLite defensive mode flag (only available from SQLite 3.26+)
+; When the defensive flag is enabled, language features that allow ordinary
+; SQL to deliberately corrupt the database file are disabled. This forbids
+; writing directly to the schema, shadow tables (eg. FTS data tables), or
+; the sqlite_dbpage virtual table.
+; https://www.sqlite.org/c3ref/c_dbconfig_defensive.html
+; (for older SQLite versions, this flag has no use)
+;sqlite3.defensive = 1
 
 [Pcre]
 ; PCRE library backtracking limit.
@@ -1124,37 +1150,6 @@ odbc.defaultlrl = 4096
 ; http://php.net/odbc.defaultbinmode
 odbc.defaultbinmode = 1
 
-[Interbase]
-; Allow or prevent persistent links.
-ibase.allow_persistent = 1
-
-; Maximum number of persistent links.  -1 means no limit.
-ibase.max_persistent = -1
-
-; Maximum number of links (persistent + non-persistent).  -1 means no limit.
-ibase.max_links = -1
-
-; Default database name for ibase_connect().
-;ibase.default_db =
-
-; Default username for ibase_connect().
-;ibase.default_user =
-
-; Default password for ibase_connect().
-;ibase.default_password =
-
-; Default charset for ibase_connect().
-;ibase.default_charset =
-
-; Default timestamp format.
-ibase.timestampformat = "%Y-%m-%d %H:%M:%S"
-
-; Default date format.
-ibase.dateformat = "%Y-%m-%d"
-
-; Default time format.
-ibase.timeformat = "%H:%M:%S"
-
 [MySQLi]
 
 ; Maximum number of persistent links.  -1 means no limit.
@@ -1163,7 +1158,10 @@ mysqli.max_persistent = -1
 
 ; Allow accessing, from PHP's perspective, local files with LOAD DATA statements
 ; http://php.net/mysqli.allow_local_infile
-mysqli.allow_local_infile = {{ php_allow_local_infile | default('Off') }}
+{% if php_allow_local_infile is defined %}
+mysqli.allow_local_infile = {% if php_allow_local_infile %}On{% else %}Off{% endif %}
+{% endif %}
+;mysqli.allow_local_infile = On
 
 ; Allow or prevent persistent links.
 ; http://php.net/mysqli.allow-persistent
@@ -1185,11 +1183,11 @@ mysqli.default_port = 3306
 ; http://php.net/mysqli.default-socket
 mysqli.default_socket =
 
-; Default host for mysql_connect() (doesn't apply in safe mode).
+; Default host for mysqli_connect() (doesn't apply in safe mode).
 ; http://php.net/mysqli.default-host
 mysqli.default_host =
 
-; Default user for mysql_connect() (doesn't apply in safe mode).
+; Default user for mysqli_connect() (doesn't apply in safe mode).
 ; http://php.net/mysqli.default-user
 mysqli.default_user =
 
@@ -1360,8 +1358,11 @@ session.save_handler = files
 ; where MODE is the octal representation of the mode. Note that this
 ; does not overwrite the process's umask.
 ; http://php.net/session.save-path
-;session.save_path = "/var/lib/php/sessions"
+{% if php_session_save_path is defined %}
 session.save_path = "{{ php_session_save_path }}"
+{% else %}
+;session.save_path = "/var/lib/php/sessions"
+{% endif %}
 
 ; Whether to use strict session mode.
 ; Strict session mode does not accept an uninitialized session ID, and
@@ -1412,7 +1413,8 @@ session.cookie_domain =
 session.cookie_httponly =
 
 ; Add SameSite attribute to cookie to help mitigate Cross-Site Request Forgery (CSRF/XSRF)
-; Current valid values are "Lax" or "Strict"
+; Current valid values are "Strict", "Lax" or "None". When using "None",
+; make sure to include the quotes, as `none` is interpreted like `false` in ini files.
 ; https://tools.ietf.org/html/draft-west-first-party-cookies-07
 session.cookie_samesite =
 
@@ -1420,27 +1422,19 @@ session.cookie_samesite =
 ; http://php.net/session.serialize-handler
 session.serialize_handler = php
 
-; Defines the probability that the 'garbage collection' process is started
-; on every session initialization. The probability is calculated by using
-; gc_probability/gc_divisor. Where session.gc_probability is the numerator
-; and gc_divisor is the denominator in the equation. Setting this value to 1
-; when the session.gc_divisor value is 100 will give you approximately a 1% chance
-; the gc will run on any given request.
+; Defines the probability that the 'garbage collection' process is started on every
+; session initialization. The probability is calculated by using gc_probability/gc_divisor,
+; e.g. 1/100 means there is a 1% chance that the GC process starts on each request.
 ; Default Value: 1
 ; Development Value: 1
 ; Production Value: 1
 ; http://php.net/session.gc-probability
-; https://www.php.net/manual/en/function.session-save-path.php
-session.gc_probability = 1
+session.gc_probability = 0
 
 ; Defines the probability that the 'garbage collection' process is started on every
-; session initialization. The probability is calculated by using the following equation:
-; gc_probability/gc_divisor. Where session.gc_probability is the numerator and
-; session.gc_divisor is the denominator in the equation. Setting this value to 100
-; when the session.gc_probability value is 1 will give you approximately a 1% chance
-; the gc will run on any given request. Increasing this value to 1000 will give you
-; a 0.1% chance the gc will run on any given request. For high volume production servers,
-; this is a more efficient approach.
+; session initialization. The probability is calculated by using gc_probability/gc_divisor,
+; e.g. 1/100 means there is a 1% chance that the GC process starts on each request.
+; For high volume production servers, using a value of 1000 is a more efficient approach.
 ; Default Value: 100
 ; Development Value: 1000
 ; Production Value: 1000
@@ -1456,8 +1450,8 @@ session.gc_maxlifetime = 1440
 ;       (see session.save_path above), then garbage collection does *not*
 ;       happen automatically.  You will need to do your own garbage
 ;       collection through a shell script, cron entry, or some other method.
-;       For example, the following script would is the equivalent of
-;       setting session.gc_maxlifetime to 1440 (1440 seconds = 24 minutes):
+;       For example, the following script is the equivalent of setting
+;       session.gc_maxlifetime to 1440 (1440 seconds = 24 minutes):
 ;          find /path/to/sessions -cmin +24 -type f | xargs rm
 
 ; Check HTTP Referer to invalidate externally stored URLs containing ids.
@@ -1661,7 +1655,7 @@ zend.assertions = -1
 ; http input encoding.
 ; mbstring.encoding_translation = On is needed to use this setting.
 ; If empty, default_charset or input_encoding or mbstring.input is used.
-; The precedence is: default_charset < input_encoding < mbsting.http_input
+; The precedence is: default_charset < input_encoding < mbstring.http_input
 ; http://php.net/mbstring.http-input
 ;mbstring.http_input =
 
@@ -1702,7 +1696,7 @@ zend.assertions = -1
 ; 2: Overload str*() functions
 ; 4: Overload ereg*() functions
 ; http://php.net/mbstring.func-overload
-mbstring.func_overload = 0
+;mbstring.func_overload = 0
 
 ; enable strict encoding detection.
 ; Default: Off
@@ -1712,6 +1706,16 @@ mbstring.func_overload = 0
 ; is activated.
 ; Default: mbstring.http_output_conv_mimetype=^(text/|application/xhtml\+xml)
 ;mbstring.http_output_conv_mimetype=
+
+; This directive specifies maximum stack depth for mbstring regular expressions. It is similar
+; to the pcre.recursion_limit for PCRE.
+; Default: 100000
+;mbstring.regex_stack_limit=100000
+
+; This directive specifies maximum retry count for mbstring regular expressions. It is similar
+; to the pcre.backtrack_limit for PCRE.
+; Default: 1000000
+;mbstring.regex_retry_limit=1000000
 
 [gd]
 ; Tell the jpeg decode to ignore warnings and try to create
@@ -1784,25 +1788,37 @@ ldap.max_links = -1
 ;dba.default_handler=
 
 [opcache]
-; See these threads for security issues:
-; https://bugs.php.net/bug.php?id=69090
-; https://bugs.php.net/bug.php?id=67481
-
 ; Determines if Zend OPCache is enabled
-opcache.enable = {{ php_opcache_enable }}
+{% if php_opcache_enable is defined %}
+opcache.enable = {% if php_opcache_enable %}1{% else %}0{% endif %}
+{% else %}
+;opcache.enable=1
+{% endif %}
 
 ; Determines if Zend OPCache is enabled for the CLI version of PHP
 ;opcache.enable_cli=0
 
 ; The OPcache shared memory storage size.
+{% if php_opcache_memory_consumption is defined %}
 opcache.memory_consumption = {{ php_opcache_memory_consumption }}
+{% else %}
+;opcache.memory_consumption=128
+{% endif %}
 
 ; The amount of memory for interned strings in Mbytes.
+{% if php_opcache_interned_strings_buffer is defined %}
 opcache.interned_strings_buffer = {{ php_opcache_interned_strings_buffer }}
+{% else %}
+;opcache.interned_strings_buffer=8
+{% endif %}
 
 ; The maximum number of keys (scripts) in the OPcache hash table.
 ; Only numbers between 200 and 1000000 are allowed.
+{% if php_opcache_max_accelerated_files is defined %}
 opcache.max_accelerated_files = {{ php_opcache_max_accelerated_files }}
+{% else %}
+;opcache.max_accelerated_files=10000
+{% endif %}
 
 ; The maximum percentage of "wasted" memory until a restart is scheduled.
 ;opcache.max_wasted_percentage=5
@@ -1811,16 +1827,28 @@ opcache.max_accelerated_files = {{ php_opcache_max_accelerated_files }}
 ; directory to the script key, thus eliminating possible collisions between
 ; files with the same name (basename). Disabling the directive improves
 ; performance, but may break existing applications.
-opcache.use_cwd = {{ php_opcache_use_cwd }} 
+{% if php_opcache_use_cwd is defined %}
+opcache.use_cwd = {% if php_opcache_use_cwd %}1{% else %}0{% endif %}
+{% else %}
+;opcache.use_cwd=1
+{% endif %}
 
 ; When disabled, you must reset the OPcache manually or restart the
 ; webserver for changes to the filesystem to take effect.
+{% if php_opcache_validate_timestamps is defined %}
 opcache.validate_timestamps = {{ php_opcache_validate_timestamps }}
+{% else %}
+;opcache.validate_timestamps=1
+{% endif %}
 
 ; How often (in seconds) to check file timestamps for changes to the shared
 ; memory storage allocation. ("1" means validate once per second, but only
 ; once per request. "0" means always validate)
+{% if php_opcache_revalidate_freq is defined %}
 opcache.revalidate_freq = {{ php_opcache_revalidate_freq }}
+{% else %}
+;opcache.revalidate_freq=2
+{% endif %}
 
 ; Enables or disables file search in include_path optimization
 ;opcache.revalidate_path=0
@@ -1884,6 +1912,10 @@ opcache.revalidate_freq = {{ php_opcache_revalidate_freq }}
 ; errors.
 ;opcache.mmap_base=
 
+; Facilitates multiple OPcache instances per user (for Windows only). All PHP
+; processes with the same cache ID and user share an OPcache instance.
+;opcache.cache_id=
+
 ; Enables and sets the second level cache directory.
 ; It should improve performance when SHM memory is full, at server restart or
 ; SHM reset. The default "" disables file based caching.
@@ -1905,14 +1937,40 @@ opcache.revalidate_freq = {{ php_opcache_revalidate_freq }}
 ;opcache.huge_code_pages=1
 
 ; Validate cached file permissions.
-opcache.validate_permission = {{ php_opcache_validate_root }} 
+{% if php_opcache_validate_permission is defined %}
+opcache.validate_permission = {% if php_opcache_validate_permission %}1{% else %}0{% endif %}
+{% else %}
+;opcache.validate_permission=0
+{% endif %}
 
 ; Prevent name collisions in chroot'ed environment.
-opcache.validate_root = {{ php_opcache_max_accelerated_files }} 
+{% if php_opcache_validate_root is defined %}
+opcache.validate_root = {% if php_opcache_validate_root %}1{% else %}0{% endif %}
+{% else %}
+;opcache.validate_root=0
+{% endif %}
 
 ; If specified, it produces opcode dumps for debugging different stages of
 ; optimizations.
 ;opcache.opt_debug_level=0
+
+; Specifies a PHP script that is going to be compiled and executed at server
+; start-up.
+; http://php.net/opcache.preload
+;opcache.preload=
+
+; Preloading code as root is not allowed for security reasons. This directive
+; facilitates to let the preloading to be run as another user.
+; http://php.net/opcache.preload_user
+;opcache.preload_user=
+
+; Prevents caching files that are less than this number of seconds old. It
+; protects from caching of incompletely updated files. In case all file updates
+; on your site are atomic, you may increase performance by setting it to "0".
+;opcache.file_update_protection=2
+
+; Absolute path used to store shared lockfiles (for *nix only).
+;opcache.lockfile_path=/tmp
 
 [curl]
 ; A default value for the CURLOPT_CAINFO option. This is required to be an
@@ -1936,6 +1994,16 @@ opcache.validate_root = {{ php_opcache_max_accelerated_files }}
 ; this value may still be overridden on a per-stream basis via the "capath"
 ; SSL stream context option.
 ;openssl.capath=
+
+[ffi]
+; FFI API restriction. Possible values:
+; "preload" - enabled in CLI scripts and preloaded files (default)
+; "false"   - always disabled
+; "true"    - always enabled
+;ffi.enable=preload
+
+; List of headers files to preload, wildcard patterns allowed.
+;ffi.preload=
 
 ; Local Variables:
 ; tab-width: 4

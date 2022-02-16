@@ -1167,7 +1167,11 @@ mysqli.max_persistent = -1
 
 ; Allow accessing, from PHP's perspective, local files with LOAD DATA statements
 ; http://php.net/mysqli.allow_local_infile
-mysqli.allow_local_infile = {{ phpcli_allow_local_infile | default('Off') }}
+{% if phpcli_allow_local_infile is defined %}
+mysqli.allow_local_infile = {% if phpcli_allow_local_infile %}On{% else %}Off{% endif %}
+{% else %}
+mysqli.allow_local_infile = Off
+{% endif %}
 
 ; Allow or prevent persistent links.
 ; http://php.net/mysqli.allow-persistent
