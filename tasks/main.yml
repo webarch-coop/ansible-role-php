@@ -67,6 +67,16 @@
         update_cache: false
       notify: Restart php-fpm
 
+    - name: APCu enabled
+      command: phpenmod apcu
+      when: ( "apcu" in php_versioned_packages )
+      notify: Restart php-fpm
+
+    - name: APCu disabled
+      command: phpdismod apcu
+      when: ( "apcu" not in php_versioned_packages )
+      notify: Restart php-fpm
+
     - name: "PHP-FPM ini config /etc/php/{{ php_version }}/fpm/php.ini in place"
       template:
         src: "templates/php.ini.j2"
