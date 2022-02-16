@@ -2005,6 +2005,22 @@ opcache.validate_root = {% if php_opcache_validate_root %}1{% else %}0{% endif %
 ; List of headers files to preload, wildcard patterns allowed.
 ;ffi.preload=
 
+[apc]
+; https://www.php.net/manual/en/apcu.configuration.php
+apc.enabled = {% if "apcu" in php_versioned_packages %}1{% else %}0{% endif %}
+apc.shm_segments = 1
+apc.shm_size = {{ php_apc_shm_size | default('32M') }}
+apc.entries_hint = 4096
+apc.ttl = 0
+apc.gc_ttl = 3600
+apc.mmap_file_mask = 
+apc.slam_defense = 1
+apc.enable_cli = 1
+apc.use_request_time = 0
+apc.serializer = php
+apc.coredump_unmap = 0
+apc.preload_path = 
+
 ; Local Variables:
 ; tab-width: 4
 ; End:
