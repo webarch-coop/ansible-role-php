@@ -2008,6 +2008,7 @@ opcache.validate_root = {% if php_opcache_validate_root %}1{% else %}0{% endif %
 [apc]
 ; https://www.php.net/manual/en/apcu.configuration.php
 apc.enabled = {% if "apcu" in php_versioned_packages %}1{% else %}0{% endif %}
+
 apc.shm_segments = 1
 apc.shm_size = {{ php_apc_shm_size | default('32M') }}
 apc.entries_hint = 4096
