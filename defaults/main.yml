@@ -122,7 +122,7 @@ php_allow_url_include: false
 php_mysqli_allow_local_infile: false
 php_short_open_tag: false
 php_session_save_path: "${TMPDIR}"
-php_apc_shm_size: 128M
+php_apc_shm_size: 32M
 php_opcache_enable: true
 php_opcache_memory_consumption: 1024
 php_opcache_interned_strings_buffer: 8
