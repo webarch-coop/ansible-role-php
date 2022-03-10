@@ -111,6 +111,7 @@ php_disable_functions:
   - system_exec
 php_date_timezone: Europe/London
 php_max_execution_time: 600
+php_default_socket_timeout: "{{ php_max_execution_time }}"
 php_max_input_time: 600
 php_max_input_nesting_level: 512
 php_max_input_vars: 100000

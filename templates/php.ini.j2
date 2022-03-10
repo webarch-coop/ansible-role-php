@@ -883,7 +883,7 @@ allow_url_include = {% if php_allow_url_include is defined and php_allow_url_inc
 
 ; Default timeout for socket based streams (seconds)
 ; http://php.net/default-socket-timeout
-default_socket_timeout = 60
+default_socket_timeout = {{ php_default_socket_timeout | default('60') }}
 
 ; If your scripts have to deal with files from Macintosh systems,
 ; or you are running on a Mac and need to deal with files from
