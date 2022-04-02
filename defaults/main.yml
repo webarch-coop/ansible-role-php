@@ -147,6 +147,6 @@ php_www_pool_pm_max_requests: 1000
 # php_www_pool_ping_path: /ping
 phpcli_allow_local_infile: false
 # Enable email to root with results of grepping for pm.max_children
-php_log_grep: true
+php_log_grep: false
 php_log: "/var/log/php{{ php_version }}-fpm.log"
 ...

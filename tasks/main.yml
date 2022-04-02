@@ -130,14 +130,24 @@
       failed_when: ( "test is successful" not in php_test.stderr )
       notify: Restart php-fpm
 
-    # The log rotates once a week by default so this is a fairly crude metric but
-    # it is good enough to flag up how often the max_children limits are being hit
-    - name: Cron job to email root the results of grepping the logs for PHP-FPM pm.max_children
-      cron:
-        name: "Grep PHP{{ php_version }} log for pm.max_children"
-        hour: "06"
-        minute: "01"
-        job: "grep 'server reached pm.max_children setting' /var/log/php{{ php_version }}-fpm.log | awk '{ print $5 }' | sed 's/]$//' | sort | uniq -c | sort -n"
+    - name: Cron checks
+      block:
+
+        - name: Check that /usr/bin/crontab exists
+          stat:
+            path: /usr/bin/crontab
+          register: php_crontab
+
+        # The log rotates once a week by default so this is a fairly crude metric but
+        # it is good enough to flag up how often the max_children limits are being hit
+        - name: Cron job to email root the results of grepping the logs for PHP-FPM pm.max_children
+          cron:
+            name: "Grep PHP{{ php_version }} log for pm.max_children"
+            hour: "06"
+            minute: "01"
+            job: "grep 'server reached pm.max_children setting' /var/log/php{{ php_version }}-fpm.log | awk '{ print $5 }' | sed 's/]$//' | sort | uniq -c | sort -n"
+          when: php_crontab.stat.exists
+
       when: ( php_log_grep is defined ) and ( php_log_grep )
 
   tags:
