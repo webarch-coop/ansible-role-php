@@ -1,0 +1,34 @@
+---
+- name: Ansible local facts
+  block:
+
+    - name: Required packages present
+      ansible.builtin.apt:
+        pkg:
+          - jo
+        state: present
+
+    - name: Ansible facts.d directory present
+      ansible.builtin.file:
+        path: /etc/ansible/facts.d
+        recurse: true
+        state: directory
+        mode: 0700
+        owner: root
+        group: root
+
+    - name: Ansible phpquery local facts script present
+      ansible.builtin.template:
+        src: phpquery.fact.j2
+        dest: /etc/ansible/facts.d/phpquery.fact
+        mode: 0700
+        owner: root
+        group: root
+
+    - name: Re-read Ansible local facts
+      ansible.builtin.setup:
+        filter: ansible_local
+
+  tags:
+    - quota
+...

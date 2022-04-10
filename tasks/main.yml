@@ -30,6 +30,9 @@
         update_cache: true
       notify: Restart php-fpm
 
+    - name: Include local facts tasks
+      include_tasks: local_facts.yml
+
     - name: Which phpquery
       command: which phpquery
       check_mode: false
