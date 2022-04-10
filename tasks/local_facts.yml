@@ -24,10 +24,12 @@
         mode: 0700
         owner: root
         group: root
+      register: php_phpquery_facts
 
     - name: Re-read Ansible local facts
       ansible.builtin.setup:
         filter: ansible_local
+      when: php_phpquery_facts.changed
 
   tags:
     - quota
