@@ -15,7 +15,7 @@ if [[ -f "${PHPQUERY}" ]]; then
             for s in ${SAPI}; do 
               MODULES=$("${PHPQUERY}" -v ${v} -s ${s} -M | sort)
               echo sapi[${s}]=$(
-                jo modules=$(jo -a ${MODULES} )
+                jo state=present modules=$(jo -a ${MODULES} )
               )
             done
           )
