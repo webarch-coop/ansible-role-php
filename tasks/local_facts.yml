@@ -1,5 +1,5 @@
 ---
-- name: Ansible local facts
+- name: Ansible phpquery local facts
   block:
 
     - name: Required packages present
