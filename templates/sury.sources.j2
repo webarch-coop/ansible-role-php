@@ -3,7 +3,7 @@
 Types: deb
 URIs: https://packages.sury.org/php/
 Suites: {{ ansible_distribution_release }}
-Architectures: {{ ansible_facts['ansible_local']['phpquery'].arch }}
+Architectures: {{ ansible_facts.ansible_local.dpkg_arch.arch }}
 Components: main
 Signed-By: /usr/local/share/keyrings/sury-archive-keyring.gpg
 
