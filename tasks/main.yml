@@ -17,11 +17,15 @@
           - php_opcache_validate_permission | type_debug == "bool"
           - php_opcache_validate_root | type_debug == "bool"
 
-    - name: Check that the distro is Debian Bullseye, Buster or Stretch or Ubuntu Focal or Bionic
+    - name: Check that the distro is Debian Bookworm, Bullseye, Buster or Stretch or Ubuntu Jammy, Focal or Bionic
       assert:
         that:
           - ansible_distribution_release is defined
-          - ansible_distribution_release is regex("^bionic|bullseye|buster|focal|stretch$")
+          - ansible_distribution_release is regex("^stretch|buster|bullseye|bookworm|focal|bionic|jammy$")
+
+    - name: Include apt repo config for Sury PHP packages
+      include_tasks: sury.yml
+      when: php_sury
 
     - name: PHP packages present
       apt:
