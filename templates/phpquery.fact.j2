@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# {{ ansible_managed }}
+
+set -euo pipefail
+PHPQUERY="{{ php_phpquery }}"
+
+if [[ -f "${PHPQUERY}" ]]; then
+  VERSIONS=$("${PHPQUERY}" -V | sort -V)
+  jo state=present versions=$( 
+    jo $( 
+      for v in ${VERSIONS}; do
+        SAPI=$("${PHPQUERY}" -v ${v} -S | sort) 
+        echo ${v}=$(
+          jo $(
+            for s in ${SAPI}; do 
+              MODULES=$("${PHPQUERY}" -v ${v} -s ${s} -M | sort)
+              echo ${s}=$(
+                jo modules=$(jo -a ${MODULES} )
+              )
+            done
+          )
+        )
+      done
+    )
+  )
+else
+  jo state=absent
+fi
