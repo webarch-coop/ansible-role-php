@@ -1,0 +1,51 @@
+---
+- name: Configure the Sury PHP apt repo
+  block:
+
+    - name: Directory for local GPG key present
+      ansible.builtin.file:
+        path: /usr/local/share/keyrings
+        state: directory
+        mode: 0755
+        owner: root
+        group: root
+
+    - name: Sury GPG key present
+      get_url:
+        url: https://packages.sury.org/php/apt.gpg
+        dest: /root/sury.gpg
+        force: true
+        mode: 0600
+        owner: root
+        group: root
+      register: php_sury_gpg
+
+    - name: Sury GPG key in place
+      copy:
+        src: /root/sury.gpg
+        dest: /usr/local/share/keyrings/sury-archive-keyring.gpg
+        remote_src: true
+        mode: 0644
+        owner: root
+        group: root
+      when: php_sury_gpg.changed
+
+    - name: Sury repo apt sources present
+      template:
+        src: sury.sources.j2
+        dest: /etc/apt/sources.list.d/sury.sources
+        mode: 0644
+        owner: root
+        group: root
+
+  when: php_sury
+  tags:
+    - php
+
+# - name: Remove the the Sury PHP apt repo
+#   block:
+#
+#   when: not php_sury
+#   tags:
+#     - php
+...

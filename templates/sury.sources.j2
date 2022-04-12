@@ -1,0 +1,10 @@
+# {{ ansible_managed }}
+
+Types: deb
+URIs: https://packages.sury.org/php/
+Suites: {{ ansible_distribution_release }}
+Architectures: {{ ansible_facts['ansible_local']['phpquery'].arch }}
+Components: main
+Signed-By: /usr/local/share/keyrings/sury-archive-keyring.gpg
+
+# vim: ft=debsources
