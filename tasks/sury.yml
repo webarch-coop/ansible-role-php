@@ -34,7 +34,7 @@
         var: ansible_facts['ansible_local']['dpkg_arch']
 
     - debug:
-        var: ansible_facts['ansible_local']['dpkg_arch'].arch
+        var: ansible_facts.ansible_local.dpkg_arch.arch
 
     - name: Sury repo apt sources present
       template:
