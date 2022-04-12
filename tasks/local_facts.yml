@@ -33,7 +33,7 @@
 
     - name: Print Ansible phpquery dictionary
       debug:
-        msg: "{{ ansible_facts.local_facts.phpquery | to_nice_yaml }}"
+        msg: "{{ ansible_facts['ansible_local']['phpquery'] | to_nice_yaml }}"
         verbosity: 2
 
   tags:
