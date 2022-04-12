@@ -18,7 +18,7 @@
         group: root
 
     - name: Ansible dpkg architecture local fact script present
-     ansible.builtin.template:
+      ansible.builtin.template:
         src: dpkg_arch.fact.j2
         dest: /etc/ansible/facts.d/dpkg_arch.fact
         mode: 0700
