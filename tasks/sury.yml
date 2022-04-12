@@ -31,10 +31,10 @@
       when: php_sury_gpg.changed
 
     - debug:
-        var: ansible_facts['ansible_local']['phpquery']
+        var: ansible_facts['ansible_local']['dpkg_arch']
 
     - debug:
-        var: ansible_facts['ansible_local']['phpquery'].arch
+        var: ansible_facts['ansible_local']['dpkg_arch'].arch
 
     - name: Sury repo apt sources present
       template:
