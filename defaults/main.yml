@@ -19,28 +19,41 @@ php_versions:
   '8.0':
     state: present
     sapi:
+    sapi:
+      apache2:
+        state: absent
       cli:
+        state: present
         modules:
       fpm:
+        state: present
         modules:
+      phpdbg:
+        state: absent
   '7.4':
     state: present
     sapi:
+    sapi:
+      apache2:
+        state: absent
       cli:
+        state: present
         modules:
       fpm:
+        state: present
         modules:
-  '7.3'
+      phpdbg:
+        state: absent
+  '7.3':
     state: absent 
-  '7.2'
+  '7.2':
     state: absent 
-  '7.1'
+  '7.1':
     state: absent 
-  '7.0'
+  '7.0':
     state: absent 
-  '5.6'
+  '5.6';
     state: absent 
-
 php_packages:
   - php-fpm
   - php-curl
