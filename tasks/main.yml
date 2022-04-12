@@ -29,7 +29,8 @@
     - name: Include apt repo config for Sury PHP packages
       include_tasks: sury.yml
 
-    - fail:
+    - name: Debug fail
+      fail:
 
     - name: PHP packages present
       apt:
