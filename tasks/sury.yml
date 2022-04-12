@@ -30,6 +30,12 @@
         group: root
       when: php_sury_gpg.changed
 
+    - debug:
+        var: ansible_facts['ansible_local']['phpquery']
+
+    - debug:
+        var: ansible_facts['ansible_local']['phpquery'].arch
+
     - name: Sury repo apt sources present
       template:
         src: sury.sources.j2
