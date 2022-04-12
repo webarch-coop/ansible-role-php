@@ -23,13 +23,13 @@
           - ansible_distribution_release is defined
           - ansible_distribution_release is regex("^stretch|buster|bullseye|bookworm|focal|bionic|jammy$")
 
+    - name: Include local facts tasks
+      include_tasks: local_facts.yml
+
     - name: Include apt repo config for Sury PHP packages
       include_tasks: sury.yml
 
     - fail:
-
-    - name: Include local facts tasks
-      include_tasks: local_facts.yml
 
     - name: PHP packages present
       apt:
