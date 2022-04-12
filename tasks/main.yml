@@ -23,15 +23,15 @@
           - ansible_distribution_release is defined
           - ansible_distribution_release is regex("^bionic|bullseye|buster|focal|stretch$")
 
+    - name: Include local facts tasks
+      include_tasks: local_facts.yml
+
     - name: PHP packages present
       apt:
         pkg: "{{ php_packages }}"
         state: present
         update_cache: true
       notify: Restart php-fpm
-
-    - name: Include local facts tasks
-      include_tasks: local_facts.yml
 
     - name: Which phpquery
       command: which phpquery
