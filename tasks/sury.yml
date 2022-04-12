@@ -38,7 +38,7 @@
         mode: 0644
         owner: root
         group: root
-     register: php_sury_sources
+      register: php_sury_sources
 
     - name: Sury apt preferences in place
       template:
@@ -47,12 +47,12 @@
         mode: 0644
         owner: root
         group: root
-     register: php_sury_prefs
+      register: php_sury_prefs
 
     - name: Update apt cache
       apt:
         update_cache: true
-     when: ( php_sury_sources.changed ) or ( php_sury_prefs.changed )
+      when: ( php_sury_sources.changed ) or ( php_sury_prefs.changed )
 
   when: php_sury
   tags:
