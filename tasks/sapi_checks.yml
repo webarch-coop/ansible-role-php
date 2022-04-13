@@ -4,7 +4,7 @@
 
     - name: Debug
       debug:
-        var: ansible_local.phpquery.versions.'8.0'.sapis
+        var: ansible_local.phpquery.versions.8.0.sapis
 
     - name: "Set a variable for the existing SAPI array for PHP {{ version }}" 
       set_fact:
