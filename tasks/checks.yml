@@ -51,6 +51,26 @@
         var: php_proposed_versions
         verbosity: 2
 
+    - name: Generate an array of PHP versions to install
+      set_fact:
+        php_versions_install: "{{ php_proposed_versions | difference(php_existing_versions) }}"
+      when: ( php_proposed_versions | difference(php_existing_versions) ) != []
+
+    - name: Debug php_versions_install array
+      debug:
+        var: php_versions_install
+        verbosity: 2
+
+    - name: Generate an array of PHP versions to remove
+      set_fact:
+        php_versions_remove: "{{ php_existing_versions | difference(php_proposed_versions) }}"
+      when: ( php_existing_versions | difference(php_proposed_versions) ) != []
+
+    - name: Debug php_versions_remove array
+      debug:
+        var: php_versions_remove
+        verbosity: 2
+
     - name: Debug fail
       fail:
 
