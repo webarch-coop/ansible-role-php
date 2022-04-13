@@ -2,26 +2,18 @@
 - name: PHP packages absent
   block:
 
-    - name: PHP packages absent
+    - name: "PHP {{ version }} packages absent"
       apt:
         pkg: "php{{ version }}*"
         state: absent
         purge: true
         autoclean: true
         autoremove: true
-      loop: "{{ php_versions_remove }}"
-      loop_control:
-        loop_var: version
-        label: "{{ version }}"
 
-    - name: PHP config files absent
+    - name: "PHP {{ version }} config files absent"
       file:
         path: "/etc/php/{{ version }}/"
         state: absent
-      loop: "{{ php_versions_remove }}"
-      loop_control:
-        loop_var: version
-        label: "{{ version }}"
 
   tags:
     - php

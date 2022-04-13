@@ -13,7 +13,19 @@
 
     - name: Include package removal tasks
       include_tasks: absent.yml
+      loop: "{{ php_versions_remove }}"
+      loop_control:
+        loop_var: version
+        label: "{{ version }}"
       when: ( php_versions_remove is defined ) and ( php_versions_remove != [] )
+
+    - name: Include package install tasks
+      include_tasks: present.yml
+      loop: "{{ php_versions_install }}"
+      loop_control:
+        loop_var: version
+        label: "{{ version }}"
+      when: ( php_versions_install is defined ) and ( php_versions_install != [] )
 
     - name: Debug fail
       fail:

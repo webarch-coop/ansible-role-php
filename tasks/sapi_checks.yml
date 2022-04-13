@@ -7,26 +7,39 @@
         var: version
         verbosity: 2
 
-    - name: "Debug existing SAPIs for PHP {{ version }}"
-      debug:
-        var: ansible_local.phpquery.versions[version].sapis
-        verbosity: 3
-      when: ansible_local.phpquery.versions[version].sapis is defined
-
-    - name: "Set an array for the existing SAPIs for PHP {{ version }}" 
-      set_fact:
-        php_existing_sapis: "{{ php_existing_sapis | default([]) }} + [ '{{ existing_sapi.key }}' ]"
-      when: 
-        - ansible_local.phpquery.versions[version].sapis is defined
-        - existing_sapi.value.state == "present"
-      loop: "{{ ansible_local.phpquery.versions[version].sapis | dict2items }}"
+    - name: "Check that no SAPI is set to be present when PHP {{ version }} is set to be removed"
+      assert:
+        that:
+          - sapi.state == absent )
+      loop: "{{ php_versions[version].sapis }}"
       loop_control:
-        loop_var: existing_sapi
-        label: "{{ existing_sapi.key }}"
+        loop_var: sapi
+        label: 
+      when:
+        - php_versions[version].sapis is defined 
+        - php_versions[version].sapis.sapi is defined 
+        - php_versions[version].sapis.sapi.state is defined 
 
-    - name: "Debug existing SAPIs for PHP {{ version }}"
-      debug:
-        var: php_existing_sapis
+    # - name: "Debug existing SAPIs for PHP {{ version }}"
+    #   debug:
+    #     var: ansible_local.phpquery.versions[version].sapis
+    #     verbosity: 3
+    #   when: ansible_local.phpquery.versions[version].sapis is defined
+
+    # - name: "Set an array for the existing SAPIs for PHP {{ version }}" 
+    #   set_fact:
+    #     php_existing_sapis: "{{ php_existing_sapis | default([]) }} + [ '{{ existing_sapi.key }}' ]"
+    #   when: 
+    #     - ansible_local.phpquery.versions[version].sapis is defined
+    #     - existing_sapi.value.state == "present"
+    #   loop: "{{ ansible_local.phpquery.versions[version].sapis | dict2items }}"
+    #   loop_control:
+    #     loop_var: existing_sapi
+    #     label: "{{ existing_sapi.key }}"
+
+    # - name: "Debug existing SAPIs for PHP {{ version }}"
+    #   debug:
+    #     var: php_existing_sapis
 
     # - name: Generate an array of proposed PHP SAPIs 
     #   set_fact:

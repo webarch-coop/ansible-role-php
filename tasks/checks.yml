@@ -2,9 +2,6 @@
 - name: PHP checks
   block:
 
-    # TODO
-    # - Check that when a version SAPI is set to present the version is also set to present
-    # - Check that when a version is set to absent the SAPIs are also set to absent, if the state is set
     - name: Check that depreciated variables are not used
       assert:
         that:
@@ -63,6 +60,14 @@
       debug:
         var: php_versions_remove
         verbosity: 2
+
+    - name: Include SAPI checks for PHP proposed versions
+      include_tasks: sapi_checks.yml
+      loop: "{{ php_versions_remove }}"
+      loop_control:
+        loop_var: version
+        label: "{{ version }}"
+      when: ( php_versions_remove is defined ) and ( php_versions_remove != [] )
 
     # - name: Include SAPI checks for PHP proposed versions
     #   include_tasks: sapi_checks.yml
