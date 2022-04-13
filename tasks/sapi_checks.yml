@@ -33,7 +33,7 @@
 
     - name: Debug proposed PHP SAPIs
       debug:
-        ver: php_proposed_sapis
+        var: php_proposed_sapis
       when: php_proposed_sapis is defined
 
   tags:
