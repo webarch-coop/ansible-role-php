@@ -13,17 +13,18 @@
         verbosity: 3
       when: ansible_local.phpquery.versions[version].sapis is defined
 
-    - name: "Set a variable for the existing SAPI dictionary for PHP {{ version }}" 
+    - name: "Set an array for the existing SAPIs for PHP {{ version }}" 
       set_fact:
-        sapis: "{{ ansible_local.phpquery.versions[version].sapis | dict2items }}"
-
-    - name: "Debug existing SAPIs for PHP {{ version }}"
-      debug:
-        var: existing_sapi.key
-      loop: "{{ sapis }}"
+        php_existing_sapis: "{{ php_existing_sapis | default([]) }} + [ '{{ existing_sapi.key }}' ]"
+      when: existing_sapi.value.state == "present"
+      loop: "{{ ansible_local.phpquery.versions[version].sapis | dict2items }}"
       loop_control:
         loop_var: existing_sapi
         label: "{{ existing_sapi.key }}"
+
+    - name: "Debug existing SAPIs for PHP {{ version }}"
+      debug:
+        var: php_existing_sapis
 
     # - name: Generate an array of proposed PHP SAPIs 
     #   set_fact:
