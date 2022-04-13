@@ -71,6 +71,14 @@
         var: php_versions_remove
         verbosity: 2
 
+    - name: Include SAPI checks for PHP versions to install
+      include_tasks: sapi_checks.yml
+      loop: "{{ php_versions_install }}"
+      loop_control:
+        loop_var: version
+        label: "{{ version }}"
+      when: ( php_versions_install is defined ) and ( php_versions_install != [] )
+
     - name: Debug fail
       fail:
 

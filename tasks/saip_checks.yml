@@ -1,0 +1,23 @@
+---
+- name: PHP SAPI checks
+  block:
+
+    - name: Generate an array of existing PHP SAPIs 
+      set_fact:
+        php_existing_sapis: "{{ php_existing_sapis | default([]) }} + [ '{{ existing_sapi.key }}' ]"
+      when:
+        - ansible_local.phpquery.versions[version] is defined
+        - existing_sapi.value.state == "present"
+      loop: "{{ ansible_local.phpquery.versions[version] | dict2items }}"
+      loop_control:
+        loop_var: existing_sapi
+        label: "{{ existing_sapi.key }}"
+
+    - name: Debug existing PHP SAPIs
+      debug:
+        ver: php_existing_sapis
+      when: php_existing_sapis is defined
+
+  tags:
+    - php
+...
