@@ -21,11 +21,11 @@
 
     - name: Include package install tasks
       include_tasks: present.yml
-      loop: "{{ php_versions_install }}"
+      loop: "{{ php_versions_proposed }}"
       loop_control:
         loop_var: version
         label: "{{ version }}"
-      when: ( php_versions_install is defined ) and ( php_versions_install != [] )
+      when: ( php_versions_proposed is defined ) and ( php_versions_proposed != [] )
 
     - name: Debug fail
       fail:

@@ -25,36 +25,36 @@
 
     - name: Generate an array of existing PHP versions
       set_fact:
-        php_existing_versions: "{{ php_existing_versions | default([]) }} + [ '{{ existing_version.key }}' ]"
+        php_versions_existing: "{{ php_versions_existing | default([]) }} + [ '{{ existing_version.key }}' ]"
       when: existing_version.value.state == "present"
       loop: "{{ ansible_local.phpquery.versions | dict2items }}"
       loop_control:
         loop_var: existing_version
         label: "{{ existing_version.key }}"
 
-    - name: Debug php_existing_versions array
+    - name: Debug php_versions_existing array
       debug:
-        var: php_existing_versions
+        var: php_versions_existing
         verbosity: 2
 
     - name: Generate an array of proposed PHP versions
       set_fact:
-        php_proposed_versions: "{{ php_proposed_versions | default([]) }} + [ '{{ proposed_version.key }}' ]"
+        php_versions_proposed: "{{ php_versions_proposed | default([]) }} + [ '{{ proposed_version.key }}' ]"
       when: proposed_version.value.state == "present"
       loop: "{{ php_versions | dict2items }}"
       loop_control:
         loop_var: proposed_version
         label: "{{ proposed_version.key }}"
 
-    - name: Debug php_proposed_versions array
+    - name: Debug php_versions_proposed array
       debug:
-        var: php_proposed_versions
+        var: php_versions_proposed
         verbosity: 2
 
     - name: Generate an array of PHP versions to remove
       set_fact:
-        php_versions_remove: "{{ php_existing_versions | difference(php_proposed_versions) }}"
-      when: ( php_existing_versions | difference(php_proposed_versions) ) != []
+        php_versions_remove: "{{ php_versions_existing | difference(php_versions_proposed) }}"
+      when: ( php_versions_existing | difference(php_versions_proposed) ) != []
 
     - name: Debug php_versions_remove array
       debug:
@@ -71,11 +71,11 @@
 
     # - name: Include SAPI checks for PHP proposed versions
     #   include_tasks: sapi_checks.yml
-    #   loop: "{{ php_proposed_versions }}"
+    #   loop: "{{ php_versions_proposed }}"
     #   loop_control:
     #     loop_var: version
     #     label: "{{ version }}"
-    #   when: ( php_proposed_versions is defined ) and ( php_proposed_versions != [] )
+    #   when: ( php_versions_proposed is defined ) and ( php_versions_proposed != [] )
 
     # - name: Debug fail
     #   fail:
