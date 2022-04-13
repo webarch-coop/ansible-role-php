@@ -6,6 +6,7 @@
       include_tasks: local_facts.yml
 
     - name: Include check tasks
+      include_tasks: checks.yml
 
     - name: Include apt repo config for Sury PHP packages
       include_tasks: sury.yml
