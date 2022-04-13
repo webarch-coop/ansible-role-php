@@ -6,10 +6,11 @@
       debug:
         var: sapi
 
-    - name: "Check that SAPI {{ sapi }} is not set to be present when PHP {{ version }} is set to be removed"
+    - name: "Check that SAPI {{ sapi.key }} is not set to be present when PHP {{ version }} is set to be removed"
       assert:
         that:
-          - sapi.value.state != "present"
+          - sapi.value.state == "absent"
+        fail_msg: "SAPI {{ sapi.key }} is not set to be absent for PHP {{ version }}, yet PHP {{ version }} is set to be removed."
     #   loop:
     #     - apache2
     #     - cli
