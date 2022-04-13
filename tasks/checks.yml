@@ -23,15 +23,41 @@
           - ansible_distribution_release is defined
           - ansible_distribution_release is regex("^stretch|buster|bullseye|bookworm|focal|bionic|jammy$")
 
+    - name: Generate an array of existing PHP versions
+      set_fact:
+        php_existing_versions: "{{ php_existing_versions | default([]) + [ '{{ existing_version.key }}' ] }}"
+      loop: "{{ ansible_local.phpquery.versions | dict2items }}"
+      loop_control:
+        loop_var: existing_version
+        label: "{{ existing_version.key }}"
+
+    - name: Debug php_existing_versions array
+      debug:
+        var: php_existing_versions
+        verbosity: 2
+
+    - name: Generate an array of proposed PHP versions
+      set_fact:
+        php_proposed_versions: "{{ php_proposed_versions | default([]) + [ '{{ proposed_version.key }}' ] }}"
+      loop: "{{ php_versions | dict2items }}"
+      loop_control:
+        loop_var: proposed_version
+        label: "{{ proposed_version.key }}"
+
+    - name: Debug php_proposed_versions array
+      debug:
+        var: php_proposed_versions
+        verbosity: 2
+
+    - name: Debug fail
+      fail:
+
     - name: Include version checks
       include_tasks: version_checks.yml 
       loop: "{{ php_versions | dict2items }}"
       loop_control:
         loop_var: proposed_version
         label: "{{ proposed_version.key }}"
-
-    - name: Debug fail
-      fail:
 
     - name: Set an array for the PHP packages with version numbers in their names
       set_fact:
