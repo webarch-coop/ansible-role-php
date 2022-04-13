@@ -11,9 +11,36 @@ php_versions:
       cli:
         state: present
       fpm:
-        state: absent
+        state: present
       phpdbg:
         state: absent
+    packages_absent:
+      - libapache2-mod-php8.1
+      - php8.1-phpdbg
+    packages_present:
+      - php8.1-apcu
+      - php8.1-apcu-bc
+      - php8.1-bcmath
+      - php8.1-bz2
+      - php8.1-cli
+      - php8.1-common
+      - php8.1-curl
+      - php8.1-fpm
+      - php8.1-gd
+      - php8.1-geoip
+      - php8.1-imap
+      - php8.1-intl
+      - php8.1-json
+      - php8.1-ldap
+      - php8.1-mbstring
+      - php8.1-opcache
+      - php8.1-readline
+      - php8.1-sqlite3
+      - php8.1-uploadprogress
+      - php8.1-xml
+      - php8.1-xmlrpc
+      - php8.1-xsl
+      - php8.1-zip
   '8.0':
     state: present
     sapis:
@@ -25,6 +52,33 @@ php_versions:
         state: present
       phpdbg:
         state: absent
+    packages_absent:
+      - libapache2-mod-php8.0
+      - php8.0-phpdbg
+    packages_present:
+      - php8.0-apcu
+      - php8.0-apcu-bc
+      - php8.0-bcmath
+      - php8.0-bz2
+      - php8.0-cli
+      - php8.0-common
+      - php8.0-curl
+      - php8.0-fpm
+      - php8.0-gd
+      - php8.0-geoip
+      - php8.0-imap
+      - php8.0-intl
+      - php8.0-json
+      - php8.0-ldap
+      - php8.0-mbstring
+      - php8.0-opcache
+      - php8.0-readline
+      - php8.0-sqlite3
+      - php8.0-uploadprogress
+      - php8.0-xml
+      - php8.0-xmlrpc
+      - php8.0-xsl
+      - php8.0-zip
   '7.4':
     state: present
     sapis:
@@ -36,6 +90,33 @@ php_versions:
         state: present
       phpdbg:
         state: absent
+    packages_absent:
+      - libapache2-mod-php7.4
+      - php7.4-phpdbg
+    packages_present:
+      - php7.4-apcu
+      - php7.4-apcu-bc
+      - php7.4-bcmath
+      - php7.4-bz2
+      - php7.4-cli
+      - php7.4-common
+      - php7.4-curl
+      - php7.4-fpm
+      - php7.4-gd
+      - php7.4-geoip
+      - php7.4-imap
+      - php7.4-intl
+      - php7.4-json
+      - php7.4-ldap
+      - php7.4-mbstring
+      - php7.4-opcache
+      - php7.4-readline
+      - php7.4-sqlite3
+      - php7.4-uploadprogress
+      - php7.4-xml
+      - php7.4-xmlrpc
+      - php7.4-xsl
+      - php7.4-zip
   '7.3':
     state: absent
   '7.2':
@@ -73,7 +154,7 @@ php_versioned_packages:
   - exif
   - fileinfo
   - gd
-  - geoip
+  # - geoip
   - iconv
   - imagick
   - imap
