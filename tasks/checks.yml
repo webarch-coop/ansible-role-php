@@ -69,6 +69,28 @@
         label: "{{ version }}"
       when: ( php_versions_remove is defined ) and ( php_versions_remove != [] )
 
+    - name: Generate an array of absent PHP versions
+      set_fact:
+        php_versions_absent: "{{ php_versions_absent | default([]) }} + [ '{{ absent_version.key }}' ]"
+      when: absent_version.value.state == "absent"
+      loop: "{{ php_versions | dict2items }}"
+      loop_control:
+        loop_var: absent_version
+        label: "{{ absent_version.key }}"
+
+    - name: Debug php_versions_absent array
+      debug:
+        var: php_versions_absent
+        verbosity: 2
+
+    - name: Include SAPI checks for PHP versions due to be absentd
+      include_tasks: sapi_checks.yml
+      loop: "{{ php_versions_absent }}"
+      loop_control:
+        loop_var: version
+        label: "{{ version }}"
+      when: ( php_versions_absent is defined ) and ( php_versions_absent != [] )
+
     # - name: Include SAPI checks for PHP proposed versions
     #   include_tasks: sapi_checks.yml
     #   loop: "{{ php_versions_proposed }}"
