@@ -2,9 +2,10 @@
 - name: Check SAPI state
   block:
 
-    - name: Debug
+    - name: "Debug PHP {{ version }} SAPI {{ sapi.key }} state"
       debug:
-        var: sapi
+        var: sapi.value.state
+        verbosity: 2
 
     - name: "Check that SAPI {{ sapi.key }} is not set to be present when PHP {{ version }} is set to be removed"
       assert:
