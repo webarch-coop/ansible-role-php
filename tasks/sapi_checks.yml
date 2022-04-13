@@ -12,7 +12,7 @@
 
     - name: "Set a variable for the existing SAPI array for PHP {{ version }}" 
       set_fact:
-        sapis: "{{ ansible_local.phpquery.versions[ ~ version ~ ].sapis }}"
+        sapis: "{{ ansible_local.phpquery.versions[ '' ~ version ].sapis }}"
 
     - name: Debug sapis
       debug:
