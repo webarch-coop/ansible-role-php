@@ -4,14 +4,14 @@ php_dpkg: /usr/bin/dpkg
 php_phpquery: /usr/sbin/phpquery
 php_versions:
   '8.1':
-    state: absent
+    state: present
     sapis:
       apache2:
         state: absent
       cli:
         state: present
       fpm:
-        state: present
+        state: absent
       phpdbg:
         state: absent
   '8.0':

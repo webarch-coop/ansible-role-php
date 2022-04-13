@@ -2,6 +2,9 @@
 - name: PHP checks
   block:
 
+    # TODO
+    # - Check that when a version SAPI is set to present the version is also set to present
+    # - Check that when a version is set to absent the SAPIs are also set to absent, if the state is set
     - name: Check that depreciated variables are not used
       assert:
         that:
