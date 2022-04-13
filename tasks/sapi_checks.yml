@@ -2,39 +2,42 @@
 - name: PHP SAPI checks
   block:
 
-    - name: Debug version
+    - name: Debug PHP version
       debug:
         var: version
+        verbosity: 2
 
-    - name: Debug
+    - name: "Debug existing SAPIs for PHP {{ version }}"
       debug:
         var: ansible_local.phpquery.versions[version].sapis
+        verbosity: 3
+      when: ansible_local.phpquery.versions[version].sapis is defined
 
-    - name: "Set a variable for the existing SAPIs for PHP {{ version }}" 
+    - name: "Set a variable for the existing SAPI dictionary for PHP {{ version }}" 
       set_fact:
         sapis: "{{ ansible_local.phpquery.versions[version].sapis | dict2items }}"
 
-    - name: Debug sapis
+    - name: "Debug existing SAPIs for PHP {{ version }}"
       debug:
-        var: proposed_sapi
+        var: existing_sapi.key
       loop: "{{ sapis }}"
       loop_control:
         loop_var: existing_sapi
         label: "{{ existing_sapi.key }}"
 
-    - name: Generate an array of proposed PHP SAPIs 
-      set_fact:
-        php_proposed_sapis: "{{ php_proposed_sapis | default([]) }} + [ '{{ proposed_sapi.key }}' ]"
-      when: ( proposed_sapi.value.state is defined ) and ( proposed_sapi.value.state == "present" )
-      loop: "{{ sapis }}"
-      loop_control:
-        loop_var: proposed_sapi
-        label: "{{ proposed_sapi.key }}"
+    # - name: Generate an array of proposed PHP SAPIs 
+    #   set_fact:
+    #     php_proposed_sapis: "{{ php_proposed_sapis | default([]) }} + [ '{{ proposed_sapi.key }}' ]"
+    #   when: ( proposed_sapi.value.state is defined ) and ( proposed_sapi.value.state == "present" )
+    #   loop: "{{ sapis }}"
+    #   loop_control:
+    #     loop_var: proposed_sapi
+    #     label: "{{ proposed_sapi.key }}"
 
-    - name: Debug proposed PHP SAPIs
-      debug:
-        var: php_proposed_sapis
-      when: php_proposed_sapis is defined
+    # - name: Debug proposed PHP SAPIs
+    #   debug:
+    #     var: php_proposed_sapis
+    #   when: php_proposed_sapis is defined
 
   tags:
     - php

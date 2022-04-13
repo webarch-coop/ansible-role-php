@@ -5,7 +5,7 @@ php_phpquery: /usr/sbin/phpquery
 php_versions:
   '8.1':
     state: present
-    sapi:
+    sapis:
       apache2:
         state: absent
       cli:
@@ -16,7 +16,7 @@ php_versions:
         state: absent
   '8.0':
     state: present
-    sapi:
+    sapis:
       apache2:
         state: absent
       cli:
@@ -27,7 +27,7 @@ php_versions:
         state: absent
   '7.4':
     state: present
-    sapi:
+    sapis:
       apache2:
         state: absent
       cli:
