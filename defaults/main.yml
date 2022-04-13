@@ -10,10 +10,8 @@ php_versions:
         state: absent
       cli:
         state: present
-        modules:
       fpm:
         state: present
-        modules:
       phpdbg:
         state: absent
   '8.0':
@@ -23,10 +21,8 @@ php_versions:
         state: absent
       cli:
         state: present
-        modules:
       fpm:
         state: present
-        modules:
       phpdbg:
         state: absent
   '7.4':
@@ -36,10 +32,8 @@ php_versions:
         state: absent
       cli:
         state: present
-        modules:
       fpm:
         state: present
-        modules:
       phpdbg:
         state: absent
   '7.3':

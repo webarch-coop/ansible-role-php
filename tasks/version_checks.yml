@@ -1,0 +1,16 @@
+---
+- name: Check PHP version
+  block:
+
+    - name: "Debug local state for PHP version {{ ver.key }}"
+      debug:
+        msg: "Something needs doing"
+      when: installed_version.key.state != proposed_version.key.state
+      loop: "{{ ansible_local.phpquery.versions | dict2items }}"
+      loop_control:
+        loop_var: installed_version
+        label: "{{ proposed_version.key }}"
+
+  tags:
+    - php
+...
