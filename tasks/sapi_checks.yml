@@ -4,7 +4,7 @@
 
     - name: Debug
       debug:
-        var: ansible_local.phpquery.versions
+        var: ansible_local.phpquery['versions']
 
     - name: Debug
       debug:
