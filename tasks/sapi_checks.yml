@@ -10,11 +10,11 @@
     - name: "Check that no SAPI is set to be present when PHP {{ version }} is set to be removed"
       assert:
         that:
-          - sapi.state == absent )
-      loop: "{{ php_versions[version].sapis }}"
+          - sapi.value.state != "present"
+      loop: "{{ php_versions[version].sapis | dict2items }}"
       loop_control:
         loop_var: sapi
-        label: 
+        label: "{{ sapi.key }}"
       when:
         - php_versions[version].sapis is defined 
         - php_versions[version].sapis.sapi is defined 
