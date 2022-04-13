@@ -16,23 +16,25 @@
 
     - name: Debug sapis
       debug:
-        var: sapis
-
-    - name: Generate an array of existing PHP SAPIs 
-      set_fact:
-        php_existing_sapis: "{{ php_existing_sapis | default([]) }} + [ '{{ existing_sapi.key }}' ]"
-      when:
-        - ansible_local.phpquery.versions[version] is defined
-        - existing_sapi.value.state == "present"
-      loop: "{{ sapis | dict2items }}"
+        var: proposed_sapi
+      loop: "{{ sapis }}"
       loop_control:
         loop_var: existing_sapi
         label: "{{ existing_sapi.key }}"
 
-    - name: Debug existing PHP SAPIs
+    - name: Generate an array of proposed PHP SAPIs 
+      set_fact:
+        php_proposed_sapis: "{{ php_proposed_sapis | default([]) }} + [ '{{ proposed_sapi.key }}' ]"
+      when: ( proposed_sapi.value.state is defined ) and ( proposed_sapi.value.state == "present" )
+      loop: "{{ sapis }}"
+      loop_control:
+        loop_var: proposed_sapi
+        label: "{{ proposed_sapi.key }}"
+
+    - name: Debug proposed PHP SAPIs
       debug:
-        ver: php_existing_sapis
-      when: php_existing_sapis is defined
+        ver: php_proposed_sapis
+      when: php_proposed_sapis is defined
 
   tags:
     - php
