@@ -19,7 +19,6 @@ php_versions:
       - php8.1-phpdbg
     packages_present:
       - php8.1-apcu
-      - php8.1-apcu-bc
       - php8.1-bcmath
       - php8.1-bz2
       - php8.1-cli
@@ -55,7 +54,6 @@ php_versions:
       - php8.0-phpdbg
     packages_present:
       - php8.0-apcu
-      - php8.0-apcu-bc
       - php8.0-bcmath
       - php8.0-bz2
       - php8.0-cli

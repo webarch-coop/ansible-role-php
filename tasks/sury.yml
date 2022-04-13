@@ -10,26 +10,13 @@
         owner: root
         group: root
 
-    - name: Sury GPG key present
-      get_url:
-        url: https://packages.sury.org/php/apt.gpg
-        dest: /root/sury.gpg
-        backup: true
-        force: true
-        mode: 0600
-        owner: root
-        group: root
-      register: php_sury_gpg
-
-    - name: Sury GPG key in place
+    - name: Sury GPG key from https://packages.sury.org/php/apt.gpg in place
       copy:
-        src: /root/sury.gpg
+        src: sury.gpg
         dest: /usr/local/share/keyrings/sury-archive-keyring.gpg
-        remote_src: true
         mode: 0644
         owner: root
         group: root
-      when: php_sury_gpg.changed
 
     - name: Sury repo apt sources present
       template:
