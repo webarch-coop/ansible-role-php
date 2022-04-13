@@ -2,10 +2,8 @@
 - name: PHP SAPI checks
   block:
 
-    - name: "Debug PHP {{ version }} SAPI state"
-      debug:
-        var: sapi.value.state
-        verbosity: 2
+    - name: "Include PHP {{ version }} SAPI state checks"
+      include_tasks: sapi_state_checks.yml
       loop: "{{ php_versions[version].sapis | dict2items }}"
       loop_control:
         loop_var: sapi
@@ -15,18 +13,31 @@
         - php_versions[version].sapis.sapi is defined 
         - php_versions[version].sapis.sapi.state is defined 
 
-    - name: "Check that no SAPI is set to be present when PHP {{ version }} is set to be removed"
-      assert:
-        that:
-          - sapi.value.state != "present"
-      loop: "{{ php_versions[version].sapis | dict2items }}"
-      loop_control:
-        loop_var: sapi
-        label: "{{ sapi.key }}"
-      when:
-        - php_versions[version].sapis is defined 
-        - php_versions[version].sapis.sapi is defined 
-        - php_versions[version].sapis.sapi.state is defined 
+    # - name: "Debug PHP {{ version }} SAPI state"
+    #   debug:
+    #     var: sapi.value.state
+    #     verbosity: 2
+    #   loop: "{{ php_versions[version].sapis | dict2items }}"
+    #   loop_control:
+    #     loop_var: sapi
+    #     label: "{{ sapi.key }}"
+    #   when:
+    #     - php_versions[version].sapis is defined 
+    #     - php_versions[version].sapis.sapi is defined 
+    #     - php_versions[version].sapis.sapi.state is defined 
+
+    # - name: "Check that no SAPI is set to be present when PHP {{ version }} is set to be removed"
+    #   assert:
+    #     that:
+    #       - sapi.value.state != "present"
+    #   loop: "{{ php_versions[version].sapis | dict2items }}"
+    #   loop_control:
+    #     loop_var: sapi
+    #     label: "{{ sapi.key }}"
+    #   when:
+    #     - php_versions[version].sapis is defined 
+    #     - php_versions[version].sapis.sapi is defined 
+    #     - php_versions[version].sapis.sapi.state is defined 
 
     - name: Fail
       fail:
