@@ -6,6 +6,8 @@
       apt:
         pkg: "php{{ version }}*"
         state: absent
+        autoclean: true
+        autoremove: true
       loop: "{{ php_versions_remove }}"
       loop_control:
         loop_var: version

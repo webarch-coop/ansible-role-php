@@ -13,6 +13,7 @@
 
     - name: Include package removal tasks
       include_tasks: absent.yml
+      when: ( php_versions_remove is defined ) and ( php_versions_remove != [] )
 
     - name: Debug fail
       fail:
