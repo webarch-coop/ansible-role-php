@@ -61,7 +61,6 @@ php_versions:
       - php8.0-curl
       - php8.0-fpm
       - php8.0-gd
-      - php8.0-geoip
       - php8.0-imap
       - php8.0-intl
       - php8.0-ldap
