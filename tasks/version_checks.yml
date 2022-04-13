@@ -4,8 +4,10 @@
 
     - name: "Debug local state for PHP version {{ ver.key }}"
       debug:
-        msg: "Something needs doing"
-      when: installed_version.key.state != proposed_version.key.state
+        msg: 
+          - "installed_version.key {{ installed_version.key }}"
+          - "proposed_version.key {{ proposed_version.key }}"
+      # when: installed_version.key.state != proposed_version.key.state
       loop: "{{ ansible_local.phpquery.versions | dict2items }}"
       loop_control:
         loop_var: installed_version
