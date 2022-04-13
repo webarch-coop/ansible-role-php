@@ -25,7 +25,7 @@
 
     - name: Generate an array of existing PHP versions
       set_fact:
-        php_existing_versions: "{{ php_existing_versions | default([]) + [ '{{ existing_version.key }}' ] }}"
+        php_existing_versions: "{{ php_existing_versions | default([]) }} + [ '{{ existing_version.key }}' ] }}"
       loop: "{{ ansible_local.phpquery.versions | dict2items }}"
       loop_control:
         loop_var: existing_version
@@ -38,7 +38,7 @@
 
     - name: Generate an array of proposed PHP versions
       set_fact:
-        php_proposed_versions: "{{ php_proposed_versions | default([]) + [ '{{ proposed_version.key }}' ] }}"
+        php_proposed_versions: "{{ php_proposed_versions | default([]) }} + [ '{{ proposed_version.key }}' ] }}"
       loop: "{{ php_versions | dict2items }}"
       loop_control:
         loop_var: proposed_version
