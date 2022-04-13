@@ -61,59 +61,59 @@
         var: php_versions_remove
         verbosity: 2
 
-    - name: Include SAPI checks for PHP proposed versions
-      include_tasks: sapi_checks.yml
-      loop: "{{ php_proposed_versions }}"
-      loop_control:
-        loop_var: version
-        label: "{{ version }}"
-      when: ( php_proposed_versions is defined ) and ( php_proposed_versions != [] )
+    # - name: Include SAPI checks for PHP proposed versions
+    #   include_tasks: sapi_checks.yml
+    #   loop: "{{ php_proposed_versions }}"
+    #   loop_control:
+    #     loop_var: version
+    #     label: "{{ version }}"
+    #   when: ( php_proposed_versions is defined ) and ( php_proposed_versions != [] )
 
-    - name: Debug fail
-      fail:
+    # - name: Debug fail
+    #   fail:
 
-    - name: Include version checks
-      include_tasks: version_checks.yml 
-      loop: "{{ php_versions | dict2items }}"
-      loop_control:
-        loop_var: proposed_version
-        label: "{{ proposed_version.key }}"
+    # - name: Include version checks
+    #   include_tasks: version_checks.yml 
+    #   loop: "{{ php_versions | dict2items }}"
+    #   loop_control:
+    #     loop_var: proposed_version
+    #     label: "{{ proposed_version.key }}"
 
-    - name: Set an array for the PHP packages with version numbers in their names
-      set_fact:
-        php_version_packages: "{{ php_version_packages | default([]) }} + [ 'php{{ php_version }}-{{ php_package }}' ]"
-      loop: "{{ php_versioned_packages }}"
-      loop_control:
-        loop_var: php_package
-        label: "{{ php_package }}"
+    # - name: Set an array for the PHP packages with version numbers in their names
+    #   set_fact:
+    #     php_version_packages: "{{ php_version_packages | default([]) }} + [ 'php{{ php_version }}-{{ php_package }}' ]"
+    #   loop: "{{ php_versioned_packages }}"
+    #   loop_control:
+    #     loop_var: php_package
+    #     label: "{{ php_package }}"
 
-    - name: Check and enable the www pool
-      block:
+    # - name: Check and enable the www pool
+    #   block:
 
-        - name: Include www pool server variable checks
-          include_tasks: pool_check.yml
-          when: php_www_pool_pm == "dynamic"
-          vars:
-            php_pm: "{{ php_www_pool_pm }}"
-            php_pm_max_children: "{{ php_www_pool_pm_max_children }}"
-            php_pm_start_servers: "{{ php_www_pool_pm_start_servers }}"
-            php_pm_min_spare_servers: "{{ php_www_pool_pm_min_spare_servers }}"
-            php_pm_max_spare_servers: "{{ php_www_pool_pm_max_spare_servers }}"
+    #     - name: Include www pool server variable checks
+    #       include_tasks: pool_check.yml
+    #       when: php_www_pool_pm == "dynamic"
+    #       vars:
+    #         php_pm: "{{ php_www_pool_pm }}"
+    #         php_pm_max_children: "{{ php_www_pool_pm_max_children }}"
+    #         php_pm_start_servers: "{{ php_www_pool_pm_start_servers }}"
+    #         php_pm_min_spare_servers: "{{ php_www_pool_pm_min_spare_servers }}"
+    #         php_pm_max_spare_servers: "{{ php_www_pool_pm_max_spare_servers }}"
 
-      when: ( php_www_pool_enabled is not defined ) or ( php_www_pool_enabled is defined and php_www_pool_enabled )
+    #   when: ( php_www_pool_enabled is not defined ) or ( php_www_pool_enabled is defined and php_www_pool_enabled )
 
-    - name: Check the PHP-FPM configuration
-      command: "php-fpm{{ php_version }} --test"
-      check_mode: false
-      changed_when: false
-      register: php_test
-      failed_when: ( "test is successful" not in php_test.stderr )
-      notify: Restart php-fpm
+    # - name: Check the PHP-FPM configuration
+    #   command: "php-fpm{{ php_version }} --test"
+    #   check_mode: false
+    #   changed_when: false
+    #   register: php_test
+    #   failed_when: ( "test is successful" not in php_test.stderr )
+    #   notify: Restart php-fpm
 
-    - name: Check that /usr/bin/crontab exists
-      stat:
-        path: /usr/bin/crontab
-      register: php_crontab
+    # - name: Check that /usr/bin/crontab exists
+    #   stat:
+    #     path: /usr/bin/crontab
+    #   register: php_crontab
 
   tags:
     - php

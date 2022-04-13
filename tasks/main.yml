@@ -11,6 +11,9 @@
     - name: Include apt repo config for Sury PHP packages
       include_tasks: sury.yml
 
+    - name: Include package removal tasks
+      include_tasks: absent.yml
+
     - name: Debug fail
       fail:
 

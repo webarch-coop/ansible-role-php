@@ -16,7 +16,9 @@
     - name: "Set an array for the existing SAPIs for PHP {{ version }}" 
       set_fact:
         php_existing_sapis: "{{ php_existing_sapis | default([]) }} + [ '{{ existing_sapi.key }}' ]"
-      when: existing_sapi.value.state == "present"
+      when: 
+        - ansible_local.phpquery.versions[version].sapis is defined
+        - existing_sapi.value.state == "present"
       loop: "{{ ansible_local.phpquery.versions[version].sapis | dict2items }}"
       loop_control:
         loop_var: existing_sapi
