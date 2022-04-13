@@ -51,16 +51,6 @@
         var: php_proposed_versions
         verbosity: 2
 
-    - name: Generate an array of PHP versions to install
-      set_fact:
-        php_versions_install: "{{ php_proposed_versions | difference(php_existing_versions) }}"
-      when: ( php_proposed_versions | difference(php_existing_versions) ) != []
-
-    - name: Debug php_versions_install array
-      debug:
-        var: php_versions_install
-        verbosity: 2
-
     - name: Generate an array of PHP versions to remove
       set_fact:
         php_versions_remove: "{{ php_existing_versions | difference(php_proposed_versions) }}"
@@ -71,13 +61,13 @@
         var: php_versions_remove
         verbosity: 2
 
-    - name: Include SAPI checks for PHP versions to install
+    - name: Include SAPI checks for PHP proposed versions
       include_tasks: sapi_checks.yml
-      loop: "{{ php_versions_install }}"
+      loop: "{{ php_proposed_versions }}"
       loop_control:
         loop_var: version
         label: "{{ version }}"
-      when: ( php_versions_install is defined ) and ( php_versions_install != [] )
+      when: ( php_proposed_versions is defined ) and ( php_proposed_versions != [] )
 
     - name: Debug fail
       fail:
