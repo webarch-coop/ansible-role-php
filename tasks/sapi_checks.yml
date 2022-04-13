@@ -28,6 +28,9 @@
         - php_versions[version].sapis.sapi is defined 
         - php_versions[version].sapis.sapi.state is defined 
 
+    - name: Fail
+      fail:
+
     # - name: "Debug existing SAPIs for PHP {{ version }}"
     #   debug:
     #     var: ansible_local.phpquery.versions[version].sapis
