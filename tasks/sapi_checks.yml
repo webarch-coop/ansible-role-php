@@ -8,10 +8,10 @@
       loop_control:
         loop_var: sapi
         label: "{{ sapi.key }}"
-    #   when:
-    #     - php_versions[version].sapis is defined 
-    #     - php_versions[version].sapis.sapi is defined 
-    #     - php_versions[version].sapis.sapi.state is defined 
+      when:
+        - php_versions[version].sapis is defined 
+        - php_versions[version].sapis.sapi is defined 
+        - php_versions[version].sapis.sapi.state is defined 
 
     # - name: "Debug PHP {{ version }} SAPI state"
     #   debug:
