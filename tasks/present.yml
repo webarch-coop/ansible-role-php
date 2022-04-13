@@ -4,13 +4,13 @@
 
     - name: "PHP {{ version }} packages present"
       apt:
-        pkg: "{{ php_version_packages | default([]) }} + [ 'php{{ version }}-{{ php_package }}' ]"
+        pkg: "{{ php_versions[version].packages_present }}"
         state: present
-      loop: "{{ php_versioned_packages }}"
-      loop_control:
-        loop_var: php_package
-        label: "{{ php_package }}"
-      notify: Restart php-fpm
+
+    - name: "PHP {{ version }} packages present"
+      apt:
+        pkg: "{{ php_versions[version].packages_present }}"
+        state: present
 
   tags:
     - php

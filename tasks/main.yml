@@ -11,28 +11,60 @@
     - name: Include apt repo config for Sury PHP packages
       include_tasks: sury.yml
 
-    - name: Include package removal tasks
-      include_tasks: absent.yml
-      loop: "{{ php_versions_remove }}"
-      loop_control:
-        loop_var: version
-        label: "{{ version }}"
+    - name: PHP versions absent
+      block:
+
+        - name: "PHP versions packages absent"
+          apt:
+            pkg: "php{{ version }}*"
+            state: absent
+            purge: true
+            autoclean: true
+            autoremove: true
+          loop: "{{ php_versions_remove }}"
+          loop_control:
+            loop_var: version
+            label: "{{ version }}"
+
+        - name: "PHP versions config files absent"
+          file:
+            path: "/etc/php/{{ version }}/"
+            state: absent
+          loop: "{{ php_versions_remove }}"
+          loop_control:
+            loop_var: version
+            label: "{{ version }}"
+
       when: ( php_versions_remove is defined ) and ( php_versions_remove != [] )
+
+    - name: PHP versions present
+      block:
+
+        - name: PHP versioned packages absent
+          apt:
+            pkg: "{{ php_versions[version].packages_absent }}"
+            state: absent
+          loop: "{{ php_versions_proposed }}"
+          loop_control:
+            loop_var: version
+            label: "{{ version }}"
+
+        - name: PHP versioned packages present
+          apt:
+            pkg: "{{ php_versions[version].packages_present }}"
+            state: present
+          loop: "{{ php_versions_proposed }}"
+          loop_control:
+            loop_var: version
+            label: "{{ version }}"
+
+      when: ( php_versions_proposed is defined ) and ( php_versions_proposed != [] )
 
     - name: PHP packages present
       apt:
         pkg: "{{ php_packages }}"
         state: present
         update_cache: true
-      notify: Restart php-fpm
-
-    - name: Include PHP versioned package install tasks
-      include_tasks: present.yml
-      loop: "{{ php_versions_proposed }}"
-      loop_control:
-        loop_var: version
-        label: "{{ version }}"
-      when: ( php_versions_proposed is defined ) and ( php_versions_proposed != [] )
 
     - name: Debug fail
       fail:
