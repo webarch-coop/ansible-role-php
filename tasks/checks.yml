@@ -81,7 +81,7 @@
     #   fail:
 
     # - name: Include version checks
-    #   include_tasks: version_checks.yml 
+    #   include_tasks: version_checks.yml
     #   loop: "{{ php_versions | dict2items }}"
     #   loop_control:
     #     loop_var: proposed_version

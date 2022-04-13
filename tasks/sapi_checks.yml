@@ -9,9 +9,9 @@
         loop_var: sapi
         label: "{{ sapi.key }}"
       when:
-        - php_versions[version].sapis is defined 
-    #     - php_versions[version].sapis.sapi is defined 
-    #     - php_versions[version].sapis.sapi.state is defined 
+        - php_versions[version].sapis is defined
+    #     - php_versions[version].sapis.sapi is defined
+    #     - php_versions[version].sapis.sapi.state is defined
 
     # - name: "Debug PHP {{ version }} SAPI state"
     #   debug:
@@ -22,9 +22,9 @@
     #     loop_var: sapi
     #     label: "{{ sapi.key }}"
     #   when:
-    #     - php_versions[version].sapis is defined 
-    #     - php_versions[version].sapis.sapi is defined 
-    #     - php_versions[version].sapis.sapi.state is defined 
+    #     - php_versions[version].sapis is defined
+    #     - php_versions[version].sapis.sapi is defined
+    #     - php_versions[version].sapis.sapi.state is defined
 
     # - name: "Check that no SAPI is set to be present when PHP {{ version }} is set to be removed"
     #   assert:
@@ -35,9 +35,9 @@
     #     loop_var: sapi
     #     label: "{{ sapi.key }}"
     #   when:
-    #     - php_versions[version].sapis is defined 
-    #     - php_versions[version].sapis.sapi is defined 
-    #     - php_versions[version].sapis.sapi.state is defined 
+    #     - php_versions[version].sapis is defined
+    #     - php_versions[version].sapis.sapi is defined
+    #     - php_versions[version].sapis.sapi.state is defined
 
     - name: Fail
       fail:
@@ -48,10 +48,10 @@
     #     verbosity: 3
     #   when: ansible_local.phpquery.versions[version].sapis is defined
 
-    # - name: "Set an array for the existing SAPIs for PHP {{ version }}" 
+    # - name: "Set an array for the existing SAPIs for PHP {{ version }}"
     #   set_fact:
     #     php_existing_sapis: "{{ php_existing_sapis | default([]) }} + [ '{{ existing_sapi.key }}' ]"
-    #   when: 
+    #   when:
     #     - ansible_local.phpquery.versions[version].sapis is defined
     #     - existing_sapi.value.state == "present"
     #   loop: "{{ ansible_local.phpquery.versions[version].sapis | dict2items }}"
@@ -63,7 +63,7 @@
     #   debug:
     #     var: php_existing_sapis
 
-    # - name: Generate an array of proposed PHP SAPIs 
+    # - name: Generate an array of proposed PHP SAPIs
     #   set_fact:
     #     php_proposed_sapis: "{{ php_proposed_sapis | default([]) }} + [ '{{ proposed_sapi.key }}' ]"
     #   when: ( proposed_sapi.value.state is defined ) and ( proposed_sapi.value.state == "present" )

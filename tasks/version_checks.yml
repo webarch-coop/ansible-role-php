@@ -4,7 +4,7 @@
 
     - name: "Debug local state for PHP version {{ ver.key }}"
       debug:
-        msg: 
+        msg:
           - "installed_version.key {{ installed_version.key }}"
           - "proposed_version.key {{ proposed_version.key }}"
       # when: installed_version.key.state != proposed_version.key.state
