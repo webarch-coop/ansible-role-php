@@ -56,8 +56,7 @@
           loop_control:
             loop_var: version
             label: "{{ version }}"
-          when:
-            - php_versions[version].sapis is defined
+          when: php_versions[version].sapis is defined
 
         - name: PHP versioned packages present
           apt:
@@ -77,9 +76,15 @@
         state: present
         update_cache: true
 
+    - name: Loop through the PHP proposed versions to include tasks for each SAPI which will include tasks to enable / disable modules
+      include_tasks: sapis.yml
+      loop: "{{ php_versions_proposed }}"
+      loop_control:
+        loop_var: version
+        label: "{{ version }}"
+      when: ( php_versions_proposed is defined ) and ( php_versions_proposed != [] )
+
     # TODO
-    #
-    # Remove directories for SAPIs that have state absent
     #
     # Check the ansible_local.phpquery modules against the php_versions modules_enabled and modules disabled
     # and enable / disable modules as required

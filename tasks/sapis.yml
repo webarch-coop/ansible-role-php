@@ -1,0 +1,15 @@
+---
+- name: PHP SAPI modules enabled / disabled tasks included
+  block:
+
+    - name: "Include module enable / disable tasks for PHP {{ version }}"
+      include_tasks: modules.yml
+      loop: "{{ php_versions[version].sapis | dict2items }}"
+      loop_control:
+        loop_var: sapi
+        label: "{{ sapi.key }}"
+      when: ( sapi.value.state is defined ) and ( sapi.value.state == "present" )
+
+  tags:
+    - php
+...
