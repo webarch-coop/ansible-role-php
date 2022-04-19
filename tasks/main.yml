@@ -67,7 +67,7 @@
         update_cache: true
 
     # TODO
-    # 
+    #
     # Remove directories for SAPIs that have state absent
     #
     # Check the ansible_local.phpquery modules against the php_versions modules_enabled and modules disabled
