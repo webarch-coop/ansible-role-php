@@ -70,11 +70,23 @@
           debug:
             msg:
               - "SAPI {{ php_versions[version].sapis }} is defined for PHP {{ version }}"
+            verbosity: 3
           loop: "{{ php_versions_proposed }}"
           loop_control:
             loop_var: version
             label: "{{ version }}"
           when: php_versions[version].sapis is defined
+
+        - name: Include SAPI checks for proposed PHP versions
+          include_tasks: sapi_checks.yml
+          loop: "{{ versions_proposed }}"
+          loop_control:
+            loop_var: version
+            label: "{{ version }}"
+          when: php_versions[version].sapis is defined
+
+        - name: Fail
+          fail:
 
         - name: Include SAPI module checks for proposed PHP versions
           include_tasks: sapi_module_checks.yml
