@@ -148,51 +148,16 @@
 
       when: ( php_versions_absent is defined ) and ( php_versions_absent != [] )
 
-    # - name: Debug fail
-    #   fail:
-
-    # - name: Include version checks
-    #   include_tasks: version_checks.yml
-    #   loop: "{{ php_versions | dict2items }}"
-    #   loop_control:
-    #     loop_var: proposed_version
-    #     label: "{{ proposed_version.key }}"
-
-    # - name: Set an array for the PHP packages with version numbers in their names
-    #   set_fact:
-    #     php_version_packages: "{{ php_version_packages | default([]) }} + [ 'php{{ php_version }}-{{ php_package }}' ]"
-    #   loop: "{{ php_versioned_packages }}"
-    #   loop_control:
-    #     loop_var: php_package
-    #     label: "{{ php_package }}"
-
-    # - name: Check and enable the www pool
-    #   block:
-
-    #     - name: Include www pool server variable checks
-    #       include_tasks: pool_check.yml
-    #       when: php_www_pool_pm == "dynamic"
-    #       vars:
-    #         php_pm: "{{ php_www_pool_pm }}"
-    #         php_pm_max_children: "{{ php_www_pool_pm_max_children }}"
-    #         php_pm_start_servers: "{{ php_www_pool_pm_start_servers }}"
-    #         php_pm_min_spare_servers: "{{ php_www_pool_pm_min_spare_servers }}"
-    #         php_pm_max_spare_servers: "{{ php_www_pool_pm_max_spare_servers }}"
-
+    # - name: Include www pool server variable checks
+    #   include_tasks: pool_check.yml
+    #   when: php_www_pool_pm == "dynamic"
+    #   vars:
+    #     php_pm: "{{ php_www_pool_pm }}"
+    #     php_pm_max_children: "{{ php_www_pool_pm_max_children }}"
+    #     php_pm_start_servers: "{{ php_www_pool_pm_start_servers }}"
+    #     php_pm_min_spare_servers: "{{ php_www_pool_pm_min_spare_servers }}"
+    #     php_pm_max_spare_servers: "{{ php_www_pool_pm_max_spare_servers }}"
     #   when: ( php_www_pool_enabled is not defined ) or ( php_www_pool_enabled is defined and php_www_pool_enabled )
-
-    # - name: Check the PHP-FPM configuration
-    #   command: "php-fpm{{ php_version }} --test"
-    #   check_mode: false
-    #   changed_when: false
-    #   register: php_test
-    #   failed_when: ( "test is successful" not in php_test.stderr )
-    #   notify: Restart php-fpm
-
-    # - name: Check that /usr/bin/crontab exists
-    #   stat:
-    #     path: /usr/bin/crontab
-    #   register: php_crontab
 
   tags:
     - php

@@ -66,6 +66,19 @@
         state: present
         update_cache: true
 
+    # TODO
+    # 
+    # Remove directories for SAPIs that have state absent
+    #
+    # Check the ansible_local.phpquery modules against the php_versions modules_enabled and modules disabled
+    # and enable / disable modules as required
+    #
+    # Write php.ini files
+    #
+    # Use update-alternatives to set the default version
+    #
+    # Disable the www pool for all versions but the default PHP version
+
     - name: Debug fail
       fail:
 
