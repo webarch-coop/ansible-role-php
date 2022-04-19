@@ -5,7 +5,7 @@
     - name: "Check that no SAPI modules for {{ sapi.key }} are set to be enabled and disabled at the same time for PHP {{ version }}"
       assert:
         that:
-          - mod not in sapi.modules_disabled
+          - mod not in sapi.value.modules_disabled
       loop: "{{ sapi.value.modules_enabled }}"
       loop_control:
         loop_var: mod
