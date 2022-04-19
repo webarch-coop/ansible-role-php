@@ -4,6 +4,10 @@
 
     - name: "Debug PHP version {{ version }}"
       debug:
+        var: ansible_local.phpquery
+
+    - name: "Debug PHP version {{ version }}"
+      debug:
         var: ansible_local.phpquery[version]
 
     - name: "Debug the existing modules for SAPI {{ sapi.key }} for PHP version {{ version }}"
