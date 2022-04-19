@@ -51,7 +51,7 @@
         var: php_versions_proposed
         verbosity: 2
 
-    - name: Check that for each proposed version of PHP there are not packages due to be absent and present at the same time
+    - name: Check that for each proposed version of PHP there are not packages due to be present and absent at the same time
       include_tasks: pkg_checks.yml
       loop: "{{ php_versions_proposed }}"
       loop_control:
@@ -99,13 +99,15 @@
         label: "{{ version }}"
       when: ( php_versions_absent is defined ) and ( php_versions_absent != [] )
 
-    # - name: Include SAPI checks for PHP proposed versions
-    #   include_tasks: sapi_checks.yml
-    #   loop: "{{ php_versions_proposed }}"
-    #   loop_control:
-    #     loop_var: version
-    #     label: "{{ version }}"
-    #   when: ( php_versions_proposed is defined ) and ( php_versions_proposed != [] )
+    - name: Include SAPI checks for PHP proposed versions
+      include_tasks: sapi_checks.yml
+      loop: "{{ php_versions_proposed }}"
+      loop_control:
+        loop_var: version
+        label: "{{ version }}"
+      when:
+        - ( php_versions[version].sapis is defined )
+        - ( php_versions_proposed is defined ) and ( php_versions_proposed != [] )
 
     # - name: Debug fail
     #   fail:
