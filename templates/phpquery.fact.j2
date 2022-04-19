@@ -5,24 +5,31 @@ set -euo pipefail
 PHPQUERY="{{ php_phpquery }}"
 
 if [[ -f "${PHPQUERY}" ]]; then
-  VERSIONS=$("${PHPQUERY}" -V | sort -V)
+  VERSIONS=$(${PHPQUERY} -V | sort -V)
   jo state=present versions=$( 
     jo $( 
       for v in ${VERSIONS}; do
-        SAPI=$("${PHPQUERY}" -v ${v} -S | sort) 
+        SAPI=$(${PHPQUERY} -v ${v} -S | sort) 
         echo ${v}=$(
           jo state=present $(
             for s in ${SAPI}; do 
-              MODULES=$("${PHPQUERY}" -v ${v} -s ${s} -M | sort)
-              MODULES_ENABLED=""
-              MODULES_DISABLED=""
-              # for m in ${MODULES}; do
-              #   # MOD_STATUS=$("${PHPQUERY}" -v ${v} -s ${s} -m ${mod}) 
-              #   MODULES_ENABLED="${MODULES_ENABLED} $("${PHPQUERY}" -v ${v} -s ${s} -m ${mod} && echo ${mod})"
-              #   MODULES_DISABLED="${MODULES_DISABLED} $("${PHPQUERY}" -v ${v} -s ${s} -m ${mod} || echo ${mod})"
-              # done
+              MODS=$(${PHPQUERY} -v ${v} -s ${s} -M | sort)
+              MODS_ENABLED=""
+              MODS_DISABLED=""
+              for m in ${MODS}; do
+                if ${PHPQUERY} -v ${v} -s ${s} -m ${m} -q; then
+                  MODS_ENABLED="${MODS_ENABLED} ${m}"
+                else
+                  MODS_DISABLED="${MODS_DISABLED} ${m}"
+                fi
+              done
               echo sapis[${s}]=$(
-                jo state=present modules_available=$(jo -a ${MODULES}) modules_enabled=$(jo -a ${MODULES_ENABLED}) modules_disabled=$(jo -a ${MODULES_DISABLED})
+                jo state=present modules_available=$(
+                  jo -a ${MODS}
+                ) modules_enabled=$(
+                  jo -a ${MODS_ENABLED}
+                ) modules_disabled=$(
+                  jo -a ${MODS_DISABLED})
               )
             done
           )
