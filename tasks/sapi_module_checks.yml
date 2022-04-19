@@ -6,7 +6,7 @@
       assert:
         that:
           - mod not in sapi.modules_disabled
-      loop: "{{ sapi.modules_enabled }}"
+      loop: "{{ sapi.value.modules_enabled }}"
       loop_control:
         loop_var: mod
         label: "{{ mod }}"
