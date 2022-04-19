@@ -14,7 +14,7 @@
     - name: PHP versions absent
       block:
 
-        - name: "PHP versions packages absent"
+        - name: "PHP versioned packages absent"
           apt:
             pkg: "php{{ version }}*"
             state: absent
@@ -26,7 +26,7 @@
             loop_var: version
             label: "{{ version }}"
 
-        - name: "PHP versions config files absent"
+        - name: "PHP versioned config files absent"
           file:
             path: "/etc/php/{{ version }}/"
             state: absent
