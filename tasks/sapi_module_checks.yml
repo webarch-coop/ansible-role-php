@@ -6,6 +6,7 @@
       assert:
         that:
           - mod not in sapi.value.modules_disabled
+        fail_msg: "The PHP module {{ mod }} appears to in both the modules_enabled and modules_disabled arrays for SAPI {{ sapi.key }} for PHP version {{ version }}"
       loop: "{{ sapi.value.modules_enabled }}"
       loop_control:
         loop_var: mod
