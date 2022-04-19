@@ -48,6 +48,16 @@
           loop_control:
             loop_var: version
             label: "{{ version }}"
+          when: ( php_versions[version].packages_absent is defined ) and ( php_versions[version].packages_absent != [] )
+
+        - name: PHP SAPIs absent
+          include_tasks: sapi_absent.yml
+          loop: "{{ php_versions_proposed }}"
+          loop_control:
+            loop_var: version
+            label: "{{ version }}"
+          when:
+            - php_versions[version].sapis is defined
 
         - name: PHP versioned packages present
           apt:
@@ -57,6 +67,7 @@
           loop_control:
             loop_var: version
             label: "{{ version }}"
+          when: ( php_versions[version].packages_present is defined ) and ( php_versions[version].packages_present != [] )
 
       when: ( php_versions_proposed is defined ) and ( php_versions_proposed != [] )
 

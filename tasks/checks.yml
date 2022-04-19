@@ -22,6 +22,7 @@
         that:
           - ansible_distribution_release is defined
           - ansible_distribution_release is regex("^stretch|buster|bullseye|bookworm|focal|bionic|jammy$")
+        fail_msg: "The Linux distro {{ ansible_distribution }} {{ ansible_distribution_release }} is not supported by this role"
 
     - name: Generate an array of existing PHP versions
       set_fact:

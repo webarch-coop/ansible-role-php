@@ -1,0 +1,30 @@
+---
+- name: PHP SAPI absent
+  block:
+
+    - name: "Debug SAPI absent for PHP {{ version }}"
+      debug:
+        msg: "path to delete /etc/php/{{ version }}/{{ sapi.key }}"
+        verbosity: 2
+      loop: "{{ php_versions[version].sapis | dict2items }}"
+      loop_control:
+        loop_var: sapi
+        label: "{{ sapi.key }}"
+      when: ( sapi.value.state is defined ) and ( sapi.value.state == "absent" )
+
+    - name: Fail
+      fail:
+
+    - name: "SAPI absent for PHP {{ version }}"
+      file:
+        path: "/etc/php/{{ version }}/{{ sapi.key }}"
+        state: absent
+      loop: "{{ php_versions[version].sapis | dict2items }}"
+      loop_control:
+        loop_var: sapi
+        label: "{{ sapi.key }}"
+      when: ( sapi.value.state is defined ) and ( sapi.value.state == "absent" )
+
+  tags:
+    - php
+...
