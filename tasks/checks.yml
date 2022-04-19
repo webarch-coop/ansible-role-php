@@ -109,7 +109,7 @@
                 label: "{{ version }}"
               when: php_versions[version].sapis is defined
 
-          when: php_versions_remove is defined ) and ( php_versions_remove != [] )
+          when: ( php_versions_remove is defined ) and ( php_versions_remove != [] )
 
       when: ( php_versions_proposed is defined ) and ( php_versions_proposed != [] )
 
