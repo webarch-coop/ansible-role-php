@@ -38,15 +38,18 @@
       debug:
         var: php_versions_existing
         verbosity: 2
+      when: php_versions_existing is defined
 
     - name: Generate an array of proposed PHP versions
       set_fact:
         php_versions_proposed: "{{ php_versions_proposed | default([]) }} + [ '{{ proposed_version.key }}' ]"
-      when: proposed_version.value.state == "present"
       loop: "{{ php_versions | dict2items }}"
       loop_control:
         loop_var: proposed_version
         label: "{{ proposed_version.key }}"
+      when:
+        - php_versions is defined
+        - proposed_version.value.state == "present"
 
     - name: Proposed PHP versions checks
       block:
@@ -62,6 +65,16 @@
           loop_control:
             loop_var: version
             label: "{{ version }}"
+
+        - name: Debug defined SAPIs for proposed PHP versions
+          debug:
+            msg:
+              - "SAPI {{ php_versions[version].sapis }} is defined for PHP {{ version }}"
+          loop: "{{ php_versions_proposed }}"
+          loop_control:
+            loop_var: version
+            label: "{{ version }}"
+          when: php_versions[version].sapis is defined
 
         - name: Include SAPI module checks for proposed PHP versions
           include_tasks: sapi_module_checks.yml
