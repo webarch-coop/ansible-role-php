@@ -2,14 +2,25 @@
 - name: PHP SAPI checks
   block:
 
-    - name: "Include PHP {{ version }} SAPI state checks"
-      include_tasks: sapi_state_checks.yml
+    - name: "Check that SAPI is not set to be present when PHP {{ version }} is set to be removed"
+      assert:
+        that:
+          - sapi.value.state == "absent"
+        fail_msg: "SAPI {{ sapi.key }} is not set to be absent for PHP {{ version }}, yet PHP {{ version }} is set to be removed."
       loop: "{{ php_versions[version].sapis | dict2items }}"
       loop_control:
         loop_var: sapi
         label: "{{ sapi.key }}"
-      when:
-        - php_versions[version].sapis is defined
+      when: php_versions[version].sapis is defined
+
+#    - name: "Include PHP {{ version }} SAPI state checks"
+#      include_tasks: sapi_state_checks.yml
+#      loop: "{{ php_versions[version].sapis | dict2items }}"
+#      loop_control:
+#        loop_var: sapi
+#        label: "{{ sapi.key }}"
+#      when:
+#        - php_versions[version].sapis is defined
     #     - php_versions[version].sapis.sapi is defined
     #     - php_versions[version].sapis.sapi.state is defined
 

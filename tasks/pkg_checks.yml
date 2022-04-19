@@ -1,0 +1,33 @@
+---
+- name: PHP versions package checks
+  block:
+
+    - name: "Check that a package is not set to be present and absent at the same time for PHP {{ version }}"
+      assert:
+        that:
+          - pkg not in php_versions[version].packages_absent
+        fail_msg: "Package {{ pkg }} is set to be both present and absent at the same time for PHP {{ version }}"
+      loop: "{{ php_versions[version].packages_present }}"
+      loop_control:
+        loop_var: pkg
+        label: "{{ pkg }}"
+      when:
+        - ( php_versions[version].packages_absent is defined ) and ( php_versions[version].packages_absent != [] )
+        - ( php_versions[version].packages_present is defined ) and ( php_versions[version].packages_present != [] )
+
+    - name: "Check that a package is not set to be absent and present at the same time for PHP {{ version }}"
+      assert:
+        that:
+          - pkg not in php_versions[version].packages_present
+        fail_msg: "Package {{ pkg }} is set to be both absent and present at the same time for PHP {{ version }}"
+      loop: "{{ php_versions[version].packages_absent }}"
+      loop_control:
+        loop_var: pkg
+        label: "{{ pkg }}"
+      when:
+        - ( php_versions[version].packages_absent is defined ) and ( php_versions[version].packages_absent != [] )
+        - ( php_versions[version].packages_present is defined ) and ( php_versions[version].packages_present != [] )
+
+  tags:
+    - php
+...

@@ -42,12 +42,12 @@
 
     - name: Print Ansible dpkg --architecture variables
       debug:
-        msg: "{{ ansible_facts['ansible_local']['dpkg_arch'] }}"
+        msg: "{{ ansible_local.dpkg_arch }}"
         verbosity: 2
 
     - name: Print Ansible phpquery dictionary
       debug:
-        msg: "{{ ansible_facts['ansible_local']['phpquery'] }}"
+        msg: "{{ ansible_local.phpquery }}"
         verbosity: 2
 
   tags:
