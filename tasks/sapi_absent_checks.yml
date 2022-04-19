@@ -1,0 +1,17 @@
+---
+- name: PHP SAPI absent checks
+  block:
+
+    - name: "Check that SAPI is not set to be present when PHP {{ version }} is set to be removed"
+      assert:
+        that:
+          - sapi.value.state == "absent"
+        fail_msg: "SAPI {{ sapi.key }} is not set to be absent for PHP {{ version }}, yet PHP {{ version }} is set to be removed."
+      loop: "{{ php_versions[version].sapis | dict2items }}"
+      loop_control:
+        loop_var: sapi
+        label: "{{ sapi.key }}"
+
+  tags:
+    - php
+...

@@ -1,16 +1,15 @@
 ---
-- name: Check that no SAPI modules are set to be enabled and disabled at the same time
+- name: PHP SAPI module checks
   block:
 
-    - name: "Loop through the modules_enabled for SAPI {{ sapi.key }} for PHP {{ version }} to check that none are also set to be disabled"
-      assert:
-        that:
-          - mod not in sapi.value.modules_disabled
-      loop: "{{ sapi.value.modules_enabled }}"
+    - name: "Check that no SAPI modules are set to be enabled and disabled at the same time for PHP {{ version }}"
+      include_tasks: sapi_module_checks.yml
+      loop: "{{ php_versions[version].sapis | dict2items }}"
       loop_control:
-        loop_var: mod
-        label: "{{ mod }}"
+        loop_var: sapi
+        label: "{{ sapi.key }}"
       when:
+        - ( sapi.value.state is defined ) and ( sapi.value.state == "present" )
         - ( sapi.value.modules_enabled is defined ) and ( sapi.value.modules_enabled != [] )
         - ( sapi.value.modules_disabled is defined ) and ( sapi.value.modules_disabled != [] )
 
