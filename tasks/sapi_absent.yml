@@ -1,8 +1,8 @@
 ---
-- name: PHP SAPI absent
+- name: PHP SAPI configuration files absent
   block:
 
-    - name: "Debug SAPI absent for PHP {{ version }}"
+    - name: "Debug SAPI config absent for PHP {{ version }}"
       debug:
         msg: "path to delete /etc/php/{{ version }}/{{ sapi.key }}"
         verbosity: 2
