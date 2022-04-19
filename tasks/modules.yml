@@ -2,24 +2,20 @@
 - name: PHP SAPI module enabled / disabled tasks
   block:
 
-    - name: "Debug PHP version {{ version }}"
-      debug:
-        var: ansible_local.phpquery
-
-    - name: "Debug PHP version {{ version }}"
-      debug:
-        var: ansible_local.phpquery[version]
-
     - name: "Debug the existing modules for SAPI {{ sapi.key }} for PHP version {{ version }}"
       debug:
-        var: ansible_local.phpquery[version].sapis[sapi.key].modules
+        var: ansible_local.phpquery.versions[version].sapis[sapi.key].modules
+        verbosity: 2
+      when:
+        - ansible_local.phpquery.versions[version].sapis[sapi.key].modules is defined
+        - ansible_local.phpquery.versions[version].sapis[sapi.key].modules != []
 
     - name: "Create an array for the existing modules for SAPI {{ sapi.key }} for PHP version {{ version }}"
       set_fact:
-        php_modules_existing: "{{ ansible_local.phpquery[version].sapis[sapi.key].modules | sort }}"
+        php_modules_existing: "{{ ansible_local.phpquery.versions[version].sapis[sapi.key].modules | sort }}"
       when:
-        - ansible_local.phpquery[version].sapis[sapi.key].modules is defined
-        - ansible_local.phpquery[version].sapis[sapi.key].modules != []
+        - ansible_local.phpquery.versions[version].sapis[sapi.key].modules is defined
+        - ansible_local.phpquery.versions[version].sapis[sapi.key].modules != []
 
     - name: "Create an array for the proposed modules for SAPI {{ sapi.key }} for PHP version {{ version }}"
       set_fact:
