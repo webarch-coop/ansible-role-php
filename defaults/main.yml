@@ -30,7 +30,8 @@ php_versions:
         state: absent
       cli:
         state: present
-        modules_disabled: []
+        modules_disabled:
+          - uploadprogress
         modules_enabled:
           - apcu
           - bcmath
@@ -137,7 +138,8 @@ php_versions:
         state: absent
       cli:
         state: present
-        modules_disabled: []
+        modules_disabled:
+          - uploadprogress
         modules_enabled:
           - apcu
           - bcmath
@@ -245,7 +247,8 @@ php_versions:
         state: absent
       cli:
         state: present
-        modules_disabled: []
+        modules_disabled:
+          - uploadprogress
         modules_enabled:
           - apcu
           - apcu_bc
