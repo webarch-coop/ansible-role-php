@@ -79,7 +79,7 @@
 
         - name: Include SAPI checks for proposed PHP versions
           include_tasks: sapi_checks.yml
-          loop: "{{ versions_proposed }}"
+          loop: "{{ php_versions_proposed }}"
           loop_control:
             loop_var: version
             label: "{{ version }}"
