@@ -63,8 +63,8 @@
             loop_var: version
             label: "{{ version }}"
 
-        - name: Include SAPI checks for PHP proposed versions
-          include_tasks: sapi_checks.yml
+        - name: Include SAPI module checks for proposed PHP versions
+          include_tasks: sapi_module_checks.yml
           loop: "{{ php_versions_proposed }}"
           loop_control:
             loop_var: version
@@ -85,14 +85,14 @@
                 verbosity: 2
 
             - name: Include SAPI checks for PHP versions due to be removed
-              include_tasks: sapi_checks.yml
+              include_tasks: sapi_absent_checks.yml
               loop: "{{ php_versions_remove }}"
               loop_control:
                 loop_var: version
                 label: "{{ version }}"
-              when: php_versions[version].sapis is defined 
+              when: php_versions[version].sapis is defined
 
-          when:  php_versions_remove is defined ) and ( php_versions_remove != [] )
+          when: php_versions_remove is defined ) and ( php_versions_remove != [] )
 
       when: ( php_versions_proposed is defined ) and ( php_versions_proposed != [] )
 
@@ -114,12 +114,12 @@
             verbosity: 2
 
         - name: Include SAPI checks for PHP versions due to be absent
-          include_tasks: sapi_checks.yml
+          include_tasks: sapi_absent_checks.yml
           loop: "{{ php_versions_absent }}"
           loop_control:
             loop_var: version
             label: "{{ version }}"
-          when: php_versions[version].sapis is defined 
+          when: php_versions[version].sapis is defined
 
       when: ( php_versions_absent is defined ) and ( php_versions_absent != [] )
 
