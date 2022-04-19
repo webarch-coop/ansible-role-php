@@ -2,6 +2,10 @@
 - name: PHP SAPI module enabled / disabled tasks
   block:
 
+    - name: "Debug PHP version {{ version }}"
+      debug:
+        var: ansible_local.phpquery[version]
+
     - name: "Debug the existing modules for SAPI {{ sapi.key }} for PHP version {{ version }}"
       debug:
         var: ansible_local.phpquery[version].sapis[sapi.key].modules
