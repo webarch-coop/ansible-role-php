@@ -16,21 +16,13 @@ if [[ -f "${PHPQUERY}" ]]; then
               MODULES=$("${PHPQUERY}" -v ${v} -s ${s} -M | sort)
               MODULES_ENABLED=""
               MODULES_DISABLED=""
-              for m in ${MODULES}; do
-                MOD_STATUS=$("${PHPQUERY}" -v ${v} -s ${s} -m ${mod}) 
-                if [[ ${?} == 0 ]]; then
-                  MODULES_ENABLED="${MODULES_ENABLED} ${mod}"
-                elif [[ ${?} == 32 ]]; then
-                  MODULES_DISABLED="${MODULES_DISABLED} ${mod}"
-                fi
-              done
+              # for m in ${MODULES}; do
+              #   # MOD_STATUS=$("${PHPQUERY}" -v ${v} -s ${s} -m ${mod}) 
+              #   MODULES_ENABLED="${MODULES_ENABLED} $("${PHPQUERY}" -v ${v} -s ${s} -m ${mod} && echo ${mod})"
+              #   MODULES_DISABLED="${MODULES_DISABLED} $("${PHPQUERY}" -v ${v} -s ${s} -m ${mod} || echo ${mod})"
+              # done
               echo sapis[${s}]=$(
-                jo state=present modules_available=$(
-                  jo -a ${MODULES}
-                ) modules_enabled=$(
-                  jo -a ${MODULES_ENABLED}
-                ) modules_disabled=$(
-                  jo -a ${MODULES_DISABLED})
+                jo state=present modules_available=$(jo -a ${MODULES}) modules_enabled=$(jo -a ${MODULES_ENABLED}) modules_disabled=$(jo -a ${MODULES_DISABLED})
               )
             done
           )
