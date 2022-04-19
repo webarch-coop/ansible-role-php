@@ -3,7 +3,7 @@
   block:
 
     - name: "Enable module {{ mod }} for SAPI {{ sapi.key }} for PHP version {{ version }}"
-      command: phpenmod -v "{{ version }}" -s "{{ sapi.key }}" "{{ mod }}" 
+      command: phpenmod -v "{{ version }}" -s "{{ sapi.key }}" "{{ mod }}"
       register: php_mod_enabled
 
   tags:
