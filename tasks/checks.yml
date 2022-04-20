@@ -26,6 +26,13 @@
 
     - name: Generate an array of existing PHP versions
       set_fact:
+        php_versions_existing: "{{ ansible_local.phpquery.versions.key() }}"
+
+    - name: debug fail
+      fail:
+
+    - name: Generate an array of existing PHP versions
+      set_fact:
         php_versions_existing: "{{ php_versions_existing | default([]) }} + [ '{{ existing_version.key }}' ]"
       loop: "{{ ansible_local.phpquery.versions | dict2items }}"
       loop_control:
