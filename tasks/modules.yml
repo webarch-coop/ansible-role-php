@@ -71,19 +71,17 @@
       when:
         - ( php_modules_absent is defined ) and ( php_modules_absent != [] )
         - ( php_modules_available is defined ) and ( php_modules_available != [] )
-        - ( mod in php_modules_absent )
         - ( mod not in php_modules_available )
 
     - name: "Fail as module that doesn't exists is set to be enabled"
       fail:
-        msg:
+        msg: "Module {{ mod }} for PHP version {{ version }} doesn't exist so enabling it makes no sense"
       loop: "{{ php_modules_proposed }}"
       loop_control:
         loop_var: mod
       when:
         - ( php_modules_proposed is defined ) and ( php_modules_proposed != [] )
         - ( php_modules_available is defined ) and ( php_modules_available != [] )
-        - ( mod in php_modules_proposed )
         - ( mod not in php_modules_available )
 
     - name: "Include phpdismod tasks for absent modules that are existing modules for SAPI {{ sapi.key }} for PHP version {{ version }}"
