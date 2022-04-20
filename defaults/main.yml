@@ -42,8 +42,6 @@ php_versions:
           - fileinfo
           - uploadprogress
         modules_enabled:
-          - foo
-          - bar
           - apcu
           - bcmath
           - bz2
