@@ -30,14 +30,9 @@ php_versions:
         state: absent
       cli:
         state: present
-        # modules_disabled:
-        #   - uploadprogress
-        modules_enabled:
+        modules_disabled:
           - foo
           - bar
-          - apcu
-          - bcmath
-          - bz2
           - calendar
           - ctype
           - curl
@@ -45,6 +40,20 @@ php_versions:
           - exif
           - ffi
           - fileinfo
+          - uploadprogress
+        modules_enabled:
+          - foo
+          - bar
+          - apcu
+          - bcmath
+          - bz2
+          # - calendar
+          # - ctype
+          # - curl
+          # - dom
+          # - exif
+          # - ffi
+          # - fileinfo
           - ftp
           - gettext
           - iconv
