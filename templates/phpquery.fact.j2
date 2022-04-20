@@ -13,7 +13,6 @@ if [[ -f ${PHPQUERY} ]]; then
       for v in ${VERSIONS}; do
         SAPI=$(${PHPQUERY} -v ${v} -S | sort)
         echo "SAPIs found for PHP version ${v}: ${SAPI}" >&2
-        if [[ "$1" == "-v" ]]; then echo "SAPIs found for PHP ${v}: ${SAPI}" >&2
         echo ${v}=$(
           jo state=present $(
             for s in ${SAPI}; do
