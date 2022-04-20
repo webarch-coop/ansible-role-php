@@ -21,6 +21,11 @@
     - name: Proposed modules
       block:
 
+        - name: "Debug the proposed modules for SAPI {{ sapi.key }} for PHP version {{ version }}"
+          debug:
+            var: sapi.value.modules_enabled
+            verbosity: 2
+
         - name: "Create an array for the proposed modules for SAPI {{ sapi.key }} for PHP version {{ version }}"
           set_fact:
             php_modules_proposed: "{{ sapi.value.modules_enabled | sort }}"
@@ -29,6 +34,10 @@
 
     - name: Absent modules
       block:
+
+        - name: "Debug the absent modules for SAPI {{ sapi.key }} for PHP version {{ version }}"
+          debug:
+            var: sapi.value.modules_disabled
 
         - name: "Create an array for the absent modules for SAPI {{ sapi.key }} for PHP version {{ version }}"
           set_fact:
