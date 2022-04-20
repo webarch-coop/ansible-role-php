@@ -5,22 +5,29 @@ set -euo pipefail
 PHPQUERY="{{ php_phpquery }}"
 
 if [[ -f ${PHPQUERY} ]]; then
+  echo "phpquery found at: ${PHPQUERY}" >&2
   VERSIONS=$(${PHPQUERY} -V | sort -V)
+  echo "PHP versions found: ${VERSIONS}" >&2
   jo state=present versions=$(
     jo $(
       for v in ${VERSIONS}; do
         SAPI=$(${PHPQUERY} -v ${v} -S | sort)
+        echo "SAPIs found for PHP version ${v}: ${SAPI}" >&2
+        if [[ "$1" == "-v" ]]; then echo "SAPIs found for PHP ${v}: ${SAPI}" >&2
         echo ${v}=$(
           jo state=present $(
             for s in ${SAPI}; do
               MODS=$(${PHPQUERY} -v ${v} -s ${s} -M | sort)
+              echo "Mods found for PHP version ${v} SAPI ${s}: ${MODS}" >&2
               MODS_ENABLED=""
               MODS_DISABLED=""
               for m in ${MODS}; do
                 if ${PHPQUERY} -v ${v} -s ${s} -m ${m} -q; then
                   MODS_ENABLED="${MODS_ENABLED} ${m}"
+                  echo "Mode enabled for PHP version ${v} SAPI ${s}: ${m}" >&2
                 else
                   MODS_DISABLED="${MODS_DISABLED} ${m}"
+                  echo "Mode disabled for PHP version ${v} SAPI ${s}: ${m}" >&2
                 fi
               done
               echo sapis[${s}]=$(
