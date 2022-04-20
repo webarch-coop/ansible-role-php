@@ -30,8 +30,8 @@ php_versions:
         state: absent
       cli:
         state: present
-        modules_disabled:
-          - uploadprogress
+        # modules_disabled:
+        #   - uploadprogress
         modules_enabled:
           - apcu
           - bcmath
@@ -64,7 +64,7 @@ php_versions:
           - sysvsem
           - sysvshm
           - tokenizer
-          # - uploadprogress
+          - uploadprogress
           - xml
           - xmlreader
           - xmlwriter
