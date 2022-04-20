@@ -2,7 +2,7 @@
 - name: PHP SAPI checks
   block:
 
-    - name: "Check that no SAPI modules are set to be enabled and disabled at the same time for PHP {{ version }}"
+    - name: "Include SAPI module checks for PHP {{ version }}"
       include_tasks: sapi_module_checks.yml
       loop: "{{ php_versions[version].sapis | dict2items }}"
       loop_control:

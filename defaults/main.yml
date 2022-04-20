@@ -33,6 +33,8 @@ php_versions:
         # modules_disabled:
         #   - uploadprogress
         modules_enabled:
+          - foo
+          - bar
           - apcu
           - bcmath
           - bz2
