@@ -26,13 +26,6 @@
 
     - name: Generate an array of existing PHP versions
       set_fact:
-        php_versions_existing: "{{ ansible_local.phpquery | map(attribute='versions') }}"
-
-    - name: debug fail
-      fail:
-
-    - name: Generate an array of existing PHP versions
-      set_fact:
         php_versions_existing: "{{ php_versions_existing | default([]) }} + [ '{{ existing_version.key }}' ]"
       loop: "{{ ansible_local.phpquery.versions | dict2items }}"
       loop_control:
@@ -76,8 +69,7 @@
 
         - name: Debug defined SAPIs for proposed PHP versions
           debug:
-            msg:
-              - "SAPI {{ php_versions[version].sapis }} is defined for PHP {{ version }}"
+            msg: "SAPI {{ php_versions[version].sapis }} is defined for PHP {{ version }}"
             verbosity: 3
           loop: "{{ php_versions_proposed }}"
           loop_control:

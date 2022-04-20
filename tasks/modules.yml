@@ -4,18 +4,18 @@
 
     - name: "Debug the existing modules for SAPI {{ sapi.key }} for PHP version {{ version }}"
       debug:
-        var: ansible_local.phpquery.versions[version].sapis[sapi.key].modules
+        var: ansible_local.phpquery.versions[version].sapis[sapi.key].modules_enabled
         verbosity: 2
       when:
-        - ansible_local.phpquery.versions[version].sapis[sapi.key].modules is defined
-        - ansible_local.phpquery.versions[version].sapis[sapi.key].modules != []
+        - ansible_local.phpquery.versions[version].sapis[sapi.key].modules_enabled is defined
+        - ansible_local.phpquery.versions[version].sapis[sapi.key].modules_enabled != []
 
     - name: "Create an array for the existing modules for SAPI {{ sapi.key }} for PHP version {{ version }}"
       set_fact:
-        php_modules_existing: "{{ ansible_local.phpquery.versions[version].sapis[sapi.key].modules | sort }}"
+        php_modules_existing: "{{ ansible_local.phpquery.versions[version].sapis[sapi.key].modules_existing | sort }}"
       when:
-        - ansible_local.phpquery.versions[version].sapis[sapi.key].modules is defined
-        - ansible_local.phpquery.versions[version].sapis[sapi.key].modules != []
+        - ansible_local.phpquery.versions[version].sapis[sapi.key].modules_existing is defined
+        - ansible_local.phpquery.versions[version].sapis[sapi.key].modules_existing != []
 
     - name: "Create an array for the proposed modules for SAPI {{ sapi.key }} for PHP version {{ version }}"
       set_fact:
