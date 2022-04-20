@@ -24,11 +24,11 @@ if [[ -f "${PHPQUERY}" ]]; then
                 fi
               done
               echo sapis[${s}]=$(
-                jo state=present modules_available=$(
+                jo state=present mods_available=$(
                   jo -a ${MODS}
-                ) modules_enabled=$(
+                ) mods_enabled=$(
                   jo -a ${MODS_ENABLED}
-                ) modules_disabled=$(
+                ) mods_disabled=$(
                   jo -a ${MODS_DISABLED})
               )
             done
