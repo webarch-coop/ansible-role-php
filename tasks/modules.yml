@@ -86,7 +86,7 @@
 
     - name: "Fail as module that doesn't exists is set to be enabled"
       fail:
-        msg: 
+        msg:
       loop: "{{ php_modules_proposed | difference(php_modules_existing) }}"
       loop_control:
         loop_var: mod

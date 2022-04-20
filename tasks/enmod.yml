@@ -16,7 +16,7 @@
           fail:
             msg:
               - "Enabling module {{ mod }} for SAPI {{ sapi.key }} for PHP version {{ version }} failed with the following message"
-              - "{{ php_mod_enabled.stderr }}" 
+              - "{{ php_mod_enabled.stderr }}"
 
   tags:
     - php
