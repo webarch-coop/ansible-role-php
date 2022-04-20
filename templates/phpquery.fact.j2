@@ -4,15 +4,15 @@
 set -euo pipefail
 PHPQUERY="{{ php_phpquery }}"
 
-if [[ -f "${PHPQUERY}" ]]; then
+if [[ -f ${PHPQUERY} ]]; then
   VERSIONS=$(${PHPQUERY} -V | sort -V)
-  jo state=present versions=$( 
-    jo $( 
+  jo state=present versions=$(
+    jo $(
       for v in ${VERSIONS}; do
-        SAPI=$(${PHPQUERY} -v ${v} -S | sort) 
+        SAPI=$(${PHPQUERY} -v ${v} -S | sort)
         echo ${v}=$(
           jo state=present $(
-            for s in ${SAPI}; do 
+            for s in ${SAPI}; do
               MODS=$(${PHPQUERY} -v ${v} -s ${s} -M | sort)
               MODS_ENABLED=""
               MODS_DISABLED=""
