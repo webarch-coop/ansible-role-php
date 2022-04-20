@@ -31,6 +31,7 @@ php_versions:
       cli:
         state: present
         modules_disabled:
+          - stuff
           - foo
           - bar
           - calendar
@@ -42,6 +43,8 @@ php_versions:
           - fileinfo
           - uploadprogress
         modules_enabled:
+          - test
+          - blah
           - apcu
           - bcmath
           - bz2
