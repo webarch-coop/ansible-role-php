@@ -2,29 +2,33 @@
 - name: PHP SAPI module enabled / disabled tasks
   block:
 
-    - name: "Debug the existing modules for SAPI {{ sapi.key }} for PHP version {{ version }}"
-      debug:
-        var: ansible_local.phpquery.versions[version].sapis[sapi.key].mods_enabled
-        verbosity: 2
+    - name: Existing modules
+      block:
+
+        - name: "Debug the existing modules for SAPI {{ sapi.key }} for PHP version {{ version }}"
+          debug:
+            var: ansible_local.phpquery.versions[version].sapis[sapi.key].mods_enabled
+            verbosity: 2
+
+        - name: "Create an array for the existing modules for SAPI {{ sapi.key }} for PHP version {{ version }}"
+          set_fact:
+            php_modules_existing: "{{ ansible_local.phpquery.versions[version].sapis[sapi.key].mods_enabled | sort }}"
+
       when:
         - ansible_local.phpquery.versions[version].sapis[sapi.key].mods_enabled is defined
         - ansible_local.phpquery.versions[version].sapis[sapi.key].mods_enabled != []
 
-    - name: "Create an array for the existing modules for SAPI {{ sapi.key }} for PHP version {{ version }}"
-      set_fact:
-        php_modules_existing: "{{ ansible_local.phpquery.versions[version].sapis[sapi.key].mods_existing | sort }}"
-      when:
-        - ansible_local.phpquery.versions[version].sapis[sapi.key].mods_existing is defined
-        - ansible_local.phpquery.versions[version].sapis[sapi.key].mods_existing != []
+    - name: Proposed modules
+      block:
 
-    - name: "Create an array for the proposed modules for SAPI {{ sapi.key }} for PHP version {{ version }}"
-      set_fact:
-        php_modules_proposed: "{{ sapi.value.modules_enabled | sort }}"
-      when: ( sapi.value.modules_enabled is defined ) and ( sapi.value.modules_enabled != [] )
+        - name: "Create an array for the proposed modules for SAPI {{ sapi.key }} for PHP version {{ version }}"
+          set_fact:
+            php_modules_proposed: "{{ sapi.value.modules_enabled | sort }}"
 
-    - name: "Create an array for the absent modules for SAPI {{ sapi.key }} for PHP version {{ version }}"
-      set_fact:
-        php_modules_absent: "{{ sapi.value.modules_disabled | sort }}"
+        - name: "Create an array for the absent modules for SAPI {{ sapi.key }} for PHP version {{ version }}"
+          set_fact:
+            php_modules_absent: "{{ sapi.value.modules_disabled | sort }}"
+
       when: ( sapi.value.modules_disabled is defined ) and ( sapi.value.modules_disabled != [] )
 
     - name: "Include phpdismod tasks for absent modules that are existing modules for SAPI {{ sapi.key }} for PHP version {{ version }}"
