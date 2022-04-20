@@ -33,7 +33,7 @@ php_versions:
         modules_disabled:
           - stuff
           - foo
-          - bar
+          # - bar
           - calendar
           - ctype
           - curl
