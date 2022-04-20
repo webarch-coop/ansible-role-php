@@ -85,7 +85,7 @@
         - ( php_modules_available is defined ) and ( php_modules_available != [] )
         - ( mod in php_modules_proposed )
         - ( mod not in php_modules_available )
- 
+
     - name: "Include phpdismod tasks for absent modules that are existing modules for SAPI {{ sapi.key }} for PHP version {{ version }}"
       include_tasks: dismod.yml
       loop: "{{ php_modules_absent }}"
