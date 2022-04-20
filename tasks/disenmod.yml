@@ -1,0 +1,23 @@
+---
+- name: Disable PHP module
+  block:
+
+    - name: Disable PHP module
+      block:
+
+        - name: "Disable module {{ mod }} for SAPI {{ sapi.key }} for PHP version {{ version }}"
+          command: phpdismod -v "{{ version }}" -s "{{ sapi.key }}" "{{ mod }}"
+          register: php_mod_disabled
+          failed_when: php_mod_disabled.stderr | length > 0
+
+      rescue:
+
+        - name: "Error disabling module {{ mod }} for SAPI {{ sapi.key }} for PHP version {{ version }}"
+          fail:
+            msg:
+              - "Disabling module {{ mod }} for SAPI {{ sapi.key }} for PHP version {{ version }} failed with the following message"
+              - "{{ php_mod_disabled.stderr }}"
+
+  tags:
+    - php
+...

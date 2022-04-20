@@ -44,7 +44,7 @@
             php_modules_absent: "{{ sapi.value.modules_disabled | sort }}"
 
         - name: "Include phpdismod tasks for absent modules that are existing modules for SAPI {{ sapi.key }} for PHP version {{ version }}"
-          include_tasks: phpdismod.yml
+          include_tasks: dismod.yml
           loop: "{{ php_modules_absent }}"
           loop_control:
             loop_var: mod
@@ -57,7 +57,7 @@
       when: ( sapi.value.modules_disabled is defined ) and ( sapi.value.modules_disabled != [] )
 
     - name: "Include phpenmod tasks for proposed modules that are not existing modules for SAPI {{ sapi.key }} for PHP version {{ version }}"
-      include_tasks: phpenmod.yml
+      include_tasks: enmod.yml
       loop: "{{ php_modules_proposed | difference(php_modules_existing) }}"
       loop_control:
         loop_var: mod
