@@ -4,38 +4,59 @@
 set -euo pipefail
 PHPQUERY="{{ php_phpquery }}"
 
-if [[ -f ${PHPQUERY} ]]; then
-  echo "phpquery found at: ${PHPQUERY}" >&2
-  VERSIONS=$(${PHPQUERY} -V | sort -V)
-  echo "PHP versions found: ${VERSIONS}" >&2
+if [[ -f "${PHPQUERY}" ]]
+then
+  declare -a versions
+  # echo "phpquery found at: ${PHPQUERY}" >&2
+  # echo "PHP versions command to be run: ${PHPQUERY} -V | sort -V" >&2
+  readarray -t versions < <("${PHPQUERY}" -V | sort -V)
+  # echo "PHP versions found: ${versions[@]}" >&2
   jo state=present versions=$(
     jo $(
-      for v in ${VERSIONS}; do
-        SAPI=$(${PHPQUERY} -v ${v} -S | sort)
-        echo "SAPIs found for PHP version ${v}: ${SAPI}" >&2
+      # echo Loop through the PHP versions >&2
+      for v in "${versions[@]}"
+      do
+        declare -a sapis
+        # echo "Query SAPIs for PHP version ${v}" >&2
+        # echo "PHP ${v} SAPIs command to be run: ${PHPQUERY} -v ${v} -S | sort" >&2
+        readarray -t sapis < <("${PHPQUERY}" -v "${v}" -S | sort)
+        # echo "SAPIs found for PHP version ${v}: ${sapis[@]}" >&2
         echo ${v}=$(
           jo state=present $(
-            for s in ${SAPI}; do
-              MODS=$(${PHPQUERY} -v ${v} -s ${s} -M | sort)
-              echo "Mods found for PHP version ${v} SAPI ${s}: ${MODS}" >&2
-              MODS_ENABLED=""
-              MODS_DISABLED=""
-              for m in ${MODS}; do
-                if ${PHPQUERY} -v ${v} -s ${s} -m ${m} -q; then
-                  MODS_ENABLED="${MODS_ENABLED} ${m}"
-                  echo "Mode enabled for PHP version ${v} SAPI ${s}: ${m}" >&2
+            # echo "Loop through the SAPIs" >&2
+            for s in "${sapis[@]}"
+            do
+              declare -a mods_enabled
+              declare -a mods_disabled
+              # echo "Looping through the SAPIs for PHP ${v} starting with ${s}" >&2
+              # echo "PHP ${v} SAPI ${s} Modules command to be run: ${PHPQUERY} -v ${v} -s ${s} -M | sort" >&2
+              readarray -t mods < <("${PHPQUERY}" -v "${v}" -s "${s}" -M | sort)
+              # echo "Mods found for PHP ${v} SAPI ${s}: ${mods[@]}" >&2
+              # echo "Loop through the Mods found" >&2
+              for m in "${mods[@]}"
+              do
+                # echo "Checking the status for PHP ${v} SAPI ${s} Mod ${m}" >&2
+                if "${PHPQUERY}" -v "${v}" -s "${s}" -m "${m}" -q; then
+                  # echo "Mod enabled for PHP version ${v} SAPI ${s}: ${m}" >&2
+                  mods_enabled=(${mods_enabled[@]} ${m})
+                  # echo "Mods enabled for PHP version ${v} SAPI ${s}: ${mods_enabled[*]}" >&2
                 else
-                  MODS_DISABLED="${MODS_DISABLED} ${m}"
-                  echo "Mode disabled for PHP version ${v} SAPI ${s}: ${m}" >&2
+                  mods_disabled=(${mods_disabled[@]} ${m})
+                  # echo "Mod disabled for PHP version ${v} SAPI ${s}: ${m}" >&2
                 fi
+                # echo "Done checking the status for PHP ${v} SAPI ${s} Mod ${m}" >&2
               done
-              echo sapis[${s}]=$(
+              # echo "mods_available: ${mods[@]}" >&2
+              # echo "mods_enabled:  ${mods_enabled[@]}" >&2
+              # echo "mods_disabled:  ${mods_disabled[@]}" >&2
+              echo sapis["${s}"]=$(
                 jo state=present mods_available=$(
-                  jo -a ${MODS}
+                  jo -e -a "${mods[@]}"
                 ) mods_enabled=$(
-                  jo -a ${MODS_ENABLED}
+                  jo -e -a "${mods_enabled[@]}"
                 ) mods_disabled=$(
-                  jo -a ${MODS_DISABLED})
+                  jo -e -a "${mods_disabled[@]}"
+                )
               )
             done
           )
