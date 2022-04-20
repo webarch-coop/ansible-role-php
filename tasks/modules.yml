@@ -25,7 +25,7 @@
           set_fact:
             php_modules_proposed: "{{ sapi.value.modules_enabled | sort }}"
 
-      when: ( sapi.value.modules_disabled is defined ) and ( sapi.value.modules_disabled != [] )
+      when: ( sapi.value.modules_enabled is defined ) and ( sapi.value.modules_enabled != [] )
 
     - name: Absent modules
       block:
