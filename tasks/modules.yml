@@ -72,7 +72,7 @@
         # - ( php_modules_absent is defined ) and ( php_modules_absent != [] )
         # - ( php_modules_available is defined ) and ( php_modules_available != [] )
         # - ( mod not in php_modules_available )
-        - ( mod not in ansible_local.phpquery.versions[version].mods_available
+        - mod not in ansible_local.phpquery.versions[version].mods_available
 
     - name: "Fail as module that doesn't exists is set to be enabled"
       fail:
