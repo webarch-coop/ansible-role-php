@@ -36,8 +36,8 @@
       register: php_phpquery_facts
 
     - name: Ansible PHP update-alternatives local facts script present
-      ansible.builtin.template:
-        src: php_alternatives.fact.j2
+      copy:
+        src: php_alternatives.fact
         dest: /etc/ansible/facts.d/php_alternatives.fact
         mode: 0700
         owner: root
