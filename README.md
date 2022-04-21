@@ -16,3 +16,74 @@ role is set to fail if `phpquery -V` returns more than one version of PHP.
 
 In June 2021 this role was renamed from `phpfpm` to `php` and the URL of the
 git repo and all the variable names and tags have been updated to match.
+
+== facts.d ==
+
+This role adds a `phpquery.fact` Bash script to `/etc/ansible/facts.d` which generates a dictionary which resembles the Debian `/etc/php` directory structure, for example:
+
+```bash
+tree -d /etc/php 
+/etc/php
+|-- 7.4
+|   |-- cli
+|   |   `-- conf.d
+|   |-- fpm
+|   |   |-- conf.d
+|   |   `-- pool.d
+|   `-- mods-available
+|-- 8.0
+|   |-- cli
+|   |   `-- conf.d
+|   |-- fpm
+|   |   |-- conf.d
+|   |   `-- pool.d
+|   `-- mods-available
+`-- 8.1
+    |-- cli
+    |   `-- conf.d
+    |-- fpm
+    |   |-- conf.d
+    |   `-- pool.d
+    `-- mods-available
+
+bash /etc/ansible/facts.d/phpquery.fact | jq -M | grep -v -e '",$' -e '"$' | jq -M
+{
+  "versions": {
+    "7.4": {
+      "mods_available": [],
+      "sapis": {
+        "cli": {
+          "mods_enabled": []
+        },
+        "fpm": {
+          "mods_enabled": []
+        }
+      }
+    },
+    "8.0": {
+      "mods_available": [],
+      "sapis": {
+        "cli": {
+          "mods_enabled": []
+        },
+        "fpm": {
+          "mods_enabled": []
+        }
+      }
+    },
+    "8.1": {
+      "mods_available": [],
+      "sapis": {
+        "cli": {
+          "mods_enabled": []
+        },
+        "fpm": {
+          "mods_enabled": []
+        }
+      }
+    }
+  }
+}
+```
+
+
