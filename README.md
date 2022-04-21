@@ -17,7 +17,7 @@ role is set to fail if `phpquery -V` returns more than one version of PHP.
 In June 2021 this role was renamed from `phpfpm` to `php` and the URL of the
 git repo and all the variable names and tags have been updated to match.
 
-== facts.d ==
+## facts.d
 
 This role adds a `phpquery.fact` Bash script to `/etc/ansible/facts.d` which generates a dictionary which resembles the Debian `/etc/php` directory structure, for example:
 

@@ -8,7 +8,10 @@
       loop_control:
         loop_var: sapi
         label: "{{ sapi.key }}"
-      when: ( sapi.value.state is defined ) and ( sapi.value.state == "present" )
+      when:
+        - ( sapi.value.state is defined ) and ( sapi.value.state == "present" )
+        - ( ansible_local.phpquery.versions[version].sapis[sapi.key].mods_enabled is defined ) and ( sapi.value.modules_enabled is defined )
+        - ( ansible_local.phpquery.versions[version].sapis[sapi.key].mods_enabled | sort ) != ( sapi.value.modules_enabled | sort )
 
   tags:
     - php
