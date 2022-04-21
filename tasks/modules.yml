@@ -38,7 +38,7 @@
         - mod not in ansible_local.phpquery.versions[version].mods_available
 
     - name: "Warn as module that doesn't exists is set to be enabled"
-      fail:
+      debug:
         msg: "Module {{ mod }} for PHP version {{ version }} doesn't exist so enabling it makes no sense"
       loop: "{{ sapi.value.modules_enabled }}"
       loop_control:
