@@ -6,6 +6,7 @@
       assert:
         that:
           - pkg not in php_versions[version].packages_absent
+        quite: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
         fail_msg: "Package {{ pkg }} is set to be both present and absent at the same time for PHP {{ version }}"
       loop: "{{ php_versions[version].packages_present }}"
       loop_control:
