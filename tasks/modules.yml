@@ -26,17 +26,6 @@
         verbosity: 2
       when: sapi.value.modules_disabled is defined
 
-    - name: "Warn if a module is enabled but not set to be enabled for SAPI {{ sapi.key }} for PHP version {{ version }}"
-      debug:
-        msg: "Module {{ mod }} for for PHP version {{ version }} is not set to be enabled but it is enabled"
-      loop: "{{ sapi.value.modules_enabled }}"
-      loop_control:
-        loop_var: mod
-      when:
-        - sapi.value.modules_enabled is defined
-        - ansible_local.phpquery.versions[version].sapis[sapi.key].mods_enabled is defined
-        - mod not in ansible_local.phpquery.versions[version].sapis[sapi.key].mods_enabled
-
     - name: "Warn as a module that doesn't exists is set to be absent"
       debug:
         msg: "Module {{ mod }} for PHP version {{ version }} doesn't exist so disabling it makes no sense"
