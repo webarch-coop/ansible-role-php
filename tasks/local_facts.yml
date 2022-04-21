@@ -35,10 +35,19 @@
         group: root
       register: php_phpquery_facts
 
+    - name: Ansible PHP update-alternatives local facts script present
+      ansible.builtin.template:
+        src: php_alternatives.fact.j2
+        dest: /etc/ansible/facts.d/php_alternatives.fact
+        mode: 0700
+        owner: root
+        group: root
+      register: php_alternatives_facts
+
     - name: Re-read Ansible local facts
       ansible.builtin.setup:
         filter: ansible_local
-      when: ( php_dpkg_arch_facts.changed ) or ( php_phpquery_facts.changed )
+      when: ( php_dpkg_arch_facts.changed ) or ( php_phpquery_facts.changed ) or ( php_alternatives_facts.changed )
 
     - name: Print Ansible dpkg --architecture variables
       debug:
