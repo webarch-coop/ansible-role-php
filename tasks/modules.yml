@@ -10,7 +10,7 @@
             var: ansible_local.phpquery.versions[version].mods_available
             verbosity: 2
 
-        - name: "Create an array for the existing modules for PHP version {{ version }}"
+        - name: "Create an array for the available modules for PHP version {{ version }}"
           set_fact:
             php_modules_available: "{{ ansible_local.phpquery.versions[version].mods_available | sort }}"
 
@@ -28,7 +28,7 @@
 
         - name: "Create an array for the existing modules for SAPI {{ sapi.key }} for PHP version {{ version }}"
           set_fact:
-            php_modules_available: "{{ ansible_local.phpquery.versions[version].sapis[sapi.key].mods_enabled | sort }}"
+            php_modules_existing: "{{ ansible_local.phpquery.versions[version].sapis[sapi.key].mods_enabled | sort }}"
 
       when:
         - ansible_local.phpquery.versions[version].sapis[sapi.key].mods_enabled is defined
@@ -71,7 +71,8 @@
       when:
         # - ( php_modules_absent is defined ) and ( php_modules_absent != [] )
         # - ( php_modules_available is defined ) and ( php_modules_available != [] )
-        - ( mod not in php_modules_available )
+        # - ( mod not in php_modules_available )
+        - ( mod not in ansible_local.phpquery.versions[version].mods_available
 
     - name: "Fail as module that doesn't exists is set to be enabled"
       fail:
