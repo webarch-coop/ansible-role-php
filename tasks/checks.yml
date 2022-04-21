@@ -6,6 +6,7 @@
       assert:
         that:
           - php_allow_local_infile is not defined
+        quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
 
     - name: Check that variables are booleans
       assert:
@@ -16,12 +17,14 @@
           - php_opcache_enable | type_debug == "bool"
           - php_opcache_validate_permission | type_debug == "bool"
           - php_opcache_validate_root | type_debug == "bool"
+        quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
 
     - name: Check that the distro is Debian Bookworm, Bullseye, Buster or Stretch or Ubuntu Jammy, Focal or Bionic
       assert:
         that:
           - ansible_distribution_release is defined
           - ansible_distribution_release is regex("^stretch|buster|bullseye|bookworm|focal|bionic|jammy$")
+        quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
         fail_msg: "The Linux distro {{ ansible_distribution }} {{ ansible_distribution_release }} is not supported by this role"
 
     - name: Generate an array of existing PHP versions

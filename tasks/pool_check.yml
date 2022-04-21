@@ -17,7 +17,7 @@
       assert:
         that:
           - php_pm is regex("^static|ondemand|dynamic$")
-        quite: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
+        quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
 
     - name: Ensure that pm.max_children is defined, numeric and is greater than 1
       assert:
@@ -25,7 +25,7 @@
           - php_pm_max_children is defined
           - ( php_pm_max_children | string ) is regex("^[0-9]+$")
           - ( php_pm_max_children | int ) >= 1
-        quite: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
+        quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
 
     - name: Conditional pm dynamic pool checks
       block:
@@ -39,7 +39,7 @@
               - ( php_pm_min_spare_servers | string ) is regex("^[0-9]+$")
               - php_pm_max_spare_servers is defined
               - ( php_pm_max_spare_servers | string ) is regex("^[0-9]+$")
-            quite: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
+            quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
 
         - name: Ensure that pm.max_children, pm.start_servers, pm.min_spare_servers and pm.max_spare_servers are greater than or equal to 1
           assert:
@@ -48,7 +48,7 @@
               - php_pm_start_servers | int >= 1
               - php_pm_min_spare_servers | int >= 1
               - php_pm_max_spare_servers | int >= 1
-            quite: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
+            quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
 
         - name: Ensure that pm.max_children is greater than or equal to pm.start_servers, pm.min_spare_servers and pm.max_spare_servers
           assert:
@@ -56,20 +56,20 @@
               - php_pm_max_children | int >= php_pm_start_servers | int
               - php_pm_max_children | int >= php_pm_min_spare_servers | int
               - php_pm_max_children | int >= php_pm_max_spare_servers | int
-            quite: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
+            quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
 
         - name: Ensure that pm.start_servers is be greater than pm.min_spare_servers and less than or equal to pm.max_spare_servers
           assert:
             that:
               - php_pm_start_servers | int >= php_pm_min_spare_servers | int
               - php_pm_start_servers | int <= php_pm_max_spare_servers | int
-            quite: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
+            quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
 
         - name: Ensure that pm.max_spare_servers is greater than pm.min_spare_servers
           assert:
             that:
               - php_pm_max_spare_servers | int >= php_pm_min_spare_servers | int
-            quite: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
+            quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
 
       when: php_pm == "dynamic"
 

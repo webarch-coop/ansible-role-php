@@ -6,6 +6,7 @@
       assert:
         that:
           - sapi.value.state == "absent"
+        quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
         fail_msg: "SAPI {{ sapi.key }} is not set to be absent for PHP {{ version }}, yet PHP {{ version }} is set to be removed."
       loop: "{{ php_versions[version].sapis | dict2items }}"
       loop_control:
