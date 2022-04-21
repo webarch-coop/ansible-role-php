@@ -30,10 +30,11 @@ php_versions:
         state: absent
       cli:
         state: present
-        modules_disabled:
-          - stuff
-          - foo
-          # - bar
+        modules_disabled: []
+        modules_enabled:
+          # - apcu
+          - bcmath
+          - bz2
           - calendar
           - ctype
           - curl
@@ -41,20 +42,6 @@ php_versions:
           - exif
           - ffi
           - fileinfo
-          - uploadprogress
-        modules_enabled:
-          - test
-          - blah
-          - apcu
-          - bcmath
-          - bz2
-          # - calendar
-          # - ctype
-          # - curl
-          # - dom
-          # - exif
-          # - ffi
-          # - fileinfo
           - ftp
           - gettext
           - iconv
@@ -76,7 +63,7 @@ php_versions:
           - sysvsem
           - sysvshm
           - tokenizer
-          # - uploadprogress
+          - uploadprogress
           - xml
           - xmlreader
           - xmlwriter
@@ -150,8 +137,7 @@ php_versions:
         state: absent
       cli:
         state: present
-        modules_disabled:
-          - uploadprogress
+        modules_disabled: []
         modules_enabled:
           - apcu
           - bcmath
@@ -183,7 +169,7 @@ php_versions:
           - sysvsem
           - sysvshm
           - tokenizer
-          # - uploadprogress
+          - uploadprogress
           - xml
           - xmlreader
           - xmlwriter
@@ -259,8 +245,7 @@ php_versions:
         state: absent
       cli:
         state: present
-        modules_disabled:
-          - uploadprogress
+        modules_disabled: []
         modules_enabled:
           - apcu
           - apcu_bc
@@ -303,7 +288,7 @@ php_versions:
           - sysvsem
           - sysvshm
           - tokenizer
-          # - uploadprogress
+          - uploadprogress
           - xml
           - xmlreader
           - xmlrpc
