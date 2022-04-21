@@ -86,9 +86,6 @@
 
     # TODO
     #
-    # Check the ansible_local.phpquery modules against the php_versions modules_enabled and modules disabled
-    # and enable / disable modules as required
-    #
     # Write php.ini files
     #
     # Use update-alternatives to set the default version
@@ -97,28 +94,6 @@
 
     - name: Debug fail
       fail:
-
-    - name: Which phpquery
-      command: which phpquery
-      check_mode: false
-      changed_when: false
-      register: php_phpquery_path
-      failed_when: php_phpquery_path.rc != 0
-
-    - name: Run phpquery to get the PHP version
-      command: phpquery -V
-      args:
-        strip_empty_ends: true
-      check_mode: false
-      changed_when: false
-      register: php_phpquery_version
-      failed_when: >
-        ( php_phpquery_version.stdout_lines | count > 1 ) or
-        ( php_phpquery_version.stdout is not version('7.0', '>=') )
-
-    - name: Set a variable for the PHP version
-      set_fact:
-        php_version: "{{ php_phpquery_version.stdout | trim }}"
 
     - name: Set an array for the PHP packages with version numbers in their names
       set_fact:

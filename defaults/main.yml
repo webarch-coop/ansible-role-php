@@ -32,7 +32,7 @@ php_versions:
         state: present
         modules_disabled: []
         modules_enabled:
-          # - apcu
+          - apcu
           - bcmath
           - bz2
           - calendar
