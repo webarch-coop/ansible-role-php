@@ -2,6 +2,21 @@
 php_sury: true
 php_dpkg: /usr/bin/dpkg
 php_phpquery: /usr/sbin/phpquery
+php_alternatives:
+  cli:
+    '8.1':
+      priority: 81
+    '8.0':
+      priority: 74
+    '7.4':
+      priority: 74
+  fpm:
+    '8.1':
+      priority: 81
+    '8.0':
+      priority: 74
+    '7.4':
+      priority: 74
 php_versions:
   '8.1':
     state: present
