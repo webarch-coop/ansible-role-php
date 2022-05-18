@@ -500,7 +500,7 @@ php_session_save_path: "${TMPDIR}"
 php_apc_shm_size: 32M
 php_opcache_enable: true
 php_opcache_memory_consumption: 2048
-php_opcache_interned_strings_buffer: 32
+php_opcache_interned_strings_buffer: 64
 php_opcache_use_cwd: true
 php_opcache_validate_timestamps: 1
 php_opcache_revalidate_freq: 2
