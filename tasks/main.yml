@@ -2,8 +2,29 @@
 - name: Install and configure PHP
   block:
 
-    - name: Include local facts tasks
-      include_tasks: local_facts.yml
+    - name: Check that depreciated variables are not used
+      assert:
+        that:
+          - php_allow_local_infile is not defined
+
+    - name: Check that variables are booleans
+      assert:
+        that:
+          - php_allow_url_include | type_debug == "bool"
+          - php_mysqli_allow_local_infile | type_debug == "bool"
+          - phpcli_allow_local_infile | type_debug == "bool"
+          - php_opcache_enable | type_debug == "bool"
+          - php_opcache_validate_permission | type_debug == "bool"
+          - php_opcache_validate_root | type_debug == "bool"
+
+    - name: Check that the distro is Debian Bullseye, Buster or Stretch or Ubuntu Focal or Bionic
+      assert:
+        that:
+          - ansible_distribution_release is defined
+          - ansible_distribution_release is regex("^bionic|bullseye|buster|focal|stretch$")
+
+    # - name: Include local facts tasks
+    #   include_tasks: local_facts.yml
 
     - name: Include check tasks
       include_tasks: checks.yml

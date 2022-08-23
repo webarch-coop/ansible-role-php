@@ -490,6 +490,8 @@ php_max_input_time: 600
 php_max_input_nesting_level: 512
 php_max_input_vars: 100000
 php_memory_limit: 512M
+; Set php_output_buffering to 0 to disable output_buffering
+php_output_buffering: 4096
 php_post_max_size: 512M
 php_upload_max_filesize: 512M
 php_max_file_uploads: 60
