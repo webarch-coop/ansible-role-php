@@ -1,12 +1,39 @@
 ---
+
+argument_specs:
+  main:
+    author: Chris Croome
+    description: Ansible role for installing and configuring PHP on Debian
+    short_description: The main entry point for the PHP role.
+    options:
+      php_sury:
+        type: bool
+        required: true
+        description: Use the Sury PHP deb package repo
+      php_dpkg:
+        type: str
+        required: true
+        description: The path to dpkg for Ansible local facts
+      php_phpquery:
+        type: str
+        required: true
+        description: The path to phpquery for Ansible local facts
+      php_alternatives:
+        type: dict
+        equired: true
+        description: A dictionary for the Alternatives role to set the priority of PHP versions
+      php_versions:
+        type: dict
+        equired: true
+        description: A dictionary for the PHP versions, packages, sapis and modules
 galaxy_info:
   role_name: php
   author: Chris Croome
   namespace: chriscroome
-  description: Ansible role for installing PHP-FPM on Debian
+  description: Ansible role for installing and configuring PHP on Debian
   company: Webarchitects Co-operative
-  license: license (GPLv3)
-  min_ansible_version: 2.9
+  license: GNU General Public License v3.0 (GPLv3)
+  min_ansible_version: 2.11
   platforms:
     - name: debian
       versions:
