@@ -2,8 +2,9 @@
 - name: Install and configure PHP
   block:
 
-    - name: Include local facts tasks
-      include_tasks: local_facts.yml
+    # The local facts bash script need work
+    # - name: Include local facts tasks
+    #   include_tasks: local_facts.yml
 
     - name: Include check tasks
       include_tasks: checks.yml
