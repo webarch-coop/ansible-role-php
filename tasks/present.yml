@@ -3,12 +3,12 @@
   block:
 
     - name: "PHP {{ version }} packages present"
-      apt:
+      ansible.builtin.apt:
         pkg: "{{ php_versions[version].packages_present }}"
         state: present
 
     - name: "PHP {{ version }} packages present"
-      apt:
+      ansible.builtin.apt:
         pkg: "{{ php_versions[version].packages_present }}"
         state: present
 

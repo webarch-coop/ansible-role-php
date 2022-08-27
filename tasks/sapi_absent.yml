@@ -3,7 +3,7 @@
   block:
 
     - name: "SAPI configuration absent for PHP {{ version }}"
-      file:
+      ansible.builtin.file:
         path: "/etc/php/{{ version }}/{{ sapi.key }}"
         state: absent
       loop: "{{ php_versions[version].sapis | dict2items }}"

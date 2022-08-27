@@ -3,7 +3,7 @@
   block:
 
     - name: "Include SAPI module checks for PHP {{ version }}"
-      include_tasks: sapi_module_checks.yml
+      ansible.builtin.include_tasks: sapi_module_checks.yml
       loop: "{{ php_versions[version].sapis | dict2items }}"
       loop_control:
         loop_var: sapi

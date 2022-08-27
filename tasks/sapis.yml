@@ -3,7 +3,7 @@
   block:
 
     - name: "Include module enable / disable tasks for PHP {{ version }}"
-      include_tasks: modules.yml
+      ansible.builtin.include_tasks: modules.yml
       loop: "{{ php_versions[version].sapis | dict2items }}"
       loop_control:
         loop_var: sapi

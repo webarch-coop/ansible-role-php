@@ -11,7 +11,7 @@
         group: root
 
     - name: Sury GPG key from https://packages.sury.org/php/apt.gpg in place
-      copy:
+      ansible.builtin.copy:
         src: sury.gpg
         dest: /usr/local/share/keyrings/sury-archive-keyring.gpg
         mode: 0644
@@ -19,7 +19,7 @@
         group: root
 
     - name: Sury repo apt sources present
-      template:
+      ansible.builtin.template:
         src: sury.sources.j2
         dest: /etc/apt/sources.list.d/sury.sources
         mode: 0644
@@ -28,7 +28,7 @@
       register: php_sury_sources
 
     - name: Sury apt preferences in place
-      template:
+      ansible.builtin.template:
         src: sury.pref.j2
         dest: /etc/apt/preferences.d/sury.pref
         mode: 0644
@@ -37,7 +37,7 @@
       register: php_sury_prefs
 
     - name: Update apt cache
-      apt:
+      ansible.builtin.apt:
         update_cache: true
       when: ( php_sury_sources.changed ) or ( php_sury_prefs.changed )
 

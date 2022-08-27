@@ -3,7 +3,7 @@
   block:
 
     - name: "Check that no SAPI modules for {{ sapi.key }} are set to be enabled and disabled at the same time for PHP {{ version }}"
-      assert:
+      ansible.builtin.assert:
         that:
           - mod not in sapi.value.modules_disabled
         quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"

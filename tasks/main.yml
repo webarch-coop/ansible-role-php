@@ -2,21 +2,20 @@
 - name: Install and configure PHP
   block:
 
-    # The local facts bash script need work
-    # - name: Include local facts tasks
-    #   include_tasks: local_facts.yml
+    - name: Include local facts tasks
+      ansible.builtin.include_tasks: local_facts.yml
 
     - name: Include check tasks
-      include_tasks: checks.yml
+      ansible.builtin.include_tasks: checks.yml
 
     - name: Include apt repo config for Sury PHP packages
-      include_tasks: sury.yml
+      ansible.builtin.include_tasks: sury.yml
 
     - name: PHP versions absent
       block:
 
         - name: "PHP versioned packages absent"
-          apt:
+          ansible.builtin.apt:
             pkg: "php{{ version }}*"
             state: absent
             purge: true
@@ -28,7 +27,7 @@
             label: "{{ version }}"
 
         - name: "PHP versioned config files absent"
-          file:
+          ansible.builtin.file:
             path: "/etc/php/{{ version }}/"
             state: absent
           loop: "{{ php_versions_absent }}"
@@ -42,7 +41,7 @@
       block:
 
         - name: PHP versioned packages absent
-          apt:
+          ansible.builtin.apt:
             pkg: "{{ php_versions[version].packages_absent }}"
             state: absent
           loop: "{{ php_versions_proposed }}"
@@ -52,7 +51,7 @@
           when: ( php_versions[version].packages_absent is defined ) and ( php_versions[version].packages_absent != [] )
 
         - name: PHP SAPIs absent
-          include_tasks: sapi_absent.yml
+          ansible.builtin.include_tasks: sapi_absent.yml
           loop: "{{ php_versions_proposed }}"
           loop_control:
             loop_var: version
@@ -60,7 +59,7 @@
           when: php_versions[version].sapis is defined
 
         - name: PHP versioned packages present
-          apt:
+          ansible.builtin.apt:
             pkg: "{{ php_versions[version].packages_present }}"
             state: present
           loop: "{{ php_versions_proposed }}"
@@ -72,13 +71,13 @@
       when: ( php_versions_proposed is defined ) and ( php_versions_proposed != [] )
 
     - name: PHP packages present
-      apt:
+      ansible.builtin.apt:
         pkg: "{{ php_packages }}"
         state: present
         update_cache: true
 
     - name: Loop through the PHP proposed versions to include tasks for each SAPI which will include tasks to enable / disable modules
-      include_tasks: sapis.yml
+      ansible.builtin.include_tasks: sapis.yml
       loop: "{{ php_versions_proposed }}"
       loop_control:
         loop_var: version
@@ -94,10 +93,10 @@
     # Disable the www pool for all versions but the default PHP version
 
     - name: Debug fail
-      fail:
+      ansible.builtin.fail:
 
     - name: Set an array for the PHP packages with version numbers in their names
-      set_fact:
+      ansible.builtin.set_fact:
         php_version_packages: "{{ php_version_packages | default([]) }} + [ 'php{{ php_version }}-{{ php_package }}' ]"
       loop: "{{ php_versioned_packages }}"
       loop_control:
@@ -105,24 +104,24 @@
         label: "{{ php_package }}"
 
     - name: "PHP {{ php_version }} packages installed"
-      apt:
+      ansible.builtin.apt:
         pkg: "{{ php_version_packages | default([]) }}"
         state: present
         update_cache: false
       notify: Restart php-fpm
 
     - name: APCu enabled
-      command: phpenmod apcu
+      ansible.builtin.command: phpenmod apcu
       when: ( "apcu" in php_versioned_packages )
       notify: Restart php-fpm
 
     - name: APCu disabled
-      command: phpdismod apcu
+      ansible.builtin.command: phpdismod apcu
       when: ( "apcu" not in php_versioned_packages )
       notify: Restart php-fpm
 
     - name: "PHP-FPM ini config /etc/php/{{ php_version }}/fpm/php.ini in place"
-      template:
+      ansible.builtin.template:
         src: "templates/php.ini.j2"
         dest: "/etc/php/{{ php_version }}/fpm/php.ini"
         mode: 0644
@@ -130,7 +129,7 @@
       notify: Restart php-fpm
 
     - name: "PHP CLI config /etc/php/{{ php_version }}/cli/php.ini in place"
-      template:
+      ansible.builtin.template:
         src: "templates/cli_php.ini.j2"
         dest: "/etc/php/{{ php_version }}/cli/php.ini"
         mode: 0644
@@ -138,7 +137,7 @@
       notify: Restart php-fpm
 
     - name: PHP-FPM www.conf pool disabled
-      file:
+      ansible.builtin.file:
         path: "/etc/php/{{ php_version }}/fpm/pool.d/www.conf"
         state: absent
       when: ( php_www_pool_enabled is defined ) and ( not php_www_pool_enabled )
@@ -148,7 +147,7 @@
       block:
 
         - name: Include www pool server variable checks
-          include_tasks: pool_check.yml
+          ansible.builtin.include_tasks: pool_check.yml
           when: php_www_pool_pm == "dynamic"
           vars:
             php_pm: "{{ php_www_pool_pm }}"
@@ -158,7 +157,7 @@
             php_pm_max_spare_servers: "{{ php_www_pool_pm_max_spare_servers }}"
 
         - name: PHP-FPM www.conf pool enabled
-          template:
+          ansible.builtin.template:
             src: templates/www.conf.j2
             dest: "/etc/php/{{ php_version }}/fpm/pool.d/www.conf"
             backup: false
@@ -167,7 +166,7 @@
       when: ( php_www_pool_enabled is not defined ) or ( php_www_pool_enabled is defined and php_www_pool_enabled )
 
     - name: Check the PHP-FPM configuration
-      command: "php-fpm{{ php_version }} --test"
+      ansible.builtin.command: "php-fpm{{ php_version }} --test"
       check_mode: false
       changed_when: false
       register: php_test
@@ -175,14 +174,14 @@
       notify: Restart php-fpm
 
     - name: Check that /usr/bin/crontab exists
-      stat:
+      ansible.builtin.stat:
         path: /usr/bin/crontab
       register: php_crontab
 
     # The log rotates once a week by default so this is a fairly crude metric but
     # it is good enough to flag up how often the max_children limits are being hit
     - name: Cron job to email root the results of grepping the logs for PHP-FPM pm.max_children
-      cron:
+      ansible.builtin.cron:
         name: "Grep PHP{{ php_version }} log for pm.max_children"
         hour: "06"
         minute: "01"

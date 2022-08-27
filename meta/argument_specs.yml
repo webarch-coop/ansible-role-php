@@ -1,0 +1,32 @@
+---
+argument_specs:
+  main:
+    author: Chris Croome
+    description: Ansible role for installing and configuring PHP on Debian
+    short_description: The main entry point for the PHP role.
+    options:
+      php_sury:
+        type: bool
+        required: true
+        description: Use the Sury PHP deb package repo
+      php_dpkg:
+        type: str
+        required: true
+        description: The path to dpkg for Ansible local facts
+      php_gpg:
+        type: str
+        required: true
+        description: The path to gpg for Ansible local facts
+      php_phpquery:
+        type: str
+        required: true
+        description: The path to phpquery for Ansible local facts
+      php_alternatives:
+        type: dict
+        equired: true
+        description: A dictionary for the Alternatives role to set the priority of PHP versions
+      php_versions:
+        type: dict
+        equired: true
+        description: A dictionary for the PHP versions, packages, sapis and modules
+...

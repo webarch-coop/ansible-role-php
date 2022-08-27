@@ -1,30 +1,4 @@
 ---
-argument_specs:
-  main:
-    author: Chris Croome
-    description: Ansible role for installing and configuring PHP on Debian
-    short_description: The main entry point for the PHP role.
-    options:
-      php_sury:
-        type: bool
-        required: true
-        description: Use the Sury PHP deb package repo
-      php_dpkg:
-        type: str
-        required: true
-        description: The path to dpkg for Ansible local facts
-      php_phpquery:
-        type: str
-        required: true
-        description: The path to phpquery for Ansible local facts
-      php_alternatives:
-        type: dict
-        equired: true
-        description: A dictionary for the Alternatives role to set the priority of PHP versions
-      php_versions:
-        type: dict
-        equired: true
-        description: A dictionary for the PHP versions, packages, sapis and modules
 galaxy_info:
   role_name: php
   author: Chris Croome
@@ -34,18 +8,16 @@ galaxy_info:
   license: GNU General Public License v3.0 (GPLv3)
   min_ansible_version: 2.11
   platforms:
-    - name: debian
+    - name: Debian
       versions:
+        - bookworm
         - bullseye
         - buster
         - stretch
-  galaxy_tags: []
-  # List tags for your role here, one per line. A tag is a keyword that describes
-  # and categorizes the role. Users find roles by searching for tags. Be sure to
-  # remove the '[]' above, if you add tags to this list.
-  #
-  # NOTE: A tag is limited to a single word comprised of alphanumeric characters.
-  #       Maximum 20 tags per role.
+  galaxy_tags:
+    - debian
+    - php
+    - sury
 dependencies: []
 # List your role dependencies here, one per line. Be sure to remove the '[]' above,
 # if you add dependencies to this list.

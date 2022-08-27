@@ -3,7 +3,7 @@
   block:
 
     - name: "PHP {{ version }} packages absent"
-      apt:
+      ansible.builtin.apt:
         pkg: "php{{ version }}*"
         state: absent
         purge: true
@@ -11,7 +11,7 @@
         autoremove: true
 
     - name: "PHP {{ version }} config files absent"
-      file:
+      ansible.builtin.file:
         path: "/etc/php/{{ version }}/"
         state: absent
 

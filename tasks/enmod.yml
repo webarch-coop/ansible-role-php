@@ -6,14 +6,14 @@
       block:
 
         - name: "Enable module {{ mod }} for SAPI {{ sapi.key }} for PHP version {{ version }}"
-          command: phpenmod -v "{{ version }}" -s "{{ sapi.key }}" "{{ mod }}"
+          ansible.builtin.command: phpenmod -v "{{ version }}" -s "{{ sapi.key }}" "{{ mod }}"
           register: php_mod_enabled
           failed_when: php_mod_enabled.stderr | length > 0
 
       rescue:
 
         - name: "Error enabling module {{ mod }} for SAPI {{ sapi.key }} for PHP version {{ version }}"
-          fail:
+          ansible.builtin.fail:
             msg:
               - "Enabling module {{ mod }} for SAPI {{ sapi.key }} for PHP version {{ version }} failed with the following message"
               - "{{ php_mod_enabled.stderr }}"

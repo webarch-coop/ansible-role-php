@@ -3,7 +3,7 @@
   block:
 
     - name: "Check that a package is not set to be present and absent at the same time for PHP {{ version }}"
-      assert:
+      ansible.builtin.assert:
         that:
           - pkg not in php_versions[version].packages_absent
         quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"

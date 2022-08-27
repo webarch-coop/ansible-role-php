@@ -4,7 +4,7 @@
   block:
 
     - name: Print variables for debugging
-      debug:
+      ansible.builtin.debug:
         msg:
           - "php_pm is a {{ php_pm | type_debug }} with the value: {{ php_pm }}"
           - "php_pm_start_servers is a {{ php_pm_start_servers | type_debug }} with the value: {{ php_pm_start_servers }}"
@@ -14,13 +14,13 @@
         verbosity: 2
 
     - name: Ensure that pm is set to static, ondemand or dynamic
-      assert:
+      ansible.builtin.assert:
         that:
           - php_pm is regex("^static|ondemand|dynamic$")
         quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
 
     - name: Ensure that pm.max_children is defined, numeric and is greater than 1
-      assert:
+      ansible.builtin.assert:
         that:
           - php_pm_max_children is defined
           - ( php_pm_max_children | string ) is regex("^[0-9]+$")
@@ -31,7 +31,7 @@
       block:
 
         - name: Ensure that pm.start_servers, pm.min_spare_servers and pm.max_spare_servers are defined and numeric
-          assert:
+          ansible.builtin.assert:
             that:
               - php_pm_start_servers is defined
               - ( php_pm_start_servers | string ) is regex("^[0-9]+$")
@@ -42,7 +42,7 @@
             quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
 
         - name: Ensure that pm.max_children, pm.start_servers, pm.min_spare_servers and pm.max_spare_servers are greater than or equal to 1
-          assert:
+          ansible.builtin.assert:
             that:
               - php_pm_max_children | int >= 1
               - php_pm_start_servers | int >= 1
@@ -51,7 +51,7 @@
             quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
 
         - name: Ensure that pm.max_children is greater than or equal to pm.start_servers, pm.min_spare_servers and pm.max_spare_servers
-          assert:
+          ansible.builtin.assert:
             that:
               - php_pm_max_children | int >= php_pm_start_servers | int
               - php_pm_max_children | int >= php_pm_min_spare_servers | int
@@ -59,14 +59,14 @@
             quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
 
         - name: Ensure that pm.start_servers is be greater than pm.min_spare_servers and less than or equal to pm.max_spare_servers
-          assert:
+          ansible.builtin.assert:
             that:
               - php_pm_start_servers | int >= php_pm_min_spare_servers | int
               - php_pm_start_servers | int <= php_pm_max_spare_servers | int
             quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
 
         - name: Ensure that pm.max_spare_servers is greater than pm.min_spare_servers
-          assert:
+          ansible.builtin.assert:
             that:
               - php_pm_max_spare_servers | int >= php_pm_min_spare_servers | int
             quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"

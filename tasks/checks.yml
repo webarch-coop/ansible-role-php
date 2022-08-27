@@ -3,13 +3,13 @@
   block:
 
     - name: Check that depreciated variables are not used
-      assert:
+      ansible.builtin.assert:
         that:
           - php_allow_local_infile is not defined
         quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
 
     - name: Check that variables are booleans
-      assert:
+      ansible.builtin.assert:
         that:
           - php_allow_url_include | type_debug == "bool"
           - php_mysqli_allow_local_infile | type_debug == "bool"
@@ -20,7 +20,7 @@
         quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
 
     - name: Check that the distro is Debian Bookworm, Bullseye, Buster or Stretch or Ubuntu Jammy, Focal or Bionic
-      assert:
+      ansible.builtin.assert:
         that:
           - ansible_distribution_release is defined
           - ansible_distribution_release is regex("^stretch|buster|bullseye|bookworm|focal|bionic|jammy$")
@@ -28,7 +28,7 @@
         fail_msg: "The Linux distro {{ ansible_distribution }} {{ ansible_distribution_release }} is not supported by this role"
 
     - name: Generate an array of existing PHP versions
-      set_fact:
+      ansible.builtin.set_fact:
         php_versions_existing: "{{ php_versions_existing | default([]) }} + [ '{{ existing_version.key }}' ]"
       loop: "{{ ansible_local.phpquery.versions | dict2items }}"
       loop_control:
@@ -39,13 +39,13 @@
         - existing_version.value.state == "present"
 
     - name: Debug php_versions_existing array
-      debug:
+      ansible.builtin.debug:
         var: php_versions_existing
         verbosity: 2
       when: php_versions_existing is defined
 
     - name: Generate an array of proposed PHP versions
-      set_fact:
+      ansible.builtin.set_fact:
         php_versions_proposed: "{{ php_versions_proposed | default([]) }} + [ '{{ proposed_version.key }}' ]"
       loop: "{{ php_versions | dict2items }}"
       loop_control:
@@ -59,19 +59,19 @@
       block:
 
         - name: Debug php_versions_proposed array
-          debug:
+          ansible.builtin.debug:
             var: php_versions_proposed
             verbosity: 2
 
         - name: Check that for each proposed version of PHP there are not packages due to be present and absent at the same time
-          include_tasks: pkg_checks.yml
+          ansible.builtin.include_tasks: pkg_checks.yml
           loop: "{{ php_versions_proposed }}"
           loop_control:
             loop_var: version
             label: "{{ version }}"
 
         - name: Debug defined SAPIs for proposed PHP versions
-          debug:
+          ansible.builtin.debug:
             msg: "SAPI {{ php_versions[version].sapis }} is defined for PHP {{ version }}"
             verbosity: 3
           loop: "{{ php_versions_proposed }}"
@@ -81,7 +81,7 @@
           when: php_versions[version].sapis is defined
 
         - name: Include SAPI checks for proposed PHP versions
-          include_tasks: sapi_checks.yml
+          ansible.builtin.include_tasks: sapi_checks.yml
           loop: "{{ php_versions_proposed }}"
           loop_control:
             loop_var: version
@@ -89,7 +89,7 @@
           when: php_versions[version].sapis is defined
 
         - name: Generate an array of PHP versions to remove
-          set_fact:
+          ansible.builtin.set_fact:
             php_versions_remove: "{{ php_versions_existing | difference(php_versions_proposed) }}"
           when:
             - ( php_versions_existing is defined ) and ( php_versions_existing != [] )
@@ -99,12 +99,12 @@
           block:
 
             - name: Debug php_versions_remove array
-              debug:
+              ansible.builtin.debug:
                 var: php_versions_remove
                 verbosity: 2
 
             - name: Include SAPI checks for PHP versions due to be removed
-              include_tasks: sapi_absent_checks.yml
+              ansible.builtin.include_tasks: sapi_absent_checks.yml
               loop: "{{ php_versions_remove }}"
               loop_control:
                 loop_var: version
@@ -116,7 +116,7 @@
       when: ( php_versions_proposed is defined ) and ( php_versions_proposed != [] )
 
     - name: Generate an array of absent PHP versions
-      set_fact:
+      ansible.builtin.set_fact:
         php_versions_absent: "{{ php_versions_absent | default([]) }} + [ '{{ absent_version.key }}' ]"
       loop: "{{ php_versions | dict2items }}"
       loop_control:
@@ -128,12 +128,12 @@
       block:
 
         - name: Debug php_versions_absent array
-          debug:
+          ansible.builtin.debug:
             var: php_versions_absent
             verbosity: 2
 
         - name: Include SAPI checks for PHP versions due to be absent
-          include_tasks: sapi_absent_checks.yml
+          ansible.builtin.include_tasks: sapi_absent_checks.yml
           loop: "{{ php_versions_absent }}"
           loop_control:
             loop_var: version
@@ -143,7 +143,7 @@
       when: ( php_versions_absent is defined ) and ( php_versions_absent != [] )
 
     # - name: Include www pool server variable checks
-    #   include_tasks: pool_check.yml
+    #   ansible.builtin.include_tasks: pool_check.yml
     #   when: php_www_pool_pm == "dynamic"
     #   vars:
     #     php_pm: "{{ php_www_pool_pm }}"
