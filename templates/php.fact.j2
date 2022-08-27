@@ -18,24 +18,23 @@ then
         declare -a sapis=()
         readarray -t sapis < <("${PHPQUERY}" -v "${v}" -S | sort)
         echo ${v}=$(
-          jo state=present mods_available=$(
-            jo -a "${mods_available[@]}") $(
-              for s in "${sapis[@]}"
+          jo state=present mods_available=$(jo -a "${mods_available[@]}") $(
+            for s in "${sapis[@]}"
+            do
+              declare -a mods_enabled=()
+              for m in "${mods_available[@]}"
               do
-                declare -a mods_enabled=()
-                for m in "${mods_available[@]}"
-                do
-                  if "${PHPQUERY}" -v "${v}" -s "${s}" -m "${m}" -q
-                  then
-                    mods_enabled=(${mods_enabled[@]} ${m})
-                  fi
-                done
-                echo sapis["${s}"]=$(
-                  jo state=present mods_enabled=$(
-                    jo -e -a "${mods_enabled[@]}"
-                  )
-                )
+                if "${PHPQUERY}" -v "${v}" -s "${s}" -m "${m}" -q
+                then
+                  mods_enabled=(${mods_enabled[@]} ${m})
+                fi
               done
+              echo sapis["${s}"]=$(
+                jo state=present mods_enabled=$(
+                  jo -e -a "${mods_enabled[@]}"
+                )
+              )
+            done
             )
           )
       done

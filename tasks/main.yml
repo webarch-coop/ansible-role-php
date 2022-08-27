@@ -160,6 +160,7 @@
           ansible.builtin.template:
             src: templates/www.conf.j2
             dest: "/etc/php/{{ php_version }}/fpm/pool.d/www.conf"
+            mode: 0644
             backup: false
           notify: Restart php-fpm
 

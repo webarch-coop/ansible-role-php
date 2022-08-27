@@ -7,6 +7,7 @@
 
         - name: "Enable module {{ mod }} for SAPI {{ sapi.key }} for PHP version {{ version }}"
           ansible.builtin.command: phpenmod -v "{{ version }}" -s "{{ sapi.key }}" "{{ mod }}"
+          changed_when: true
           register: php_mod_enabled
           failed_when: php_mod_enabled.stderr | length > 0
 
