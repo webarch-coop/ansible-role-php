@@ -17,49 +17,53 @@
         owner: root
         group: root
 
-    - name: Ansible dpkg architecture local fact script present
+    - name: Ansible local facts scripts present
       ansible.builtin.template:
-        src: dpkg_arch.fact.j2
-        dest: /etc/ansible/facts.d/dpkg_arch.fact
-        mode: 0700
+        src: "{{ script }}.j2"
+        dest: "/etc/ansible/facts.d/{{ script }}"
+        mode: 0755
         owner: root
         group: root
-      register: php_dpkg_arch_facts
-
-    - name: Ansible phpquery local facts script present
-      ansible.builtin.template:
-        src: phpquery.fact.j2
-        dest: /etc/ansible/facts.d/phpquery.fact
-        mode: 0700
-        owner: root
-        group: root
-      register: php_phpquery_facts
-
-    # This need replacing or deleting something
-    # - name: Ansible PHP update-alternatives local facts script present
-    #   copy:
-    #     src: php_alternatives.fact
-    #     dest: /etc/ansible/facts.d/php_alternatives.fact
-    #     mode: 0700
-    #     owner: root
-    #     group: root
-    #   register: php_alternatives_facts
+      loop:
+        - bash.fact
+        - dpkg.fact
+        - gpg.fact
+        - php.fact
+      loop_control:
+        loop_var: script
 
     - name: Re-read Ansible local facts
       ansible.builtin.setup:
         filter: ansible_local
-      when: ( php_dpkg_arch_facts.changed ) or ( php_phpquery_facts.changed )
 
-    - name: Print Ansible dpkg --architecture variables
-      debug:
-        msg: "{{ ansible_local.dpkg_arch }}"
+    - name: Check that ansible_local facts are defined
+      ansible.builtin.assert:
+        that:
+          - ansible_local.bash is defined
+          - ansible_local.dpkg is defined
+          - ansible_local.gpg is defined
+          - ansible_local.php is defined
+
+    - name: Print Ansible local dpkg facts
+      ansible.builtin.debug:
+        var: ansible_local.dpkg
+        verbosity: 2
+
+    - name: Print Ansible local gpg facts
+      ansible.builtin.debug:
+        var: ansible_local.gpg
+        verbosity: 2
+
+    - name: Print Ansible local bash facts
+      ansible.builtin.debug:
+        var: ansible_local.bash
         verbosity: 2
 
     - name: Print Ansible phpquery dictionary
       debug:
-        msg: "{{ ansible_local.phpquery }}"
+        msg: "{{ ansible_local.php }}"
         verbosity: 2
 
   tags:
-    - quota
+    - php
 ...
