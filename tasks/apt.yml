@@ -1,0 +1,127 @@
+---
+- name: Configure the Sury PHP apt repo
+  block:
+
+    - name: Remove legacy files
+      block:
+
+        - name: Find legacy PHP apt list files
+          ansible.builtin.find:
+            paths: /etc/apt/sources.list.d
+            patterns: "*php*.list"
+          register: php_old_apt_list_files
+
+        - name: List legacy PHP apt list files to be disabled
+          ansible.builtin.debug:
+            msg: "apt list file {{ file.path }} to be moved to {{ file.path }}.ansible.save"
+          loop: "{{ php_old_apt_list_files.files }}"
+          loop_control:
+            loop_var: file
+            label: "{{ file.path | basename }}"
+          when: ( php_old_apt_list_files.matched >= 1 )
+
+        - name: Disable legacy PHP apt list files
+          ansible.builtin.command: "mv {{ file.path }} {{ file.path }}.ansible.save"
+          loop: "{{ php_old_apt_list_files.files }}"
+          loop_control:
+            loop_var: file
+            label: "{{ file.path | basename }}"
+          when: ( php_old_apt_list_files.matched >= 1 )
+
+        - name: Legacy PHP apt key absent
+          ansible.builtin.apt_key:
+            id: 15058500A0235D97F5D10063B188E2B695BD4743
+            state: absent
+
+        - name: Legacy usr/local/share/keyrings GPG key absent
+          ansible.builtin.file:
+            path: /usr/local/share/keyrings/sury-archive-keyring.gpg
+            state: absent
+
+        - name: Legacy usr/share/keyrings GPG key absent
+          ansible.builtin.file:
+            path: /usr/share/keyrings/deb.sury.org-php.gpg
+            state: absent
+
+      when: php_remove_legacy | bool
+
+    - name: Apt keyrings directory present
+      ansible.builtin.file:
+        path: /etc/apt/keyrings
+        state: directory
+        mode: 0755
+        owner: root
+        group: root
+
+    - name: Sury GPG key present
+      ansible.builtin.get_url:
+        url: "{{ php_gpg_url }}"
+        checksum: "{{ php_gpg_checksum }}"
+        dest: /etc/apt/keyrings/php.gpg
+        mode: 0644
+        owner: root
+        group: root
+
+    - name: Stat the GPG key
+      ansible.builtin.stat:
+        path: /etc/apt/keyrings/php.gpg
+      register: php_gpg_file
+    
+    - name: PHP gpg key check command
+      ansible.builtin.command: "gpg --with-colons {% if ansible_local.gpg.version is version('2.2.12', '<') %}--with-fingerprint --with-subkey-fingerprint{% else %}--show-keys{% endif %} /etc/apt/keyrings/php.gpg"
+      when: ( php_gpg_file.stat.exists | bool )
+      check_mode: false
+      changed_when: false
+      register: php_gpg
+
+    - name: Set a fact for the PHP GPG fingerprints on the server
+      ansible.builtin.set_fact:
+        php_gpg_fingerprints_found: "{{ php_gpg.stdout | community.general.jc('gpg') | community.general.json_query('[?type==`fpr`].user_id') | list }}"
+
+    - name: PHP gpg key check first fingerprint for GPG versions less that 2.2.12
+      ansible.builtin.assert:
+        that:
+          - php_gpg_fingerprints_found[0] == php_gpg_fingerprints[0]
+      when: ansible_local.gpg.version is version('2.2.12', '<')
+
+    - name: PHP gpg key check all fingerprints
+      ansible.builtin.assert:
+        that:
+          - php_gpg_fingerprints_found | difference(php_gpg_fingerprints) | length == 0
+          - php_gpg_fingerprints | difference(php_gpg_fingerprints_found) | length == 0
+      when: ansible_local.gpg.version is version('2.2.12', '>=')
+
+    - name: PHP repository sources file present
+      ansible.builtin.template:
+        src: php.sources.j2
+        dest: /etc/apt/sources.list.d/php.sources
+        mode: 0644
+        owner: root
+        group: root
+      register: php_sources
+
+    - name: PHP apt preferences present
+      ansible.builtin.template:
+        src: php.pref.j2
+        dest: /etc/apt/preferences.d/php.pref
+        mode: 0644
+        owner: root
+        group: root
+      register: php_preferences
+
+    - name: Update apt cache
+      ansible.builtin.apt:
+        update_cache: true
+      when: ( php_sources.changed | bool ) or ( php_preferences.changed | bool )
+
+  when: php_sury
+  tags:
+    - php
+
+# - name: Remove the the Sury PHP apt repo
+#   block:
+#
+#   when: not php_sury
+#   tags:
+#     - php
+...

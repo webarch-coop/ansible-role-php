@@ -6,7 +6,6 @@ PHPQUERY="{{ php_phpquery }}"
 
 if [[ -f "${PHPQUERY}" ]] && [[ -f "/usr/lib/php/php-helper" ]]
 then
-  . /usr/lib/php/php-helper
   declare -a versions=()
   readarray -t versions < <("${PHPQUERY}" -V | sort -V)
   jo state=present versions=$(

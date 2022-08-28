@@ -9,7 +9,7 @@
       ansible.builtin.include_tasks: checks.yml
 
     - name: Include apt repo config for Sury PHP packages
-      ansible.builtin.include_tasks: sury.yml
+      ansible.builtin.include_tasks: apt.yml
 
     - name: PHP versions absent
       block:
