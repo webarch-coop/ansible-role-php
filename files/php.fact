@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# {{ ansible_managed }}
+# Ansible managed
 
 set -euo pipefail
-APTITUDE="{{ php_aptitude }}"
-PHPQUERY="{{ php_phpquery }}"
+APTITUDE="/usr/bin/aptitude"
+PHPQUERY="/usr/sbin/phpquery"
 
 if [[ -f "${APTITUDE}" ]]
 then

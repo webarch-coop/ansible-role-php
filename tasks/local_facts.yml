@@ -29,15 +29,24 @@
         - bash.fact
         - dpkg.fact
         - gpg.fact
-        - php.fact
       loop_control:
         loop_var: script
       register: php_local_fact_scripts
 
+    - name: Ansible local facts script present
+      ansible.builtin.copy:
+        src: php.fact.sh
+        dest: /etc/ansible/facts.d/php.fact
+        mode: 0755
+        owner: root
+        group: root
+        validate: bash -n %s
+      register: php_local_fact_script
+
     - name: Re-read Ansible local facts
       ansible.builtin.setup:
         filter: ansible_local
-      when: php_local_fact_scripts.changed | bool
+      when: ( php_local_fact_scripts.changed | bool ) or ( php_local_fact_script.changed | bool )
 
     - name: Check that ansible_local facts are defined
       ansible.builtin.assert:
