@@ -33,14 +33,10 @@
         loop_var: script
       register: php_local_fact_scripts
 
-    - name: Debug php_local_fact_scripts
-      ansible.builtin.debug:
-        var: php_local_fact_scripts
-        verbosity: 2
-
     - name: Re-read Ansible local facts
       ansible.builtin.setup:
         filter: ansible_local
+      when: php_local_fact_scripts.changed | bool
 
     - name: Check that ansible_local facts are defined
       ansible.builtin.assert:
