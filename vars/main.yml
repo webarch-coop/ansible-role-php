@@ -9,7 +9,7 @@ php_gpg_checksum: "sha256:b3ea944563435e54bb64f181ee8bc26200985d09164cdc4c1702fc
 
 # GPG fingerprints
 # wget -q 'https://packages.sury.org/php/apt.gpg' -O - | gpg --dearmor | gpg --with-colons --show-keys - | grep ^fpr | sed 's/^fpr//' | sed 's/://g' | sed 's/^/  - /'
-php_gpg_fingerprints: 
+php_gpg_fingerprints:
   - 15058500A0235D97F5D10063B188E2B695BD4743
   - 45BEA3E529112086C622F8A4B214EAC28059B8AC
 

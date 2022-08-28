@@ -66,7 +66,7 @@
       ansible.builtin.stat:
         path: /etc/apt/keyrings/php.gpg
       register: php_gpg_file
-    
+
     - name: PHP gpg key check command
       ansible.builtin.command: "gpg --with-colons {% if ansible_local.gpg.version is version('2.2.12', '<') %}--with-fingerprint --with-subkey-fingerprint{% else %}--show-keys{% endif %} /etc/apt/keyrings/php.gpg"
       when: ( php_gpg_file.stat.exists | bool )
