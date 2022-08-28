@@ -13,7 +13,7 @@
         path: /etc/ansible/facts.d
         recurse: true
         state: directory
-        mode: 0700
+        mode: 0755
         owner: root
         group: root
 
@@ -31,6 +31,12 @@
         - php.fact
       loop_control:
         loop_var: script
+      register: php_local_fact_scripts
+
+    - name: Debug php_local_fact_scripts
+      ansible.builtin.debug:
+        var: php_local_fact_scripts
+        verbosity: 2
 
     - name: Re-read Ansible local facts
       ansible.builtin.setup:
