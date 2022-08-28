@@ -43,29 +43,24 @@
         filter: ansible_local
       when: ( php_local_dpkg_fact.changed | bool ) or ( php_local_php_fact.changed | bool )
 
-    - name: Print Ansible local dpkg facts
-      ansible.builtin.debug:
-        var: ansible_local.dpkg
-        verbosity: 2
+    - name: Check that ansible_local facts are defined
+      ansible.builtin.assert:
+        that:
+          - ansible_local.dpkg.state is defined
+          - ansible_local.dpkg.state is regex('^absent|present$')
+          - ansible_local.php.state is defined
+          - ansible_local.php.state is regex('^absent|present$')
+        quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
 
     - name: Print Ansible local dpkg facts
       ansible.builtin.debug:
-        var: ansible_local.dpkg.state
+        var: ansible_local.dpkg
         verbosity: 2
 
     - name: Print Ansible local php facts
       ansible.builtin.debug:
         var: ansible_local.php
         verbosity: 2
-
-    - name: Check that ansible_local facts are defined
-      ansible.builtin.assert:
-        that:
-          - ansible_local.dpkg.state is defined
-          - ansible_local.dpkg.state | type_debug == "bool"
-          - ansible_local.php.state is defined
-          - ansible_local.php.state | type_debug == "bool"
-        quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
 
   tags:
     - php
