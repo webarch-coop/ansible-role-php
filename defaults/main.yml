@@ -71,7 +71,6 @@ php:
     - php8.1-uploadprogress
     - php8.1-xml
     - php8.1-xsl
-    - php8.2-apcu
     - php8.2-bcmath
     - php8.2-bz2
     - php8.2-cli
