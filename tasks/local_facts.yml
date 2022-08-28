@@ -35,7 +35,7 @@
 
     - name: Ansible local facts script present
       ansible.builtin.copy:
-        src: php.fact.sh
+        src: php.fact
         dest: /etc/ansible/facts.d/php.fact
         mode: 0755
         owner: root
