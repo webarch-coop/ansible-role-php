@@ -5,15 +5,42 @@
     - name: Include local facts tasks
       ansible.builtin.include_tasks: local_facts.yml
 
-    - name: Install and configure PHP
+    - name: Install PHP
+      block:
+
+        - name: Include apt repo config for Sury PHP packages
+          ansible.builtin.include_tasks: apt.yml
+
+        - name: PHP packages absent
+          ansible.builtin.apt:
+            pkg: "{{ ansible_local.php.packages | difference(php.packages) }}"
+            state: absent
+            purge: true
+            autoclean: true
+            autoremove: true
+          register: php_packages_absent
+
+        - name: PHP packages present
+          ansible.builtin.apt:
+            pkg: "{{ php.packages | difference(ansible_local.php.packages) }}"
+            state: present
+          register: php_packages_present
+
+        - name: Re-read Ansible local facts
+          ansible.builtin.setup:
+            filter: ansible_local
+          when: ( php_packages_absent.changed | bool ) or ( php_packages_present.changed | bool )
+
+      when: ( ansible_local.php.packages is not defined ) or ( ansible_local.php.packages != php.packages )
+
+    - name: Debug fail
+      ansible.builtin.fail:
+
+    - name: Configure PHP
       block:
 
         - name: Include check tasks
           ansible.builtin.include_tasks: checks.yml
-
-        - name: Include apt repo config for Sury PHP packages
-          ansible.builtin.include_tasks: apt.yml
-          when: php_sury | bool
 
         - name: PHP versions absent
           block:
@@ -95,9 +122,6 @@
         # Use update-alternatives to set the default version
         #
         # Disable the www pool for all versions but the default PHP version
-
-        - name: Debug fail
-          ansible.builtin.fail:
 
         - name: Set an array for the PHP packages with version numbers in their names
           ansible.builtin.set_fact:

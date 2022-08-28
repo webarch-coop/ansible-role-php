@@ -18,22 +18,17 @@
         owner: root
         group: root
 
-    - name: Ansible local facts scripts present
-      ansible.builtin.template:
-        src: "{{ script }}.j2"
-        dest: "/etc/ansible/facts.d/{{ script }}"
+    - name: Ansible local dpkg fact script present
+      ansible.builtin.copy:
+        src: dpkg.fact
+        dest: /etc/ansible/facts.d/dpkg.fact
         mode: 0755
         owner: root
         group: root
-      loop:
-        - bash.fact
-        - dpkg.fact
-        - gpg.fact
-      loop_control:
-        loop_var: script
-      register: php_local_fact_scripts
+        validate: bash -n %s
+      register: php_local_dpkg_fact
 
-    - name: Ansible local facts script present
+    - name: Ansible local PHP facts script present
       ansible.builtin.copy:
         src: php.fact
         dest: /etc/ansible/facts.d/php.fact
@@ -41,39 +36,30 @@
         owner: root
         group: root
         validate: bash -n %s
-      register: php_local_fact_script
+      register: php_local_php_fact
 
     - name: Re-read Ansible local facts
       ansible.builtin.setup:
         filter: ansible_local
-      when: ( php_local_fact_scripts.changed | bool ) or ( php_local_fact_script.changed | bool )
+      when: ( php_local_dpkg_fact.changed | bool ) or ( php_local_php_fact.changed | bool )
 
     - name: Check that ansible_local facts are defined
       ansible.builtin.assert:
         that:
-          - ansible_local.bash is defined
-          - ansible_local.dpkg is defined
-          - ansible_local.gpg is defined
-          - ansible_local.php is defined
+          - ansible_local.dpkg.state is defined
+          - ansible_local.dpkg.state | type_debug == "bool"
+          - ansible_local.php.state is defined
+          - ansible_local.php.state | type_debug == "bool"
+        quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
 
     - name: Print Ansible local dpkg facts
       ansible.builtin.debug:
         var: ansible_local.dpkg
         verbosity: 2
 
-    - name: Print Ansible local gpg facts
+    - name: Print Ansible local php facts
       ansible.builtin.debug:
-        var: ansible_local.gpg
-        verbosity: 2
-
-    - name: Print Ansible local bash facts
-      ansible.builtin.debug:
-        var: ansible_local.bash
-        verbosity: 2
-
-    - name: Print Ansible phpquery dictionary
-      ansible.builtin.debug:
-        msg: "{{ ansible_local.php }}"
+        var: ansible_local.php
         verbosity: 2
 
   tags:

@@ -67,29 +67,26 @@
         path: /etc/apt/keyrings/php.gpg
       register: php_gpg_file
 
-    - name: PHP gpg key check command
-      ansible.builtin.command: "gpg --with-colons {% if ansible_local.gpg.version is version('2.2.12', '<') %}--with-fingerprint --with-subkey-fingerprint{% else %}--show-keys{% endif %} /etc/apt/keyrings/php.gpg"
+    - name: Check the GPG fingerprints when the public key is present
+      block:
+
+        - name: PHP gpg key check command
+          ansible.builtin.command: gpg --with-colons --show-keys /etc/apt/keyrings/php.gpg
+          check_mode: false
+          changed_when: false
+          register: php_gpg
+
+        - name: Set a fact for the PHP GPG fingerprints on the server
+          ansible.builtin.set_fact:
+            php_gpg_fingerprints_found: "{{ php_gpg.stdout | community.general.jc('gpg') | community.general.json_query('[?type==`fpr`].user_id') | list }}"
+
+        - name: PHP gpg key check fingerprints
+          ansible.builtin.assert:
+            that:
+              - php_gpg_fingerprints_found | difference(php_gpg_fingerprints) | length == 0
+              - php_gpg_fingerprints | difference(php_gpg_fingerprints_found) | length == 0
+
       when: ( php_gpg_file.stat.exists | bool )
-      check_mode: false
-      changed_when: false
-      register: php_gpg
-
-    - name: Set a fact for the PHP GPG fingerprints on the server
-      ansible.builtin.set_fact:
-        php_gpg_fingerprints_found: "{{ php_gpg.stdout | community.general.jc('gpg') | community.general.json_query('[?type==`fpr`].user_id') | list }}"
-
-    - name: PHP gpg key check first fingerprint for GPG versions less that 2.2.12
-      ansible.builtin.assert:
-        that:
-          - php_gpg_fingerprints_found[0] == php_gpg_fingerprints[0]
-      when: ansible_local.gpg.version is version('2.2.12', '<')
-
-    - name: PHP gpg key check all fingerprints
-      ansible.builtin.assert:
-        that:
-          - php_gpg_fingerprints_found | difference(php_gpg_fingerprints) | length == 0
-          - php_gpg_fingerprints | difference(php_gpg_fingerprints_found) | length == 0
-      when: ansible_local.gpg.version is version('2.2.12', '>=')
 
     - name: PHP repository sources file present
       ansible.builtin.template:
@@ -114,14 +111,6 @@
         update_cache: true
       when: ( php_sources.changed | bool ) or ( php_preferences.changed | bool )
 
-  when: php_sury
   tags:
     - php
-
-# - name: Remove the the Sury PHP apt repo
-#   block:
-#
-#   when: not php_sury
-#   tags:
-#     - php
 ...
