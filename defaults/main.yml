@@ -1,5 +1,6 @@
 ---
 php_sury: true
+php_aptitude: /usr/bin/aptitude
 php_dpkg: /usr/bin/dpkg
 php_gpg: /usr/bin/gpg
 php_phpquery: /usr/sbin/phpquery
