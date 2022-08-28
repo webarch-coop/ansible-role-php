@@ -48,6 +48,11 @@
         var: ansible_local.dpkg
         verbosity: 2
 
+    - name: Print Ansible local dpkg facts
+      ansible.builtin.debug:
+        var: ansible_local.dpkg.state
+        verbosity: 2
+
     - name: Print Ansible local php facts
       ansible.builtin.debug:
         var: ansible_local.php
