@@ -5,6 +5,7 @@
     - name: Required packages present
       ansible.builtin.apt:
         pkg:
+          - aptitude
           - jo
         state: present
 

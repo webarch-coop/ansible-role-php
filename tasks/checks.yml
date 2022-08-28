@@ -19,11 +19,11 @@
           - php_opcache_validate_root | type_debug == "bool"
         quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
 
-    - name: Check that the distro is Debian Bookworm, Bullseye, Buster or Stretch or Ubuntu Jammy, Focal or Bionic
+    - name: Check that the distro is Debian Bullseye or Buster
       ansible.builtin.assert:
         that:
           - ansible_distribution_release is defined
-          - ansible_distribution_release is regex("^stretch|buster|bullseye|bookworm|focal|bionic|jammy$")
+          - ansible_distribution_release is regex("^buster|bullseye$")
         quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
         fail_msg: "The Linux distro {{ ansible_distribution }} {{ ansible_distribution_release }} is not supported by this role"
 

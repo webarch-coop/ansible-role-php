@@ -10,6 +10,7 @@
 
     - name: Include apt repo config for Sury PHP packages
       ansible.builtin.include_tasks: apt.yml
+      when: php_sury | bool
 
     - name: PHP versions absent
       block:
