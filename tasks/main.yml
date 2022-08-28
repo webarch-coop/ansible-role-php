@@ -194,7 +194,7 @@
             state: "{% if php_log_grep %}present{% else %}absent{% endif %}"
           when: php_crontab.stat.exists
 
-    when: ( ansible_local.php is not defined ) or ( ansible_local.php != php )
+      when: ( ansible_local.php is not defined ) or ( ansible_local.php != php )
 
   tags:
     - php
