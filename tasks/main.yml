@@ -15,7 +15,6 @@
           ansible.builtin.apt:
             pkg: "{{ ansible_local.php.packages | difference(php.packages) }}"
             state: absent
-            purge: true
             autoclean: true
             autoremove: true
           register: php_packages_absent
