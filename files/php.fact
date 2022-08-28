@@ -17,7 +17,7 @@ then
     then
       declare -a versions=()
       readarray -t versions < <("${PHPQUERY}" -V | sort -V)
-      jo state=present packages_present=$(jo -e -a "${packages[@]}") versions=$(i
+      jo state=present packages_present=$(jo -e -a "${packages[@]}") versions=$(
         jo $(
           for v in "${versions[@]}"
           do
