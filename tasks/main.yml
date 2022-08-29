@@ -37,6 +37,7 @@
       loop: "{{ php.versions | dict2items }}"
       loop_control:
         loop_var: php_version
+        label: "{{ php_version.key }}"
 
     - name: Debug fail
       ansible.builtin.fail:

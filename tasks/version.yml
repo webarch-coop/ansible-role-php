@@ -17,6 +17,7 @@
       loop: "{{ php_version.value.sapis | dict2items }}"
       loop_control:
         loop_var: php_sapi
+        label: "{{ php_sapi.key }}"
 
   tags:
     - php
