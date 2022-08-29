@@ -12,7 +12,7 @@ then
   "${jo}" state=absent
 else
   declare -a packages=()
-  readarray -t packages < <("${aptitude}" -q=99 search '~i!~M php' -F '%p')
+  readarray -t packages < <("${aptitude}" -q=99 search '~i! ?name("libapache2-mod-php|php"' -F '%p')
   if [[ "${#packages[@]}" == 0 ]]
   then
     "${jo}" state=absent
