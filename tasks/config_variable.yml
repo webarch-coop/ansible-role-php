@@ -19,7 +19,7 @@
         path: "/etc/php/{{ php_version.key }}/{{ php_sapi.key }}/php.ini"
         section: "{{ cfg_sect.key }}"
         option: "{{ cfg_var.key }}"
-        value: "{{ cfg_var.var }}"
+        value: "{{ cfg_var.value }}"
       # when: php_config_existing[cfg_sect.key].[cfg_var.key] != cfg_var
 
   tags:
