@@ -35,6 +35,10 @@
           ansible.builtin.debug:
             msg:
               - "{{ php.packages | difference(ansible_local.php.packages) }}"
+            verbosity: 2
+          when:
+            - ansible_local.php.packages is defined
+            - ansible_local.php.packages | length > 0
 
         - name: PHP packages present
           ansible.builtin.apt:
