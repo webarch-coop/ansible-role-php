@@ -34,7 +34,7 @@
 
     - name: Debug
       ansible.builtin.debug:
-        msg: "{{ php | dict2items }}"
+        msg: "{{ php.versions | dict2items }}"
 
     - name: Loop through the PHP versions to configure sapis and modules
       ansible.builtin.include_tasks: version.yml
