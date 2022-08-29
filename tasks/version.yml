@@ -10,6 +10,12 @@
       ansible.builtin.debug:
         var: php_version.value.sapis
 
+    - name: Include sapi configuration tasks
+      ansible.builtin.include_tasks: sapi.yml 
+      loop: "{{ php_version.value.sapis | dict2items }}"
+      loop_control:
+        loop_var: php_sapi
+
   tags:
     - php
 ...

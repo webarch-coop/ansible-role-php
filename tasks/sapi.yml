@@ -1,0 +1,25 @@
+---
+- name: Configure PHP sapi
+  block:
+
+    - name: Debug sapi
+      ansible.builtin.debug:
+        var: php_sapi.key
+
+    - name: Debug modes enabled
+      ansible.builtin.debug:
+        var: php_sapi.value.mods_enabled
+
+    - name: Debug existing mods enabled
+      ansible.builtin.debug:
+        var: ansible.local.php.versions[php_version].sapis.[php_sapi].mods_enabled
+
+    - name: Include module configuration tasks
+      ansible.builtin.include_tasks: module.yml 
+      loop: "{{ php_sapi.value.mods_enabled }}"
+      loop_control:
+        loop_var: php_mod
+
+  tags:
+    - php
+...
