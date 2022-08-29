@@ -141,6 +141,8 @@ php:
         cli:
           state: present
           mods_enabled:
+            - apcu
+            - apcu_bc
             - bcmath
             - bz2
             - calendar
