@@ -70,6 +70,9 @@
       ansible.builtin.debug:
         msg: "{{ php_cfg.versions[php_version.key].sapis[php_sapi.key].config }}"
         verbosity: 2
+      when:
+        - php_cfg.versions[php_version.key].sapis[php_sapi.key].config is defined
+        - hp_cfg.versions[php_version.key].sapis[php_sapi.key].config | length > 0
 
     - name: "Loop through the proposed config for PHP {{ php_version.key }} SAPI {{ php_sapi.key }}"
       ansible.builtin.include_tasks: config_section.yml
