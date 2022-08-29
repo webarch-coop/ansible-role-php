@@ -527,7 +527,7 @@ php_aptitude: /usr/bin/aptitude
 php_dpkg: /usr/bin/dpkg
 php_gpg: /usr/bin/gpg
 php_phpquery: /usr/sbin/phpquery
-php_remove_legacy: true
+php_remove_legacy: false
 php_alternatives:
   cli:
     '8.1':
