@@ -1,5 +1,15 @@
 ---
-- name: Debug version
-  ansible.builtin.debug:
-    var: php_version.key
+- name: Configure PHP version
+  block:
+
+    - name: Debug version
+      ansible.builtin.debug:
+        var: php_version.key
+
+    - name: Debug sapis
+      ansible.builtin.debug:
+        var: php_version.value.sapis
+
+  tags:
+    - php
 ...
