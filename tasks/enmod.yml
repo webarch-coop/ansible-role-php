@@ -2,23 +2,20 @@
 - name: Enable PHP module
   block:
 
-    - name: Debug PHP module to be enabled
-      ansible.builtin.debug:
-        msg: "PHP {{ php_version.key }} {{ php_sapi.key }} {{ php_mod }} module to be enabled"
-
-    - name: Enable PHP module
+    - name: "Enable PHP {{ php_version.key }} {{ php_sapi.key }} {{ php_mod }} module"
       ansible.builtin.command: phpenmod -v "{{ php_version.key }}" -s "{{ php_sapi.key }}" "{{ php_mod }}"
       changed_when: true
       register: php_mod_enabled
-      failed_when: php_mod_enabled.stderr | length > 0
+      # failed_when: php_mod_enabled.stderr | length > 0
 
   rescue:
 
     - name: Error enabling module
       ansible.builtin.fail:
         msg:
-          - "Enabling PHP {{ php_version.key }} {{ php_sapi.key }} {{ php_mod }} module failed with the following error"
-          - "{{ php_mod_enabled.stderr }}"
+          - "Enabling PHP {{ php_version.key }} {{ php_sapi.key }} {{ php_mod }} module failed"
+          - "Standard error: {{ php_mod_enabled.stderr }}"
+          - "Standard out: {{ php_mod_enabled.stdout }}"
 
   tags:
     - php

@@ -2,23 +2,20 @@
 - name: Disable PHP module
   block:
 
-    - name: Debug PHP module to be disabled
-      ansible.builtin.debug:
-        msg: "PHP {{ php_version.key }} {{ php_sapi.key }} {{ php_mod }} module to be disabled"
-
-    - name: Disable PHP module
+    - name: "Disable PHP {{ php_version.key }} {{ php_sapi.key }} {{ php_mod }} module"
       ansible.builtin.command: phpdismod -v "{{ php_version.key }}" -s "{{ php_sapi.key }}" "{{ php_mod }}"
       changed_when: true
       register: php_mod_disabled
-      failed_when: php_mod_disabled.stderr | length > 0
+      # failed_when: php_mod_disabled.stderr | length > 0
 
   rescue:
 
     - name: Error disabling module
       ansible.builtin.fail:
         msg:
-          - "Disabling PHP {{ php_version.key }} {{ php_sapi.key }} {{ php_mod }} module failed with the following error"
-          - "{{ php_mod_disabled.stderr }}"
+          - "Disabling PHP {{ php_version.key }} {{ php_sapi.key }} {{ php_mod }} module failed"
+          - "Standard error: {{ php_mod_disabled.stderr }}"
+          - "Standard out: {{ php_mod_disabled.stderr }}"
 
   tags:
     - php
