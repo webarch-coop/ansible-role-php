@@ -1,4 +1,7 @@
 ---
+# The following PHP dictionary can be generated on the server, after the local facts scripts
+# have been installed, using the following command:
+# bash /etc/ansible/facts.d/php.fact | jq | yq -MP | sed 's/^/  /'
 php:
   state: present
   packages:
@@ -141,9 +144,6 @@ php:
         cli:
           state: present
           mods_enabled:
-            - foo
-            # - apcu
-            # - apcu_bc
             - bcmath
             - bz2
             - calendar
@@ -472,6 +472,119 @@ php:
             - xmlreader
             - xmlwriter
             - xsl
+    "8.2":
+      state: present
+      mods_available:
+        - bcmath
+        - bz2
+        - calendar
+        - ctype
+        - curl
+        - dom
+        - exif
+        - ffi
+        - fileinfo
+        - ftp
+        - gettext
+        - iconv
+        - imap
+        - intl
+        - ldap
+        - mbstring
+        - opcache
+        - pdo
+        - pdo_sqlite
+        - phar
+        - posix
+        - readline
+        - shmop
+        - simplexml
+        - sockets
+        - sqlite3
+        - sysvmsg
+        - sysvsem
+        - sysvshm
+        - tokenizer
+        - xml
+        - xmlreader
+        - xmlwriter
+        - xsl
+      sapis:
+        cli:
+          state: present
+          mods_enabled:
+            - bcmath
+            - bz2
+            - calendar
+            - ctype
+            - curl
+            - dom
+            - exif
+            - ffi
+            - fileinfo
+            - ftp
+            - gettext
+            - iconv
+            - imap
+            - intl
+            - ldap
+            - mbstring
+            - opcache
+            - pdo
+            - pdo_sqlite
+            - phar
+            - posix
+            - readline
+            - shmop
+            - simplexml
+            - sockets
+            - sqlite3
+            - sysvmsg
+            - sysvsem
+            - sysvshm
+            - tokenizer
+            - xml
+            - xmlreader
+            - xmlwriter
+            - xsl
+        fpm:
+          state: present
+          mods_enabled:
+            - bcmath
+            - bz2
+            - calendar
+            - ctype
+            - curl
+            - dom
+            - exif
+            - ffi
+            - fileinfo
+            - ftp
+            - gettext
+            - iconv
+            - imap
+            - intl
+            - ldap
+            - mbstring
+            - opcache
+            - pdo
+            - pdo_sqlite
+            - phar
+            - posix
+            - readline
+            - shmop
+            - simplexml
+            - sockets
+            - sqlite3
+            - sysvmsg
+            - sysvsem
+            - sysvshm
+            - tokenizer
+            - xml
+            - xmlreader
+            - xmlwriter
+            - xsl
+#
 php_sury: true
 php_aptitude: /usr/bin/aptitude
 php_dpkg: /usr/bin/dpkg

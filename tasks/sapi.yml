@@ -27,7 +27,7 @@
     - name: Enable module tasks
       block:
 
-        - name: Check that all modules that are due to be enabled are available
+        - name: Check that modules that are to be enabled are available
           ansible.builtin.assert:
             that:
               - php_mod in ansible_local.php.versions[php_version.key].mods_available
