@@ -2,22 +2,22 @@
 - name: Configure PHP sapi
   block:
 
-    - name: Debug sapi
-      ansible.builtin.debug:
-        var: php_sapi.key
-        verbosity: 2
+    # - name: Debug sapi
+    #   ansible.builtin.debug:
+    #     var: php_sapi.key
+    #     verbosity: 2
 
-    - name: Debug modes enabled
-      ansible.builtin.debug:
-        var: php_sapi.value.mods_enabled
-        verbosity: 2
+    # - name: Debug modes enabled
+    #   ansible.builtin.debug:
+    #     var: php_sapi.value.mods_enabled
+    #     verbosity: 2
 
-    - name: Debug existing mods enabled
-      ansible.builtin.debug:
-        var: ansible_local.php.versions[php_version.key].sapis[php_sapi.key].mods_enabled
-        verbosity: 2
+    # - name: Debug existing mods enabled
+    #   ansible.builtin.debug:
+    #     var: ansible_local.php.versions[php_version.key].sapis[php_sapi.key].mods_enabled
+    #     verbosity: 2
 
-    - name: Include disable module tasks
+    - name: "Include disable module tasks for PHP {{ php_version.key }} SAPI {{ php_sapi.key }}"
       ansible.builtin.include_tasks: dismod.yml
       loop: "{{ ansible_local.php.versions[php_version.key].sapis[php_sapi.key].mods_enabled | difference(php_sapi.value.mods_enabled) }}"
       loop_control:
@@ -27,7 +27,7 @@
     - name: Enable module tasks
       block:
 
-        - name: Check that modules that are to be enabled are available
+        - name: "Check that modules required for PHP {{ php_version.key }} SAPI {{ php_sapi.key }} are available"
           ansible.builtin.assert:
             that:
               - php_mod in ansible_local.php.versions[php_version.key].mods_available
@@ -37,7 +37,7 @@
           loop_control:
             loop_var: php_mod
 
-        - name: Include enable module tasks
+        - name: "Include enable module tasks for PHP {{ php_version.key }} SAPI {{ php_sapi.key }}"
           ansible.builtin.include_tasks: enmod.yml
           loop: "{{ php_sapi.value.mods_enabled | difference(ansible_local.php.versions[php_version.key].sapis[php_sapi.key].mods_enabled) }}"
           loop_control:
