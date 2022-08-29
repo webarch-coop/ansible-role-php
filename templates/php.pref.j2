@@ -4,14 +4,14 @@
 {% for pkg in php_debian_bullseye_pkg %}
 Package: {{ pkg }}
 Pin: origin packages.sury.org
-Pin-Priority: 100
+Pin-Priority: 500
 
 {% endfor %}
 {% elif ansible_distribution_release == "buster" %}
 {% for pkg in php_debian_buster_pkg %}
 Package: {{ pkg }}
 Pin: origin packages.sury.org
-Pin-Priority: 100
+Pin-Priority: 500
 
 {% endfor %}
 {% endif %}
