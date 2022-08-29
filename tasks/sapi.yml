@@ -71,16 +71,14 @@
         var: php_cfg.versions[php_version.key].sapis[php_sapi.key].config
         verbosity: 2
 
-    - name: "Loop through the proposed config for PHP {{ php_version.key }} SAPI {{ php_sapi.key }}"
-      ansible.include_tasks: config_section.yml
-      vars:
-        php_loop: "{{ php_cfg.versions[php_version.key].sapis[php_sapi.key].config }}"
-      loop: "{{ php_loop | dict2items }}"
-      loop_control:
-        loop_var: cfg_sect
-      when:
-        - php_cfg.versions[php_version.key].sapis[php_sapi.key].config is defined
-        - php_cfg.versions[php_version.key].sapis[php_sapi.key].config | length > 0
+#    - name: "Loop through the proposed config for PHP {{ php_version.key }} SAPI {{ php_sapi.key }}"
+#      ansible.include_tasks: config_section.yml
+#      loop: "{{ php_loop | dict2items }}"
+#      loop_control:
+#        loop_var: cfg_sect
+#      when:
+#        - php_cfg.versions[php_version.key].sapis[php_sapi.key].config is defined
+#        - php_cfg.versions[php_version.key].sapis[php_sapi.key].config | length > 0
 
   tags:
     - php
