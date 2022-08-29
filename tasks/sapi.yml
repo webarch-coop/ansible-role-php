@@ -12,7 +12,7 @@
 
     - name: Debug existing mods enabled
       ansible.builtin.debug:
-        var: ansible_local.php.versions[php_version].sapis.[php_sapi].mods_enabled
+        var: ansible_local.php.versions[php_version.key].sapis.[php_sapi.key].mods_enabled
 
     - name: Include module configuration tasks
       ansible.builtin.include_tasks: module.yml 
