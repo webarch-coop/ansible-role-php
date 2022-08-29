@@ -12,8 +12,9 @@
         # msg: "{{ php_config_existing | community.general.json_query('php_jsonquery') }}"
         msg: "{{ php_config_existing | community.general.json_query(php_jmespath_search) }}"
         verbosity: 2
+      # https://jmespath.org/proposals/improved-identifiers.html?highlight=escape#impact
       vars:
-        php_jmespath_search: "{{ cfg_sect.key }}.{{ cfg_var.key }}"
+        php_jmespath_search: '\"{{ cfg_sect.key }}\".\"{{ cfg_var.key }}\"'
 
     - name: "Update PHP {{ php_version.key }} SAPI {{ php_sapi.key }} config"
       community.general.ini_file:
