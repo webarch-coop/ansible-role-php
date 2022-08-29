@@ -16,38 +16,56 @@
     #   ansible.builtin.debug:
     #     var: ansible_local.php.versions[php_version.key].sapis[php_sapi.key].mods_enabled
     #     verbosity: 2
-
-    - name: "Include disable module tasks for PHP {{ php_version.key }} SAPI {{ php_sapi.key }}"
-      ansible.builtin.include_tasks: dismod.yml
-      loop: "{{ ansible_local.php.versions[php_version.key].sapis[php_sapi.key].mods_enabled | difference(php_sapi.value.mods_enabled) }}"
-      loop_control:
-        loop_var: php_mod
-      when: ansible_local.php.versions[php_version.key].sapis[php_sapi.key].mods_enabled | difference(php_sapi.value.mods_enabled) | length != 0
-
-    - name: Enable module tasks
+    
+    - name: Disable and email module tasks
       block:
 
-        - name: "Check that modules required for PHP {{ php_version.key }} SAPI {{ php_sapi.key }} are available"
-          ansible.builtin.assert:
-            that:
-              - php_mod in ansible_local.php.versions[php_version.key].mods_available
-            fail_msg: "The PHP {{ php_version.key }} module {{ php_mod }} is not available, check that the php{{ php_version.key }}-{{ php_mod }} package is to be installed."
-            quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
-          loop: "{{ php_sapi.value.mods_enabled | difference(ansible_local.php.versions[php_version.key].sapis[php_sapi.key].mods_enabled) }}"
+        - name: "Include disable module tasks for PHP {{ php_version.key }} SAPI {{ php_sapi.key }}"
+          ansible.builtin.include_tasks: dismod.yml
+          loop: "{{ ansible_local.php.versions[php_version.key].sapis[php_sapi.key].mods_enabled | difference(php_sapi.value.mods_enabled) }}"
           loop_control:
             loop_var: php_mod
+          when: ansible_local.php.versions[php_version.key].sapis[php_sapi.key].mods_enabled | difference(php_sapi.value.mods_enabled) | length != 0
 
-        - name: "Include enable module tasks for PHP {{ php_version.key }} SAPI {{ php_sapi.key }}"
-          ansible.builtin.include_tasks: enmod.yml
-          loop: "{{ php_sapi.value.mods_enabled | difference(ansible_local.php.versions[php_version.key].sapis[php_sapi.key].mods_enabled) }}"
-          loop_control:
-            loop_var: php_mod
+        - name: Enable module tasks
+          block:
 
-      when: php_sapi.value.mods_enabled | difference(ansible_local.php.versions[php_version.key].sapis[php_sapi.key].mods_enabled) | length != 0
+            - name: "Check that modules required for PHP {{ php_version.key }} SAPI {{ php_sapi.key }} are available"
+              ansible.builtin.assert:
+                that:
+                  - php_mod in ansible_local.php.versions[php_version.key].mods_available
+                fail_msg: "The PHP {{ php_version.key }} module {{ php_mod }} is not available, check that the php{{ php_version.key }}-{{ php_mod }} package is to be installed."
+                quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
+              loop: "{{ php_sapi.value.mods_enabled | difference(ansible_local.php.versions[php_version.key].sapis[php_sapi.key].mods_enabled) }}"
+              loop_control:
+                loop_var: php_mod
 
-  when: >
-    ( ansible_local.php.versions[php_version.key].sapis[php_sapi.key].mods_enabled | difference(php_sapi.value.mods_enabled) | length != 0 ) or
-    ( php_sapi.value.mods_enabled | difference(ansible_local.php.versions[php_version.key].sapis[php_sapi.key].mods_enabled) | length != 0 )
+            - name: "Include enable module tasks for PHP {{ php_version.key }} SAPI {{ php_sapi.key }}"
+              ansible.builtin.include_tasks: enmod.yml
+              loop: "{{ php_sapi.value.mods_enabled | difference(ansible_local.php.versions[php_version.key].sapis[php_sapi.key].mods_enabled) }}"
+              loop_control:
+                loop_var: php_mod
+
+          when: php_sapi.value.mods_enabled | difference(ansible_local.php.versions[php_version.key].sapis[php_sapi.key].mods_enabled) | length != 0
+
+      when: >
+        ( ansible_local.php.versions[php_version.key].sapis[php_sapi.key].mods_enabled | difference(php_sapi.value.mods_enabled) | length != 0 ) or
+        ( php_sapi.value.mods_enabled | difference(ansible_local.php.versions[php_version.key].sapis[php_sapi.key].mods_enabled) | length != 0 )
+
+    - name: "Load config for PHP {{ php_version.key }} SAPI {{ php_sapi.key }}"
+      ansible.builtin.slurp:
+        src: "/etc/php/{{ php_version.key }}/{{ php_sapi.key }}/php.ini"
+      register: php_file_b64encoded
+
+    - name: "Set a fact for the PHP {{ php_version.key }} SAPI {{ php_sapi.key }} config"
+      ansible.builtin.set_fact:
+        php_config: "{{ php_file_b64encoded['content'] | b64decode | community.general.jc('ini') }}"
+
+    - name: "Debug existing PHP {{ php_version.key }} SAPI {{ php_sapi.key }} config"
+      ansible.builtin.debug:
+        var: php_config
+        verbosity: 2
+
   tags:
     - php
 ...
