@@ -38,7 +38,9 @@
 
     - name: Loop through the PHP versions to configure sapis and modules
       ansible.builtin.include_tasks: version.yml
-      loop: "{{ php.versions | community.general.json_query('php.versions.keys(@)') }}"
+      vars:
+        php_version_json_query: "php.versions.keys(@)"
+      loop: "{{ php.versions | community.general.json_query(php_version_json_query) }}"
       loop_control:
         loop_var: php_version
 
