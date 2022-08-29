@@ -5,7 +5,7 @@
     - name: Include local facts tasks
       ansible.builtin.include_tasks: local_facts.yml
 
-    - name: Install PHP
+    - name: PHP packages
       block:
 
         - name: Include apt repo config for Sury PHP packages
@@ -18,21 +18,27 @@
             autoclean: true
             autoremove: true
           register: php_packages_absent
-          when: ansible_local.php.packages | difference(php.packages) | length > 0
+          when:
+            - ansible_local.php.packages.state == "present"
+            - ansible_local.php.packages | difference(php.packages) | length > 0
 
         - name: PHP packages present
           ansible.builtin.apt:
             pkg: "{{ php.packages | difference(ansible_local.php.packages) }}"
             state: present
           register: php_packages_present
-          when: php.packages | difference(ansible_local.php.packages) | length > 0
+          when: >
+            ansible_local.php.packages.state == "absent" or
+            php.packages | difference(ansible_local.php.packages) | length > 0
 
         - name: Re-read Ansible local facts
           ansible.builtin.setup:
             filter: ansible_local
-          when: ( php_packages_absent.changed | bool ) or ( php_packages_present.changed | bool )
+          when: >
+            ( php_packages_absent is defined and php_packages_absent.changed | bool ) or
+            ( php_packages_present is defined and php_packages_present.changed | bool )
 
-      when: ( ansible_local.php.packages is not defined ) or ( ansible_local.php.packages != php.packages )
+      when: ( ansible_local.php.packages is defined ) and ( ansible_local.php.packages != php.packages )
 
     - name: Loop through the PHP versions to configure SAPIs and modules
       ansible.builtin.include_tasks: version.yml
