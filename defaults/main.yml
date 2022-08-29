@@ -67,6 +67,7 @@ php:
     - php8.1-sqlite3
     - php8.1-uploadprogress
     - php8.1-xml
+    - php8.1-xsl
   versions:
     "7.4":
       state: present
@@ -372,7 +373,6 @@ php:
         - ftp
         - gd
         - gettext
-        - gmp
         - iconv
         - imap
         - intl
@@ -412,7 +412,6 @@ php:
             - ffi
             - fileinfo
             - ftp
-            - gpm
             - gettext
             - gmp
             - iconv
@@ -452,7 +451,6 @@ php:
             - ffi
             - fileinfo
             - ftp
-            - gpm
             - gettext
             - gmp
             - iconv
