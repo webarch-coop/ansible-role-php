@@ -18,12 +18,14 @@
             autoclean: true
             autoremove: true
           register: php_packages_absent
+          when: ansible_local.php.packages | difference(php.packages) | length > 0
 
         - name: PHP packages present
           ansible.builtin.apt:
             pkg: "{{ php.packages | difference(ansible_local.php.packages) }}"
             state: present
           register: php_packages_present
+          when: php.packages | difference(ansible_local.php.packages) | length > 0
 
         - name: Re-read Ansible local facts
           ansible.builtin.setup:
