@@ -1,0 +1,17 @@
+---
+- name: Update PHP config
+  block:
+
+    - name: "Debug PHP {{ php_version.key }} SAPI {{ php_sapi.key }} config"
+      ansible.builtin.debug:
+        var: cfg_sect
+
+#    - name: "Update PHP {{ php_version.key }} SAPI {{ php_sapi.key }} config"
+#      community.general.ini_file:
+#        path: "/etc/php/{{ php_version.key }}/{{ php_sapi.key }}/php.ini"
+#        section: "{{ cfg_sect.key }}"
+#        option: "{{ "
+
+  tags:
+    - php
+...
