@@ -10,10 +10,10 @@
     - name: "Debug existing PHP {{ php_version.key }} SAPI {{ php_sapi.key }} config section {{ cfg_sect.key }} variable {{ cfg_var.key }}"
       ansible.builtin.debug:
         # msg: "{{ php_config_existing | community.general.json_query('php_jsonquery') }}"
-        msg: "{{ php_config_existing | community.general.json_query(cfg_sect.key.cfg_var.key) }}"
+        msg: "{{ php_config_existing | community.general.json_query(php_jmespath_search) }}"
         verbosity: 2
-#      vars:
-#        php_jsonquery: "{{ cfg_sect.key }}.{{ cfg_var.key }}"
+      vars:
+        php_jmespath_search: "{{ cfg_sect.key }}.{{ cfg_var.key }}"
 
     - name: "Update PHP {{ php_version.key }} SAPI {{ php_sapi.key }} config"
       community.general.ini_file:
