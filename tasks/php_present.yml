@@ -2,7 +2,7 @@
 - name: PHP present
   block:
 
-    - name: Debug the difference between php.packages and ansible_local.php.packages
+    - name: Debug the packages to be installed
       ansible.builtin.debug:
         msg:
           - "{{ php.packages | difference(ansible_local.php.packages) }}"
@@ -29,7 +29,7 @@
     - name: PHP packages absent
       block:
 
-        - name: Debug the difference between ansible_local.php.packages and php.packages
+        - name: Debug the packages to be removed
           ansible.builtin.debug:
             msg:
               - "{{ ansible_local.php.packages | difference(php.packages) }}"
