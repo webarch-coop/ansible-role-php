@@ -5,12 +5,14 @@
     - name: Debug version
       ansible.builtin.debug:
         var: php_version.key
+        verbosity: 2
 
-    - name: Debug sapis
+    - name: Debug SAPIs
       ansible.builtin.debug:
         var: php_version.value.sapis
+        verbosity: 2
 
-    - name: Include sapi configuration tasks
+    - name: Include SAPI configuration tasks
       ansible.builtin.include_tasks: sapi.yml 
       loop: "{{ php_version.value.sapis | dict2items }}"
       loop_control:

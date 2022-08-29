@@ -32,7 +32,7 @@
 
       when: ( ansible_local.php.packages is not defined ) or ( ansible_local.php.packages != php.packages )
 
-    - name: Loop through the PHP versions to configure sapis and modules
+    - name: Loop through the PHP versions to configure SAPIs and modules
       ansible.builtin.include_tasks: version.yml
       loop: "{{ php.versions | dict2items }}"
       loop_control:

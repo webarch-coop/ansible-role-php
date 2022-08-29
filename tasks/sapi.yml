@@ -32,6 +32,7 @@
             that:
               - php_mod in ansible_local.php.versions[php_version.key].mods_available
             fail_msg: "The PHP {{ php_version.key }} module {{ php_mod }} is not available, check that the php{{ php_version.key }}-{{ php_mod }} package is to be installed."
+            quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
           loop: "{{ php_sapi.value.mods_enabled | difference(ansible_local.php.versions[php_version.key].sapis[php_sapi.key].mods_enabled) }}"
           loop_control:
             loop_var: php_mod

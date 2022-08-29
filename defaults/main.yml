@@ -141,6 +141,7 @@ php:
         cli:
           state: present
           mods_enabled:
+            - foo
             # - apcu
             # - apcu_bc
             - bcmath
