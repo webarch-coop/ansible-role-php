@@ -1,16 +1,18 @@
 ---
-- name: Update PHP config
+- name: Update PHP config section
   block:
 
-    - name: "Debug PHP {{ php_version.key }} SAPI {{ php_sapi.key }} config"
+    - name: "Debug PHP {{ php_version.key }} SAPI {{ php_sapi.key }} config section {{ cfg_sect.key }}"
       ansible.builtin.debug:
         var: cfg_sect
+        verbosity: 2
 
-#    - name: "Update PHP {{ php_version.key }} SAPI {{ php_sapi.key }} config"
-#      community.general.ini_file:
-#        path: "/etc/php/{{ php_version.key }}/{{ php_sapi.key }}/php.ini"
-#        section: "{{ cfg_sect.key }}"
-#        option: "{{ "
+    - name: "Include update variable tasks for PHP {{ php_version.key }} SAPI {{ php_sapi.key }} config"
+      ansible.builtin.include_tasks: config_variable.yml
+      loop: "{{ cfg_sect.value | dict2items }}"
+      loop_control:
+        loop_var: cfg_var
+        label: "{{ cfg_var.key }}"
 
   tags:
     - php

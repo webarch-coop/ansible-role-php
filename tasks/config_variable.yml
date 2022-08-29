@@ -1,0 +1,25 @@
+---
+- name: Update PHP config variable
+  block:
+
+    - name: "Debug proposed PHP {{ php_version.key }} SAPI {{ php_sapi.key }} config section {{ cfg_sect.key }} variable {{ cfg_var.key }}"
+      ansible.builtin.debug:
+        var: cfg_var 
+        verbosity: 2
+
+    - name: "Debug existing PHP {{ php_version.key }} SAPI {{ php_sapi.key }} config section {{ cfg_sect.key }} variable {{ cfg_var.key }}"
+      ansible.builtin.debug:
+        var: php_config_existing[cfg_sect.key].[cfg_var.key]
+        verbosity: 2
+
+    - name: "Update PHP {{ php_version.key }} SAPI {{ php_sapi.key }} config"
+      community.general.ini_file:
+        path: "/etc/php/{{ php_version.key }}/{{ php_sapi.key }}/php.ini"
+        section: "{{ cfg_sect.key }}"
+        option: "{{ cfg_var.key }}"
+        value: "{{ cfg_var.var }}"
+      # when: php_config_existing[cfg_sect.key].[cfg_var.key] != cfg_var
+
+  tags:
+    - php
+...

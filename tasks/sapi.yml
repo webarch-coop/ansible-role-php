@@ -79,6 +79,7 @@
       loop: "{{ php_cfg.versions[php_version.key].sapis[php_sapi.key].config | dict2items }}"
       loop_control:
         loop_var: cfg_sect
+        label: "{{ cfg_sect.key }}"
       when:
         - php_cfg.versions[php_version.key].sapis[php_sapi.key].config is defined
         - php_cfg.versions[php_version.key].sapis[php_sapi.key].config | length > 0
