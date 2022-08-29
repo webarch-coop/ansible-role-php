@@ -13,7 +13,7 @@
     #     verbosity: 2
 
     - name: "Include PHP {{ php_version.key }} SAPI configuration tasks"
-      ansible.builtin.include_tasks: sapi.yml 
+      ansible.builtin.include_tasks: sapi.yml
       loop: "{{ php_version.value.sapis | dict2items }}"
       loop_control:
         loop_var: php_sapi
