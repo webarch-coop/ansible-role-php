@@ -32,10 +32,9 @@
 
       when: ( ansible_local.php.packages is not defined ) or ( ansible_local.php.packages != php.packages )
 
-#    - name: Configure PHP modules
-#      block:
-#
-#      when: 
+    - name: Configure PHP SAPIs and modules
+      ansible.builtin.include_tasks: sapis.yml
+
 
     - name: Debug fail
       ansible.builtin.fail:

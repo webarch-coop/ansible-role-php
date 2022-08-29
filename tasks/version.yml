@@ -1,0 +1,5 @@
+---
+- name: Debug version
+  ansible.builtin.debug:
+    var: php_version
+...
