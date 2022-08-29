@@ -9,7 +9,7 @@
 
     - name: "Debug existing PHP {{ php_version.key }} SAPI {{ php_sapi.key }} config section {{ cfg_sect.key }} variable {{ cfg_var.key }}"
       ansible.builtin.debug:
-        var: php_config_existing[cfg_sect.key].[cfg_var.key]
+        msg: "{{ php_config_existing[cfg_sect.key].[cfg_var.key] }}"
         verbosity: 2
 
     - name: "Update PHP {{ php_version.key }} SAPI {{ php_sapi.key }} config"
