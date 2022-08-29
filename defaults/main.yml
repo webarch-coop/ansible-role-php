@@ -88,6 +88,7 @@ php:
   versions:
     "7.4":
       state: present
+      # phpquery -v 7.4 -M | sort | sed 's/^/        - /'
       mods_available:
         - apcu
         - apcu_bc
@@ -242,8 +243,10 @@ php:
             - zip
     "8.0":
       state: present
+      # phpquery -v 8.0 -M | sort | sed 's/^/        - /'
       mods_available:
         - apcu
+        - apcu_bc
         - bcmath
         - bz2
         - calendar
@@ -254,19 +257,29 @@ php:
         - ffi
         - fileinfo
         - ftp
+        - gd
+        - geoip
         - gettext
+        - gmp
         - iconv
+        - imagick
         - imap
         - intl
+        - json
         - ldap
+        - mbstring
+        - mysqli
+        - mysqlnd
         - opcache
         - pdo
+        - pdo_mysql
         - pdo_sqlite
         - phar
         - posix
         - readline
         - shmop
         - simplexml
+        - soap
         - sockets
         - sqlite3
         - sysvmsg
@@ -276,8 +289,10 @@ php:
         - uploadprogress
         - xml
         - xmlreader
+        - xmlrpc
         - xmlwriter
         - xsl
+        - zip
       sapis:
         cli:
           state: present
@@ -293,7 +308,10 @@ php:
             - ffi
             - fileinfo
             - ftp
+            - gd
+            - geoip
             - gettext
+            - gmp
             - iconv
             - imap
             - intl
@@ -331,7 +349,10 @@ php:
             - ffi
             - fileinfo
             - ftp
+            - gd
+            - geoip
             - gettext
+            - gmp
             - iconv
             - imap
             - intl
@@ -357,6 +378,7 @@ php:
             - xsl
     "8.1":
       state: present
+      # phpquery -v 8.1 -M | sort | sed 's/^/        - /'
       mods_available:
         - apcu
         - bcmath
@@ -369,7 +391,9 @@ php:
         - ffi
         - fileinfo
         - ftp
+        - gd
         - gettext
+        - gmp
         - iconv
         - imap
         - intl
@@ -409,7 +433,9 @@ php:
             - ffi
             - fileinfo
             - ftp
+            - gpm
             - gettext
+            - gmp
             - iconv
             - imap
             - intl
@@ -447,7 +473,9 @@ php:
             - ffi
             - fileinfo
             - ftp
+            - gpm
             - gettext
+            - gmp
             - iconv
             - imap
             - intl
