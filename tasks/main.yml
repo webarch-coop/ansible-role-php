@@ -26,19 +26,24 @@
             purge: true
           register: php_packages_absent
           when:
-            - ansible_local.php.packages.state == "present"
+            - ansible_local.php.state == "present"
+            - ansible_local.php.packages is defined
+            - ansible_local.php.packages | length > 0
             - ansible_local.php.packages | difference(php.packages) | length > 0
+
+        - name: Debug the difference between php.packages and ansible_local.php.packages
+          ansible.builtin.debug:
+            msg:
+              - "{{ php.packages | difference(ansible_local.php.packages) }}"
 
         - name: PHP packages present
           ansible.builtin.apt:
-            pkg: "{{ php.packages | difference(ansible_local.php.packages) }}"
+            pkg: "{{ php.packages }}"
             state: present
           register: php_packages_present
           when: >
-            ( ansible_local.php.state == "absent" or
-            ansible_local.php.packages.state == "absent" or
-            php.packages | difference(ansible_local.php.packages) | length > 0 ) and
-            ( php.packages | length > 0 )
+            ( ( ansible_local.php.state == "absent" ) or
+            ( ansible_local.php.packages is defined and php.packages | difference(ansible_local.php.packages) | length > 0 ) )
 
         - name: Re-read Ansible local facts
           ansible.builtin.setup:
