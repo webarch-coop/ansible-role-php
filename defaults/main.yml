@@ -5,20 +5,6 @@
 php:
   state: present
   packages:
-    - php-common
-    - php-date
-    - php-fpm
-    - php-gd
-    - php-gmp
-    - php-imagick
-    - php-intl
-    - php-json
-    - php-mbstring
-    - php-mysql
-    - php-pear
-    - php-soap
-    - php-xmlrpc
-    - php-zip
     - php7.4-apcu
     - php7.4-apcu-bc
     - php7.4-bcmath
