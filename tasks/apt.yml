@@ -128,6 +128,9 @@
         - /etc/apt/keyrings/php.gpg
         - /etc/apt/sources.list.d/php.sources
         - /etc/apt/preferences.d/php.pref
+      loop_control:
+        loop_var: path
+        label: "{{ path | basename }}"
       register: php_repo_absent
 
     - name: Update apt cache
