@@ -4,13 +4,14 @@
 
     - name: "Debug proposed PHP {{ php_version.key }} SAPI {{ php_sapi.key }} config section {{ cfg_sect.key }} variable {{ cfg_var.key }}"
       ansible.builtin.debug:
-        var: cfg_var 
+        var: cfg_var
         verbosity: 2
 
-#    - name: "Debug existing PHP {{ php_version.key }} SAPI {{ php_sapi.key }} config section {{ cfg_sect.key }} variable {{ cfg_var.key }}"
-#      ansible.builtin.debug:
-#        msg: "{{ php_config_existing | community.general.json_query('php_jsonquery') }}"
-#        verbosity: 2
+    - name: "Debug existing PHP {{ php_version.key }} SAPI {{ php_sapi.key }} config section {{ cfg_sect.key }} variable {{ cfg_var.key }}"
+      ansible.builtin.debug:
+        # msg: "{{ php_config_existing | community.general.json_query('php_jsonquery') }}"
+        msg: "{{ php_config_existing | community.general.json_query(cfg_sect.key.cfg_var.key) }}"
+        verbosity: 2
 #      vars:
 #        php_jsonquery: "{{ cfg_sect.key }}.{{ cfg_var.key }}"
 
@@ -20,6 +21,8 @@
         section: "{{ cfg_sect.key }}"
         option: "{{ cfg_var.key }}"
         value: "{{ cfg_var.value }}"
+        state: present
+        mode: 0644
       # when: php_config_existing[cfg_sect.key].[cfg_var.key] != cfg_var
 
   tags:
