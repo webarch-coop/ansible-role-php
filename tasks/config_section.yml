@@ -2,9 +2,17 @@
 - name: Update PHP config section
   block:
 
-    - name: "Debug PHP {{ php_version.key }} SAPI {{ php_sapi.key }} config section {{ cfg_sect.key }}"
+    - name: "Set a fact for the existing PHP {{ php_version.key }} SAPI {{ php_sapi.key }} config"
+      ansible.builtin.set_fact:
+        php_section_existing: "{{ php_config_existing | community.general.json_query(php_jmespath_search) }}"
+      vars:
+        php_jmespath_search: '"{{ cfg_sect.key }}"'
+
+    - name: "Debug existing and proposed PHP {{ php_version.key }} SAPI {{ php_sapi.key }} config section {{ cfg_sect.key }}"
       ansible.builtin.debug:
-        var: cfg_sect
+        msg:
+          - "Existing value: {{ php_section_existing }}"
+          - "Proposed value: {{ cfg_sect.value }}"
         verbosity: 2
 
     - name: "Include update variable tasks for PHP {{ php_version.key }} SAPI {{ php_sapi.key }} config"
@@ -13,6 +21,7 @@
       loop_control:
         loop_var: cfg_var
         label: "{{ cfg_var.key }}"
+      when: php_section_existing != cfg_sect.value
 
   tags:
     - php
