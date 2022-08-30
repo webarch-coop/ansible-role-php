@@ -15,7 +15,7 @@
     #       - "Proposed value: {{ cfg_var.value }}"
     #     verbosity: 2
 
-    - name: "Update PHP {{ php_version.key }} SAPI {{ php_sapi.key }} config"
+    - name: "Update PHP {{ php_version.key }} SAPI {{ php_sapi.key }} config variable {{ cfg_var.key }}"
       community.general.ini_file:
         path: "/etc/php/{{ php_version.key }}/{{ php_sapi.key }}/php.ini"
         section: "{{ cfg_sect.key }}"

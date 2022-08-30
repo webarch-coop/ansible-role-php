@@ -518,9 +518,77 @@ php_cfg:
     "8.0":
       sapis:
         fpm:
+          config:
+            apc:
+              "apc.enabled": 1
+              "apc.shm_size": "32M"
+            Date:
+              "date.timezone": "Europe/London"
+            MySQLi:
+              "mysqli.allow_local_infile": "On"
+            opcache:
+              "opcache.enable": "0"
+              "opcache.interned_strings_buffer": "64"
+              "opcache.max_accelerated_files": "100000"
+              "opcache.memory_consumption": "1024"
+              "opcache.revalidate_freq": "2"
+              "opcache.use_cwd": "1"
+              "opcache.validate_permission": "1"
+              "opcache.validate_root": "1"
+              "opcache.validate_timestamps": "1"
+            PHP:
+              allow_url_include: "Off"
+              default_socket_timeout: "600"
+              disable_functions: "pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_get_handler,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,pcntl_async_signals,pcntl_unshare"
+              max_execution_time: "600"
+              max_file_uploads: "60"
+              max_input_nesting_level: "512"
+              max_input_time: "600"
+              max_input_vars: "100000"
+              memory_limit: "512M"
+              output_buffering: "4096"
+              post_max_size: "512M"
+              short_open_tag: "Off"
+              upload_max_filesize: "512M"
+            Session:
+              "session.save_path": "${TMPDIR}"
     "8.1":
       sapis:
         fpm:
+          config:
+            apc:
+              "apc.enabled": 1
+              "apc.shm_size": "32M"
+            Date:
+              "date.timezone": "Europe/London"
+            MySQLi:
+              "mysqli.allow_local_infile": "On"
+            opcache:
+              "opcache.enable": "0"
+              "opcache.interned_strings_buffer": "64"
+              "opcache.max_accelerated_files": "100000"
+              "opcache.memory_consumption": "1024"
+              "opcache.revalidate_freq": "2"
+              "opcache.use_cwd": "1"
+              "opcache.validate_permission": "1"
+              "opcache.validate_root": "1"
+              "opcache.validate_timestamps": "1"
+            PHP:
+              allow_url_include: "Off"
+              default_socket_timeout: "600"
+              disable_functions: "pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_get_handler,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,pcntl_async_signals,pcntl_unshare"
+              max_execution_time: "600"
+              max_file_uploads: "60"
+              max_input_nesting_level: "512"
+              max_input_time: "600"
+              max_input_vars: "100000"
+              memory_limit: "512M"
+              output_buffering: "4096"
+              post_max_size: "512M"
+              short_open_tag: "Off"
+              upload_max_filesize: "512M"
+            Session:
+              "session.save_path": "${TMPDIR}"
 #
 php_sury: true
 php_aptitude: /usr/bin/aptitude
