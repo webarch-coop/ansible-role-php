@@ -2,7 +2,7 @@
 - name: Update PHP config section
   block:
 
-    - name: "Set a fact for the existing PHP {{ php_version.key }} SAPI {{ php_sapi.key }} config"
+    - name: "Set a fact for the existing PHP {{ php_version.key }} SAPI {{ php_sapi.key }} config section {{ cfg_sect.key }}"
       ansible.builtin.set_fact:
         php_section_existing: "{{ php_config_existing | community.general.json_query(php_jmespath_search) }}"
       vars:
@@ -21,7 +21,9 @@
       loop_control:
         loop_var: cfg_var
         label: "{{ cfg_var.key }}"
-      when: php_section_existing != cfg_sect.value
+      when: >
+        ( php_section_existing | difference(cfg_sect.value) | length > 0 ) or
+        ( cfg_sect.value | difference(php_section_existing) | length > 0 )
 
   tags:
     - php
