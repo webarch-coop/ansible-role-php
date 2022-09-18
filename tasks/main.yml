@@ -61,15 +61,32 @@
         verbosity: 2
       when: php_versioned_packages is defined
 
-    - name: Set an array for the PHP packages with version numbers in their names
+    # TODO Work out a better way to add a number to a string!
+
+    - name: Set an array for the PHP packages with version numbers in their names for PHP 7.0
       ansible.builtin.set_fact:
-        # php_version_packages: "{{ php_version_packages }} + [ 'php{{ php_version }}-{{ php_package }}' ]"
-        # php_version_packages: "{{ php_versioned_packages | map('regex_replace', '^', '`php` . php_version . `php-\\1`') }} | list"
-        php_version_packages: "{{ php_versioned_packages | map('regex_replace', '^(.*)', 'php`php_version`-\\1') | list }}"
-      # loop: "{{ php_versioned_packages }}"
-      # loop_control:
-      #   loop_var: php_package
-      #   label: "{{ php_package }}"
+        php_version_packages: "{{ php_versioned_packages | map('regex_replace', '^(.*)', 'php7.0-\\1') | list }}"
+      when: php_version == "7.0"
+
+    - name: Set an array for the PHP packages with version numbers in their names for PHP 7.3
+      ansible.builtin.set_fact:
+        php_version_packages: "{{ php_versioned_packages | map('regex_replace', '^(.*)', 'php7.3-\\1') | list }}"
+      when: php_version == "7.3"
+
+    - name: Set an array for the PHP packages with version numbers in their names for PHP 7.4
+      ansible.builtin.set_fact:
+        php_version_packages: "{{ php_versioned_packages | map('regex_replace', '^(.*)', 'php7.4-\\1') | list }}"
+      when: php_version == "7.4"
+
+    - name: Set an array for the PHP packages with version numbers in their names for PHP 8.1
+      ansible.builtin.set_fact:
+        php_version_packages: "{{ php_versioned_packages | map('regex_replace', '^(.*)', 'php8.1-\\1') | list }}"
+      when: php_version == "8.1"
+
+    - name: Set an array for the PHP packages with version numbers in their names for PHP 8.2
+      ansible.builtin.set_fact:
+        php_version_packages: "{{ php_versioned_packages | map('regex_replace', '^(.*)', 'php8.2-\\1') | list }}"
+      when: php_version == "8.2"
 
     - name: Debug the array for the PHP packages with version numbers in their names
       ansible.builtin.debug:
