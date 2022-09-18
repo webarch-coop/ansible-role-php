@@ -55,6 +55,12 @@
       ansible.builtin.set_fact:
         php_version: "{{ php_phpquery_version.stdout | trim }}"
 
+    - name: Debug the array of PHP versioned packages
+      ansible.builtin.debug:
+        var: php_versioned_packages
+        verbosity: 2
+      when: php_versioned_packages is defined
+
     - name: Set an array for the PHP packages with version numbers in their names
       ansible.builtin.set_fact:
         php_version_packages: "{{ php_version_packages }} + [ 'php{{ php_version }}-{{ php_package }}' ]"
@@ -62,6 +68,12 @@
       loop_control:
         loop_var: php_package
         label: "{{ php_package }}"
+
+    - name: Debug the array for the PHP packages with version numbers in their names
+      ansible.builtin.debug:
+        var: php_version_packages
+        verbosity: 2
+      when: php_version_packages is defined
 
     - name: "PHP {{ php_version }} packages installed"
       ansible.builtin.apt:
