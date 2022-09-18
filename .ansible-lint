@@ -1,6 +1,8 @@
 ---
 # https://docs.ansible.com/ansible-lint/rules/default_rules.html
 skip_list:
+  # The metadata schema validation fails as it expect the versions of Debian to be intergers and not strings
+  - schema[meta]
   # Lines should be no longer than 160 chars
   - "204"
 # vim: syntax=yaml

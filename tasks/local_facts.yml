@@ -41,12 +41,12 @@
       when: ( php_dpkg_arch_facts.changed ) or ( php_phpquery_facts.changed )
 
     - name: Print Ansible dpkg --architecture variables
-      debug:
+      ansible.builtin.debug:
         msg: "{{ ansible_facts['ansible_local']['dpkg_arch'] }}"
         verbosity: 2
 
     - name: Print Ansible phpquery dictionary
-      debug:
+      ansible.builtin.debug:
         msg: "{{ ansible_facts['ansible_local']['phpquery'] }}"
         verbosity: 2
 
