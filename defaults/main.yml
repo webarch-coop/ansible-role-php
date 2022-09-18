@@ -1,73 +1,87 @@
 ---
-# The following PHP dictionary can be generated on the server, after the local facts scripts
-# have been installed, using the following command:
-# bash /etc/ansible/facts.d/php.fact | jq | yq -MP | sed 's/^/  /'
-php:
+php_versions_available:
+  - "5.6"
+  - "7.0"
+  - "7.1"
+  - "7.2"
+  - "7.3"
+  - "7.4"
+  - "8.0"
+  - "8.1"
+  - "8.2 "
+php_versions_present:
+  - "7.4"
+  - "8.0"
+  - "8.1"
+
+
+# aptitude -q=99 search '~i ?name("php[0-9].[0-9]")' -F '%p'
+php_pkg:
+  - php7.4-apcu
+  - php7.4-apcu-bc
+  - php7.4-bcmath
+  - php7.4-bz2
+  - php7.4-cli
+  - php7.4-common
+  - php7.4-curl
+  - php7.4-fpm
+  - php7.4-gd
+  - php7.4-geoip
+  - php7.4-gmp
+  - php7.4-imap
+  - php7.4-intl
+  - php7.4-json
+  - php7.4-ldap
+  - php7.4-mbstring
+  - php7.4-mysql
+  - php7.4-opcache
+  - php7.4-readline
+  - php7.4-sqlite3
+  - php7.4-soap
+  - php7.4-uploadprogress
+  - php7.4-xml
+  - php7.4-xmlrpc
+  - php7.4-xsl
+  - php7.4-zip
+  - php8.0-apcu
+  - php8.0-bcmath
+  - php8.0-bz2
+  - php8.0-cli
+  - php8.0-common
+  - php8.0-curl
+  - php8.0-fpm
+  - php8.0-gd
+  - php8.0-gmp
+  - php8.0-imap
+  - php8.0-intl
+  - php8.0-ldap
+  - php8.0-opcache
+  - php8.0-readline
+  - php8.0-sqlite3
+  - php8.0-uploadprogress
+  - php8.0-xml
+  - php8.0-xsl
+  - php8.1-apcu
+  - php8.1-bcmath
+  - php8.1-bz2
+  - php8.1-cli
+  - php8.1-common
+  - php8.1-curl
+  - php8.1-fpm
+  - php8.1-gd
+  - php8.1-gmp
+  - php8.1-imap
+  - php8.1-intl
+  - php8.1-ldap
+  - php8.1-mbstring
+  - php8.1-opcache
+  - php8.1-readline
+  - php8.1-sqlite3
+  - php8.1-uploadprogress
+  - php8.1-xml
+  - php8.1-xsl
+php_mod:
   state: present
-  packages:
-    - php7.4-apcu
-    - php7.4-apcu-bc
-    - php7.4-bcmath
-    - php7.4-bz2
-    - php7.4-cli
-    - php7.4-common
-    - php7.4-curl
-    - php7.4-fpm
-    - php7.4-gd
-    - php7.4-geoip
-    - php7.4-gmp
-    - php7.4-imap
-    - php7.4-intl
-    - php7.4-json
-    - php7.4-ldap
-    - php7.4-mbstring
-    - php7.4-mysql
-    - php7.4-opcache
-    - php7.4-readline
-    - php7.4-sqlite3
-    - php7.4-soap
-    - php7.4-uploadprogress
-    - php7.4-xml
-    - php7.4-xmlrpc
-    - php7.4-xsl
-    - php7.4-zip
-    - php8.0-apcu
-    - php8.0-bcmath
-    - php8.0-bz2
-    - php8.0-cli
-    - php8.0-common
-    - php8.0-curl
-    - php8.0-fpm
-    - php8.0-gd
-    - php8.0-gmp
-    - php8.0-imap
-    - php8.0-intl
-    - php8.0-ldap
-    - php8.0-opcache
-    - php8.0-readline
-    - php8.0-sqlite3
-    - php8.0-uploadprogress
-    - php8.0-xml
-    - php8.0-xsl
-    - php8.1-apcu
-    - php8.1-bcmath
-    - php8.1-bz2
-    - php8.1-cli
-    - php8.1-common
-    - php8.1-curl
-    - php8.1-fpm
-    - php8.1-gd
-    - php8.1-gmp
-    - php8.1-imap
-    - php8.1-intl
-    - php8.1-ldap
-    - php8.1-mbstring
-    - php8.1-opcache
-    - php8.1-readline
-    - php8.1-sqlite3
-    - php8.1-uploadprogress
-    - php8.1-xml
-    - php8.1-xsl
   versions:
     "7.4":
       state: present

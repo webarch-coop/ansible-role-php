@@ -18,48 +18,46 @@
         owner: root
         group: root
 
-    - name: Ansible local dpkg fact script present
+    - name: Ansible local facts scripts present
       ansible.builtin.copy:
-        src: dpkg.fact
-        dest: /etc/ansible/facts.d/dpkg.fact
+        src: "{{ script }}"
+        dest: "/etc/ansible/facts.d/{{ script }}"
         mode: 0755
         owner: root
         group: root
         validate: bash -n %s
-      register: php_local_dpkg_fact
-
-    - name: Ansible local PHP facts script present
-      ansible.builtin.copy:
-        src: php.fact
-        dest: /etc/ansible/facts.d/php.fact
-        mode: 0755
-        owner: root
-        group: root
-        validate: bash -n %s
-      register: php_local_php_fact
+      loop:
+        - dpkg.fact
+        - php_cfg.fact
+        - php_mod.fact
+        - php_pkg.fact
+      loop_control:
+         loop_var: script
+      register: php_local
 
     - name: Re-read Ansible local facts
       ansible.builtin.setup:
         filter: ansible_local
-      when: ( php_local_dpkg_fact.changed | bool ) or ( php_local_php_fact.changed | bool )
-
-    - name: Check that ansible_local facts are defined
-      ansible.builtin.assert:
-        that:
-          - ansible_local.dpkg.state is defined
-          - ansible_local.dpkg.state is regex('^absent|present$')
-          - ansible_local.php.state is defined
-          - ansible_local.php.state is regex('^absent|present$')
-        quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
+      when: php_local.changed
 
     - name: Print Ansible local dpkg facts
       ansible.builtin.debug:
         var: ansible_local.dpkg
         verbosity: 2
 
-    - name: Print Ansible local php facts
+    - name: Print Ansible local PHP configuration facts
       ansible.builtin.debug:
-        var: ansible_local.php
+        var: ansible_local.php_cfg
+        verbosity: 2
+
+    - name: Print Ansible local PHP module facts
+      ansible.builtin.debug:
+        var: ansible_local.php_mod
+        verbosity: 2
+
+    - name: Print Ansible local PHP packages facts
+      ansible.builtin.debug:
+        var: ansible_local.php_pkg
         verbosity: 2
 
   tags:
