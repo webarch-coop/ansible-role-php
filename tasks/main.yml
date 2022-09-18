@@ -63,11 +63,12 @@
 
     - name: Set an array for the PHP packages with version numbers in their names
       ansible.builtin.set_fact:
-        php_version_packages: "{{ php_version_packages }} + [ 'php{{ php_version }}-{{ php_package }}' ]"
-      loop: "{{ php_versioned_packages }}"
-      loop_control:
-        loop_var: php_package
-        label: "{{ php_package }}"
+        # php_version_packages: "{{ php_version_packages }} + [ 'php{{ php_version }}-{{ php_package }}' ]"
+        php_version_packages: "{{ php_versioned_packages | map('regex_replace', '^', 'php' . php_version .'-\\1') }} | list"
+      # loop: "{{ php_versioned_packages }}"
+      # loop_control:
+      #   loop_var: php_package
+      #   label: "{{ php_package }}"
 
     - name: Debug the array for the PHP packages with version numbers in their names
       ansible.builtin.debug:
