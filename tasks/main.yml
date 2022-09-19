@@ -93,7 +93,7 @@
         src: "templates/php.ini.j2"
         dest: "/etc/php/{{ php_version }}/fpm/php.ini"
         mode: 0644
-        backup: false
+        backup: true
       notify: Restart php-fpm
 
     - name: "PHP CLI config /etc/php/{{ php_version }}/cli/php.ini in place"
@@ -101,7 +101,7 @@
         src: "templates/cli_php.ini.j2"
         dest: "/etc/php/{{ php_version }}/cli/php.ini"
         mode: 0644
-        backup: false
+        backup: true
       notify: Restart php-fpm
 
     - name: PHP-FPM www.conf pool disabled
@@ -131,7 +131,7 @@
             mode: 0644
             owner: root
             group: root
-            backup: false
+            backup: true
           notify: Restart php-fpm
 
       when: ( php_www_pool_enabled is not defined ) or ( php_www_pool_enabled is defined and php_www_pool_enabled )
