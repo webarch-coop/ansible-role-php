@@ -71,7 +71,7 @@
         verbosity: 2
       when: php_version_packages is defined
 
-    - name: "PHP {{ php_version }} packages installed"
+    - name: "Packages installed for PHP {{ php_version }} "
       ansible.builtin.apt:
         pkg: "{{ php_version_packages }}"
         state: present
