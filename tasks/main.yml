@@ -1,12 +1,18 @@
 ---
+- name: Include local facts tasks
+  ansible.builtin.include_tasks: local_facts.yml
+  tags:
+    - php
+    - php_local_facts
+
+- name: Include apt repo config for Sury PHP packages
+  ansible.builtin.include_tasks: apt.yml
+  tags:
+    - php
+    - php_apt
+
 - name: Install and configure PHP
   block:
-
-    - name: Include local facts tasks
-      ansible.builtin.include_tasks: local_facts.yml
-
-    - name: Include apt repo config for Sury PHP packages
-      ansible.builtin.include_tasks: apt.yml
 
     - name: PHP absent
       ansible.builtin.include_tasks: php_absent.yml
