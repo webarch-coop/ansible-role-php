@@ -23,10 +23,10 @@ argument_specs:
         description: The path to phpquery for Ansible local facts
       php_alternatives:
         type: dict
-        equired: true
+        required: true
         description: A dictionary for the Alternatives role to set the priority of PHP versions
       php_versions:
         type: dict
-        equired: true
+        required: true
         description: A dictionary for the PHP versions, packages, sapis and modules
 ...

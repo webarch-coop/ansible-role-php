@@ -32,7 +32,7 @@
         - php_mod.fact
         - php_pkg.fact
       loop_control:
-         loop_var: script
+        loop_var: script
       register: php_local
 
     - name: Re-read Ansible local facts

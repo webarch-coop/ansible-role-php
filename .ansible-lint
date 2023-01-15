@@ -1,9 +1,8 @@
 ---
-# https://docs.ansible.com/ansible-lint/rules/default_rules.html
+# https://ansible-lint.readthedocs.io/rules/
 skip_list:
-  # Perform JSON Schema Validation for known lintable kinds
-  - schema
-  # Lines should be no longer than 160 chars
-  - "204"
+  - key-order[task]
+  - name[template]
+  - args[module]
 # vim: syntax=yaml
 ...
