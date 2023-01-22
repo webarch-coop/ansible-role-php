@@ -2,10 +2,22 @@
 - name: Install and configure PHP
   block:
 
+    # When in a docker container ans_init.stdout == "sh"
+    - name: Check if system has been booted with systemd as init system
+      ansible.builtin.command: ps -p 1 -o comm=
+      changed_when: false
+      check_mode: false
+      register: php_ps
+
+    - name: Set a fact for the init system
+      ansible.builtin.set_fact:
+        php_init: "{{ php_ps.stdout }}"
+
     - name: Check that depreciated variables are not used
       ansible.builtin.assert:
         that:
           - php_allow_local_infile is not defined
+        quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
 
     - name: Check that variables are booleans
       ansible.builtin.assert:
@@ -16,12 +28,14 @@
           - php_opcache_enable | type_debug == "bool"
           - php_opcache_validate_permission | type_debug == "bool"
           - php_opcache_validate_root | type_debug == "bool"
+        quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
 
     - name: Check that the distro is Debian Bullseye, Buster or Stretch or Ubuntu Focal or Bionic
       ansible.builtin.assert:
         that:
           - ansible_distribution_release is defined
           - ansible_distribution_release is regex("^bionic|bullseye|buster|focal|stretch$")
+        quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
 
     # - name: Include local facts tasks
     #   ansible.builtin.include_tasks: local_facts.yml
