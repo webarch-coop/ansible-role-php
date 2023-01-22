@@ -2,16 +2,24 @@
 - name: Install and configure PHP
   block:
 
-    # When in a docker container ans_init.stdout == "sh"
+    # When in a docker container php_ps.stdout == "sh"
+    # When in a chroot rc is 47 and stderr is "Error, do this: mount -t proc proc /proc"
     - name: Check if system has been booted with systemd as init system
       ansible.builtin.command: ps -p 1 -o comm=
       changed_when: false
       check_mode: false
       register: php_ps
+      failed_when: ( php_ps.rc != 0 ) and ( php_ps.rc != 47 )
+
+    - name: Set a fact for the init system
+      ansible.builtin.set_fact:
+        php_init: null
+      when: php_ps.rc == 47
 
     - name: Set a fact for the init system
       ansible.builtin.set_fact:
         php_init: "{{ php_ps.stdout }}"
+      when: php_ps.rc == 0
 
     - name: Check that depreciated variables are not used
       ansible.builtin.assert:
