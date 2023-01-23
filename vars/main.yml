@@ -1668,4 +1668,21 @@ php_debian_buster_pkg:
   - php-zstd
   - python3-libxml2
   - python-libxml2
+
+# PHP versions absent
+# cat defaults/main.yml | yq -o=json | jp 'php_version[?state=="absent"].name'
+php_ver_absent: "{{ php_version | ansible.builtin.json_query('[?state==`absent`].name') }}"
+
+# PHP versions present
+# cat defaults/main.yml | yq -o=json | jp 'php_version[?state=="present"].name'
+php_ver_present: "{{ php_version | ansible.builtin.json_query('[?state==`present`].name') }}"
+
+# PHP packages absent
+# cat defaults/main.yml | yq -o=json | jp 'php_version[].pkg_absent[]'
+php_pkg_absent: "{{ php_version | ansible.builtin.json_query('[].pkg_absent[]') | ansible.builtin.unique | sort }}"
+
+# PHP packages present
+# cat defaults/main.yml | yq -o=json | jp 'php_version[].pkg_present[]'
+php_pkg_present: "{{ php_version | ansible.builtin.json_query('[].pkg_present[]') | ansible.builtin.unique | sort }}"
+
 ...

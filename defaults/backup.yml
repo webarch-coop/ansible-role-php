@@ -1,0 +1,1136 @@
+---
+php_versions_available:
+  - "5.6"
+  - "7.0"
+  - "7.1"
+  - "7.2"
+  - "7.3"
+  - "7.4"
+  - "8.0"
+  - "8.1"
+  - "8.2 "
+php_versions_present:
+  - "7.4"
+  - "8.0"
+  - "8.1"
+
+
+# aptitude -q=99 search '~i ?name("php[0-9].[0-9]")' -F '%p'
+php_pkg:
+  - php7.4-apcu
+  - php7.4-apcu-bc
+  - php7.4-bcmath
+  - php7.4-bz2
+  - php7.4-cli
+  - php7.4-common
+  - php7.4-curl
+  - php7.4-fpm
+  - php7.4-gd
+  - php7.4-geoip
+  - php7.4-gmp
+  - php7.4-imap
+  - php7.4-intl
+  - php7.4-json
+  - php7.4-ldap
+  - php7.4-mbstring
+  - php7.4-mysql
+  - php7.4-opcache
+  - php7.4-readline
+  - php7.4-sqlite3
+  - php7.4-soap
+  - php7.4-uploadprogress
+  - php7.4-xml
+  - php7.4-xmlrpc
+  - php7.4-xsl
+  - php7.4-zip
+  - php8.0-apcu
+  - php8.0-bcmath
+  - php8.0-bz2
+  - php8.0-cli
+  - php8.0-common
+  - php8.0-curl
+  - php8.0-fpm
+  - php8.0-gd
+  - php8.0-gmp
+  - php8.0-imap
+  - php8.0-intl
+  - php8.0-ldap
+  - php8.0-opcache
+  - php8.0-readline
+  - php8.0-sqlite3
+  - php8.0-uploadprogress
+  - php8.0-xml
+  - php8.0-xsl
+  - php8.1-apcu
+  - php8.1-bcmath
+  - php8.1-bz2
+  - php8.1-cli
+  - php8.1-common
+  - php8.1-curl
+  - php8.1-fpm
+  - php8.1-gd
+  - php8.1-gmp
+  - php8.1-imap
+  - php8.1-intl
+  - php8.1-ldap
+  - php8.1-mbstring
+  - php8.1-opcache
+  - php8.1-readline
+  - php8.1-sqlite3
+  - php8.1-uploadprogress
+  - php8.1-xml
+  - php8.1-xsl
+php_mod:
+  state: present
+  versions:
+    "7.4":
+      state: present
+      # phpquery -v 7.4 -M | sort | sed 's/^/        - /'
+      mods_available:
+        - apcu
+        - apcu_bc
+        - bcmath
+        - bz2
+        - calendar
+        - ctype
+        - curl
+        - dom
+        - exif
+        - ffi
+        - fileinfo
+        - ftp
+        - gd
+        - geoip
+        - gettext
+        - gmp
+        - iconv
+        - imagick
+        - imap
+        - intl
+        - json
+        - ldap
+        - mbstring
+        - mysqli
+        - mysqlnd
+        - opcache
+        - pdo
+        - pdo_mysql
+        - pdo_sqlite
+        - phar
+        - posix
+        - readline
+        - shmop
+        - simplexml
+        - soap
+        - sockets
+        - sqlite3
+        - sysvmsg
+        - sysvsem
+        - sysvshm
+        - tokenizer
+        - uploadprogress
+        - xml
+        - xmlreader
+        - xmlrpc
+        - xmlwriter
+        - xsl
+        - zip
+      sapis:
+        cli:
+          state: present
+          mods_enabled:
+            - apcu
+            - apcu_bc
+            - bcmath
+            - bz2
+            - calendar
+            - ctype
+            - curl
+            - dom
+            - exif
+            - ffi
+            - fileinfo
+            - ftp
+            - gd
+            - geoip
+            - gettext
+            - gmp
+            - iconv
+            - imagick
+            - imap
+            - intl
+            - json
+            - ldap
+            - mbstring
+            - mysqli
+            - mysqlnd
+            - opcache
+            - pdo
+            - pdo_mysql
+            - pdo_sqlite
+            - phar
+            - posix
+            - readline
+            - shmop
+            - simplexml
+            - soap
+            - sockets
+            - sqlite3
+            - sysvmsg
+            - sysvsem
+            - sysvshm
+            - tokenizer
+            - uploadprogress
+            - xml
+            - xmlreader
+            - xmlrpc
+            - xmlwriter
+            - xsl
+            - zip
+        fpm:
+          state: present
+          mods_enabled:
+            - apcu
+            - apcu_bc
+            - bcmath
+            - bz2
+            - calendar
+            - ctype
+            - curl
+            - dom
+            - exif
+            - ffi
+            - fileinfo
+            - ftp
+            - gd
+            - geoip
+            - gettext
+            - gmp
+            - iconv
+            - imagick
+            - imap
+            - intl
+            - json
+            - ldap
+            - mbstring
+            - mysqli
+            - mysqlnd
+            - opcache
+            - pdo
+            - pdo_mysql
+            - pdo_sqlite
+            - phar
+            - posix
+            - readline
+            - shmop
+            - simplexml
+            - soap
+            - sockets
+            - sqlite3
+            - sysvmsg
+            - sysvsem
+            - sysvshm
+            - tokenizer
+            - uploadprogress
+            - xml
+            - xmlreader
+            - xmlrpc
+            - xmlwriter
+            - xsl
+            - zip
+    "8.0":
+      state: present
+      # phpquery -v 8.0 -M | sort | sed 's/^/        - /'
+      mods_available:
+        - apcu
+        - apcu_bc
+        - bcmath
+        - bz2
+        - calendar
+        - ctype
+        - curl
+        - dom
+        - exif
+        - ffi
+        - fileinfo
+        - ftp
+        - gd
+        - gettext
+        - gmp
+        - iconv
+        - imagick
+        - imap
+        - intl
+        - json
+        - ldap
+        - mbstring
+        - mysqli
+        - mysqlnd
+        - opcache
+        - pdo
+        - pdo_mysql
+        - pdo_sqlite
+        - phar
+        - posix
+        - readline
+        - shmop
+        - simplexml
+        - soap
+        - sockets
+        - sqlite3
+        - sysvmsg
+        - sysvsem
+        - sysvshm
+        - tokenizer
+        - uploadprogress
+        - xml
+        - xmlreader
+        - xmlrpc
+        - xmlwriter
+        - xsl
+        - zip
+      sapis:
+        cli:
+          state: present
+          mods_enabled:
+            - apcu
+            - bcmath
+            - bz2
+            - calendar
+            - ctype
+            - curl
+            - dom
+            - exif
+            - ffi
+            - fileinfo
+            - ftp
+            - gd
+            - gettext
+            - gmp
+            - iconv
+            - imap
+            - intl
+            - ldap
+            - opcache
+            - pdo
+            - pdo_sqlite
+            - phar
+            - posix
+            - readline
+            - shmop
+            - simplexml
+            - sockets
+            - sqlite3
+            - sysvmsg
+            - sysvsem
+            - sysvshm
+            - tokenizer
+            - uploadprogress
+            - xml
+            - xmlreader
+            - xmlwriter
+            - xsl
+        fpm:
+          state: present
+          mods_enabled:
+            - apcu
+            - bcmath
+            - bz2
+            - calendar
+            - ctype
+            - curl
+            - dom
+            - exif
+            - ffi
+            - fileinfo
+            - ftp
+            - gd
+            - gettext
+            - gmp
+            - iconv
+            - imap
+            - intl
+            - ldap
+            - opcache
+            - pdo
+            - pdo_sqlite
+            - phar
+            - posix
+            - readline
+            - shmop
+            - simplexml
+            - sockets
+            - sqlite3
+            - sysvmsg
+            - sysvsem
+            - sysvshm
+            - tokenizer
+            - uploadprogress
+            - xml
+            - xmlreader
+            - xmlwriter
+            - xsl
+    "8.1":
+      state: present
+      # phpquery -v 8.1 -M | sort | sed 's/^/        - /'
+      mods_available:
+        - apcu
+        - bcmath
+        - bz2
+        - calendar
+        - ctype
+        - curl
+        - dom
+        - exif
+        - ffi
+        - fileinfo
+        - ftp
+        - gd
+        - gettext
+        - iconv
+        - imap
+        - intl
+        - ldap
+        - mbstring
+        - opcache
+        - pdo
+        - pdo_sqlite
+        - phar
+        - posix
+        - readline
+        - shmop
+        - simplexml
+        - sockets
+        - sqlite3
+        - sysvmsg
+        - sysvsem
+        - sysvshm
+        - tokenizer
+        - uploadprogress
+        - xml
+        - xmlreader
+        - xmlwriter
+        - xsl
+      sapis:
+        cli:
+          state: present
+          mods_enabled:
+            - apcu
+            - bcmath
+            - bz2
+            - calendar
+            - ctype
+            - curl
+            - dom
+            - exif
+            - ffi
+            - fileinfo
+            - ftp
+            - gettext
+            - gmp
+            - iconv
+            - imap
+            - intl
+            - ldap
+            - mbstring
+            - pdo
+            - pdo_sqlite
+            - phar
+            - posix
+            - readline
+            - shmop
+            - simplexml
+            - sockets
+            - sqlite3
+            - sysvmsg
+            - sysvsem
+            - sysvshm
+            - tokenizer
+            - uploadprogress
+            - xml
+            - xmlreader
+            - xmlwriter
+            - xsl
+        fpm:
+          state: present
+          mods_enabled:
+            - apcu
+            - bcmath
+            - bz2
+            - calendar
+            - ctype
+            - curl
+            - dom
+            - exif
+            - ffi
+            - fileinfo
+            - ftp
+            - gettext
+            - gmp
+            - iconv
+            - imap
+            - intl
+            - ldap
+            - mbstring
+            - pdo
+            - pdo_sqlite
+            - phar
+            - posix
+            - readline
+            - shmop
+            - simplexml
+            - sockets
+            - sqlite3
+            - sysvmsg
+            - sysvsem
+            - sysvshm
+            - tokenizer
+            - uploadprogress
+            - xml
+            - xmlreader
+            - xmlwriter
+            - xsl
+php_cfg:
+  versions:
+    "7.4":
+      sapis:
+        fpm:
+          config:
+            apc:
+              "apc.enabled": 1
+              "apc.shm_size": "32M"
+            Date:
+              "date.timezone": "Europe/London"
+            MySQLi:
+              "mysqli.allow_local_infile": "On"
+            opcache:
+              "opcache.enable": "0"
+              "opcache.interned_strings_buffer": "64"
+              "opcache.max_accelerated_files": "100000"
+              "opcache.memory_consumption": "1024"
+              "opcache.revalidate_freq": "2"
+              "opcache.use_cwd": "1"
+              "opcache.validate_permission": "1"
+              "opcache.validate_root": "1"
+              "opcache.validate_timestamps": "1"
+            PHP:
+              allow_url_include: "Off"
+              default_socket_timeout: "600"
+              disable_functions: "pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_get_handler,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,pcntl_async_signals,pcntl_unshare"
+              max_execution_time: "600"
+              max_file_uploads: "60"
+              max_input_nesting_level: "512"
+              max_input_time: "600"
+              max_input_vars: "100000"
+              memory_limit: "512M"
+              output_buffering: "4096"
+              post_max_size: "512M"
+              short_open_tag: "Off"
+              upload_max_filesize: "512M"
+            Session:
+              "session.save_path": "${TMPDIR}"
+    "8.0":
+      sapis:
+        fpm:
+          config:
+            apc:
+              "apc.enabled": 1
+              "apc.shm_size": "32M"
+            Date:
+              "date.timezone": "Europe/London"
+            MySQLi:
+              "mysqli.allow_local_infile": "On"
+            opcache:
+              "opcache.enable": "0"
+              "opcache.interned_strings_buffer": "64"
+              "opcache.max_accelerated_files": "100000"
+              "opcache.memory_consumption": "1024"
+              "opcache.revalidate_freq": "2"
+              "opcache.use_cwd": "1"
+              "opcache.validate_permission": "1"
+              "opcache.validate_root": "1"
+              "opcache.validate_timestamps": "1"
+            PHP:
+              allow_url_include: "Off"
+              default_socket_timeout: "600"
+              disable_functions: "pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_get_handler,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,pcntl_async_signals,pcntl_unshare"
+              max_execution_time: "600"
+              max_file_uploads: "60"
+              max_input_nesting_level: "512"
+              max_input_time: "600"
+              max_input_vars: "100000"
+              memory_limit: "512M"
+              output_buffering: "4096"
+              post_max_size: "512M"
+              short_open_tag: "Off"
+              upload_max_filesize: "512M"
+            Session:
+              "session.save_path": "${TMPDIR}"
+    "8.1":
+      sapis:
+        fpm:
+          config:
+            apc:
+              "apc.enabled": 1
+              "apc.shm_size": "32M"
+            Date:
+              "date.timezone": "Europe/London"
+            MySQLi:
+              "mysqli.allow_local_infile": "On"
+            opcache:
+              "opcache.enable": "0"
+              "opcache.interned_strings_buffer": "64"
+              "opcache.max_accelerated_files": "100000"
+              "opcache.memory_consumption": "1024"
+              "opcache.revalidate_freq": "2"
+              "opcache.use_cwd": "1"
+              "opcache.validate_permission": "1"
+              "opcache.validate_root": "1"
+              "opcache.validate_timestamps": "1"
+            PHP:
+              allow_url_include: "Off"
+              default_socket_timeout: "600"
+              disable_functions: "pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_get_handler,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,pcntl_async_signals,pcntl_unshare"
+              max_execution_time: "600"
+              max_file_uploads: "60"
+              max_input_nesting_level: "512"
+              max_input_time: "600"
+              max_input_vars: "100000"
+              memory_limit: "512M"
+              output_buffering: "4096"
+              post_max_size: "512M"
+              short_open_tag: "Off"
+              upload_max_filesize: "512M"
+            Session:
+              "session.save_path": "${TMPDIR}"
+#
+php_sury: true
+php_aptitude: /usr/bin/aptitude
+php_dpkg: /usr/bin/dpkg
+php_gpg: /usr/bin/gpg
+php_phpquery: /usr/sbin/phpquery
+php_remove_legacy: false
+php_alternatives:
+  cli:
+    '8.1':
+      priority: 81
+    '8.0':
+      priority: 74
+    '7.4':
+      priority: 74
+  fpm:
+    '8.1':
+      priority: 81
+    '8.0':
+      priority: 74
+    '7.4':
+      priority: 74
+php_versions:
+  '8.1':
+    state: present
+    packages_absent:
+      - libapache2-mod-php8.1
+      - php8.1-phpdbg
+    packages_present:
+      - php8.1-apcu
+      - php8.1-bcmath
+      - php8.1-bz2
+      - php8.1-cli
+      - php8.1-common
+      - php8.1-curl
+      - php8.1-fpm
+      - php8.1-imap
+      - php8.1-intl
+      - php8.1-ldap
+      - php8.1-mbstring
+      - php8.1-readline
+      - php8.1-sqlite3
+      - php8.1-uploadprogress
+      - php8.1-xml
+      - php8.1-xsl
+    sapis:
+      apache2:
+        state: absent
+      cli:
+        state: present
+        modules_disabled: []
+        modules_enabled:
+          - apcu
+          - bcmath
+          - bz2
+          - calendar
+          - ctype
+          - curl
+          - dom
+          - exif
+          - ffi
+          - fileinfo
+          - ftp
+          - gettext
+          - iconv
+          - imap
+          - intl
+          - ldap
+          - mbstring
+          - opcache
+          - pdo
+          - pdo_sqlite
+          - phar
+          - posix
+          - readline
+          - shmop
+          - simplexml
+          - sockets
+          - sqlite3
+          - sysvmsg
+          - sysvsem
+          - sysvshm
+          - tokenizer
+          - uploadprogress
+          - xml
+          - xmlreader
+          - xmlwriter
+          - xsl
+      fpm:
+        state: present
+        modules_disabled: []
+        modules_enabled:
+          - apcu
+          - bcmath
+          - bz2
+          - calendar
+          - ctype
+          - curl
+          - dom
+          - exif
+          - ffi
+          - fileinfo
+          - ftp
+          - gettext
+          - iconv
+          - imap
+          - intl
+          - ldap
+          - mbstring
+          - opcache
+          - pdo
+          - pdo_sqlite
+          - phar
+          - posix
+          - readline
+          - shmop
+          - simplexml
+          - sockets
+          - sqlite3
+          - sysvmsg
+          - sysvsem
+          - sysvshm
+          - tokenizer
+          - uploadprogress
+          - xml
+          - xmlreader
+          - xmlwriter
+          - xsl
+      phpdbg:
+        state: absent
+  '8.0':
+    state: present
+    packages_absent:
+      - libapache2-mod-php8.0
+      - php8.0-phpdbg
+    packages_present:
+      - php8.0-apcu
+      - php8.0-bcmath
+      - php8.0-bz2
+      - php8.0-cli
+      - php8.0-common
+      - php8.0-curl
+      - php8.0-fpm
+      - php8.0-imap
+      - php8.0-intl
+      - php8.0-ldap
+      - php8.0-opcache
+      - php8.0-readline
+      - php8.0-sqlite3
+      - php8.0-uploadprogress
+      - php8.0-xml
+      - php8.0-xsl
+    sapis:
+      apache2:
+        state: absent
+      cli:
+        state: present
+        modules_disabled: []
+        modules_enabled:
+          - apcu
+          - bcmath
+          - bz2
+          - calendar
+          - ctype
+          - curl
+          - dom
+          - exif
+          - ffi
+          - fileinfo
+          - ftp
+          - gettext
+          - iconv
+          - imap
+          - intl
+          - ldap
+          - opcache
+          - pdo
+          - pdo_sqlite
+          - phar
+          - posix
+          - readline
+          - shmop
+          - simplexml
+          - sockets
+          - sqlite3
+          - sysvmsg
+          - sysvsem
+          - sysvshm
+          - tokenizer
+          - uploadprogress
+          - xml
+          - xmlreader
+          - xmlwriter
+          - xsl
+      fpm:
+        state: present
+        modules_disabled: []
+        modules_enabled:
+          - apcu
+          - bcmath
+          - bz2
+          - calendar
+          - ctype
+          - curl
+          - dom
+          - exif
+          - ffi
+          - fileinfo
+          - ftp
+          - gettext
+          - iconv
+          - imap
+          - intl
+          - ldap
+          - opcache
+          - pdo
+          - pdo_sqlite
+          - phar
+          - posix
+          - readline
+          - shmop
+          - simplexml
+          - sockets
+          - sqlite3
+          - sysvmsg
+          - sysvsem
+          - sysvshm
+          - tokenizer
+          - uploadprogress
+          - xml
+          - xmlreader
+          - xmlwriter
+          - xsl
+      phpdbg:
+        state: absent
+  '7.4':
+    state: present
+    packages_absent:
+      - libapache2-mod-php7.4
+      - php7.4-phpdbg
+    packages_present:
+      - php7.4-apcu
+      - php7.4-apcu-bc
+      - php7.4-bcmath
+      - php7.4-bz2
+      - php7.4-cli
+      - php7.4-common
+      - php7.4-curl
+      - php7.4-fpm
+      - php7.4-geoip
+      - php7.4-imap
+      - php7.4-intl
+      - php7.4-json
+      - php7.4-ldap
+      - php7.4-opcache
+      - php7.4-readline
+      - php7.4-sqlite3
+      - php7.4-uploadprogress
+      - php7.4-xml
+      - php7.4-xsl
+    sapis:
+      apache2:
+        state: absent
+      cli:
+        state: present
+        modules_disabled: []
+        modules_enabled:
+          - apcu
+          - apcu_bc
+          - bcmath
+          - bz2
+          - calendar
+          - ctype
+          - curl
+          - dom
+          - exif
+          - ffi
+          - fileinfo
+          - ftp
+          - gd
+          - geoip
+          - gettext
+          - gmp
+          - iconv
+          - imagick
+          - imap
+          - intl
+          - json
+          - ldap
+          - mbstring
+          - mysqli
+          - mysqlnd
+          - opcache
+          - pdo
+          - pdo_mysql
+          - pdo_sqlite
+          - phar
+          - posix
+          - readline
+          - shmop
+          - simplexml
+          - soap
+          - sockets
+          - sqlite3
+          - sysvmsg
+          - sysvsem
+          - sysvshm
+          - tokenizer
+          - uploadprogress
+          - xml
+          - xmlreader
+          - xmlrpc
+          - xmlwriter
+          - xsl
+          - zip
+      fpm:
+        state: present
+        modules_disabled: []
+        modules_enabled:
+          - apcu
+          - apcu_bc
+          - bcmath
+          - bz2
+          - calendar
+          - ctype
+          - curl
+          - dom
+          - exif
+          - ffi
+          - fileinfo
+          - ftp
+          - gd
+          - geoip
+          - gettext
+          - gmp
+          - iconv
+          - imagick
+          - imap
+          - intl
+          - json
+          - ldap
+          - mbstring
+          - mysqli
+          - mysqlnd
+          - opcache
+          - pdo
+          - pdo_mysql
+          - pdo_sqlite
+          - phar
+          - posix
+          - readline
+          - shmop
+          - simplexml
+          - soap
+          - sockets
+          - sqlite3
+          - sysvmsg
+          - sysvsem
+          - sysvshm
+          - tokenizer
+          - uploadprogress
+          - xml
+          - xmlreader
+          - xmlrpc
+          - xmlwriter
+          - xsl
+          - zip
+      phpdbg:
+        state: absent
+  '7.3':
+    state: absent
+  '7.2':
+    state: absent
+  '7.1':
+    state: absent
+  '7.0':
+    state: absent
+  '5.6':
+    state: absent
+php_packages:
+  - php-curl
+  - php-date
+  - php-gd
+  - php-gmp
+  - php-json
+  - php-imagick
+  - php-intl
+  - php-mbstring
+  - php-mysql
+  - php-pear
+  - php-soap
+  - php-xmlrpc
+  - php-zip
+  - composer
+php_versioned_packages:
+  - apcu
+  - bcmath
+  - bz2
+  - cli
+  - ctype
+  - curl
+  - dom
+  - exif
+  - fileinfo
+  - gd
+  # - geoip
+  - iconv
+  - imagick
+  - imap
+  - intl
+  - json
+  - ldap
+  - mbstring
+  - mysqli
+  - opcache
+  - pdo
+  - posix
+  - simplexml
+  - sqlite3
+  - readline
+  - tokenizer
+  - uploadprogress
+  - xml
+  - xmlreader
+  - xmlrpc
+  - xmlwriter
+  - xsl
+  - zip
+# NOTE pool.d files cannot enable any functions that are listed as disabled
+# here.
+# Set this to an empty list prevent disabling of functions
+# php_disable_functions: []
+php_disable_functions:
+  - chgrp
+  - chown
+  # curl_exec is used by Nextcloud, some MediaWiki extensions and the
+  # WordPress Piwik plugin
+  # - curl_exec
+  # curl_multi_exec is used by the MediaWiki VisualEditor
+  # - curl_multi_exec
+  - dl
+  - exec
+  # fsockopen is used by CiviCRM to send email
+  # - fsockopen
+  - passthru
+  - pcntl_alarm
+  - pcntl_fork
+  - pcntl_waitpid
+  - pcntl_wait
+  - pcntl_wifexited
+  - pcntl_wifstopped
+  - pcntl_wifsignaled
+  - pcntl_wifcontinued
+  - pcntl_wexitstatus
+  - pcntl_wtermsig
+  - pcntl_wstopsig
+  - pcntl_signal
+  - pcntl_signal_get_handler
+  - pcntl_signal_dispatch
+  - pcntl_get_last_error
+  - pcntl_strerror
+  - pcntl_sigprocmask
+  - pcntl_sigwaitinfo
+  - pcntl_sigtimedwait
+  - pcntl_exec
+  - pcntl_getpriority
+  - pcntl_setpriority
+  - pcntl_async_signals
+  - pcntl_unshare
+  - popen
+  - posix_kill
+  - posix_mkfifo
+  - posix_setpgid
+  - posix_setsid
+  - posix_setuid
+  # The proc_ functions are used by MediaWiki
+  # - proc_close
+  # - proc_get_status
+  # - proc_nice
+  # - proc_open
+  # - proc_terminate
+  # The shell_exec function is used by Matomo
+  # - shell_exec
+  - show_source
+  - socket_create
+  - symlink
+  - system
+  - system_exec
+php_date_timezone: Europe/London
+php_max_execution_time: 600
+php_default_socket_timeout: "{{ php_max_execution_time }}"
+php_max_input_time: 600
+php_max_input_nesting_level: 512
+php_max_input_vars: 100000
+php_memory_limit: 512M
+# Set php_output_buffering to 0 to disable output_buffering
+php_output_buffering: 4096
+php_post_max_size: 512M
+php_upload_max_filesize: 512M
+php_max_file_uploads: 60
+php_allow_url_include: false
+php_mysqli_allow_local_infile: false
+php_short_open_tag: false
+php_session_save_path: "${TMPDIR}"
+php_apc_shm_size: 32M
+php_opcache_enable: true
+php_opcache_memory_consumption: 1024
+php_opcache_interned_strings_buffer: 64
+php_opcache_use_cwd: true
+php_opcache_validate_timestamps: 1
+php_opcache_revalidate_freq: 2
+php_opcache_validate_permission: true
+php_opcache_validate_root: true
+php_opcache_max_accelerated_files: 100000
+php_www_pool_enabled: true
+php_www_pool_pm: dynamic
+php_www_pool_pm_max_children: 4
+php_www_pool_pm_process_idle_timeout: 10s
+php_www_pool_pm_start_servers: 1
+php_www_pool_pm_min_spare_servers: 1
+php_www_pool_pm_max_spare_servers: 1
+php_www_pool_pm_max_requests: 1000
+# if this isn't set then the status is disabled
+# php_www_pool_pm_status_path: /status
+# if this isn't set then the ping is disabled
+# php_www_pool_ping_path: /ping
+phpcli_allow_local_infile: false
+# Enable email to root with results of grepping for pm.max_children
+php_log_grep: false
+php_log: "/var/log/php{{ php_version }}-fpm.log"
+...

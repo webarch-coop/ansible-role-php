@@ -28,9 +28,9 @@
         validate: bash -n %s
       loop:
         - dpkg.fact
-        - php_cfg.fact
-        - php_mod.fact
-        - php_pkg.fact
+        # - php_cfg.fact
+        # - php_mod.fact
+        # - php_pkg.fact
       loop_control:
         loop_var: script
       register: php_local
@@ -45,20 +45,20 @@
         var: ansible_local.dpkg
         verbosity: 2
 
-    - name: Print Ansible local PHP configuration facts
-      ansible.builtin.debug:
-        var: ansible_local.php_cfg
-        verbosity: 2
+    # - name: Print Ansible local PHP configuration facts
+    #   ansible.builtin.debug:
+    #     var: ansible_local.php_cfg
+    #     verbosity: 2
 
-    - name: Print Ansible local PHP module facts
-      ansible.builtin.debug:
-        var: ansible_local.php_mod
-        verbosity: 2
+    # - name: Print Ansible local PHP module facts
+    #   ansible.builtin.debug:
+    #     var: ansible_local.php_mod
+    #     verbosity: 2
 
-    - name: Print Ansible local PHP packages facts
-      ansible.builtin.debug:
-        var: ansible_local.php_pkg
-        verbosity: 2
+    # - name: Print Ansible local PHP packages facts
+    #   ansible.builtin.debug:
+    #     var: ansible_local.php_pkg
+    #     verbosity: 2
 
   tags:
     - php

@@ -1,49 +1,4 @@
 ---
-- name: Remove legacy Sury apt repo files
-  block:
-
-    - name: Find legacy PHP apt list files
-      ansible.builtin.find:
-        paths: /etc/apt/sources.list.d
-        patterns: "*php*.list"
-      register: php_old_apt_list_files
-
-    - name: List legacy PHP apt list files to be disabled
-      ansible.builtin.debug:
-        msg: "apt list file {{ file.path }} to be moved to {{ file.path }}.ansible.save"
-      loop: "{{ php_old_apt_list_files.files }}"
-      loop_control:
-        loop_var: file
-        label: "{{ file.path | basename }}"
-      when: ( php_old_apt_list_files.matched >= 1 )
-
-    - name: Disable legacy PHP apt list files
-      ansible.builtin.command: "mv {{ file.path }} {{ file.path }}.ansible.save"
-      loop: "{{ php_old_apt_list_files.files }}"
-      loop_control:
-        loop_var: file
-        label: "{{ file.path | basename }}"
-      when: ( php_old_apt_list_files.matched >= 1 )
-
-    - name: Legacy PHP apt key absent
-      ansible.builtin.apt_key:
-        id: 15058500A0235D97F5D10063B188E2B695BD4743
-        state: absent
-
-    - name: Legacy usr/local/share/keyrings GPG key absent
-      ansible.builtin.file:
-        path: /usr/local/share/keyrings/sury-archive-keyring.gpg
-        state: absent
-
-    - name: Legacy usr/share/keyrings GPG key absent
-      ansible.builtin.file:
-        path: /usr/share/keyrings/deb.sury.org-php.gpg
-        state: absent
-
-  when: php_remove_legacy | bool
-  tags:
-    - php
-
 - name: Sury PHP apt repo present
   block:
 
@@ -111,11 +66,15 @@
     - name: Update apt cache
       ansible.builtin.apt:
         update_cache: true
-      when: ( php_sources.changed | bool ) or ( php_preferences.changed | bool )
+        cache_valid_time: 60
+      when: >-
+        ( php_sources.changed | bool ) or
+        ( php_preferences.changed | bool )
 
-  when: php.state == "present"
+  when: php_sury | bool
   tags:
     - php
+    - php_apt
 
 - name: Sury PHP apt repo absent
   block:
@@ -136,9 +95,11 @@
     - name: Update apt cache
       ansible.builtin.apt:
         update_cache: true
+        cache_valid_time: 60
       when: php_repo_absent.changed
 
-  when: php.state == "absent"
+  when: not php_sury | bool
   tags:
     - php
+    - php_apt
 ...

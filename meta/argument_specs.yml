@@ -5,28 +5,64 @@ argument_specs:
     description: Ansible role for installing and configuring PHP on Debian
     short_description: The main entry point for the PHP role.
     options:
-      php_sury:
+      php:
         type: bool
         required: true
-        description: Use the Sury PHP deb package repo
-      php_dpkg:
-        type: str
-        required: true
-        description: The path to dpkg for Ansible local facts
-      php_gpg:
-        type: str
-        required: true
-        description: The path to gpg for Ansible local facts
-      php_phpquery:
-        type: str
-        required: true
-        description: The path to phpquery for Ansible local facts
-      php_alternatives:
-        type: dict
-        required: true
-        description: A dictionary for the Alternatives role to set the priority of PHP versions
-      php_versions:
-        type: dict
-        required: true
-        description: A dictionary for the PHP versions, packages, sapis and modules
+        description: Run the tasks in this role.
+      # php_alternatives:
+      #   type: dict
+      #   required: true
+      #   description: A dictionary for the Alternatives role to set the priority of PHP versions.
+      php_config:
+        type: list
+        required: false
+        description: A list of PHP files and configuration dictionaries.
+        elements: dict
+        options:
+          conf:
+            type: dict
+            required: false
+            description: A YAML dictionary representing the configuration variables for the file.
+          path:
+            type: str
+            required: true
+            description: The PHP version number.
+          state:
+            type: str
+            required: true
+            description: The state of the configuration file
+            choices:
+              - absent
+              - present
+      php_sury:
+        type: bool
+        required: false
+        description: Configure the Sury PHP deb package repo.
+      php_version:
+        type: list
+        required: false
+        description: A list of PHP versions.
+        elements: dict
+        options:
+          name:
+            type: str
+            required: true
+            description: The PHP version number.
+          state:
+            type: str
+            required: true
+            description: The state of the PHP version packages.
+            choices:
+              - absent
+              - present
+          pkg_absent:
+            type: list
+            required: false
+            description: A list of absent deb packages.
+            elements: str
+          pkg_present:
+            type: list
+            required: false
+            description: A list of present deb packages.
+            elements: str
 ...
