@@ -45,9 +45,6 @@
           - ansible_distribution_release is regex("^bionic|bullseye|buster|focal|stretch$")
         quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
 
-    # - name: Include local facts tasks
-    #   ansible.builtin.include_tasks: local_facts.yml
-
     - name: PHP packages present
       ansible.builtin.apt:
         pkg: "{{ php_packages }}"
