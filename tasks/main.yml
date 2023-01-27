@@ -2,11 +2,14 @@
 - name: PHP
   block:
 
-    - name: Local facts tasks
-      ansible.builtin.include_tasks: local_facts.yml
-      when: ansible_local.dpkg is not defined
-      tags:
-        - php_local_facts
+    - name: Include apt role local fact tasks if variables are not defined
+      ansible.builtin.include_role:
+        name: apt
+        tasks_from: local_facts.yml
+      when: >-
+        ( ansible_local.dpkg.arch is not defined ) or
+        ( ansible_local.gpg.version is not defined ) or
+        ( ansible_local.bash.path is not defined )
 
     - name: Sury apt repo config
       ansible.builtin.include_tasks: apt.yml
