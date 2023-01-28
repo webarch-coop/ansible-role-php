@@ -16,7 +16,6 @@ php_pkg_absent: "{{ php_version | ansible.builtin.json_query('[?state==`present`
 # cat defaults/main.yml | yq -o=json | jp "php_version[?state=='present'].pkg_present[]" | sort -u
 php_pkg_present: "{{ php_version | ansible.builtin.json_query('[?state==`present`].pkg_present[]') | ansible.builtin.unique | sort }}"
 
-
 # GPG public key URL linked from
 # https://packages.sury.org/php/
 php_gpg_url: https://packages.sury.org/php/apt.gpg
@@ -31,8 +30,12 @@ php_gpg_fingerprints:
   - 15058500A0235D97F5D10063B188E2B695BD4743
   - 45BEA3E529112086C622F8A4B214EAC28059B8AC
 
-# Debian Bullseye packages
-# wget -q 'https://packages.sury.org/php/dists/bullseye/main/binary-amd64/Packages.gz' -O - | gunzip - | grep -e '^Package' | grep -ve '-dbgsym$' -e '-dbg$' -e '-dev$' | sed 's/^Package: /  - /'
+# The following lists can be generated using the sury-packages.sh script in this directory.
+# To update them deleting everything after this comment and inset the results of the script.
+# For example delete the lines and run:
+# bash ./sury-packages.sh >> main.yml
+
+# Debian bullseye packages
 php_debian_bullseye_pkg:
   - dh-php
   - enchant
@@ -102,6 +105,7 @@ php_debian_bullseye_pkg:
   - php5.6-intl
   - php5.6-json
   - php5.6-ldap
+  - php5.6-libvirt-php
   - php5.6-lua
   - php5.6-lz4
   - php5.6-mailparse
@@ -182,6 +186,7 @@ php_debian_bullseye_pkg:
   - php7.0-intl
   - php7.0-json
   - php7.0-ldap
+  - php7.0-libvirt-php
   - php7.0-lua
   - php7.0-lz4
   - php7.0-mailparse
@@ -206,6 +211,7 @@ php_debian_bullseye_pkg:
   - php7.0-psr
   - php7.0-radius
   - php7.0-raphf
+  - php7.0-rdkafka
   - php7.0-readline
   - php7.0-recode
   - php7.0-redis
@@ -249,6 +255,7 @@ php_debian_bullseye_pkg:
   - php7.1-decimal
   - php7.1-ds
   - php7.1-enchant
+  - php7.1-excimer
   - php7.1-fpm
   - php7.1-gd
   - php7.1-gearman
@@ -266,6 +273,7 @@ php_debian_bullseye_pkg:
   - php7.1-intl
   - php7.1-json
   - php7.1-ldap
+  - php7.1-libvirt-php
   - php7.1-lua
   - php7.1-lz4
   - php7.1-mailparse
@@ -291,6 +299,7 @@ php_debian_bullseye_pkg:
   - php7.1-psr
   - php7.1-radius
   - php7.1-raphf
+  - php7.1-rdkafka
   - php7.1-readline
   - php7.1-recode
   - php7.1-redis
@@ -335,6 +344,7 @@ php_debian_bullseye_pkg:
   - php7.2-decimal
   - php7.2-ds
   - php7.2-enchant
+  - php7.2-excimer
   - php7.2-fpm
   - php7.2-gd
   - php7.2-gearman
@@ -352,6 +362,7 @@ php_debian_bullseye_pkg:
   - php7.2-intl
   - php7.2-json
   - php7.2-ldap
+  - php7.2-libvirt-php
   - php7.2-lua
   - php7.2-lz4
   - php7.2-mailparse
@@ -379,6 +390,7 @@ php_debian_bullseye_pkg:
   - php7.2-psr
   - php7.2-radius
   - php7.2-raphf
+  - php7.2-rdkafka
   - php7.2-readline
   - php7.2-recode
   - php7.2-redis
@@ -423,6 +435,7 @@ php_debian_bullseye_pkg:
   - php7.3-decimal
   - php7.3-ds
   - php7.3-enchant
+  - php7.3-excimer
   - php7.3-fpm
   - php7.3-gd
   - php7.3-gearman
@@ -440,6 +453,7 @@ php_debian_bullseye_pkg:
   - php7.3-intl
   - php7.3-json
   - php7.3-ldap
+  - php7.3-libvirt-php
   - php7.3-lua
   - php7.3-lz4
   - php7.3-mailparse
@@ -467,6 +481,7 @@ php_debian_bullseye_pkg:
   - php7.3-psr
   - php7.3-radius
   - php7.3-raphf
+  - php7.3-rdkafka
   - php7.3-readline
   - php7.3-recode
   - php7.3-redis
@@ -511,6 +526,7 @@ php_debian_bullseye_pkg:
   - php7.4-decimal
   - php7.4-ds
   - php7.4-enchant
+  - php7.4-excimer
   - php7.4-fpm
   - php7.4-gd
   - php7.4-gearman
@@ -528,6 +544,7 @@ php_debian_bullseye_pkg:
   - php7.4-intl
   - php7.4-json
   - php7.4-ldap
+  - php7.4-libvirt-php
   - php7.4-lua
   - php7.4-lz4
   - php7.4-mailparse
@@ -545,6 +562,7 @@ php_debian_bullseye_pkg:
   - php7.4-pcov
   - php7.4-pgsql
   - php7.4-phalcon4
+  - php7.4-phalcon5
   - php7.4-phpdbg
   - php7.4-pinba
   - php7.4-propro
@@ -554,6 +572,7 @@ php_debian_bullseye_pkg:
   - php7.4-psr
   - php7.4-radius
   - php7.4-raphf
+  - php7.4-rdkafka
   - php7.4-readline
   - php7.4-redis
   - php7.4-rrd
@@ -596,6 +615,7 @@ php_debian_bullseye_pkg:
   - php8.0-decimal
   - php8.0-ds
   - php8.0-enchant
+  - php8.0-excimer
   - php8.0-fpm
   - php8.0-gd
   - php8.0-gearman
@@ -611,6 +631,7 @@ php_debian_bullseye_pkg:
   - php8.0-interbase
   - php8.0-intl
   - php8.0-ldap
+  - php8.0-libvirt-php
   - php8.0-lz4
   - php8.0-mailparse
   - php8.0-maxminddb
@@ -626,12 +647,15 @@ php_debian_bullseye_pkg:
   - php8.0-opcache
   - php8.0-pcov
   - php8.0-pgsql
+  - php8.0-phalcon5
   - php8.0-phpdbg
+  - php8.0-pinba
   - php8.0-protobuf
   - php8.0-ps
   - php8.0-pspell
   - php8.0-psr
   - php8.0-raphf
+  - php8.0-rdkafka
   - php8.0-readline
   - php8.0-redis
   - php8.0-rrd
@@ -644,6 +668,7 @@ php_debian_bullseye_pkg:
   - php8.0-stomp
   - php8.0-swoole
   - php8.0-sybase
+  - php8.0-tideways
   - php8.0-tidy
   - php8.0-uopz
   - php8.0-uploadprogress
@@ -673,6 +698,7 @@ php_debian_bullseye_pkg:
   - php8.1-decimal
   - php8.1-ds
   - php8.1-enchant
+  - php8.1-excimer
   - php8.1-fpm
   - php8.1-gd
   - php8.1-gearman
@@ -688,6 +714,7 @@ php_debian_bullseye_pkg:
   - php8.1-interbase
   - php8.1-intl
   - php8.1-ldap
+  - php8.1-libvirt-php
   - php8.1-lz4
   - php8.1-mailparse
   - php8.1-maxminddb
@@ -703,12 +730,15 @@ php_debian_bullseye_pkg:
   - php8.1-opcache
   - php8.1-pcov
   - php8.1-pgsql
+  - php8.1-phalcon5
   - php8.1-phpdbg
+  - php8.1-pinba
   - php8.1-protobuf
   - php8.1-ps
   - php8.1-pspell
   - php8.1-psr
   - php8.1-raphf
+  - php8.1-rdkafka
   - php8.1-readline
   - php8.1-redis
   - php8.1-rrd
@@ -721,6 +751,7 @@ php_debian_bullseye_pkg:
   - php8.1-stomp
   - php8.1-swoole
   - php8.1-sybase
+  - php8.1-tideways
   - php8.1-tidy
   - php8.1-uopz
   - php8.1-uploadprogress
@@ -737,6 +768,9 @@ php_debian_bullseye_pkg:
   - php8.1-zmq
   - php8.1-zstd
   - php8.2
+  - php8.2-amqp
+  - php8.2-apcu
+  - php8.2-ast
   - php8.2-bcmath
   - php8.2-bz2
   - php8.2-cgi
@@ -744,30 +778,77 @@ php_debian_bullseye_pkg:
   - php8.2-common
   - php8.2-curl
   - php8.2-dba
+  - php8.2-decimal
+  - php8.2-ds
   - php8.2-enchant
+  - php8.2-excimer
   - php8.2-fpm
   - php8.2-gd
+  - php8.2-gearman
+  - php8.2-gmagick
   - php8.2-gmp
+  - php8.2-gnupg
+  - php8.2-grpc
+  - php8.2-http
+  - php8.2-igbinary
+  - php8.2-imagick
   - php8.2-imap
+  - php8.2-inotify
   - php8.2-interbase
   - php8.2-intl
   - php8.2-ldap
+  - php8.2-libvirt-php
+  - php8.2-lz4
+  - php8.2-mailparse
+  - php8.2-maxminddb
   - php8.2-mbstring
+  - php8.2-mcrypt
+  - php8.2-memcache
+  - php8.2-memcached
+  - php8.2-mongodb
+  - php8.2-msgpack
   - php8.2-mysql
+  - php8.2-oauth
   - php8.2-odbc
   - php8.2-opcache
+  - php8.2-pcov
   - php8.2-pgsql
   - php8.2-phpdbg
+  - php8.2-pinba
+  - php8.2-protobuf
+  - php8.2-ps
   - php8.2-pspell
+  - php8.2-psr
+  - php8.2-raphf
+  - php8.2-rdkafka
   - php8.2-readline
+  - php8.2-redis
+  - php8.2-rrd
+  - php8.2-smbclient
   - php8.2-snmp
   - php8.2-soap
+  - php8.2-solr
   - php8.2-sqlite3
+  - php8.2-ssh2
+  - php8.2-stomp
+  - php8.2-swoole
   - php8.2-sybase
+  - php8.2-tideways
   - php8.2-tidy
+  - php8.2-uopz
+  - php8.2-uploadprogress
+  - php8.2-uuid
+  - php8.2-vips
+  - php8.2-xdebug
+  - php8.2-xhprof
   - php8.2-xml
+  - php8.2-xmlrpc
   - php8.2-xsl
+  - php8.2-yac
+  - php8.2-yaml
   - php8.2-zip
+  - php8.2-zmq
+  - php8.2-zstd
   - php-amqp
   - php-apcu
   - php-apcu-bc
@@ -781,6 +862,7 @@ php_debian_bullseye_pkg:
   - php-decimal
   - php-ds
   - php-enchant
+  - php-excimer
   - php-fpm
   - php-gd
   - php-gearman
@@ -818,6 +900,7 @@ php_debian_bullseye_pkg:
   - php-pgsql
   - php-phalcon3
   - php-phalcon4
+  - php-phalcon5
   - php-phpdbg
   - php-pinba
   - php-propro
@@ -827,6 +910,7 @@ php_debian_bullseye_pkg:
   - php-psr
   - php-radius
   - php-raphf
+  - php-rdkafka
   - php-readline
   - php-redis
   - php-rrd
@@ -859,11 +943,14 @@ php_debian_bullseye_pkg:
   - python3-libxml2
   - python-libxml2
 
-# Debian Buster packages
-# wget -q 'https://packages.sury.org/php/dists/buster/main/binary-amd64/Packages.gz' -O - | gunzip - | grep -e '^Package' | grep -ve '-dbgsym$' -e '-dbg$' -e '-dev$' | sed 's/^Package: /  - /'
+# Debian buster packages
 php_debian_buster_pkg:
+  - argon2
   - dh-php
   - enchant
+  - icu-devtools
+  - icu-doc
+  - idn2
   - libapache2-mod-php
   - libapache2-mod-php5.6
   - libapache2-mod-php7.0
@@ -874,14 +961,22 @@ php_debian_buster_pkg:
   - libapache2-mod-php8.0
   - libapache2-mod-php8.1
   - libapache2-mod-php8.2
+  - libargon2-0
+  - libargon2-1
   - libenchant1c2a
   - libenchant-voikko
   - libgd3
   - libgd-tools
+  - libicu63
+  - libicu64
+  - libicu65
+  - libidn2-0
+  - libidn2-doc
   - libpcre16-3
   - libpcre2-16-0
   - libpcre2-32-0
   - libpcre2-8-0
+  - libpcre2-posix0
   - libpcre2-posix3
   - libpcre3
   - libpcre32-3
@@ -896,9 +991,13 @@ php_debian_buster_pkg:
   - libphp8.1-embed
   - libphp8.2-embed
   - libphp-embed
+  - libsodium23
+  - libtidy5deb1
   - libxml2
   - libxml2-doc
   - libxml2-utils
+  - libzip4
+  - libzstd1
   - pcre2-utils
   - pcregrep
   - php
@@ -930,6 +1029,7 @@ php_debian_buster_pkg:
   - php5.6-intl
   - php5.6-json
   - php5.6-ldap
+  - php5.6-libvirt-php
   - php5.6-lua
   - php5.6-lz4
   - php5.6-mailparse
@@ -1010,6 +1110,7 @@ php_debian_buster_pkg:
   - php7.0-intl
   - php7.0-json
   - php7.0-ldap
+  - php7.0-libvirt-php
   - php7.0-lua
   - php7.0-lz4
   - php7.0-mailparse
@@ -1034,6 +1135,7 @@ php_debian_buster_pkg:
   - php7.0-psr
   - php7.0-radius
   - php7.0-raphf
+  - php7.0-rdkafka
   - php7.0-readline
   - php7.0-recode
   - php7.0-redis
@@ -1077,6 +1179,7 @@ php_debian_buster_pkg:
   - php7.1-decimal
   - php7.1-ds
   - php7.1-enchant
+  - php7.1-excimer
   - php7.1-fpm
   - php7.1-gd
   - php7.1-gearman
@@ -1094,6 +1197,7 @@ php_debian_buster_pkg:
   - php7.1-intl
   - php7.1-json
   - php7.1-ldap
+  - php7.1-libvirt-php
   - php7.1-lua
   - php7.1-lz4
   - php7.1-mailparse
@@ -1119,6 +1223,7 @@ php_debian_buster_pkg:
   - php7.1-psr
   - php7.1-radius
   - php7.1-raphf
+  - php7.1-rdkafka
   - php7.1-readline
   - php7.1-recode
   - php7.1-redis
@@ -1163,6 +1268,7 @@ php_debian_buster_pkg:
   - php7.2-decimal
   - php7.2-ds
   - php7.2-enchant
+  - php7.2-excimer
   - php7.2-fpm
   - php7.2-gd
   - php7.2-gearman
@@ -1180,6 +1286,7 @@ php_debian_buster_pkg:
   - php7.2-intl
   - php7.2-json
   - php7.2-ldap
+  - php7.2-libvirt-php
   - php7.2-lua
   - php7.2-lz4
   - php7.2-mailparse
@@ -1207,6 +1314,7 @@ php_debian_buster_pkg:
   - php7.2-psr
   - php7.2-radius
   - php7.2-raphf
+  - php7.2-rdkafka
   - php7.2-readline
   - php7.2-recode
   - php7.2-redis
@@ -1251,6 +1359,7 @@ php_debian_buster_pkg:
   - php7.3-decimal
   - php7.3-ds
   - php7.3-enchant
+  - php7.3-excimer
   - php7.3-fpm
   - php7.3-gd
   - php7.3-gearman
@@ -1268,6 +1377,7 @@ php_debian_buster_pkg:
   - php7.3-intl
   - php7.3-json
   - php7.3-ldap
+  - php7.3-libvirt-php
   - php7.3-lua
   - php7.3-lz4
   - php7.3-mailparse
@@ -1295,6 +1405,7 @@ php_debian_buster_pkg:
   - php7.3-psr
   - php7.3-radius
   - php7.3-raphf
+  - php7.3-rdkafka
   - php7.3-readline
   - php7.3-recode
   - php7.3-redis
@@ -1339,6 +1450,7 @@ php_debian_buster_pkg:
   - php7.4-decimal
   - php7.4-ds
   - php7.4-enchant
+  - php7.4-excimer
   - php7.4-fpm
   - php7.4-gd
   - php7.4-gearman
@@ -1356,6 +1468,7 @@ php_debian_buster_pkg:
   - php7.4-intl
   - php7.4-json
   - php7.4-ldap
+  - php7.4-libvirt-php
   - php7.4-lua
   - php7.4-lz4
   - php7.4-mailparse
@@ -1373,6 +1486,7 @@ php_debian_buster_pkg:
   - php7.4-pcov
   - php7.4-pgsql
   - php7.4-phalcon4
+  - php7.4-phalcon5
   - php7.4-phpdbg
   - php7.4-pinba
   - php7.4-propro
@@ -1382,6 +1496,7 @@ php_debian_buster_pkg:
   - php7.4-psr
   - php7.4-radius
   - php7.4-raphf
+  - php7.4-rdkafka
   - php7.4-readline
   - php7.4-redis
   - php7.4-rrd
@@ -1424,6 +1539,7 @@ php_debian_buster_pkg:
   - php8.0-decimal
   - php8.0-ds
   - php8.0-enchant
+  - php8.0-excimer
   - php8.0-fpm
   - php8.0-gd
   - php8.0-gearman
@@ -1439,6 +1555,7 @@ php_debian_buster_pkg:
   - php8.0-interbase
   - php8.0-intl
   - php8.0-ldap
+  - php8.0-libvirt-php
   - php8.0-lz4
   - php8.0-mailparse
   - php8.0-maxminddb
@@ -1454,12 +1571,15 @@ php_debian_buster_pkg:
   - php8.0-opcache
   - php8.0-pcov
   - php8.0-pgsql
+  - php8.0-phalcon5
   - php8.0-phpdbg
+  - php8.0-pinba
   - php8.0-protobuf
   - php8.0-ps
   - php8.0-pspell
   - php8.0-psr
   - php8.0-raphf
+  - php8.0-rdkafka
   - php8.0-readline
   - php8.0-redis
   - php8.0-rrd
@@ -1472,6 +1592,7 @@ php_debian_buster_pkg:
   - php8.0-stomp
   - php8.0-swoole
   - php8.0-sybase
+  - php8.0-tideways
   - php8.0-tidy
   - php8.0-uopz
   - php8.0-uploadprogress
@@ -1501,6 +1622,7 @@ php_debian_buster_pkg:
   - php8.1-decimal
   - php8.1-ds
   - php8.1-enchant
+  - php8.1-excimer
   - php8.1-fpm
   - php8.1-gd
   - php8.1-gearman
@@ -1516,6 +1638,7 @@ php_debian_buster_pkg:
   - php8.1-interbase
   - php8.1-intl
   - php8.1-ldap
+  - php8.1-libvirt-php
   - php8.1-lz4
   - php8.1-mailparse
   - php8.1-maxminddb
@@ -1531,12 +1654,15 @@ php_debian_buster_pkg:
   - php8.1-opcache
   - php8.1-pcov
   - php8.1-pgsql
+  - php8.1-phalcon5
   - php8.1-phpdbg
+  - php8.1-pinba
   - php8.1-protobuf
   - php8.1-ps
   - php8.1-pspell
   - php8.1-psr
   - php8.1-raphf
+  - php8.1-rdkafka
   - php8.1-readline
   - php8.1-redis
   - php8.1-rrd
@@ -1549,6 +1675,7 @@ php_debian_buster_pkg:
   - php8.1-stomp
   - php8.1-swoole
   - php8.1-sybase
+  - php8.1-tideways
   - php8.1-tidy
   - php8.1-uopz
   - php8.1-uploadprogress
@@ -1565,6 +1692,9 @@ php_debian_buster_pkg:
   - php8.1-zmq
   - php8.1-zstd
   - php8.2
+  - php8.2-amqp
+  - php8.2-apcu
+  - php8.2-ast
   - php8.2-bcmath
   - php8.2-bz2
   - php8.2-cgi
@@ -1572,30 +1702,77 @@ php_debian_buster_pkg:
   - php8.2-common
   - php8.2-curl
   - php8.2-dba
+  - php8.2-decimal
+  - php8.2-ds
   - php8.2-enchant
+  - php8.2-excimer
   - php8.2-fpm
   - php8.2-gd
+  - php8.2-gearman
+  - php8.2-gmagick
   - php8.2-gmp
+  - php8.2-gnupg
+  - php8.2-grpc
+  - php8.2-http
+  - php8.2-igbinary
+  - php8.2-imagick
   - php8.2-imap
+  - php8.2-inotify
   - php8.2-interbase
   - php8.2-intl
   - php8.2-ldap
+  - php8.2-libvirt-php
+  - php8.2-lz4
+  - php8.2-mailparse
+  - php8.2-maxminddb
   - php8.2-mbstring
+  - php8.2-mcrypt
+  - php8.2-memcache
+  - php8.2-memcached
+  - php8.2-mongodb
+  - php8.2-msgpack
   - php8.2-mysql
+  - php8.2-oauth
   - php8.2-odbc
   - php8.2-opcache
+  - php8.2-pcov
   - php8.2-pgsql
   - php8.2-phpdbg
+  - php8.2-pinba
+  - php8.2-protobuf
+  - php8.2-ps
   - php8.2-pspell
+  - php8.2-psr
+  - php8.2-raphf
+  - php8.2-rdkafka
   - php8.2-readline
+  - php8.2-redis
+  - php8.2-rrd
+  - php8.2-smbclient
   - php8.2-snmp
   - php8.2-soap
+  - php8.2-solr
   - php8.2-sqlite3
+  - php8.2-ssh2
+  - php8.2-stomp
+  - php8.2-swoole
   - php8.2-sybase
+  - php8.2-tideways
   - php8.2-tidy
+  - php8.2-uopz
+  - php8.2-uploadprogress
+  - php8.2-uuid
+  - php8.2-vips
+  - php8.2-xdebug
+  - php8.2-xhprof
   - php8.2-xml
+  - php8.2-xmlrpc
   - php8.2-xsl
+  - php8.2-yac
+  - php8.2-yaml
   - php8.2-zip
+  - php8.2-zmq
+  - php8.2-zstd
   - php-amqp
   - php-apcu
   - php-apcu-bc
@@ -1609,6 +1786,7 @@ php_debian_buster_pkg:
   - php-decimal
   - php-ds
   - php-enchant
+  - php-excimer
   - php-fpm
   - php-gd
   - php-gearman
@@ -1643,9 +1821,12 @@ php_debian_buster_pkg:
   - php-odbc
   - php-pcov
   - php-pear
+  - php-pecl-http
   - php-pgsql
+  - php-phalcon
   - php-phalcon3
   - php-phalcon4
+  - php-phalcon5
   - php-phpdbg
   - php-pinba
   - php-propro
@@ -1655,7 +1836,9 @@ php_debian_buster_pkg:
   - php-psr
   - php-radius
   - php-raphf
+  - php-rdkafka
   - php-readline
+  - php-recode
   - php-redis
   - php-rrd
   - php-smbclient
@@ -1684,7 +1867,15 @@ php_debian_buster_pkg:
   - php-zip
   - php-zmq
   - php-zstd
+  - python3-boto
+  - python3-httplib2
   - python3-libxml2
+  - python-boto
+  - python-httplib2
   - python-libxml2
-
+  - tidy
+  - zipcmp
+  - zipmerge
+  - ziptool
+  - zstd
 ...
