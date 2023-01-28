@@ -2,26 +2,54 @@
 - name: PHP packages configured
   block:
 
-    - name: PHP versions absent
-      ansible.builtin.apt:
-        pkg: "php{{ php_ver }}*"
-        state: absent
-        update_cache: true
-        cache_valid_time: 60
-        autoclean: true
-        autoremove: true
-        purge: true
-      loop: "{{ php_ver_absent }}"
+    - name: Debug PHP packages names listed as absent
+      ansible.builtin.debug:
+        var: php_pkg_absent
+        verbosity: "{% if ansible_check_mode | bool %}0{% else %}1{% endif %}"
+
+    - name: Set a fact for installed PHP packages that are listed as absent
+      ansible.builtin.set_fact:
+        php_pkg_remove: "{{ ansible_local.dpkg.installed | ansible.builtin.intersect(php_pkg_absent) | default ([]) }}"
+
+    - name: Debug installed PHP packages that are listed as absent
+      ansible.builtin.debug:
+        var: php_pkg_remove
+        verbosity: "{% if ansible_check_mode | bool %}0{% else %}1{% endif %}"
+
+    - name: Debug PHP versions absent
+      ansible.builtin.debug:
+        var: php_ver_absent
+        verbosity: "{% if ansible_check_mode | bool %}0{% else %}1{% endif %}"
+
+    - name: Debug PHP versions absent regex
+      ansible.builtin.debug:
+        var: php_ver_absent_regex
+        verbosity: "{% if ansible_check_mode | bool %}0{% else %}1{% endif %}"
+
+    - name: Set a fact for PHP packages that should be removed due to their version
+      ansible.builtin.set_fact:
+        php_ver_pkg_remove: "{{ php_ver_pkg_remove | default ([]) + ansible_local.dpkg.installed | select('regex', php_regex) }}"
+      loop: "{{ php_ver_absent_regex }}"
       loop_control:
-        loop_var: php_ver
-      register: php_versions_absent
-      when:
-        - php_pkg_absent is defined
-        - php_pkg_absent != []
+        loop_var: php_regex
+
+    - name: Debug installed PHP packages to remove due to their version
+      ansible.builtin.debug:
+        var: php_ver_pkg_remove
+        verbosity: "{% if ansible_check_mode | bool %}0{% else %}1{% endif %}"
+
+    - name: Set a fact for all installed PHP packages that should be removed
+      ansible.builtin.set_fact:
+        php_pkg_rm: "{{ php_pkg_remove + php_ver_pkg_remove | ansible.builtin.unique }}"
+
+    - name: Debug all installed PHP packages to be removed
+      ansible.builtin.debug:
+        var: php_pkg_rm
+        verbosity: "{% if ansible_check_mode | bool %}0{% else %}1{% endif %}"
 
     - name: PHP packages absent
       ansible.builtin.apt:
-        pkg: "{{ php_pkg_absent }}"
+        pkg: "{{ php_pkg_rm }}"
         state: absent
         update_cache: true
         cache_valid_time: 60
@@ -29,22 +57,32 @@
         autoremove: true
         purge: true
       register: php_packages_absent
-      when:
-        - php_pkg_absent is defined
-        - php_pkg_absent != []
+      when: php_pkg_rm != []
+
+    - name: Debug PHP packages present
+      ansible.builtin.debug:
+        var: php_pkg_present
+        verbosity: "{% if ansible_check_mode | bool %}0{% else %}1{% endif %}"
+
+    - name: Set a fact for PHP packages that should be installed
+      ansible.builtin.set_fact:
+        php_pkg_install: "{{ php_pkg_present | ansible.builtin.difference(ansible_local.dpkg.installed) }}"
+
+    - name: Debug PHP packages to install
+      ansible.builtin.debug:
+        var: php_pkg_install
+        verbosity: "{% if ansible_check_mode | bool %}0{% else %}1{% endif %}"
 
     - name: PHP packages present
       ansible.builtin.apt:
-        pkg: "{{ php_pkg_present }}"
+        pkg: "{{ php_pkg_install }}"
         state: latest
         autoclean: true
         autoremove: true
         update_cache: true
         cache_valid_time: 60
-      register: php_packages_present
-      when:
-        - php_pkg_present is defined
-        - php_pkg_present != []
+      register: php_packages_installed
+      when: php_pkg_install != []
 
     - name: Apt dist upgrade
       ansible.builtin.apt:

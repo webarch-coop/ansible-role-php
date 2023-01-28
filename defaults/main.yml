@@ -11,8 +11,10 @@ php_config:
         memory_limit: "512M"
 php_sury: true
 php_version:
+  - name: "8.2"
+    state: absent
   - name: "8.1"
-    state: present
+    state: absent
     pkg_absent:
       - libapache2-mod-php
       - libapache2-mod-php8.1
@@ -35,7 +37,7 @@ php_version:
       - php8.1-xml
       - php8.1-xsl
   - name: "8.0"
-    state: present
+    state: absent
     pkg_absent:
       - libapache2-mod-php
       - libapache2-mod-php8.0
@@ -65,24 +67,38 @@ php_version:
       - php7.4-phpdbg
     pkg_present:
       - php7.4-apcu
-      - php7.4-apcu-bc
       - php7.4-bcmath
       - php7.4-bz2
       - php7.4-cli
-      - php7.4-common
+      - php7.4-ctype
       - php7.4-curl
-      - php7.4-fpm
+      - php7.4-dom
+      - php7.4-exif
+      - php7.4-fileinfo
+      - php7.4-gd
       - php7.4-geoip
+      - php7.4-iconv
+      - php7.4-imagick
       - php7.4-imap
       - php7.4-intl
       - php7.4-json
       - php7.4-ldap
+      - php7.4-mbstring
+      - php7.4-mysqli
       - php7.4-opcache
-      - php7.4-readline
+      - php7.4-pdo
+      - php7.4-posix
+      - php7.4-simplexml
       - php7.4-sqlite3
+      - php7.4-readline
+      - php7.4-tokenizer
       - php7.4-uploadprogress
       - php7.4-xml
+      - php7.4-xmlreader
+      - php7.4-xmlrpc
+      - php7.4-xmlwriter
       - php7.4-xsl
+      - php7.4-zip
   - name: "7.3"
     state: absent
   - name: "7.2"
