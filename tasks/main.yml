@@ -23,11 +23,11 @@
       tags:
         - php_pkg
 
-    - name: Include PHP config tasks
-      ansible.builtin.include_tasks: conf.yml
-      when: php_config is defined
-      tags:
-        - php_config
+#    - name: Include PHP config tasks
+#      ansible.builtin.include_tasks: conf.yml
+#      when: php_config is defined
+#      tags:
+#        - php_config
 
 # - name: Install and configure PHP
 #   block:
