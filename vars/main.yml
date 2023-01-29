@@ -1,20 +1,29 @@
+# Copyright 2019-2023 Chris Croome
+#
+# This file is part of the Webarchitects PHP Ansible role.
+#
+# The Webarchitects PHP Ansible role is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#
+# The Webarchitects PHP Ansible role is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with the Webarchitects PHP Ansible role. If not, see <https://www.gnu.org/licenses/>.
 ---
 # PHP versions absent
-# cat defaults/main.yml | yq -o=json | jp "php_version[?state=='absent'].name"
-php_ver_absent: "{{ php_version | ansible.builtin.json_query('[?state==`absent`].name') }}"
-php_ver_absent_regex: "{{ php_version | ansible.builtin.json_query('[?state==`absent`].name') | map('regex_replace', '^', '^php') }}"
+# cat defaults/main.yml | yq -o=json | jp "php_versions[?state=='absent'].version"
+php_ver_absent: "{{ php_versions | ansible.builtin.json_query('[?state==`absent`].version') }}"
+php_ver_absent_regex: "{{ php_versions | ansible.builtin.json_query('[?state==`absent`].version') | map('regex_replace', '^', '^php') }}"
 
 # PHP versions present
-# cat defaults/main.yml | yq -o=json | jp "php_version[?state=='present'].name"
-php_ver_present: "{{ php_version | ansible.builtin.json_query('[?state==`present`].name') }}"
+# cat defaults/main.yml | yq -o=json | jp "php_versions[?state=='present'].version"
+php_ver_present: "{{ php_versions | ansible.builtin.json_query('[?state==`present`].version') }}"
 
 # PHP packages absent
-# cat defaults/main.yml | yq -o=json | jp "php_version[?state=='present'].pkg_absent[]" | sort -u
-php_pkg_absent: "{{ php_version | ansible.builtin.json_query('[?state==`present`].pkg_absent[]') | ansible.builtin.unique | sort }}"
+# cat defaults/main.yml | yq -o=json | jp "php_versions[?state=='present'].pkg_absent[]" | sort -u
+php_pkg_absent: "{{ php_versions | ansible.builtin.json_query('[?state==`present`].pkg_absent[]') | ansible.builtin.unique | sort }}"
 
 # PHP packages present
-# cat defaults/main.yml | yq -o=json | jp "php_version[?state=='present'].pkg_present[]" | sort -u
-php_pkg_present: "{{ php_version | ansible.builtin.json_query('[?state==`present`].pkg_present[]') | ansible.builtin.unique | sort }}"
+# cat defaults/main.yml | yq -o=json | jp "php_versions[?state=='present'].pkg_present[]" | sort -u
+php_pkg_present: "{{ php_versions | ansible.builtin.json_query('[?state==`present`].pkg_present[]') | ansible.builtin.unique | sort }}"
 
 # GPG public key URL linked from
 # https://packages.sury.org/php/

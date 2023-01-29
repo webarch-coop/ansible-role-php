@@ -1,22 +1,48 @@
+# Copyright 2019-2023 Chris Croome
+#
+# This file is part of the Webarchitects PHP Ansible role.
+#
+# The Webarchitects PHP Ansible role is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#
+# The Webarchitects PHP Ansible role is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with the Webarchitects PHP Ansible role. If not, see <https://www.gnu.org/licenses/>.
 ---
 php: true
 # php_alternatives:
+# cat /etc/php/8.1/fpm/php.ini | jc --ini -yp
 php_config:
-  # cat /etc/php/8.1/fpm/php.ini | jc --ini -yp
-  - path: /etc/php/8.1/php.ini
+  - name: PHP 8.1 configuration
+    version: "8.1"
     state: present
-    conf:
-      PHP:
-        max_input_time: "600"
-        memory_limit: "512M"
+    files:
+      - name: PHP 8.1 FPM configuration
+        path: /etc/php/8.1/fpm/php.ini
+        state: edited
+        conf:
+          PHP:
+            max_input_time: "600"
+            memory_limit: "512M"
+  - name: PHP 7.4 configuration
+    version: "7.4"
+    state: present
+    files:
+      - name: PHP 8.1 FPM configuration
+        path: /etc/php/7.4/fpm/php.ini
+        state: edited
+        conf:
+          PHP:
+            max_input_time: "600"
+            memory_limit: "512M"
 php_sury: true
-php_version:
-  - name: "8.2"
+php_versions:
+  - name: PHP 8.2 packages
+    version: "8.2"
     state: absent
-  - name: "8.1"
+  - name: PHP 8.1
+    version: "8.1"
     state: absent
     pkg_absent:
-      - libapache2-mod-php
       - libapache2-mod-php8.1
       - php8.1-phpdbg
     pkg_present:
@@ -36,10 +62,10 @@ php_version:
       - php8.1-uploadprogress
       - php8.1-xml
       - php8.1-xsl
-  - name: "8.0"
+  - name: PHP 8.0 packages
+    version: "8.0"
     state: absent
     pkg_absent:
-      - libapache2-mod-php
       - libapache2-mod-php8.0
       - php8.0-phpdbg
     pkg_present:
@@ -59,10 +85,10 @@ php_version:
       - php8.0-uploadprogress
       - php8.0-xml
       - php8.0-xsl
-  - name: "7.4"
+  - name: PHP 7.4 packages
+    version: "7.4"
     state: present
     pkg_absent:
-      - libapache2-mod-php
       - libapache2-mod-php7.4
       - php7.4-phpdbg
     pkg_present:
@@ -99,14 +125,19 @@ php_version:
       - php7.4-xmlwriter
       - php7.4-xsl
       - php7.4-zip
-  - name: "7.3"
+  - name: PHP 7.3 packages
+    version: "7.3"
     state: absent
-  - name: "7.2"
+  - name: PHP 7.2 packages
+    version: "7.2"
     state: absent
-  - name: "7.1"
+  - name: PHP 7.1 packages
+    version: "7.1"
     state: absent
-  - name: "7.0"
+  - name: PHP 7.0 packages
+    version: "7.0"
     state: absent
-  - name: "5.6"
+  - name: PHP 5.6 packages
+    version: "5.6"
     state: absent
 ...

@@ -1,3 +1,12 @@
+# Copyright 2019-2023 Chris Croome
+#
+# This file is part of the Webarchitects PHP Ansible role.
+#
+# The Webarchitects PHP Ansible role is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#
+# The Webarchitects PHP Ansible role is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with the Webarchitects PHP Ansible role. If not, see <https://www.gnu.org/licenses/>.
 ---
 - name: PHP packages configured
   block:
@@ -51,12 +60,7 @@
       ansible.builtin.apt:
         pkg: "{{ php_pkg_rm }}"
         state: absent
-        update_cache: true
-        cache_valid_time: 60
-        autoclean: true
-        autoremove: true
-        purge: true
-      register: php_packages_absent
+      register: php_packages_removed
       when: php_pkg_rm != []
 
     - name: Debug PHP packages present
@@ -77,24 +81,16 @@
       ansible.builtin.apt:
         pkg: "{{ php_pkg_install }}"
         state: latest
-        autoclean: true
-        autoremove: true
         update_cache: true
-        cache_valid_time: 60
       register: php_packages_installed
       when: php_pkg_install != []
 
-    - name: Apt dist upgrade
-      ansible.builtin.apt:
-        upgrade: dist
-        autoclean: true
-        autoremove: true
-        update_cache: true
-        cache_valid_time: 60
+    - name: Apt clean
+      ansible.builtin.include_tasks: apt_clean.yml
       when: >-
-        ( ( php_versions_absent is defined ) and ( php_versions_absent.changed | bool ) ) or
-        ( ( php_packages_absent is defined ) and ( php_packages_absent.changed | bool ) ) or
-        ( ( php_packages_present is defined ) and ( php_packages_present.changed | bool ) )
+        ( ansible_version.full is version('2.13', '>=') ) and
+        ( ( ( php_packages_installed is defined ) and ( php_packages_installed.changed | bool ) ) or
+        ( ( php_packages_removed is defined ) and ( php_packages_removed.changed | bool ) ) )
 
   tags:
     - php

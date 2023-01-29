@@ -2,7 +2,7 @@
 - name: PHP
   block:
 
-    - name: Include apt role local fact tasks if variables are not defined
+    - name: Include apt role local fact tasks
       ansible.builtin.include_role:
         name: apt
         tasks_from: local_facts.yml
@@ -11,17 +11,23 @@
         ( ansible_local.gpg.version is not defined ) or
         ( ansible_local.bash.path is not defined )
 
-    - name: Sury apt repo config
+    - name: Include Sury PHP apt repo tasks
       ansible.builtin.include_tasks: apt.yml
       when: php_sury is defined
       tags:
         - php_apt
 
-    - name: PHP packages configured
+    - name: Include PHP package tasks
       ansible.builtin.include_tasks: pkg.yml
-      when: php_version is defined
+      when: php_versions is defined
       tags:
         - php_pkg
+
+    - name: Include PHP config tasks
+      ansible.builtin.include_tasks: conf.yml
+      when: php_config is defined
+      tags:
+        - php_config
 
 # - name: Install and configure PHP
 #   block:
