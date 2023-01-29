@@ -31,17 +31,17 @@ argument_specs:
           files:
             type: list
             required: false
-            description: A list PHP file paths and their configuration.
+            description: A optional list of PHP file paths and their configuration.
             elements: dict
             options:
               conf:
                 type: dict
                 required: false
-                description: A YAML dictionary representing the sections, variables and values of the PHP configuration file.
+                description: A optional YAML dictionary representing the sections, variables and values of a PHP configuration file.
               name:
                 type: str
                 required: false
-                description: An optional name for the PHP configuration file.
+                description: A optional name for the PHP configuration file.
               path:
                 type: str
                 required: true
