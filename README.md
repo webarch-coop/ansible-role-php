@@ -1,4 +1,4 @@
-# Webarchitecta PHP CLI and FPM Ansible role
+# Webarchitecta PHP Ansible role
 
 This role isn't setup to generate multiple `pool.d` config files, but the [users role is](https://git.coop/webarch/users/blob/master/templates/phpfpm_chroot_user.conf.j2).
 

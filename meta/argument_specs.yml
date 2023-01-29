@@ -1,3 +1,12 @@
+# Copyright 2019-2023 Chris Croome
+#
+# This file is part of the Webarchitects PHP Ansible role.
+#
+# The Webarchitects PHP Ansible role is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#
+# The Webarchitects PHP Ansible role is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with the Webarchitects PHP Ansible role. If not, see <https://www.gnu.org/licenses/>.
 ---
 argument_specs:
   main:
@@ -49,11 +58,7 @@ argument_specs:
           name:
             type: str
             required: false
-            description: A YAML dictionary representing the variables for the PHP configuration file.
-          path:
-            type: str
-            required: true
-            description: The PHP version number.
+            description: A optional name for the PHP version configuration.
           state:
             type: str
             required: true
@@ -61,6 +66,10 @@ argument_specs:
             choices:
               - absent
               - present
+          version:
+            type: str
+            required: true
+            description: The PHP version number.
       php_sury:
         type: bool
         required: false
