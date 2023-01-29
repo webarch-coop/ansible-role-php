@@ -33,7 +33,7 @@
     - name: Debug PHP versions absent regex
       ansible.builtin.debug:
         var: php_ver_absent_regex
-        verbosity: "{% if ansible_check_mode | bool %}0{% else %}1{% endif %}"
+        verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
 
     - name: Set a fact for PHP packages that should be removed due to their version
       ansible.builtin.set_fact:
