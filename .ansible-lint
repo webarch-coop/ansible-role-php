@@ -2,6 +2,7 @@
 # https://ansible-lint.readthedocs.io/rules/
 skip_list:
   - args[module]
+  - jinja[spacing]
   - key-order[task]
   - name[template]
   - package-latest
