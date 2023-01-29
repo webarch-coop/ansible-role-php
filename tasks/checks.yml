@@ -2,22 +2,56 @@
 - name: PHP checks
   block:
 
-    - name: Check that depreciated variables are not used
+    - name: Check that depreciated variables are not defined
       ansible.builtin.assert:
         that:
-          - php_allow_local_infile is not defined
+          - php_allow_url_include is not defined
+          - php_apc_shm_size is not defined
+          - phpcli_allow_local_infile is not defined
+          - php_date_timezone is not defined
+          - php_default_socket_timeout is not defined
+          - php_disable_functions is not defined
+          - php_dpkg is not defined
+          - php_log is not defined
+          - php_log_grep is not defined
+          - php_max_execution_time is not defined
+          - php_max_file_uploads is not defined
+          - php_max_input_nesting_level is not defined
+          - php_max_input_time is not defined
+          - php_max_input_vars is not defined
+          - php_memory_limit is not defined
+          - php_mysqli_allow_local_infile is not defined
+          - php_opcache_enable is not defined
+          - php_opcache_interned_strings_buffer is not defined
+          - php_opcache_max_accelerated_files is not defined
+          - php_opcache_memory_consumption is not defined
+          - php_opcache_revalidate_freq is not defined
+          - php_opcache_use_cwd is not defined
+          - php_opcache_validate_permission is not defined
+          - php_opcache_validate_root is not defined
+          - php_opcache_validate_timestamps is not defined
+          - php_output_buffering is not defined
+          - php_packages is not defined
+          - php_phpquery is not defined
+          - php_post_max_size is not defined
+          - php_session_save_path is not defined
+          - php_short_open_tag is not defined
+          - php_upload_max_filesize is not defined
+          - php_versioned_packages is not defined
+          - php_www_pool_enabled is not defined
+          - php_www_pool_ping_path is not defined
+          - php_www_pool_pm is not defined
+          - php_www_pool_pm_max_children is not defined
+          - php_www_pool_pm_max_requests is not defined
+          - php_www_pool_pm_max_spare_servers is not defined
+          - php_www_pool_pm_min_spare_servers is not defined
+          - php_www_pool_pm_process_idle_timeout is not defined
+          - php_www_pool_pm_start_servers is not defined
+          - php_www_pool_pm_status_path is not defined
         quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
-
-    - name: Check that variables are booleans
-      ansible.builtin.assert:
-        that:
-          - php_allow_url_include | type_debug == "bool"
-          - php_mysqli_allow_local_infile | type_debug == "bool"
-          - phpcli_allow_local_infile | type_debug == "bool"
-          - php_opcache_enable | type_debug == "bool"
-          - php_opcache_validate_permission | type_debug == "bool"
-          - php_opcache_validate_root | type_debug == "bool"
-        quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
+      when:
+        - php_check_legacy_variables is defined
+        - php_check_legacy_variables | bool
 
     - name: Check that the distro is Debian Bullseye or Buster
       ansible.builtin.assert:
@@ -27,131 +61,20 @@
         quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
         fail_msg: "The Linux distro {{ ansible_distribution }} {{ ansible_distribution_release }} is not supported by this role"
 
-    - name: Generate an array of existing PHP versions
-      ansible.builtin.set_fact:
-        php_versions_existing: "{{ php_versions_existing | default([]) }} + [ '{{ existing_version.key }}' ]"
-      loop: "{{ ansible_local.phpquery.versions | dict2items }}"
-      loop_control:
-        loop_var: existing_version
-        label: "{{ existing_version.key }}"
-      when:
-        - ansible_local.phpquery.versions is defined
-        - existing_version.value.state == "present"
+    - name: Check the PHP versions installed
+      ansible.builtin.command: /usr/sbin/phpquery -V
+      check_mode: false
+      changed_when: false
+      register: php_phpquery_versions
 
-    - name: Debug php_versions_existing array
+    - name: Set a fact for the PHP versions installed
+      ansible.builtin.set_fact:
+        php_ver_installed: "{{ php_phpquery_versions.stdout_lines }}"
+
+    - name: Debug PHP versions installed
       ansible.builtin.debug:
-        var: php_versions_existing
-        verbosity: 2
-      when: php_versions_existing is defined
-
-    - name: Generate an array of proposed PHP versions
-      ansible.builtin.set_fact:
-        php_versions_proposed: "{{ php_versions_proposed | default([]) }} + [ '{{ proposed_version.key }}' ]"
-      loop: "{{ php_versions | dict2items }}"
-      loop_control:
-        loop_var: proposed_version
-        label: "{{ proposed_version.key }}"
-      when:
-        - php_versions is defined
-        - proposed_version.value.state == "present"
-
-    - name: Proposed PHP versions checks
-      block:
-
-        - name: Debug php_versions_proposed array
-          ansible.builtin.debug:
-            var: php_versions_proposed
-            verbosity: 2
-
-        - name: Check that for each proposed version of PHP there are not packages due to be present and absent at the same time
-          ansible.builtin.include_tasks: pkg_checks.yml
-          loop: "{{ php_versions_proposed }}"
-          loop_control:
-            loop_var: version
-            label: "{{ version }}"
-
-        - name: Debug defined SAPIs for proposed PHP versions
-          ansible.builtin.debug:
-            msg: "SAPI {{ php_versions[version].sapis }} is defined for PHP {{ version }}"
-            verbosity: 3
-          loop: "{{ php_versions_proposed }}"
-          loop_control:
-            loop_var: version
-            label: "{{ version }}"
-          when: php_versions[version].sapis is defined
-
-        - name: Include SAPI checks for proposed PHP versions
-          ansible.builtin.include_tasks: sapi_checks.yml
-          loop: "{{ php_versions_proposed }}"
-          loop_control:
-            loop_var: version
-            label: "{{ version }}"
-          when: php_versions[version].sapis is defined
-
-        - name: Generate an array of PHP versions to remove
-          ansible.builtin.set_fact:
-            php_versions_remove: "{{ php_versions_existing | difference(php_versions_proposed) }}"
-          when:
-            - ( php_versions_existing is defined ) and ( php_versions_existing != [] )
-            - ( php_versions_proposed is defined ) and ( php_versions_proposed != [] )
-
-        - name: Checks for PHP versions due to be removed
-          block:
-
-            - name: Debug php_versions_remove array
-              ansible.builtin.debug:
-                var: php_versions_remove
-                verbosity: 2
-
-            - name: Include SAPI checks for PHP versions due to be removed
-              ansible.builtin.include_tasks: sapi_absent_checks.yml
-              loop: "{{ php_versions_remove }}"
-              loop_control:
-                loop_var: version
-                label: "{{ version }}"
-              when: php_versions[version].sapis is defined
-
-          when: ( php_versions_remove is defined ) and ( php_versions_remove != [] )
-
-      when: ( php_versions_proposed is defined ) and ( php_versions_proposed != [] )
-
-    - name: Generate an array of absent PHP versions
-      ansible.builtin.set_fact:
-        php_versions_absent: "{{ php_versions_absent | default([]) }} + [ '{{ absent_version.key }}' ]"
-      loop: "{{ php_versions | dict2items }}"
-      loop_control:
-        loop_var: absent_version
-        label: "{{ absent_version.key }}"
-      when: absent_version.value.state == "absent"
-
-    - name: Absent PHP versions checks
-      block:
-
-        - name: Debug php_versions_absent array
-          ansible.builtin.debug:
-            var: php_versions_absent
-            verbosity: 2
-
-        - name: Include SAPI checks for PHP versions due to be absent
-          ansible.builtin.include_tasks: sapi_absent_checks.yml
-          loop: "{{ php_versions_absent }}"
-          loop_control:
-            loop_var: version
-            label: "{{ version }}"
-          when: php_versions[version].sapis is defined
-
-      when: ( php_versions_absent is defined ) and ( php_versions_absent != [] )
-
-    # - name: Include www pool server variable checks
-    #   ansible.builtin.include_tasks: pool_check.yml
-    #   when: php_www_pool_pm == "dynamic"
-    #   vars:
-    #     php_pm: "{{ php_www_pool_pm }}"
-    #     php_pm_max_children: "{{ php_www_pool_pm_max_children }}"
-    #     php_pm_start_servers: "{{ php_www_pool_pm_start_servers }}"
-    #     php_pm_min_spare_servers: "{{ php_www_pool_pm_min_spare_servers }}"
-    #     php_pm_max_spare_servers: "{{ php_www_pool_pm_max_spare_servers }}"
-    #   when: ( php_www_pool_enabled is not defined ) or ( php_www_pool_enabled is defined and php_www_pool_enabled )
+        var: php_ver_installed
+        verbosity: "{% if ansible_check_mode | bool %}0{% else %}1{% endif %}"
 
   tags:
     - php

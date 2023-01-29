@@ -25,6 +25,21 @@ php_pkg_absent: "{{ php_versions | ansible.builtin.json_query('[?state==`present
 # cat defaults/main.yml | yq -o=json | jp "php_versions[?state=='present'].pkg_present[]" | sort -u
 php_pkg_present: "{{ php_versions | ansible.builtin.json_query('[?state==`present`].pkg_present[]') | ansible.builtin.unique | sort }}"
 
+# PHP versions configuration absent
+# cat defaults/main.yml | yq -o=json | jp "php_config[?state=='absent'].version"
+php_conf_ver_absent: "{{ php_config | ansible.builtin.json_query('[?state==`absent`].version') | sort }}"
+
+# PHP versions configuration directories absent
+php_conf_dirs_absent: "{{ php_config | ansible.builtin.json_query('[?state==`absent`].version') | map('regex_replace', '^', '/etc/php/') | sort }}"
+
+# PHP versions configuration directories present
+# cat defaults/main.yml | yq -o=json | jp "php_config[?state=='present'].version"
+php_conf_dirs_present: "{{ php_config | ansible.builtin.json_query('[?state==`present`].version') | sort }}"
+
+# PHP versions present files absent
+# cat defaults/main.yml | yq -o=json | jp "php_config[?state=='present'].files[]|[?state=='absent'].path"
+php_conf_files_absent: "{{ php_config | ansible.builtin.json_query('[?state==`present`].files[]|[?state==`absent`].path') | sort }}"
+
 # GPG public key URL linked from
 # https://packages.sury.org/php/
 php_gpg_url: https://packages.sury.org/php/apt.gpg

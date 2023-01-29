@@ -1,0 +1,106 @@
+# Copyright 2019-2023 Chris Croome
+#
+# This file is part of the Webarchitects PHP Ansible role.
+#
+# The Webarchitects PHP Ansible role is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#
+# The Webarchitects PHP Ansible role is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with the Webarchitects PHP Ansible role. If not, see <https://www.gnu.org/licenses/>.
+---
+- name: PHP configuration
+  block:
+
+    - name: Find the existing PHP versions directories
+      ansible.builtin.find:
+        paths: /etc/php
+        file_type: directory
+        recurse: false
+      register: php_etc_php_find_dirs
+
+    - name: Debug the existing PHP versions directories found
+      ansible.builtin.debug:
+        var: php_etc_php_find_dirs
+        verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+
+    - name: Set a fact for the existing PHP version directories
+      ansible.builtin.set_fact:
+        php_conf_dirs_existing: "{{ php_etc_php_find_dirs | community.general.json_query('files[].path') }}"
+
+    - name: Debug existing PHP versions directories
+      ansible.builtin.debug:
+        var: php_conf_dirs_existing
+        verbosity: "{% if ansible_check_mode | bool %}0{% else %}1{% endif %}"
+
+    - name: Debug PHP version configuration directories which should be absent
+      ansible.builtin.debug:
+        var: php_conf_dirs_absent
+        verbosity: "{% if ansible_check_mode | bool %}0{% else %}1{% endif %}"
+
+    - name: Set a fact for existing PHP version configuration directories which should be absent
+      ansible.builtin.set_fact:
+        php_conf_dirs_remove: "{{ php_conf_dirs_existing | ansible.builtin.intersect(php_conf_dirs_absent) }}"
+
+    - name: Debug existing PHP versions configuration directories to be deleted
+      ansible.builtin.debug:
+        var: php_conf_dirs_remove
+        verbosity: "{% if ansible_check_mode | bool %}0{% else %}1{% endif %}"
+
+    - name: Find the existing PHP configuration files
+      ansible.builtin.find:
+        paths: /etc/php
+        file_type: file
+        recurse: true
+        patterns: '*.ini'
+      register: php_etc_php_find_files
+
+    - name: Debug existing PHP configuration files
+      ansible.builtin.debug:
+        var: php_etc_php_find_files
+        verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+
+    - name: Set a fact for the existing PHP configuration files
+      ansible.builtin.set_fact:
+        php_conf_files_existing: "{{ php_etc_php_find_files | community.general.json_query('files[].path') }}"
+
+    - name: Debug existing PHP configuration files
+      ansible.builtin.debug:
+        var: php_conf_files_existing
+        verbosity: "{% if ansible_check_mode | bool %}0{% else %}1{% endif %}"
+
+    - name: Debug PHP configuration files which should be absent
+      ansible.builtin.debug:
+        var: php_conf_files_absent
+        verbosity: "{% if ansible_check_mode | bool %}0{% else %}1{% endif %}"
+
+    - name: Set a fact for existing PHP configuration files that should be absent
+      ansible.builtin.set_fact:
+        php_conf_files_remove: "{{ php_conf_files_existing | ansible.builtin.intersect(php_conf_files_absent) }}"
+
+    - name: Debug existing PHP configuration files to be deleted
+      ansible.builtin.debug:
+        var: php_conf_files_remove
+        verbosity: "{% if ansible_check_mode | bool %}0{% else %}1{% endif %}"
+
+    - name: Set a fact for existing PHP configuration files and directories to be deleted
+      ansible.builtin.set_fact:
+        php_conf_rm: "{{ php_conf_dirs_remove + php_conf_files_remove }}"
+
+    - name: Debug PHP configuration paths to be deleted
+      ansible.builtin.debug:
+        var: php_conf_rm
+        verbosity: "{% if ansible_check_mode | bool %}0{% else %}1{% endif %}"
+
+    - name: PHP configuration paths absent
+      ansible.builtin.file:
+        path: "{{ php_conf_rm }}"
+        state: absent
+      register: php_conf_removed
+      when:
+        - php_conf_rm is defined
+        - php_conf_rm != []
+
+  tags:
+    - php
+    - php_conf
+...
