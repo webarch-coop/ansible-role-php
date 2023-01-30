@@ -25,6 +25,7 @@
     - name: Include PHP check tasks
       ansible.builtin.include_tasks: checks.yml
       tags:
+        - php_cfg
         - php_conf
 
     - name: Include Sury PHP apt repo tasks
@@ -43,6 +44,7 @@
       ansible.builtin.include_tasks: conf.yml
       when: php_config is defined
       tags:
+        - php_cfg
         - php_conf
 
 # - name: Install and configure PHP

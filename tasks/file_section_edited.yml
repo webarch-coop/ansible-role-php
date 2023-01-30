@@ -1,0 +1,50 @@
+# Copyright 2019-2023 Chris Croome
+#
+# This file is part of the Webarchitects PHP Ansible role.
+#
+# The Webarchitects PHP Ansible role is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#
+# The Webarchitects PHP Ansible role is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with the Webarchitects PHP Ansible role. If not, see <https://www.gnu.org/licenses/>.
+---
+- name: PHP configuration file section edited
+  block:
+
+    - name: Debug the existing and proposed PHP configuration file variables
+      ansible.builtin.debug:
+        msg:
+          - "File: {{ php_conf_file }}"
+          - "Section: {{ php_conf_section.key }}"
+          - "Existing {{ php_conf_variable_pair.key }}: '{{ php_conf_file_existing_vars | ansible.builtin.json_query(php_conf_variable_json_query) }}'"
+          - "Proposed {{ php_conf_variable_pair.key }}: '{{ php_conf_variable_pair.value }};"
+        verbosity: "{% if ansible_check_mode | bool %}0{% else %}1{% endif %}"
+      when: php_conf_variable_pair.value != php_conf_file_existing_vars | ansible.builtin.json_query(php_conf_variable_json_query)
+      vars:
+        php_conf_variable_json_query: "{{ php_conf_section.key }}.{{ php_conf_variable_pair.key }}"
+      loop: "{{ php_conf_section.value | ansible.builtin.dict2items }}"
+      loop_control:
+        loop_var: php_conf_variable_pair
+
+    - name: Systemd unit file edited
+      community.general.ini_file:
+        path: "{{ php_conf_file }}"
+        section: "{{ php_conf_section.key }}"
+        option: "{{ php_conf_variable_pair.key }}"
+        value: "{{ php_conf_variable_pair.value }}"
+        no_extra_spaces: true
+        mode: 0644
+        owner: root
+        group: root
+      when: php_conf_variable_pair.value != php_conf_file_existing_vars | ansible.builtin.json_query(php_conf_variable_json_query)
+      vars:
+        php_conf_variable_json_query: "{{ php_conf_section.key }}.{{ php_conf_variable_pair.key }}"
+      loop: "{{ php_conf_section.value | ansible.builtin.dict2items }}"
+      loop_control:
+        loop_var: php_conf_variable_pair
+
+  tags:
+    - php
+    - php_cfg
+    - php_conf
+...
