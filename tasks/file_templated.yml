@@ -8,11 +8,11 @@
 #
 # You should have received a copy of the GNU General Public License along with the Webarchitects PHP Ansible role. If not, see <https://www.gnu.org/licenses/>.
 ---
-- name: PHP configuration file templated
-  block:
-
-  tags:
-    - php
-    - php_cfg
-    - php_conf
+# - name: PHP configuration file templated
+#   block:
+#
+#   tags:
+#     - php
+#     - php_cfg
+#     - php_conf
 ...

@@ -8,6 +8,8 @@
 #
 # You should have received a copy of the GNU General Public License along with the Webarchitects PHP Ansible role. If not, see <https://www.gnu.org/licenses/>.
 ---
+php_file_path_separator: '/'
+
 # PHP versions absent
 # cat defaults/main.yml | yq -o=json | jp "php_versions[?state=='absent'].version"
 php_ver_absent: "{{ php_versions | ansible.builtin.json_query('[?state==`absent`].version') | sort }}"

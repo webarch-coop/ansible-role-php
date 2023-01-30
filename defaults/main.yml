@@ -45,7 +45,8 @@ php_config:
         state: edited
         conf:
           PHP:
-            max_input_time: "600"
+            max_execution_time: "120"
+            max_input_time: "601"
             memory_limit: "512M"
   - name: PHP 7.4 configuration
     version: "7.4"

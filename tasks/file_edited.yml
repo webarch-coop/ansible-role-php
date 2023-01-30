@@ -47,15 +47,111 @@
         var: php_conf_file_proposed_vars.keys()
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
 
+    - name: Set fact for PHP configuration file
+      ansible.builtin.set_fact:
+        php_conf_file_backup: "{{ php_conf_file | ansible.builtin.dirname }}/.{{ php_conf_file | ansible.builtin.basename }}.{{ ansible_date_time.iso8601_basic_short }}.bak"
+        php_conf_file_changed: false
+        php_conf_file_sapi: "{{ php_conf_file | ansible.builtin.split(php_file_path_separator) | ansible.builtin.json_query('[4]') }}"
+        php_conf_file_version: "{{ php_conf_file | ansible.builtin.split(php_file_path_separator) | ansible.builtin.json_query('[3]') }}"
+
+    - name: Debug the PHP configuration file backup path
+      ansible.builtin.debug:
+        var: php_conf_file_backup
+        verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+
+    - name: Debug the PHP configuration file PHP SAPI
+      ansible.builtin.debug:
+        var: php_conf_file_sapi
+        verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+
+    - name: Debug the PHP configuration file PHP version
+      ansible.builtin.debug:
+        var: php_conf_file_version
+        verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+
+    - name: Debug the proposed PHP configuration file sections
+      ansible.builtin.debug:
+        var: php_conf_file_proposed_vars.keys()
+        verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+
+    - name: File backup present
+      ansible.builtin.copy:
+        src: "{{ php_conf_file }}"
+        dest: "{{ php_conf_file_backup }}"
+        remote_src: true
+        mode: 0644
+        owner: root
+        group: root
+      changed_when: false
+
     # TODO Use the community.general.dependent lookup to replace the looped include and the loop in the included file...
     #      https://docs.ansible.com/ansible/latest/collections/community/general/dependent_lookup.html
 
-    - name: Include the file section edited tasks
+    - name: Include the PHP configuration file section edited tasks
       ansible.builtin.include_tasks: file_section_edited.yml
       loop: "{{ php_conf_file_proposed_vars | dict2items }}"
       loop_control:
         loop_var: php_conf_section
       when: php_conf_file_proposed_vars.keys() | length != 0
+
+    - name: File backup absent when the PHP configuration file is unchanged
+      ansible.builtin.file:
+        path: "{{ php_conf_file_backup }}"
+        state: absent
+      changed_when: false
+      when: not php_conf_file_changed | bool
+
+    - name: Test and reload PHP configuration file when file is in a FPM directory
+      block:
+
+        - name: Test PHP configuration
+          block:
+
+            - name: PHP FPM configtest
+              ansible.builtin.command: "php-fpm{{ php_conf_file_version }} --test"
+              check_mode: false
+              changed_when: false
+              register: php_fpm_test
+              failed_when: >-
+                ( php_fpm_test.rc != 0 ) or
+                ( "Failed" in php_fpm_test.stderr )
+
+          rescue:
+
+            - name: Copy broken PHP configuration file
+              ansible.builtin.copy:
+                src: "{{ php_conf_file }}"
+                dest: "{{ php_conf_file_backup }}.broken"
+                remote_src: true
+                mode: 0644
+                owner: root
+                group: root
+
+            - name: Copy backup file over edited file as the configuration test failed
+              ansible.builtin.copy:
+                src: "{{ php_conf_file_backup }}"
+                dest: "{{ php_conf_file }}"
+                remote_src: true
+                mode: 0644
+                owner: root
+                group: root
+
+            - name: Debug PHP configuration file test failure
+              ansible.builtin.debug:
+                var: php_fpm_test.stderr_lines
+
+            - name: Fail as there was a problem with the updated configuration file
+              ansible.builtin.fail:
+                msg: "The original configuration has been restored and the broken file is available at {{ php_conf_file_backup }}.broken"
+
+        - name: PHP FPM reloaded
+          ansible.builtin.service:
+            name: "php{{ php_conf_file_version }}-fpm"
+            state: reloaded
+
+      when:
+        - php_conf_file_sapi is defined
+        - php_conf_file_sapi == "fpm"
 
   tags:
     - php
