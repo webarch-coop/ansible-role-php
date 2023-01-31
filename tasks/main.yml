@@ -40,9 +40,50 @@
       tags:
         - php_pkg
 
-    - name: Include PHP configuration tasks
-      ansible.builtin.include_tasks: conf.yml
-      when: php_config is defined
+    - name: Configure PHP
+      block:
+
+        - name: Check the PHP versions installed
+          ansible.builtin.command: /usr/sbin/phpquery -V
+          check_mode: false
+          changed_when: false
+          register: php_phpquery_versions
+
+        - name: Set a fact for the PHP versions installed
+          ansible.builtin.set_fact:
+            php_ver_installed: "{{ php_phpquery_versions.stdout_lines | sort }}"
+
+        - name: Debug PHP versions that are to be installed
+          ansible.builtin.debug:
+            var: php_ver_present
+            verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+
+        - name: Debug PHP versions that are installed
+          ansible.builtin.debug:
+            var: php_ver_installed
+            verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+
+        - name: Debug PHP versions that are to be configured
+          ansible.builtin.debug:
+            var: php_conf_ver_present
+            verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+
+        - name: PHP versions that are not installed cannot be configured unless in check mode
+          ansible.builtin.fail:
+            msg: "PHP versions {% for php_v in php_conf_ver_present | difference(php_ver_installed) %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %} cannot be configured when they are not present."
+          when:
+            - not ansible_check_mode | bool
+            - php_conf_ver_present | difference(php_ver_installed) != []
+
+        - name: Include PHP configuration tasks when versions are present or when running in check mode
+          ansible.builtin.include_tasks: conf.yml
+          when: >-
+            ( ansible_check_mode | bool ) or
+            ( php_conf_ver_present | difference(php_ver_installed) == [] )
+
+      when:
+        - ( php_config is defined )
+        - ( php_conf_ver_present != [] ) or ( php_conf_ver_absent != [] )
       tags:
         - php_cfg
         - php_conf

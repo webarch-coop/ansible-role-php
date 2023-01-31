@@ -70,20 +70,34 @@
         quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
         fail_msg: "The Linux distro {{ ansible_distribution }} {{ ansible_distribution_release }} is not supported by this role"
 
-    - name: Check the PHP versions installed
-      ansible.builtin.command: /usr/sbin/phpquery -V
-      check_mode: false
-      changed_when: false
-      register: php_phpquery_versions
-
-    - name: Set a fact for the PHP versions installed
-      ansible.builtin.set_fact:
-        php_ver_installed: "{{ php_phpquery_versions.stdout_lines }}"
-
-    - name: Debug PHP versions installed
+    - name: Debug PHP versions and config due to be present and absent
       ansible.builtin.debug:
-        var: php_ver_installed
-        verbosity: "{% if ansible_check_mode | bool %}0{% else %}1{% endif %}"
+        msg:
+          - "PHP pkgs set to be present: {% for php_v in php_ver_present %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %}"
+          - "PHP pkgs set to be absent: {% for php_v in php_ver_absent %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %}"
+          - "PHP conf set to be present: {% for php_v in php_conf_ver_present %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %}"
+          - "PHP conf set to be absent: {% for php_v in php_conf_ver_absent %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %}"
+        verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+
+    - name: Check that PHP packages that are set to be present match the config that is set to be present
+      ansible.builtin.debug:
+        msg: "Note that PHP pkgs set to be present: {% for php_v in php_ver_present %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %} doesn't not match the PHP cfg set to be present: {% for php_v in php_conf_ver_present %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %}"
+      when: php_ver_present != php_conf_ver_present
+
+    - name: Check that PHP packages that are set to be absent match the config that is set to be absent
+      ansible.builtin.debug:
+        msg: "Note that PHP pkgs set to be absent: {% for php_v in php_ver_absent %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %} doesn't not match the PHP cfg set to be absent: {% for php_v in php_conf_ver_absent %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %}"
+      when: php_ver_absent != php_conf_ver_absent
+
+    - name: PHP config should not be removed when the packages are set to be present
+      ansible.builtin.fail:
+        msg: "PHP conf are set to be absent for {% for php_v in php_conf_ver_absent | ansible.builtin.intersect(php_ver_present) %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %} but the pkgs are set to be present."
+      when: php_conf_ver_absent | ansible.builtin.intersect(php_ver_present) != []
+
+    - name: PHP versions should not be configured when the packages are set to be absent
+      ansible.builtin.fail:
+        msg: "PHP conf are set to be present for {% for php_v in php_conf_ver_present | ansible.builtin.intersect(php_ver_absent) %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %} but the pkgs are set to be absent."
+      when: php_conf_ver_present | ansible.builtin.intersect(php_ver_absent) != []
 
   tags:
     - php

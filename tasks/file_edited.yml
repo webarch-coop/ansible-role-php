@@ -94,13 +94,6 @@
         loop_var: php_conf_section
       when: php_conf_file_proposed_vars.keys() | length != 0
 
-    - name: File backup absent when the PHP configuration file is unchanged
-      ansible.builtin.file:
-        path: "{{ php_conf_file_backup }}"
-        state: absent
-      changed_when: false
-      when: not php_conf_file_changed | bool
-
     - name: Test and reload PHP configuration file when file is in a FPM directory
       block:
 
@@ -150,8 +143,17 @@
             state: reloaded
 
       when:
+        - php_conf_file_version in php_ver_installed
+        - php_conf_file_changed | bool
         - php_conf_file_sapi is defined
         - php_conf_file_sapi == "fpm"
+
+    - name: File backup absent when the PHP configuration file is unchanged
+      ansible.builtin.file:
+        path: "{{ php_conf_file_backup }}"
+        state: absent
+      changed_when: false
+      when: not php_conf_file_changed | bool
 
   tags:
     - php

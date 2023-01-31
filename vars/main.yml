@@ -31,6 +31,10 @@ php_pkg_present: "{{ php_versions | ansible.builtin.json_query('[?state==`presen
 # cat defaults/main.yml | yq -o=json | jp "php_config[?state=='absent'].version"
 php_conf_ver_absent: "{{ php_config | ansible.builtin.json_query('[?state==`absent`].version') | sort }}"
 
+# PHP versions configuration present
+# cat defaults/main.yml | yq -o=json | jp "php_config[?state=='present'].version"
+php_conf_ver_present: "{{ php_config | ansible.builtin.json_query('[?state==`present`].version') | sort }}"
+
 # PHP versions configuration directories absent
 php_conf_dirs_absent: "{{ php_config | ansible.builtin.json_query('[?state==`absent`].version') | sort | map('regex_replace', '^', '/etc/php/') }}"
 

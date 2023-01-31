@@ -51,6 +51,7 @@
             that:
               - php_gpg_fingerprints_found | difference(php_gpg_fingerprints) | length == 0
               - php_gpg_fingerprints | difference(php_gpg_fingerprints_found) | length == 0
+            quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
 
       when: ( php_gpg_file.stat.exists | bool )
 
