@@ -2,7 +2,7 @@
 - name: Update PHP config section
   block:
 
-    - name: "Set a fact for the existing PHP {{ php_version.key }} SAPI {{ php_sapi.key }} config section {{ cfg_sect.key }}"
+    - name: "Set a fact for the existing PHP {{ php_version.key }} SAPI {{ php_sapi.key }} config section {{ cfg_sect.key }}"  # noqa jinja[invalid]
       ansible.builtin.set_fact:
         php_section_existing: "{{ php_config_existing | community.general.json_query(php_jmespath_search) }}"
       vars:

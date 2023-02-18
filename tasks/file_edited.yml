@@ -30,7 +30,7 @@
         var: php_conf_file_existing_vars.keys()
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
 
-    - name: Set a fact for the proposed PHP configuration file variables
+    - name: Set a fact for the proposed PHP configuration file variables  # noqa jinja[invalid]
       ansible.builtin.set_fact:
         php_conf_file_proposed_vars: "{{ php_config | ansible.builtin.json_query(php_conf_file_proposed_vars_json_query) }}"
         verbosity: "{% if ansible_check_mode | bool %}0{% else %}1{% endif %}"

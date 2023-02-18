@@ -23,7 +23,7 @@
         var: php_etc_php_find_dirs
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
 
-    - name: Set a fact for the existing PHP version directories
+    - name: Set a fact for the existing PHP version directories  # noqa jinja[invalid]
       ansible.builtin.set_fact:
         php_conf_dirs_existing: "{{ php_etc_php_find_dirs | community.general.json_query('files[].path') }}"
 
@@ -59,7 +59,7 @@
         var: php_etc_php_find_files
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
 
-    - name: Set a fact for the existing PHP configuration files
+    - name: Set a fact for the existing PHP configuration files  # noqa jinja[invalid]
       ansible.builtin.set_fact:
         php_conf_files_existing: "{{ php_etc_php_find_files | community.general.json_query('files[].path') }}"
 
