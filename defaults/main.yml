@@ -13,6 +13,9 @@ php: true
 # cat /etc/php/8.1/fpm/php.ini | jc --ini -yp
 php_check_legacy_variables: true
 php_config:
+  - name: PHP 8.2 configuration
+    version: "8.2"
+    state: absent
   - name: PHP 8.1 configuration
     version: "8.1"
     state: absent
@@ -63,19 +66,19 @@ php_config:
             memory_limit: "512M"
   - name: PHP 7.3 configuration
     version: "7.3"
-    state: absent
+    state: present
   - name: PHP 7.2 configuration
     version: "7.2"
-    state: absent
+    state: present
   - name: PHP 7.1 configuration
     version: "7.1"
-    state: absent
+    state: present
   - name: PHP 7.0 configuration
     version: "7.0"
-    state: absent
+    state: present
   - name: PHP 5.6 configuration
     version: "5.6"
-    state: absent
+    state: present
 php_sury: true
 php_versions:
   - name: PHP 8.2 packages
@@ -213,24 +216,39 @@ php_versions:
     state: present
     pkg_present:
       - php7.3-cli
+      - php7.3-mbstring
+      - php7.3-mysql
+      - php7.3-xml
   - name: PHP 7.2 packages
     version: "7.2"
     state: present
     pkg_present:
       - php7.2-cli
+      - php7.2-mbstring
+      - php7.2-mysql
+      - php7.2-xml
   - name: PHP 7.1 packages
     version: "7.1"
     state: present
     pkg_present:
       - php7.1-cli
+      - php7.1-mbstring
+      - php7.1-mysql
+      - php7.1-xml
   - name: PHP 7.0 packages
     version: "7.0"
     state: present
     pkg_present:
       - php7.0-cli
+      - php7.0-mbstring
+      - php7.0-mysql
+      - php7.0-xml
   - name: PHP 5.6 packages
     version: "5.6"
     state: present
     pkg_present:
       - php5.6-cli
+      - php5.6-mbstring
+      - php5.6-mysql
+      - php5.6-xml
 ...
