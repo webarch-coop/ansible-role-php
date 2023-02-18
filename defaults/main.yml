@@ -15,7 +15,7 @@ php_check_legacy_variables: true
 php_config:
   - name: PHP 8.1 configuration
     version: "8.1"
-    state: present
+    state: absent
     files:
       - path: /etc/php/8.1/apache2/php.ini
         state: absent
@@ -80,7 +80,7 @@ php_sury: true
 php_versions:
   - name: PHP 8.2 packages
     version: "8.2"
-    state: present
+    state: absent
     pkg_absent:
       - libapache2-mod-php8.2
       - php8.2-phpdbg
@@ -112,7 +112,7 @@ php_versions:
       - php-pear
   - name: PHP 8.1 packages
     version: "8.1"
-    state: present
+    state: absent
     pkg_absent:
       - libapache2-mod-php8.1
       - php8.1-phpdbg
@@ -144,7 +144,7 @@ php_versions:
       - php-pear
   - name: PHP 8.0 packages
     version: "8.0"
-    state: present
+    state: absent
     pkg_absent:
       - libapache2-mod-php8.0
       - php8.0-phpdbg
@@ -210,17 +210,27 @@ php_versions:
       - php-pear
   - name: PHP 7.3 packages
     version: "7.3"
-    state: absent
+    state: present
+    pkg_present:
+      - php7.3-cli
   - name: PHP 7.2 packages
     version: "7.2"
-    state: absent
+    state: present
+    pkg_present:
+      - php7.2-cli
   - name: PHP 7.1 packages
     version: "7.1"
-    state: absent
+    state: present
+    pkg_present:
+      - php7.1-cli
   - name: PHP 7.0 packages
     version: "7.0"
-    state: absent
+    state: present
+    pkg_present:
+      - php7.0-cli
   - name: PHP 5.6 packages
     version: "5.6"
-    state: absent
+    state: present
+    pkg_present:
+      - php5.6-cli
 ...
