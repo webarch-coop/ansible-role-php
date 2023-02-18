@@ -44,7 +44,7 @@
 
         - name: Set a fact for the PHP GPG fingerprints on the server
           ansible.builtin.set_fact:
-            php_gpg_fingerprints_found: "{{ php_gpg.stdout | community.general.jc('gpg') | community.general.json_query('[?type==`fpr`].user_id') | list }}"
+            php_gpg_fingerprints_found: "{{ php_gpg.stdout | string | community.general.jc('gpg') | community.general.json_query('[?type==`fpr`].user_id') | list }}"
 
         - name: PHP gpg key check fingerprints
           ansible.builtin.assert:
