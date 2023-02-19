@@ -33,7 +33,6 @@
     - name: Set a fact for the proposed PHP configuration file variables
       ansible.builtin.set_fact:
         php_conf_file_proposed_vars: "{{ php_config | ansible.builtin.json_query(php_conf_file_proposed_vars_json_query) }}"
-        verbosity: "{% if ansible_check_mode | bool %}0{% else %}1{% endif %}"
       vars:
         php_conf_file_proposed_vars_json_query: "[?state=='present'].files[]|[?path=='{{ php_conf_file }}'].conf|[0]"
 
@@ -47,7 +46,7 @@
         var: php_conf_file_proposed_vars.keys()
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
 
-    - name: Set fact for PHP configuration file
+    - name: Set facts for the PHP configuration file
       ansible.builtin.set_fact:
         php_conf_file_backup: "{{ php_conf_file | ansible.builtin.dirname }}/.{{ php_conf_file | ansible.builtin.basename }}.{{ ansible_date_time.iso8601_basic_short }}.bak"
         php_conf_file_changed: false

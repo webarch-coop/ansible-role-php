@@ -1,0 +1,12 @@
+# {{ systemd_ansible_managed }}
+
+{% for php_section in | dict2items %}
+
+[{{ php_section.key }}]
+{% for php_variable_pair in php_section.value | dict2items %}
+{{ php_variable_pair.key }} = {{ php_variable_pair.value }}
+
+{% endfor %}
+{% endfor %}
+
+# vim: ft=systemd:

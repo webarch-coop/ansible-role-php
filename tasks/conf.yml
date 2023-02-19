@@ -193,14 +193,14 @@
         var: php_conf_files_template
         verbosity: "{% if ansible_check_mode | bool %}0{% else %}1{% endif %}"
 
-#    - name: Include PHP configuration file templated tasks
-#      ansible.builtin.include_tasks: file_templated.yml
-#      loop: "{{ php_conf_files_template }}"
-#      loop_control:
-#        loop_var: php_conf_file
-#      when:
-#        - php_conf_files_template is defined
-#        - php_conf_files_template != []
+    - name: Include PHP configuration file templated tasks
+      ansible.builtin.include_tasks: file_templated.yml
+      loop: "{{ php_conf_files_template }}"
+      loop_control:
+        loop_var: php_conf_file
+      when:
+        - php_conf_files_template is defined
+        - php_conf_files_template != []
 
   tags:
     - php
