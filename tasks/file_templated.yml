@@ -113,7 +113,9 @@
             state: reloaded
 
       when:
+        - php_conf_file_version is defined
         - php_conf_file_version in php_ver_installed
+        - php_conf_file_templated.changed is defined
         - php_conf_file_templated.changed | bool
         - php_conf_file_sapi is defined
         - php_conf_file_sapi == "fpm"
@@ -123,7 +125,9 @@
         path: "{{ php_conf_file_backup }}"
         state: absent
       changed_when: false
-      when: not php_conf_file_templated.changed | bool
+      when:
+        - php_conf_file_templated.changed is defined
+        - not php_conf_file_templated.changed | bool
 
   tags:
     - php

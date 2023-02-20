@@ -71,10 +71,10 @@
         var: php_pkg_install
         verbosity: "{% if ansible_check_mode | bool and php_pkg_install != [] %}0{% elif php_pkg_install != [] %}1{% else %}2{% endif %}"
 
-    - name: PHP packages purged
+    - name: PHP packages absent
       ansible.builtin.apt:
         pkg: "{{ php_pkg_rm }}"
-        purge: true
+        purge: false
         state: absent
       register: php_packages_removed
       when: php_pkg_rm != []
@@ -83,7 +83,10 @@
       ansible.builtin.apt:
         pkg: "{{ php_pkg_install }}"
         state: latest
+        dpkg_options: force-confmiss
         update_cache: true
+      environment:
+        UCF_FORCE_CONFFMISS: "1"
       register: php_packages_installed
       when: php_pkg_install != []
 

@@ -1,11 +1,9 @@
-# {{ systemd_ansible_managed }}
+# {{ ansible_managed }}
 
-{% for php_section in | dict2items %}
-
+{% for php_section in php_conf_file_proposed_vars | dict2items %}
 [{{ php_section.key }}]
 {% for php_variable_pair in php_section.value | dict2items %}
 {{ php_variable_pair.key }} = {{ php_variable_pair.value }}
-
 {% endfor %}
 {% endfor %}
 
