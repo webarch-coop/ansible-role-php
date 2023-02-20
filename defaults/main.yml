@@ -9,8 +9,42 @@
 # You should have received a copy of the GNU General Public License along with the Webarchitects PHP Ansible role. If not, see <https://www.gnu.org/licenses/>.
 ---
 php: true
-# php_alternatives:
-# cat /etc/php/8.1/fpm/php.ini | jc --ini -yp
+php_alternatives: true
+php_alternatives_update:
+  - name: php
+    link: /usr/bin/php
+    slaves:
+      - name: php.1.gz
+        path: /usr/share/man/man1/php.1.gz
+    status: auto
+    best: /usr/bin/php8.1
+    value: /usr/bin/php8.1
+    alternatives:
+      - alternative: /usr/bin/php7.0
+        priority: 70
+        slaves:
+          - name: php.1.gz
+            path: /usr/share/man/man1/php7.0.1.gz
+      - alternative: /usr/bin/php7.3
+        priority: 73
+        slaves:
+          - name: php.1.gz
+            path: /usr/share/man/man1/php7.3.1.gz
+      - alternative: /usr/bin/php7.4
+        priority: 74
+        slaves:
+          - name: php.1.gz
+            path: /usr/share/man/man1/php7.4.1.gz
+      - alternative: /usr/bin/php8.1
+        priority: 81
+        slaves:
+          - name: php.1.gz
+            path: /usr/share/man/man1/php8.1.1.gz
+      - alternative: /usr/bin/php8.2
+        priority: 82
+        slaves:
+          - name: php.1.gz
+            path: /usr/share/man/man1/php8.2.1.gz
 php_check_legacy_variables: true
 php_config:
   - name: PHP 8.2 configuration
@@ -112,7 +146,7 @@ php_versions:
       - php-pear
   - name: PHP 8.0 packages
     version: "8.0"
-    state: absent
+    state: present
     pkg_absent:
       - libapache2-mod-php8.0
       - php8.0-phpdbg
