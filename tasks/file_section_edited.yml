@@ -21,10 +21,30 @@
         verbosity: "{% if ansible_check_mode | bool %}0{% else %}1{% endif %}"
       when: php_conf_variable_pair.value != php_conf_file_existing_vars | ansible.builtin.json_query(php_conf_variable_json_query)
       vars:
-        php_conf_variable_json_query: "{{ php_conf_section.key }}.{{ php_conf_variable_pair.key }}"
+        php_conf_variable_json_query: '"{{ php_conf_section.key }}"."{{ php_conf_variable_pair.key }}"'
       loop: "{{ php_conf_section.value | ansible.builtin.dict2items }}"
       loop_control:
         loop_var: php_conf_variable_pair
+
+    # This is to ensure that variables are written to the same place as existing commented values
+    - name: Uncomment commented variables in the PHP configuration file that are to be edited
+      ansible.builtin.lineinfile:
+        path: "{{ php_conf_file }}"
+        line: "{{ php_conf_variable_pair.key }} = {{ php_conf_variable_pair.value }}"
+        regex: "{{ php_conf_variable_regex }}"
+        state: present
+        backrefs: true
+        mode: 0644
+        owner: root
+        group: root
+      when: php_conf_variable_pair.value != php_conf_file_existing_vars | ansible.builtin.json_query(php_conf_variable_json_query)
+      vars:
+        php_conf_variable_json_query: '"{{ php_conf_section.key }}"."{{ php_conf_variable_pair.key }}"'
+        php_conf_variable_regex: "^[;]{{ php_conf_variable_pair.key }}[ =]"
+      loop: "{{ php_conf_section.value | ansible.builtin.dict2items }}"
+      loop_control:
+        loop_var: php_conf_variable_pair
+      register: php_conf_file_comments_edited
 
     - name: Systemd unit file edited
       community.general.ini_file:
@@ -38,7 +58,7 @@
         group: root
       when: php_conf_variable_pair.value != php_conf_file_existing_vars | ansible.builtin.json_query(php_conf_variable_json_query)
       vars:
-        php_conf_variable_json_query: "{{ php_conf_section.key }}.{{ php_conf_variable_pair.key }}"
+        php_conf_variable_json_query: '"{{ php_conf_section.key }}"."{{ php_conf_variable_pair.key }}"'
       loop: "{{ php_conf_section.value | ansible.builtin.dict2items }}"
       loop_control:
         loop_var: php_conf_variable_pair
@@ -47,7 +67,7 @@
     - name: Set a fact to indicate that the file has changed
       ansible.builtin.set_fact:
         php_conf_file_changed: true
-      when: php_conf_file_edited.changed | bool
+      when: (php_conf_file_comments_edited.changed ) or ( php_conf_file_edited.changed | bool )
 
   tags:
     - php

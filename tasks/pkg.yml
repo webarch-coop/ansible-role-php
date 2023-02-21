@@ -15,6 +15,7 @@
       ansible.builtin.debug:
         var: php_pkg_absent
         verbosity: "{% if ansible_check_mode | bool and php_pkg_absent != [] %}1{% elif php_pkg_absent != [] %}2{% else %}3{% endif %}"
+      when: php_pkg_absent is defined
 
     - name: Set a fact for installed PHP packages that are to be removed
       ansible.builtin.set_fact:
@@ -24,20 +25,23 @@
       ansible.builtin.debug:
         var: php_pkg_remove
         verbosity: "{% if ansible_check_mode | bool and php_pkg_remove != [] %}0{% elif php_pkg_remove != [] %}1{% else %}2{% endif %}"
+      when: php_pkg_remove is defined
 
     - name: Debug PHP versions absent
       ansible.builtin.debug:
         var: php_ver_absent
         verbosity: "{% if ansible_check_mode | bool and php_ver_absent != [] %}1{% elif php_ver_absent != [] %}2{% else %}3{% endif %}"
+      when: php_ver_absent is defined
 
     - name: Debug PHP versions absent regex
       ansible.builtin.debug:
         var: php_ver_absent_regex
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+      when: php_ver_absent_regex is defined
 
     - name: Set a fact for PHP packages that should be removed due to their version
       ansible.builtin.set_fact:
-        php_ver_pkg_remove: "{{ php_ver_pkg_remove | default ([]) + ansible_local.dpkg.installed | select('regex', php_regex) }}"
+        php_ver_pkg_remove: "{{ php_ver_pkg_remove + ansible_local.dpkg.installed | select('regex', php_regex) }}"
       loop: "{{ php_ver_absent_regex }}"
       loop_control:
         loop_var: php_regex
@@ -46,6 +50,7 @@
       ansible.builtin.debug:
         var: php_ver_pkg_remove
         verbosity: "{% if ansible_check_mode | bool and php_ver_pkg_remove != [] %}0{% elif php_ver_pkg_remove != [] %}1{% else %}2{% endif %}"
+      when: php_ver_pkg_remove is defined
 
     - name: Set a fact for all installed PHP packages that should be removed
       ansible.builtin.set_fact:
@@ -61,6 +66,7 @@
       ansible.builtin.debug:
         var: php_pkg_present
         verbosity: "{% if ansible_check_mode | bool and php_pkg_present != [] %}1{% elif php_pkg_present != [] %}2{% else %}3{% endif %}"
+      when: php_pkg_present is defined
 
     - name: Set a fact for PHP packages that should be installed
       ansible.builtin.set_fact:
@@ -70,6 +76,7 @@
       ansible.builtin.debug:
         var: php_pkg_install
         verbosity: "{% if ansible_check_mode | bool and php_pkg_install != [] %}0{% elif php_pkg_install != [] %}1{% else %}2{% endif %}"
+      when: php_pkg_install is defined
 
     - name: PHP packages absent
       ansible.builtin.apt:

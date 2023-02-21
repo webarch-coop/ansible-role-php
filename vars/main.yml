@@ -15,6 +15,8 @@ php_file_path_separator: '/'
 php_ver_absent: "{{ php_versions | ansible.builtin.json_query('[?state==`absent`].version') | sort }}"
 php_ver_absent_regex: "{{ php_versions | ansible.builtin.json_query('[?state==`absent`].version') | sort | map('regex_replace', '^', '^php') }}"
 
+php_ver_pkg_remove: []
+
 # PHP versions present
 # cat defaults/main.yml | yq -o=json | jp "php_versions[?state=='present'].version"
 php_ver_present: "{{ php_versions | ansible.builtin.json_query('[?state==`present`].version') | sort }}"

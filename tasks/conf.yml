@@ -21,7 +21,7 @@
     - name: Debug the existing PHP versions directories found
       ansible.builtin.debug:
         var: php_etc_php_find_dirs
-        verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+        verbosity: "{% if ansible_check_mode | bool %}2{% else %}3{% endif %}"
 
     - name: Set a fact for the existing PHP version directories
       ansible.builtin.set_fact:
@@ -57,7 +57,7 @@
     - name: Debug existing PHP configuration files
       ansible.builtin.debug:
         var: php_etc_php_find_files
-        verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+        verbosity: "{% if ansible_check_mode | bool %}2{% else %}3{% endif %}"
 
     - name: Set a fact for the existing PHP configuration files
       ansible.builtin.set_fact:
