@@ -46,7 +46,7 @@
         loop_var: php_conf_variable_pair
       register: php_conf_file_comments_edited
 
-    - name: Systemd unit file edited
+    - name: PHP configuration file edited
       community.general.ini_file:
         path: "{{ php_conf_file }}"
         section: "{{ php_conf_section.key }}"

@@ -1,4 +1,4 @@
-# {{ ansible_managed }}
+; {{ ansible_managed }}
 
 {% for php_section in php_conf_file_proposed_vars | dict2items %}
 [{{ php_section.key }}]
@@ -7,4 +7,4 @@
 {% endfor %}
 {% endfor %}
 
-# vim: ft=systemd:
+; vim: syntax=dosini

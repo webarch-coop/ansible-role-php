@@ -78,13 +78,10 @@
         src: "{{ php_conf_file }}"
         dest: "{{ php_conf_file_backup }}"
         remote_src: true
-        mode: 0644
+        mode: "0644"
         owner: root
         group: root
       changed_when: false
-
-    # TODO Use the community.general.dependent lookup to replace the looped include and the loop in the included file...
-    #      https://docs.ansible.com/ansible/latest/collections/community/general/dependent_lookup.html
 
     - name: Include the PHP configuration file section edited tasks
       ansible.builtin.include_tasks: file_section_edited.yml
@@ -92,6 +89,26 @@
       loop_control:
         loop_var: php_conf_section
       when: php_conf_file_proposed_vars.keys() | length != 0
+
+    - name: Ansible managed comment present at the top of the file
+      ansible.builtin.lineinfile:
+        path: "{{ php_conf_file }}"
+        line: "; Ansible managed"
+        state: present
+        insertbefore: BOF
+        mode: "0644"
+        owner: root
+        group: root
+
+    - name: Vim syntaxhighlighting modeline present at the end of the file
+      ansible.builtin.lineinfile:
+        path: "{{ php_conf_file }}"
+        line: "; vim: syntax=dosini"
+        state: present
+        insertafter: EOF
+        mode: "0644"
+        owner: root
+        group: root
 
     - name: Test and reload PHP configuration file when file is in a FPM directory
       block:
@@ -115,7 +132,7 @@
                 src: "{{ php_conf_file }}"
                 dest: "{{ php_conf_file_backup }}.broken"
                 remote_src: true
-                mode: 0644
+                mode: "0644"
                 owner: root
                 group: root
 
@@ -124,7 +141,7 @@
                 src: "{{ php_conf_file_backup }}"
                 dest: "{{ php_conf_file }}"
                 remote_src: true
-                mode: 0644
+                mode: "0644"
                 owner: root
                 group: root
 
