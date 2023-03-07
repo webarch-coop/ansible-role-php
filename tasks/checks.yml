@@ -14,6 +14,40 @@
     - name: Check that depreciated variables are not defined
       ansible.builtin.assert:
         that:
+          - phpfpm_packages is not defined
+          - phpfpm_disable_functions is not defined
+          - phpfpm_date_timezone is not defined
+          - phpfpm_max_execution_time is not defined
+          - phpfpm_max_input_time is not defined
+          - phpfpm_max_input_nesting_level is not defined
+          - phpfpm_max_input_vars is not defined
+          - phpfpm_memory_limit is not defined
+          - phpfpm_post_max_size is not defined
+          - phpfpm_upload_max_filesize is not defined
+          - phpfpm_max_file_uploads is not defined
+          - phpfpm_allow_url_include is not defined
+          - phpfpm_allow_local_infile is not defined
+          - phpfpm_session_save_path is not defined
+          - phpfpm_opcache_enable is not defined
+          - phpfpm_opcache_memory_consumption is not defined
+          - phpfpm_opcache_interned_strings_buffer is not defined
+          - phpfpm_opcache_use_cwd is not defined
+          - phpfpm_opcache_validate_timestamps is not defined
+          - phpfpm_opcache_revalidate_freq is not defined
+          - phpfpm_opcache_validate_permission is not defined
+          - phpfpm_opcache_validate_root is not defined
+          - phpfpm_opcache_max_accelerated_files is not defined
+          - phpfpm_www_pool_enabled is not defined
+          - phpfpm_www_pool_pm is not defined
+          - phpfpm_www_pool_pm_max_children is not defined
+          - phpfpm_www_pool_pm_process_idle_timeout is not defined
+          - phpfpm_www_pool_pm_start_servers is not defined
+          - phpfpm_www_pool_pm_min_spare_servers is not defined
+          - phpfpm_www_pool_pm_max_spare_servers is not defined
+          - phpfpm_www_pool_pm_max_requests is not defined
+          - phpcli_allow_local_infile is not defined
+          - phpfpm_log_grep is not defined
+          - phpfpm_log is not defined
           - php_allow_url_include is not defined
           - php_apc_shm_size is not defined
           - phpcli_allow_local_infile is not defined

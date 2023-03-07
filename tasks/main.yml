@@ -88,27 +88,6 @@
         - php_cfg
         - php_conf
 
-    - name: PHP alternatives
-      block:
-
-        - name: Debug PHP alternatives
-          ansible.builtin.debug:
-            var: php_alternatives_update
-            verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
-
-        - name: Include alternatives role
-          ansible.builtin.include_role:
-            name: alternatives
-          vars:
-            alternatives: true
-            alternatives_update: "{{ php_alternatives_update }}"
-
-      when:
-        - php_alternatives | bool
-        - php_alternatives_update is defined
-      tags:
-        - php_alt
-
   when: php | bool
   tags:
     - php
