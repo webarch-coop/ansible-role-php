@@ -18,6 +18,10 @@ argument_specs:
         type: bool
         required: true
         description: Run the tasks in this role.
+      php_check_legacy_variables:
+        type: bool
+        required: false
+        description: Check that legacy variables and not defined.
       php_config:
         type: list
         required: false
