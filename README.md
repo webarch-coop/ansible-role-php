@@ -57,6 +57,24 @@ The `templated` state can be used to generate new configuration files.
 
 File configuration is defined using a `conf` dictionary.
 
+An example `php_config` item:
+
+```yaml
+php_config:
+  - name: PHP 8.2 configuration
+    version: "8.2"
+    state: present
+    files:
+      - name: PHP 8.2 FPM configuration
+        path: /etc/php/8.2/fpm/php.ini
+        state: edited
+        conf:
+          apc:
+            "apc.enabled": "1"
+          Date:
+            "date.timezone": "Europe/London"
+```
+
 ### php_versions
 
 The optional `php_versions` list is used to install and remove PHP packages, each item in the list requires a `state`, which can be `absent` or `present` and a `version` which must be a string from this list of PHP versions:
@@ -74,6 +92,19 @@ The optional `php_versions` list is used to install and remove PHP packages, eac
 ``` 
 
 Two optional lists, `pkg_absent` and `pkg_present` are used to list `.deb` packages that are to be installed or removed.
+
+An example `php_versions` item:
+
+```yaml
+php_versions:
+  - name: PHP 8.2 packages
+    version: "8.2"
+    state: present
+    pkg_absent:
+      - libapache2-mod-php8.2
+    pkg_present:
+      - php8.2-apcu
+```
 
 ## Help
 
