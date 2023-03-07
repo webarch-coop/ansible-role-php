@@ -6,19 +6,19 @@ This Ansible role is designed to install and configure PHP on Debian, by default
 
 See the [defaults/main.yml](defaults/main.yml) file for the default variables, the [vars/main.yml](vars/main.yml) file for the preset variables and the [meta/argument_specs.yml](meta/argument_specs.yml) file for the variable specification.
 
-This roles has three boolean variables and two lists:
+This roles has one required boolean variable and two optional boolean variables and two optional lists:
 
 ### php
 
-By default `php` is `true`, when it is `false` all tasks in this role will be skipped.
+The `php` variable is required to be defined, by default it is `true`, when it is `false` all tasks in this role will be skipped.
 
 ### php_check_legacy_variables
 
-By default `php_check_legacy_variables` is `true`, this results in the role failing if any variables names from older versions of this role are defined, set it to `false` to skip these checks.
+The optional `php_check_legacy_variables` variable is `true` by default, this results in the role failing if any variables names from older versions of this role are defined, set it to `false` to skip these checks.
 
 ### php_sury
 
-By defauly `php_sury` is `true` which results in the [Debian PHP repo](https://packages.sury.org/php/) provided by Ondřej Surý being enabled for installing `.deb` packages. When `php_sury` is `false` the repo configuration is removed if present.
+The optional `php_sury` variable is `true` by default which results in the [Debian PHP repo](https://packages.sury.org/php/) provided by Ondřej Surý being enabled for installing `.deb` packages. When `php_sury` is `false` the Ondřej Surý repo configuration is removed if present.
 
 ### php_config
 
