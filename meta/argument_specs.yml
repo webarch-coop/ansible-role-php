@@ -24,15 +24,15 @@ argument_specs:
         description: Check that legacy variables and not defined.
       php_config:
         type: list
+        elements: dict
         required: false
         description: Optional PHP configuration.
-        elements: dict
         options:
           files:
             type: list
+            elements: dict
             required: false
             description: A optional list of PHP file paths and their configuration.
-            elements: dict
             options:
               conf:
                 type: dict
@@ -82,9 +82,9 @@ argument_specs:
               - "5.6"
       php_modules:
         type: list
+        elements: dict
         required: false
         description: An optional list of PHP versions that require module configuration.
-        elements: dict
         options:
           name:
             type: str
@@ -92,19 +92,19 @@ argument_specs:
             description: A optional name for the PHP modules version.
           sapis:
             type: list
-            required: true
             elements: dict
+            required: true
             options:
               mods_disabled:
                 type: list
+                elements: str
                 required: false
                 description: A list of PHP modules to be disabled for the specific SAPI and PHP version.
-                elements: str
               mods_enabled:
                 type: list
+                elements: str
                 required: false
                 description: A list of PHP modules to be enabled for the specific SAPI and PHP version.
-                elements: str
               name:
                 type: str
                 required: false
@@ -144,9 +144,9 @@ argument_specs:
         description: Configure the Sury PHP deb package repo.
       php_versions:
         type: list
+        elements: dict
         required: false
         description: A list of PHP versions and their packages and state.
-        elements: dict
         options:
           name:
             type: str
@@ -154,14 +154,14 @@ argument_specs:
             description: A optional name for the PHP version packages.
           pkg_absent:
             type: list
+            elements: str
             required: false
             description: Packages that should be absent for this PHP version.
-            elements: str
           pkg_present:
             type: list
+            elements: str
             required: false
             description: Packages that should be present for this PHP version.
-            elements: str
           state:
             type: str
             required: true
@@ -173,7 +173,6 @@ argument_specs:
             type: str
             required: true
             description: The PHP version number.
-            elements: str
             choices:
               - "8.2"
               - "8.1"
