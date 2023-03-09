@@ -1,0 +1,151 @@
+# Copyright 2019-2023 Chris Croome
+#
+# This file is part of the Webarchitects PHP Ansible role.
+#
+# The Webarchitects PHP Ansible role is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#
+# The Webarchitects PHP Ansible role is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with the Webarchitects PHP Ansible role. If not, see <https://www.gnu.org/licenses/>.
+---
+- name: PHP variable checks
+  block:
+
+    - name: Check that depreciated variables are not defined
+      ansible.builtin.assert:
+        that:
+          - phpfpm_packages is not defined
+          - phpfpm_disable_functions is not defined
+          - phpfpm_date_timezone is not defined
+          - phpfpm_max_execution_time is not defined
+          - phpfpm_max_input_time is not defined
+          - phpfpm_max_input_nesting_level is not defined
+          - phpfpm_max_input_vars is not defined
+          - phpfpm_memory_limit is not defined
+          - phpfpm_post_max_size is not defined
+          - phpfpm_upload_max_filesize is not defined
+          - phpfpm_max_file_uploads is not defined
+          - phpfpm_allow_url_include is not defined
+          - phpfpm_allow_local_infile is not defined
+          - phpfpm_session_save_path is not defined
+          - phpfpm_opcache_enable is not defined
+          - phpfpm_opcache_memory_consumption is not defined
+          - phpfpm_opcache_interned_strings_buffer is not defined
+          - phpfpm_opcache_use_cwd is not defined
+          - phpfpm_opcache_validate_timestamps is not defined
+          - phpfpm_opcache_revalidate_freq is not defined
+          - phpfpm_opcache_validate_permission is not defined
+          - phpfpm_opcache_validate_root is not defined
+          - phpfpm_opcache_max_accelerated_files is not defined
+          - phpfpm_www_pool_enabled is not defined
+          - phpfpm_www_pool_pm is not defined
+          - phpfpm_www_pool_pm_max_children is not defined
+          - phpfpm_www_pool_pm_process_idle_timeout is not defined
+          - phpfpm_www_pool_pm_start_servers is not defined
+          - phpfpm_www_pool_pm_min_spare_servers is not defined
+          - phpfpm_www_pool_pm_max_spare_servers is not defined
+          - phpfpm_www_pool_pm_max_requests is not defined
+          - phpcli_allow_local_infile is not defined
+          - phpfpm_log_grep is not defined
+          - phpfpm_log is not defined
+          - php_allow_url_include is not defined
+          - php_apc_shm_size is not defined
+          - phpcli_allow_local_infile is not defined
+          - php_date_timezone is not defined
+          - php_default_socket_timeout is not defined
+          - php_disable_functions is not defined
+          - php_dpkg is not defined
+          - php_log is not defined
+          - php_log_grep is not defined
+          - php_max_execution_time is not defined
+          - php_max_file_uploads is not defined
+          - php_max_input_nesting_level is not defined
+          - php_max_input_time is not defined
+          - php_max_input_vars is not defined
+          - php_memory_limit is not defined
+          - php_mysqli_allow_local_infile is not defined
+          - php_opcache_enable is not defined
+          - php_opcache_interned_strings_buffer is not defined
+          - php_opcache_max_accelerated_files is not defined
+          - php_opcache_memory_consumption is not defined
+          - php_opcache_revalidate_freq is not defined
+          - php_opcache_use_cwd is not defined
+          - php_opcache_validate_permission is not defined
+          - php_opcache_validate_root is not defined
+          - php_opcache_validate_timestamps is not defined
+          - php_output_buffering is not defined
+          - php_packages is not defined
+          - php_phpquery is not defined
+          - php_post_max_size is not defined
+          - php_session_save_path is not defined
+          - php_short_open_tag is not defined
+          - php_upload_max_filesize is not defined
+          - php_versioned_packages is not defined
+          - php_www_pool_enabled is not defined
+          - php_www_pool_ping_path is not defined
+          - php_www_pool_pm is not defined
+          - php_www_pool_pm_max_children is not defined
+          - php_www_pool_pm_max_requests is not defined
+          - php_www_pool_pm_max_spare_servers is not defined
+          - php_www_pool_pm_min_spare_servers is not defined
+          - php_www_pool_pm_process_idle_timeout is not defined
+          - php_www_pool_pm_start_servers is not defined
+          - php_www_pool_pm_status_path is not defined
+        quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
+      when:
+        - php_check_legacy_variables is defined
+        - php_check_legacy_variables | bool
+
+    - name: Check that the distro is Debian Bullseye or Buster
+      ansible.builtin.assert:
+        that:
+          - ansible_distribution_release is defined
+          - ansible_distribution_release is regex("^buster|bullseye$")
+        quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
+        fail_msg: "The Linux distro {{ ansible_distribution }} {{ ansible_distribution_release }} is not supported by this role"
+
+    - name: Debug PHP versions and config due to be present and absent
+      ansible.builtin.debug:
+        msg:
+          - "PHP pkgs set to be present: {% for php_v in php_ver_present %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %}"
+          - "PHP pkgs set to be absent: {% for php_v in php_ver_absent %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %}"
+          - "PHP conf set to be present: {% for php_v in php_conf_ver_present %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %}"
+          - "PHP conf set to be absent: {% for php_v in php_conf_ver_absent %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %}"
+        verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+
+    - name: Check that PHP packages that are set to be present match the config that is set to be present
+      ansible.builtin.debug:
+        msg: "Note that PHP pkgs set to be present: {% for php_v in php_ver_present %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %} doesn't not match the PHP cfg set to be present: {% for php_v in php_conf_ver_present %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %}"
+      when: php_ver_present != php_conf_ver_present
+
+    - name: Check that PHP packages that are set to be absent match the config that is set to be absent
+      ansible.builtin.debug:
+        msg: "Note that PHP pkgs set to be absent: {% for php_v in php_ver_absent %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %} doesn't not match the PHP cfg set to be absent: {% for php_v in php_conf_ver_absent %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %}"
+      when: php_ver_absent != php_conf_ver_absent
+
+    - name: PHP configuration should not be removed when the packages are set to be present
+      ansible.builtin.fail:
+        msg: "PHP conf are set to be absent for {% for php_v in php_conf_ver_absent | ansible.builtin.intersect(php_ver_present) %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %} but the pkgs are set to be present."
+      when: php_conf_ver_absent | ansible.builtin.intersect(php_ver_present) != []
+
+    - name: PHP configuration should not be set when the packages are set to be absent
+      ansible.builtin.fail:
+        msg: "PHP conf are set to be present for {% for php_v in php_conf_ver_present | ansible.builtin.intersect(php_ver_absent) %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %} but the pkgs are set to be absent."
+      when: php_conf_ver_present | ansible.builtin.intersect(php_ver_absent) != []
+
+    - name: PHP modules should not be removed when the packages are set to be present
+      ansible.builtin.fail:
+        msg: "PHP modules are set to be absent for {% for php_v in php_mods_ver_absent | ansible.builtin.intersect(php_ver_present) %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %} but the pkgs are set to be present."
+      when: php_mods_ver_absent | ansible.builtin.intersect(php_ver_present) != []
+
+    - name: PHP modules should not be configured when the packages are set to be absent
+      ansible.builtin.fail:
+        msg: "PHP modules are set to be present for {% for php_v in php_mods_ver_present | ansible.builtin.intersect(php_ver_absent) %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %} but the pkgs are set to be absent."
+      when: php_mods_ver_present | ansible.builtin.intersect(php_ver_absent) != []
+
+  tags:
+    - php
+    - php_cfg
+    - php_conf
+    - php_mods
+...

@@ -68,6 +68,21 @@ php_config:
     version: "8.1"
     state: present
     files:
+      - name: PHP 8.1 CLI configuration
+        path: /etc/php/8.1/cli/php.ini
+        state: present
+        conf:
+          "CLI Server":
+            "cli_server.color": "on"
+          MySQLi:
+            "mysqli.max_persistent": "-1"
+            "mysqli.allow_local_infile": "Off"
+            "mysqli.allow_persistent": "On"
+            "mysqli.max_links": "-1"
+            "mysqli.default_port": '3306'
+            "mysqli.reconnect": "Off"
+          Pdo_mysql:
+            "pdo_mysql.default_socket":
       - name: PHP 8.1 FPM configuration
         path: /etc/php/8.1/fpm/php.ini
         state: edited
@@ -245,6 +260,59 @@ php_config:
   #         PHP:
   #           max_input_time: "600"
   #           memory_limit: "512M"
+php_modules:
+  - name: PHP 8.2 modules
+    version: "8.2"
+    state: present
+    sapis:
+      - name: PHP 8.2 CLI modules
+        sapi: cli
+        mods_enabled:
+          - apcu
+          - bcmath
+          - bz2
+          - calendar
+          - ctype
+          - curl
+          - dom
+          - exif
+          - ffi
+          - fileinfo
+          - ftp
+          - gd
+          - gettext
+          - gmp
+          - iconv
+          - imagick
+          - imap
+          - intl
+          - ldap
+          - mbstring
+          - mysqli
+          - mysqlnd
+          - opcache
+          - pdo
+          - pdo_mysql
+          - pdo_sqlite
+          - phar
+          - posix
+          - readline
+          - shmop
+          - simplexml
+          - soap
+          - sockets
+          - sqlite3
+          - sysvmsg
+          - sysvsem
+          - sysvshm
+          - tokenizer
+          - uploadprogress
+          - xml
+          - xmlreader
+          - xmlrpc
+          - xmlwriter
+          - xsl
+          - zip
 php_sury: true
 php_versions:
   - name: PHP 8.2 packages

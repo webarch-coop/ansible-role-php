@@ -80,6 +80,64 @@ argument_specs:
               - "7.1"
               - "7.0"
               - "5.6"
+      php_modules:
+        type: list
+        required: false
+        description: An optional list of PHP versions that require module configuration.
+        elements: dict
+        options:
+          name:
+            type: str
+            required: false
+            description: A optional name for the PHP modules version.
+          sapis:
+            type: list
+            required: true
+            elements: dict
+            options:
+              mods_disabled:
+                type: list
+                required: false
+                description: A list of PHP modules to be disabled for the specific SAPI and PHP version.
+                elements: str
+              mods_enabled:
+                type: list
+                required: false
+                description: A list of PHP modules to be enabled for the specific SAPI and PHP version.
+                elements: str
+              name:
+                type: str
+                required: false
+                description: A optional name for the PHP version SAPI modules.
+              sapi:
+                type: str
+                required: true
+                description: The name of the SAPI to have modules configured.
+                choices:
+                  - apache2
+                  - cli
+                  - fpm
+          state:
+            type: str
+            required: false
+            description: The state of the PHP modules.
+            choices:
+              - absent
+              - present
+          version:
+            type: str
+            required: true
+            description: The PHP version number.
+            choices:
+              - "8.2"
+              - "8.1"
+              - "8.0"
+              - "7.4"
+              - "7.3"
+              - "7.2"
+              - "7.1"
+              - "7.0"
+              - "5.6"
       php_sury:
         type: bool
         required: false
@@ -115,6 +173,7 @@ argument_specs:
             type: str
             required: true
             description: The PHP version number.
+            elements: str
             choices:
               - "8.2"
               - "8.1"

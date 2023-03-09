@@ -1,0 +1,70 @@
+# Copyright 2019-2023 Chris Croome
+#
+# This file is part of the Webarchitects PHP Ansible role.
+#
+# The Webarchitects PHP Ansible role is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#
+# The Webarchitects PHP Ansible role is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with the Webarchitects PHP Ansible role. If not, see <https://www.gnu.org/licenses/>.
+---
+- name: PHP Modules
+  block:
+
+    - name: Debug the PHP version variables
+      ansible.builtin.debug:
+        var: php_version
+        verbosity: "{% if ansible_check_mode | bool %}2{% else %}3{% endif %}"
+
+    - name: Debug the PHP version
+      ansible.builtin.debug:
+        var: php_version.version
+        verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+
+    - name: "Get the PHP mods available for {{ php_version.version }}"
+      ansible.builtin.command: "phpquery -v {{ php_version.version }} -M"
+      check_mode: false
+      changed_when: false
+      register: php_phpquery_mods_available
+
+    - name: "Set a fact for the list of mods available for PHP {{ php_version.version }}"
+      ansible.builtin.set_fact:
+        php_mods_available: "{{ php_phpquery_mods_available.stdout_lines | sort }}"
+
+    - name: "Debug the mods available for PHP {{ php_version.version }}"
+      ansible.builtin.debug:
+        var: php_mods_available
+        verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+
+    - name: "Get the PHP SAPIs available for {{ php_version.version }}"
+      ansible.builtin.command: "phpquery -v {{ php_version.version }} -S"
+      check_mode: false
+      changed_when: false
+      register: php_phpquery_sapis_available
+
+    - name: "Set a fact for the list of SAPIs available for PHP {{ php_version.version }}"
+      ansible.builtin.set_fact:
+        php_sapis_available: "{{ php_phpquery_sapis_available.stdout_lines | sort }}"
+
+    - name: "Debug the sapis available for PHP {{ php_version.version }}"
+      ansible.builtin.debug:
+        var: php_sapis_available
+        verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+
+    - name: "Debug the sapis specified for PHP {{ php_version.version }}"
+      ansible.builtin.debug:
+        msg: "{{ php_version | community.general.json_query('sapis[].sapi') }}"
+        verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+
+    - name: "Loop throught the SAPIs for PHP version {{ php_version.version }}"
+      ansible.builtin.include_tasks: sapi.yml
+      loop: "{{ php_version | community.general.json_query('sapis[].sapi') }}"
+      loop_control:
+        loop_var: php_sapi
+      when: php_sapi in php_sapis_available
+
+  tags:
+    - php_cfg
+    - php_conf
+    - php_mods
+...
