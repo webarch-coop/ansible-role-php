@@ -111,7 +111,7 @@ php_versions:
 Reinstall a package and the configuration files when they have been deleted (see [serverfault comment](https://serverfault.com/a/670776)):
 
 ```bash
-UCF_FORCE_CONFFMISS=1  apt-get -o Dpkg::Options::="–force-confmiss" install "php8.1-fpm"
+UCF_FORCE_CONFFMISS=1 apt-get -o Dpkg::Options::="--force-confmiss" install --reinstall "php8.1-fpm"
 ```
 
 ## Repository
