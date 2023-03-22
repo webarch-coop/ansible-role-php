@@ -75,6 +75,41 @@ php_config:
             "date.timezone": "Europe/London"
 ```
 
+### php_modules
+
+The optional `php_modules` list can be used to enable and disable PHP modules using `phpmyquery`, which adds and removes symlinks in the `apache2/conf.d`, `cli/conf.d` and `fpm/conf.d` directories which point to `.ini` files in the `mods-available` directory for each version of PHP/
+
+Each item in the list requires a `state`, which can be `absent` or `present` and a `version` which must be a string from this list of PHP versions:
+
+```yaml
+- "8.2"
+- "8.1"
+- "8.0"
+- "7.4"
+- "7.3"
+- "7.2"
+- "7.1"
+- "7.0"
+- "5.6"
+```
+
+Plus a lists of `sapis`, each item of which requires an `sapi`, which can be one of `apache2`, `cli` or `fpm` and an optional `mods_enabled` and `mods_disabled` list.
+
+For example:
+
+```yaml
+php_modules:
+  - name: PHP 8.2 modules
+  ⦙ version: "8.2"
+  ⦙ state: present
+  ⦙ sapis:
+  ⦙ ⦙ - name: PHP 8.2 CLI modules
+  ⦙ ⦙ ⦙ sapi: cli
+  ⦙ ⦙ ⦙ mods_enabled:
+  ⦙ ⦙ ⦙ ⦙ - apcu
+  ⦙ ⦙ ⦙ ⦙ - mysqli
+```
+
 ### php_versions
 
 The optional `php_versions` list is used to install and remove PHP packages, each item in the list requires a `state`, which can be `absent` or `present` and a `version` which must be a string from this list of PHP versions:
