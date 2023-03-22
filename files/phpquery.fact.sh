@@ -27,6 +27,7 @@ then
             for s in "${sapis[@]}"
             do
               declare -a mods_enabled
+              # shellcheck disable=SC2016
               readarray -t mods_enabled < <("${phpquery_path}" -d -v "${v}" -s "${s}" -M | "${grep_path}" "Enabled for ${s}" | "${gawk_path}" '{ print $1 }' | "${sort_path}")
               echo sapis["${s}"]=$(
                 "${jo_path}" state=present mods_enabled=$(
