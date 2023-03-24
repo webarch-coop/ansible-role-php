@@ -22,6 +22,46 @@ argument_specs:
         type: bool
         required: false
         description: Check that legacy variables and not defined.
+      php_conf_dirs_absent:
+        type: list
+        elements: str
+        required: false
+        description: A generated list of PHP configuration directories to remove if present.
+      php_conf_dirs_present:
+        type: list
+        elements: str
+        required: false
+        description: A generated list of PHP configuration directories to create if absent.
+      php_conf_files_absent:
+        type: list
+        elements: str
+        required: false
+        description: A generated list of PHP configuration files to remove if present.
+      php_conf_files_edited:
+        type: list
+        elements: str
+        required: false
+        description: A generated list of PHP configuration files to edit if present.
+      php_conf_files_present:
+        type: list
+        elements: str
+        required: false
+        description: a generated list of php configuration files to edit if present or template if absent.
+      php_conf_files_templated:
+        type: list
+        elements: str
+        required: false
+        description: a generated list of php configuration files to template.
+      php_conf_ver_absent:
+        type: list
+        elements: str
+        required: false
+        description: a generated list of versions of php configuration to remove if present.
+      php_conf_ver_present:
+        type: list
+        elements: str
+        required: false
+        description: a generated list of versions of php configuration that should be present.
       php_config:
         type: list
         elements: dict
@@ -80,6 +120,45 @@ argument_specs:
               - "7.1"
               - "7.0"
               - "5.6"
+      php_debian_bullseye_pkg:
+        type: list
+        elements: str
+        required: false
+        description: A list of Debian Bullseye packages to install.
+      php_debian_buster_pkg:
+        type: list
+        elements: str
+        required: false
+        description: A list of Debian Buster packages to install.
+      php_file_path_separator:
+        type: str
+        required: true
+        description: The file path seperator to use.
+        choices:
+          - '/'
+      php_gpg_checksum:
+        type: str
+        required: true
+        description: The SHA256 checksum for https://packages.sury.org/php/apt.gpg.
+      php_gpg_fingerprints:
+        type: list
+        elements: str
+        required: true
+        description: A list GPG fingerprints from https://packages.sury.org/php/apt.gpg.
+      php_gpg_url:
+        type: str
+        required: true
+        description: The URL of the Sury GPG public key.
+      php_mods_ver_absent:
+        type: list
+        elements: str
+        required: false
+        description: A generated list of PHP versions for which module configuration should be absent.
+      php_mods_ver_present:
+        type: list
+        elements: str
+        required: false
+        description: A generated list of PHP versions for which module configuration should be present.
       php_modules:
         type: list
         elements: dict
@@ -138,10 +217,39 @@ argument_specs:
               - "7.1"
               - "7.0"
               - "5.6"
+      php_pkg_absent:
+        type: list
+        elements: str
+        required: false
+        description: A generated list of PHP packages which should be absent.
+      php_pkg_present:
+        type: list
+        elements: str
+        required: false
+        description: A generated list of PHP packages which should be present.
       php_sury:
         type: bool
         required: false
         description: Configure the Sury PHP deb package repo.
+      php_ver_absent:
+        type: list
+        elements: str
+        required: false
+        description: A generated list of PHP versions which should be absent.
+      php_ver_absent_regex:
+        type: str
+        required: true
+        description: A pattern to use as a regular expression to find versions of PHP which should be absent.
+      php_ver_pkg_remove:
+        type: list
+        elements: str
+        required: false
+        description: A generated list of PHP packages to remove.
+      php_ver_present:
+        type: list
+        elements: str
+        required: false
+        description: A generated list of PHP versions which should be present.
       php_versions:
         type: list
         elements: dict
