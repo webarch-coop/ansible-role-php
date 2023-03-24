@@ -11,6 +11,21 @@
 - name: PHP
   block:
 
+    - name: Debug the hostvars variable names that start with php_
+      ansible.builtin.debug:
+        var: phpvarnames
+        verbosity: 3
+
+    - name: Debug the hostvars variable names that start with php_
+      ansible.builtin.debug:
+        var: phphostvars
+        verbosity: 2
+
+    - name: Check php_ variables using meta/argument_specs.yml
+      ansible.builtin.validate_argument_spec:
+        argument_spec: "{{ (lookup('ansible.builtin.file', 'meta/argument_specs.yml') | from_yaml )['argument_specs']['main']['options'] }}"
+        provided_arguments: "{{ phphostvars }}"
+
     - name: Include apt role local fact tasks
       ansible.builtin.include_role:
         name: apt
