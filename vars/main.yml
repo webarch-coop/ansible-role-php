@@ -9,7 +9,7 @@
 # You should have received a copy of the GNU General Public License along with the Webarchitects PHP Ansible role. If not, see <https://www.gnu.org/licenses/>.
 ---
 # https://docs.ansible.com/ansible/latest/playbook_guide/complex_data_manipulation.html
-phpvarnames: "{{ q('varnames', '^php_') }}"
+phpvarnames: "{{ q('varnames', '^php_') | sort }}"
 phphostvars: "{{ dict(phpvarnames | list | zip(q('vars', *phpvarnames))) }}"
 
 php_file_path_separator: '/'

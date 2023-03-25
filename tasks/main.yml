@@ -14,12 +14,12 @@
     - name: Debug the hostvars variable names that start with php_
       ansible.builtin.debug:
         var: phpvarnames
-        verbosity: 3
+        verbosity: 2
 
     - name: Debug the hostvars variable names that start with php_
       ansible.builtin.debug:
         var: phphostvars
-        verbosity: 2
+        verbosity: 3
 
     - name: Check php_ variables using meta/argument_specs.yml
       ansible.builtin.validate_argument_spec:
