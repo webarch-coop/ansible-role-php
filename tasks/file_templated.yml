@@ -64,7 +64,7 @@
         group: root
       register: php_conf_file_templated
 
-    - name: Test and reload PHP configuration file when file is in a FPM directory
+    - name: Test and reload PHP configuration file when file is in a FPM directory and the init system is systemd
       block:
 
         - name: Test PHP configuration
@@ -113,6 +113,7 @@
             state: reloaded
 
       when:
+        - php_init == "systemd"
         - php_conf_file_version is defined
         - php_conf_file_version in php_ver_installed
         - php_conf_file_templated.changed is defined

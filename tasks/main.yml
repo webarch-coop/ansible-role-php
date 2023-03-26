@@ -43,6 +43,15 @@
         - php_cfg
         - php_conf
 
+    - name: Include the init system check tasks
+      ansible.builtin.include_tasks: check_vars.yml
+      tags:
+        - php_apt
+        - php_cfg
+        - php_conf
+        - php_mods
+        - php_pkg
+
     - name: Include Sury PHP apt repo tasks
       ansible.builtin.include_tasks: apt.yml
       when: php_sury is defined
