@@ -44,7 +44,7 @@
         - php_conf
 
     - name: Include the init system check tasks
-      ansible.builtin.include_tasks: check_vars.yml
+      ansible.builtin.include_tasks: check_init.yml
       tags:
         - php_apt
         - php_cfg
