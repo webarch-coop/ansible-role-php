@@ -37,14 +37,6 @@
       tags:
         - php_apt
 
-    # - name: Include local fact tasks
-    #   ansible.builtin.include_tasks: local_facts.yml
-    #   when: ansible_local.phpquery is not defined
-    #   tags:
-    #     - php_cfg
-    #     - php_conf
-    #     - php_mods
-
     - name: Include PHP variable check tasks
       ansible.builtin.include_tasks: check_vars.yml
       tags:
