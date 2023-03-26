@@ -159,6 +159,7 @@
             state: reloaded
 
       when:
+        - php_init is defined
         - php_init == "systemd"
         - php_conf_file_version in php_ver_installed
         - php_conf_file_changed | bool

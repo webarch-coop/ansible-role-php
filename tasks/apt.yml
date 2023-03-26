@@ -73,7 +73,7 @@
         group: root
       register: php_preferences
 
-    - name: Update apt cache
+    - name: Update apt cache  # noqa: no-handler
       ansible.builtin.apt:
         update_cache: true
         cache_valid_time: 60
@@ -102,7 +102,7 @@
         label: "{{ path | basename }}"
       register: php_repo_absent
 
-    - name: Update apt cache
+    - name: Update apt cache  # noqa: no-handler
       ansible.builtin.apt:
         update_cache: true
         cache_valid_time: 60

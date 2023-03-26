@@ -113,6 +113,7 @@
             state: reloaded
 
       when:
+        - php_init is defined
         - php_init == "systemd"
         - php_conf_file_version is defined
         - php_conf_file_version in php_ver_installed
@@ -121,7 +122,7 @@
         - php_conf_file_sapi is defined
         - php_conf_file_sapi == "fpm"
 
-    - name: File backup absent when the PHP configuration file is unchanged
+    - name: File backup absent when the PHP configuration file is unchanged  # noqa: no-handler
       ansible.builtin.file:
         path: "{{ php_conf_file_backup }}"
         state: absent
