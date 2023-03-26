@@ -14,12 +14,12 @@
     - name: Debug the hostvars variable names that start with php_
       ansible.builtin.debug:
         var: phpvarnames
-        verbosity: 2
+        verbosity: "{% if ansible_check_mode | bool %}3{% else %}4{% endif %}"
 
     - name: Debug the hostvars variable names that start with php_
       ansible.builtin.debug:
         var: phphostvars
-        verbosity: 3
+        verbosity: "{% if ansible_check_mode | bool %}3{% else %}4{% endif %}"
 
     - name: Check php_ variables using meta/argument_specs.yml
       ansible.builtin.validate_argument_spec:

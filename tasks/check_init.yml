@@ -26,7 +26,7 @@
 
     - name: When the exit code is 47 assume is is because this is a chroot
       ansible.builtin.set_fact:
-        php_init: "{{ php_ps.stdout }}"
+        php_init: chroot
       when: php_ps.rc == 47
 
     - name: Debug the ini system
