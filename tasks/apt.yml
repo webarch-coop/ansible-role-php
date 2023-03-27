@@ -37,7 +37,14 @@
       block:
 
         - name: PHP gpg key check command
-          ansible.builtin.command: gpg --with-colons --show-keys /etc/apt/keyrings/php.gpg
+          ansible.builtin.command: >-
+            gpg --with-colons
+            {% if ansible_local.gpg.version is version('2.2.12', '<') %}
+            --with-fingerprint --with-subkey-fingerprint
+            {% else %}
+            --show-keys
+            {% endif %}
+            /etc/apt/keyrings/php.gpg
           check_mode: false
           changed_when: false
           register: php_gpg
