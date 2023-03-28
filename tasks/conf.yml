@@ -85,7 +85,25 @@
           {% for php_v in php_conf_files_edited | ansible.builtin.difference(php_conf_files_existing) %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %}.
       when: php_conf_files_edited | ansible.builtin.difference(php_conf_files_existing) | length != 0
 
-    # TODO Add a check that the PHP vesion in the file path matched the PHP version that is being configured
+    - name: Check if the PHP version in the file path matches the PHP version that is being configured
+      ansible.builtin.debug:
+        msg:
+          - "PHP version: {{ php_ver }}"
+          - "PHP file path versions: {{ php_config | community.general.json_query(php_conf_file_paths_jmespath_query) | map('regex_replace', '^[/]etc[/]php[/]') | map('regex_replace', '[/].*$') | unique }}"
+        verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+      vars:
+        php_conf_file_paths_jmespath_query: "[?version=='{{ php_ver }}'].files[].path"
+      loop: "{{ php_conf_ver_present }}"
+      loop_control:
+        loop_var: php_ver
+
+    - name: Include PHPconf file path checks
+      ansible.builtin.include_tasks: conf_path_check.yml
+      vars:
+        php_conf_file_paths: "{{ php_config | community.general.json_query(php_conf_file_paths_jmespath_query) }}"
+      loop: "{{ php_conf_ver_present }}"
+      loop_control:
+        loop_var: php_ver
 
     - name: Ensure that all files that are set to be edited already exist
       ansible.builtin.assert:

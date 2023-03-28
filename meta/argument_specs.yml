@@ -130,6 +130,10 @@ argument_specs:
         elements: str
         required: false
         description: A list of Debian Buster packages to install.
+      php_conf_file_paths_jmespath_query:
+        type: str
+        required: true
+        description: A internale JMESPath query string.
       php_file_path_separator:
         type: str
         required: true
@@ -231,6 +235,10 @@ argument_specs:
         type: bool
         required: false
         description: Configure the Sury PHP deb package repo.
+      php_ver:
+        type: str
+        required: false
+        description: A PHP version loop variable, only used internally by this role.
       php_ver_absent:
         type: list
         elements: str

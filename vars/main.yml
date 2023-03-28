@@ -33,6 +33,11 @@ php_pkg_absent: "{{ php_versions | ansible.builtin.json_query('[?state==`present
 # cat defaults/main.yml | yq -o=json | jp "php_versions[?state=='present'].pkg_present[]" | sort -u
 php_pkg_present: "{{ php_versions | ansible.builtin.json_query('[?state==`present`].pkg_present[]') | ansible.builtin.unique | sort }}"
 
+# The php_ver is ued as an internal loop variable
+php_ver: null
+# PHP config file paths
+php_conf_file_paths_jmespath_query: "[?version=='{{ php_ver }}'].files[].path"
+
 # PHP versions configuration absent
 # cat defaults/main.yml | yq -o=json | jp "php_config[?state=='absent'].version"
 php_conf_ver_absent: "{{ php_config | ansible.builtin.json_query('[?state==`absent`].version') | sort }}"
