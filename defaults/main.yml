@@ -313,6 +313,162 @@ php_modules:
           - xmlwriter
           - xsl
           - zip
+  - name: PHP 8.1 modules
+    version: "8.1"
+    state: present
+    sapis:
+      - name: PHP 8.1 CLI modules
+        sapi: cli
+        mods_enabled:
+          - apcu
+          - bcmath
+          - bz2
+          - calendar
+          - ctype
+          - curl
+          - dom
+          - exif
+          - ffi
+          - fileinfo
+          - ftp
+          - gd
+          - gettext
+          - gmp
+          - iconv
+          - imagick
+          - imap
+          - intl
+          - ldap
+          - mbstring
+          - mysqli
+          - mysqlnd
+          - opcache
+          - pdo
+          - pdo_mysql
+          - pdo_sqlite
+          - phar
+          - posix
+          - readline
+          - shmop
+          - simplexml
+          - soap
+          - sockets
+          - sqlite3
+          - sysvmsg
+          - sysvsem
+          - sysvshm
+          - tokenizer
+          - uploadprogress
+          - xml
+          - xmlreader
+          - xmlrpc
+          - xmlwriter
+          - xsl
+          - zip
+  - name: PHP 8.0 modules
+    version: "8.0"
+    state: present
+    sapis:
+      - name: PHP 8.0 CLI modules
+        sapi: cli
+        mods_enabled:
+          - apcu
+          - bcmath
+          - bz2
+          - calendar
+          - ctype
+          - curl
+          - dom
+          - exif
+          - ffi
+          - fileinfo
+          - ftp
+          - gd
+          - gettext
+          - gmp
+          - iconv
+          - imagick
+          - imap
+          - intl
+          - ldap
+          - mbstring
+          - mysqli
+          - mysqlnd
+          - opcache
+          - pdo
+          - pdo_mysql
+          - pdo_sqlite
+          - phar
+          - posix
+          - readline
+          - shmop
+          - simplexml
+          - soap
+          - sockets
+          - sqlite3
+          - sysvmsg
+          - sysvsem
+          - sysvshm
+          - tokenizer
+          - uploadprogress
+          - xml
+          - xmlreader
+          - xmlrpc
+          - xmlwriter
+          - xsl
+          - zip
+  - name: PHP 7.4 modules
+    version: "7.4"
+    state: present
+    sapis:
+      - name: PHP 7.4 CLI modules
+        sapi: cli
+        mods_enabled:
+          - apcu
+          - bcmath
+          - bz2
+          - calendar
+          - ctype
+          - curl
+          - dom
+          - exif
+          - ffi
+          - fileinfo
+          - ftp
+          - gd
+          - gettext
+          - gmp
+          - iconv
+          - imagick
+          - imap
+          - intl
+          - ldap
+          - mbstring
+          - mysqli
+          - mysqlnd
+          - opcache
+          - pdo
+          - pdo_mysql
+          - pdo_sqlite
+          - phar
+          - posix
+          - readline
+          - shmop
+          - simplexml
+          - soap
+          - sockets
+          - sqlite3
+          - sysvmsg
+          - sysvsem
+          - sysvshm
+          - tokenizer
+          - uploadprogress
+          - xml
+          - xmlreader
+          - xmlrpc
+          - xmlwriter
+          - xsl
+          - zip
 php_sury: true
 php_versions:
   - name: PHP 8.2 packages
