@@ -16,10 +16,10 @@
         msg:
           - "File: {{ php_conf_file }}"
           - "Section: {{ php_conf_section.key }}"
-          - "Existing {{ php_conf_variable_pair.key }}: '{{ php_conf_file_existing_vars | ansible.builtin.json_query(php_conf_variable_json_query) }}'"
+          - "Existing {{ php_conf_variable_pair.key }}: '{{ php_conf_file_existing_vars | community.general.json_query(php_conf_variable_json_query) }}'"
           - "Proposed {{ php_conf_variable_pair.key }}: '{{ php_conf_variable_pair.value }};"
         verbosity: "{% if ansible_check_mode | bool %}0{% else %}1{% endif %}"
-      when: php_conf_variable_pair.value != php_conf_file_existing_vars | ansible.builtin.json_query(php_conf_variable_json_query)
+      when: php_conf_variable_pair.value != php_conf_file_existing_vars | community.general.json_query(php_conf_variable_json_query)
       vars:
         php_conf_variable_json_query: '"{{ php_conf_section.key }}"."{{ php_conf_variable_pair.key }}"'
       loop: "{{ php_conf_section.value | ansible.builtin.dict2items }}"
@@ -37,7 +37,7 @@
         mode: 0644
         owner: root
         group: root
-      when: php_conf_variable_pair.value != php_conf_file_existing_vars | ansible.builtin.json_query(php_conf_variable_json_query)
+      when: php_conf_variable_pair.value != php_conf_file_existing_vars | community.general.json_query(php_conf_variable_json_query)
       vars:
         php_conf_variable_json_query: '"{{ php_conf_section.key }}"."{{ php_conf_variable_pair.key }}"'
         php_conf_variable_regex: "^[;]{{ php_conf_variable_pair.key }}[ =]"
@@ -56,7 +56,7 @@
         mode: 0644
         owner: root
         group: root
-      when: php_conf_variable_pair.value != php_conf_file_existing_vars | ansible.builtin.json_query(php_conf_variable_json_query)
+      when: php_conf_variable_pair.value != php_conf_file_existing_vars | community.general.json_query(php_conf_variable_json_query)
       vars:
         php_conf_variable_json_query: '"{{ php_conf_section.key }}"."{{ php_conf_variable_pair.key }}"'
       loop: "{{ php_conf_section.value | ansible.builtin.dict2items }}"

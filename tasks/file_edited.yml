@@ -32,7 +32,7 @@
 
     - name: Set a fact for the proposed PHP configuration file variables
       ansible.builtin.set_fact:
-        php_conf_file_proposed_vars: "{{ php_config | ansible.builtin.json_query(php_conf_file_proposed_vars_json_query) }}"
+        php_conf_file_proposed_vars: "{{ php_config | community.general.json_query(php_conf_file_proposed_vars_json_query) }}"
       vars:
         php_conf_file_proposed_vars_json_query: "[?state=='present'].files[]|[?path=='{{ php_conf_file }}'].conf|[0]"
 
@@ -50,8 +50,8 @@
       ansible.builtin.set_fact:
         php_conf_file_backup: "{{ php_conf_file | ansible.builtin.dirname }}/.{{ php_conf_file | ansible.builtin.basename }}.{{ ansible_date_time.iso8601_basic_short }}.bak"
         php_conf_file_changed: false
-        php_conf_file_sapi: "{{ php_conf_file | ansible.builtin.split(php_file_path_separator) | ansible.builtin.json_query('[4]') }}"
-        php_conf_file_version: "{{ php_conf_file | ansible.builtin.split(php_file_path_separator) | ansible.builtin.json_query('[3]') }}"
+        php_conf_file_sapi: "{{ php_conf_file | ansible.builtin.split(php_file_path_separator) | community.general.json_query('[4]') }}"
+        php_conf_file_version: "{{ php_conf_file | ansible.builtin.split(php_file_path_separator) | community.general.json_query('[3]') }}"
 
     - name: Debug the PHP configuration file backup path
       ansible.builtin.debug:

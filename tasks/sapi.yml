@@ -13,13 +13,13 @@
 
     - name: Debug the PHP SAPI mods disabled
       ansible.builtin.debug:
-        var: php_sapi.mode_disabled
+        var: php_sapi.mods_disabled
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
       when: php_sapi.mods_disabled is defined
 
     - name: Debug the PHP SAPI modes enabled
       ansible.builtin.debug:
-        var: php_sapi.mode_enabled
+        var: php_sapi.mods_enabled
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
       when: php_sapi.mods_enabled is defined
 
