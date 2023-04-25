@@ -90,6 +90,11 @@
                 owner: root
                 group: root
 
+            - name: Check if a backup files exists
+              ansible.builtin.stat:
+                path: "{{ php_conf_file_backup }}"
+              register: php_conf_file_backup_path
+
             - name: Copy backup file over edited file as the configuration test failed
               ansible.builtin.copy:
                 src: "{{ php_conf_file_backup }}"
@@ -98,6 +103,7 @@
                 mode: 0644
                 owner: root
                 group: root
+              when: php_conf_file_backup_path.stat.exists | bool
 
             - name: Debug PHP configuration file test failure
               ansible.builtin.debug:
