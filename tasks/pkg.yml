@@ -91,6 +91,7 @@
         pkg: "{{ php_pkg_install }}"
         state: latest
         dpkg_options: force-confmiss
+        upgrade: dist
         update_cache: true
       environment:
         UCF_FORCE_CONFFMISS: "1"
