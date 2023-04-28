@@ -68,6 +68,12 @@
         verbosity: "{% if ansible_check_mode | bool and php_pkg_present != [] %}1{% elif php_pkg_present != [] %}2{% else %}3{% endif %}"
       when: php_pkg_present is defined
 
+    - name: Debug PHP packages installed
+      ansible.builtin.debug:
+        var: ansible_local.dpkg.installed
+        verbosity: "{% if ansible_check_mode | bool and php_pkg_present != [] %}1{% elif php_pkg_present != [] %}2{% else %}3{% endif %}"
+      when: php_pkg_present is defined
+
     - name: Set a fact for PHP packages that should be installed
       ansible.builtin.set_fact:
         php_pkg_install: "{{ php_pkg_present | ansible.builtin.difference(ansible_local.dpkg.installed) }}"
