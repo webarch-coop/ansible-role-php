@@ -11,7 +11,7 @@
 argument_specs:
   main:
     author: Chris Croome
-    description: Ansible role for installing and configuring PHP on Debian
+    description: Ansible role for installing and configuring PHP on Debian.
     short_description: The main entry point for the PHP role.
     options:
       php:
