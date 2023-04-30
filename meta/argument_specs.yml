@@ -258,6 +258,10 @@ argument_specs:
         elements: str
         required: false
         description: A generated list of PHP versions which should be present.
+      php_verify:
+        type: bool
+        required: false
+        description: Varify all variables starting with php_ using the argument spec.
       php_versions:
         type: list
         elements: dict

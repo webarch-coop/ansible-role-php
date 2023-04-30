@@ -11,20 +11,13 @@
 - name: PHP
   block:
 
-    - name: Debug the hostvars variable names that start with php_
-      ansible.builtin.debug:
-        var: phpvarnames
-        verbosity: "{% if ansible_check_mode | bool %}3{% else %}4{% endif %}"
-
-    - name: Debug the hostvars variable names that start with php_
-      ansible.builtin.debug:
-        var: phphostvars
-        verbosity: "{% if ansible_check_mode | bool %}3{% else %}4{% endif %}"
-
-    - name: Check php_ variables using meta/argument_specs.yml
-      ansible.builtin.validate_argument_spec:
-        argument_spec: "{{ (lookup('ansible.builtin.file', 'meta/argument_specs.yml') | from_yaml )['argument_specs']['main']['options'] }}"
-        provided_arguments: "{{ phphostvars }}"
+    - name: Include PHP verify variables tasks
+      ansible.builtin.include_tasks: verify.yml
+      when:
+        - php_verify is defined
+        - php_verify | bool
+      tags:
+        - php_verify
 
     - name: Include apt role local fact tasks
       ansible.builtin.include_role:
