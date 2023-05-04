@@ -143,6 +143,8 @@
         msg: "PHP modules are set to be present for {% for php_v in php_mods_ver_present | ansible.builtin.intersect(php_ver_absent) %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %} but the pkgs are set to be absent."
       when: php_mods_ver_present | ansible.builtin.intersect(php_ver_absent) != []
 
+    # sapis are required when php_modules are set to be present
+
   tags:
     - php
     - php_cfg

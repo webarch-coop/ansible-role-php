@@ -176,7 +176,7 @@ argument_specs:
           sapis:
             type: list
             elements: dict
-            required: true
+            required: false
             options:
               mods_disabled:
                 type: list
