@@ -15,6 +15,34 @@ php_config:
     version: "8.2"
     state: present
     files:
+      - name: PHP 8.2 CLI configuration
+        path: /etc/php/8.2/cli/php.ini
+        state: present
+        conf:
+          apc:
+            "apc.coredump_unmap": "0"
+            "apc.enable_cli": "1"
+            "apc.enabled": "1"
+            "apc.entries_hint": "4096"
+            "apc.gc_ttl": "3600"
+            "apc.serializer": "php"
+            "apc.shm_segments": "1"
+            "apc.shm_size": "32M"
+            "apc.slam_defense": "1"
+            "apc.ttl": "0"
+            "apc.use_request_time": "0"
+          "CLI Server":
+            "cli_server.color": "on"
+          MySQLi:
+            "mysqli.allow_local_infile": "Off"
+            "mysqli.allow_persistent": "On"
+            "mysqli.default_port": '3306'
+            "mysqli.max_links": "-1"
+            "mysqli.max_persistent": "-1"
+            "mysqli.reconnect": "Off"
+            "mysqli.default_socket": "/run/mysqld/mysqld.sock"
+          Pdo_mysql:
+            "pdo_mysql.default_socket": "/run/mysqld/mysqld.sock"
       - name: PHP 8.2 FPM configuration
         path: /etc/php/8.2/fpm/php.ini
         state: edited
@@ -72,17 +100,30 @@ php_config:
         path: /etc/php/8.1/cli/php.ini
         state: present
         conf:
+          apc:
+            "apc.coredump_unmap": "0"
+            "apc.enable_cli": "1"
+            "apc.enabled": "1"
+            "apc.entries_hint": "4096"
+            "apc.gc_ttl": "3600"
+            "apc.serializer": "php"
+            "apc.shm_segments": "1"
+            "apc.shm_size": "32M"
+            "apc.slam_defense": "1"
+            "apc.ttl": "0"
+            "apc.use_request_time": "0"
           "CLI Server":
             "cli_server.color": "on"
           MySQLi:
-            "mysqli.max_persistent": "-1"
             "mysqli.allow_local_infile": "Off"
             "mysqli.allow_persistent": "On"
-            "mysqli.max_links": "-1"
             "mysqli.default_port": '3306'
+            "mysqli.max_links": "-1"
+            "mysqli.max_persistent": "-1"
             "mysqli.reconnect": "Off"
+            "mysqli.default_socket": "/run/mysqld/mysqld.sock"
           Pdo_mysql:
-            "pdo_mysql.default_socket":
+            "pdo_mysql.default_socket": "/run/mysqld/mysqld.sock"
       - name: PHP 8.1 FPM configuration
         path: /etc/php/8.1/fpm/php.ini
         state: edited
@@ -136,6 +177,34 @@ php_config:
     version: "8.0"
     state: present
     files:
+      - name: PHP 8.0 CLI configuration
+        path: /etc/php/8.0/cli/php.ini
+        state: present
+        conf:
+          apc:
+            "apc.coredump_unmap": "0"
+            "apc.enable_cli": "1"
+            "apc.enabled": "1"
+            "apc.entries_hint": "4096"
+            "apc.gc_ttl": "3600"
+            "apc.serializer": "php"
+            "apc.shm_segments": "1"
+            "apc.shm_size": "32M"
+            "apc.slam_defense": "1"
+            "apc.ttl": "0"
+            "apc.use_request_time": "0"
+          "CLI Server":
+            "cli_server.color": "on"
+          MySQLi:
+            "mysqli.allow_local_infile": "Off"
+            "mysqli.allow_persistent": "On"
+            "mysqli.default_port": '3306'
+            "mysqli.max_links": "-1"
+            "mysqli.max_persistent": "-1"
+            "mysqli.reconnect": "Off"
+            "mysqli.default_socket": "/run/mysqld/mysqld.sock"
+          Pdo_mysql:
+            "pdo_mysql.default_socket": "/run/mysqld/mysqld.sock"
       - name: PHP 8.0 FPM configuration
         path: /etc/php/8.0/fpm/php.ini
         state: edited
@@ -189,6 +258,34 @@ php_config:
     version: "7.4"
     state: present
     files:
+      - name: PHP 7.4 CLI configuration
+        path: /etc/php/7.4/cli/php.ini
+        state: present
+        conf:
+          apc:
+            "apc.coredump_unmap": "0"
+            "apc.enable_cli": "1"
+            "apc.enabled": "1"
+            "apc.entries_hint": "4096"
+            "apc.gc_ttl": "3600"
+            "apc.serializer": "php"
+            "apc.shm_segments": "1"
+            "apc.shm_size": "32M"
+            "apc.slam_defense": "1"
+            "apc.ttl": "0"
+            "apc.use_request_time": "0"
+          "CLI Server":
+            "cli_server.color": "on"
+          MySQLi:
+            "mysqli.allow_local_infile": "Off"
+            "mysqli.allow_persistent": "On"
+            "mysqli.default_port": '3306'
+            "mysqli.max_links": "-1"
+            "mysqli.max_persistent": "-1"
+            "mysqli.reconnect": "Off"
+            "mysqli.default_socket": "/run/mysqld/mysqld.sock"
+          Pdo_mysql:
+            "pdo_mysql.default_socket": "/run/mysqld/mysqld.sock"
       - name: PHP 7.4 FPM configuration
         path: /etc/php/7.4/fpm/php.ini
         state: edited
