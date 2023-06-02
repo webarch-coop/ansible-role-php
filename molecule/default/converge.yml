@@ -8,13 +8,33 @@
 #
 # You should have received a copy of the GNU General Public License along with the Webarchitects PHP Ansible role. If not, see <https://www.gnu.org/licenses/>.
 ---
-dependency:
-  name: galaxy
-platforms:
-  - name: instance
-provisioner:
-  name: ansible
-verifier:
-  name: ansible
+- name: Lint
+  become: false
+  connection: local
+  gather_facts: false
+  hosts:
+    - localhost
+  tasks:
+
+    - name: Check Jinja2 syntax
+      ansible.builtin.command: find -type f -name '*.j2' -exec ansiblej2lint.py {} +
+      check_mode: false
+      args:
+        chdir: ../..
+      changed_when: false
+
+    - name: YAML lint
+      ansible.builtin.command: yamllint -f colored -c .yamllint .
+      check_mode: false
+      args:
+        chdir: ../..
+      changed_when: false
+
+    - name: Ansible lint
+      ansible.builtin.command: ansible-lint -c .ansible-lint --force-color .
+      check_mode: false
+      args:
+        chdir: ../..
+      changed_when: false
 # vim: syntax=yaml
 ...
