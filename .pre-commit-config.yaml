@@ -12,7 +12,17 @@
 # https://github.com/adrienverge/yamllint/tags
 repos:
   - repo: https://github.com/adrienverge/yamllint.git
-    rev: v1.31.0
+    rev: v1.32.0
     hooks:
       - id: yamllint
+        name: YAML Lint
+  - repo: https://github.com/ansible/ansible-lint.git
+    rev: v6.17.0
+    hooks:
+      - id: ansible-lint
+        name: Ansible Lint
+        language: python
+        additional_dependencies:
+          - jc==1.23.2
+          - jmespath==1.0.1
 ...
