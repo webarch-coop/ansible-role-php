@@ -95,6 +95,7 @@
     - name: Debug PHP packages absent result  # noqa no-handler
       ansible.builtin.debug:
         var: php_packages_removed.stdout_lines
+        verbosity: "{% if ansible_check_mode | bool and php_pkg_present != [] %}1{% elif php_pkg_present != [] %}2{% else %}3{% endif %}"
       when: php_packages_removed.changed | bool
 
     - name: PHP packages present
@@ -111,6 +112,7 @@
     - name: Debug PHP packages present result  # noqa no-handler
       ansible.builtin.debug:
         var: php_packages_installed.stdout_lines
+        verbosity: "{% if ansible_check_mode | bool and php_pkg_present != [] %}1{% elif php_pkg_present != [] %}2{% else %}3{% endif %}"
       when: php_packages_installed.changed | bool
 
     - name: PHP packages absent
@@ -124,6 +126,7 @@
     - name: Debug PHP packages absent result  # noqa no-handler
       ansible.builtin.debug:
         var: php_packages_removed.stdout_lines
+        verbosity: "{% if ansible_check_mode | bool and php_pkg_present != [] %}1{% elif php_pkg_present != [] %}2{% else %}3{% endif %}"
       when: php_packages_removed.changed | bool
 
     - name: Dist upgrade
