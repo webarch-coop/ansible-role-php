@@ -100,7 +100,7 @@
       ansible.builtin.assert:
         that:
           - ansible_distribution_release is defined
-          - ansible_distribution_release is regex("^buster|bullseye$")
+          - ansible_distribution_release is regex("^bullseye|bookworm$")
         quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
         fail_msg: "The Linux distro {{ ansible_distribution }} {{ ansible_distribution_release }} is not supported by this role"
 
