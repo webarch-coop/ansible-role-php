@@ -15,7 +15,7 @@
       ansible.builtin.file:
         path: /etc/apt/keyrings
         state: directory
-        mode: 0755
+        mode: "0755"
         owner: root
         group: root
 
@@ -24,7 +24,7 @@
         url: "{{ php_gpg_url }}"
         checksum: "{{ php_gpg_checksum }}"
         dest: /etc/apt/keyrings/php.gpg
-        mode: 0644
+        mode: "0644"
         owner: root
         group: root
 
@@ -66,7 +66,7 @@
       ansible.builtin.template:
         src: php.sources.j2
         dest: /etc/apt/sources.list.d/php.sources
-        mode: 0644
+        mode: "0644"
         owner: root
         group: root
       register: php_sources
@@ -75,7 +75,7 @@
       ansible.builtin.template:
         src: php.pref.j2
         dest: /etc/apt/preferences.d/php.pref
-        mode: 0644
+        mode: "0644"
         owner: root
         group: root
       register: php_preferences

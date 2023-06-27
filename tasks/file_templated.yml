@@ -50,7 +50,7 @@
         src: "{{ php_conf_file }}"
         dest: "{{ php_conf_file_backup }}"
         remote_src: true
-        mode: 0644
+        mode: "0644"
         owner: root
         group: root
       when: php_conf_file in php_conf_files_existing
@@ -59,7 +59,7 @@
       ansible.builtin.template:
         src: php.j2
         dest: "{{ php_conf_file }}"
-        mode: 0644
+        mode: "0644"
         owner: root
         group: root
       register: php_conf_file_templated
@@ -86,7 +86,7 @@
                 src: "{{ php_conf_file }}"
                 dest: "{{ php_conf_file_backup }}.broken"
                 remote_src: true
-                mode: 0644
+                mode: "0644"
                 owner: root
                 group: root
 
@@ -100,7 +100,7 @@
                 src: "{{ php_conf_file_backup }}"
                 dest: "{{ php_conf_file }}"
                 remote_src: true
-                mode: 0644
+                mode: "0644"
                 owner: root
                 group: root
               when: php_conf_file_backup_path.stat.exists | bool

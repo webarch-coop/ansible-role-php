@@ -34,7 +34,7 @@
         regex: "{{ php_conf_variable_regex }}"
         state: present
         backrefs: true
-        mode: 0644
+        mode: "0644"
         owner: root
         group: root
       when: php_conf_variable_pair.value != php_conf_file_existing_vars | community.general.json_query(php_conf_variable_json_query)
@@ -53,7 +53,7 @@
         option: "{{ php_conf_variable_pair.key }}"
         value: "{{ php_conf_variable_pair.value }}"
         no_extra_spaces: false
-        mode: 0644
+        mode: "0644"
         owner: root
         group: root
       when: php_conf_variable_pair.value != php_conf_file_existing_vars | community.general.json_query(php_conf_variable_json_query)

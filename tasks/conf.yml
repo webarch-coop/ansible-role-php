@@ -167,7 +167,7 @@
       ansible.builtin.file:
         path: "{{ php_dir }}"
         state: directory
-        mode: 0755
+        mode: "0755"
         owner: root
         group: root
       loop: "{{ php_conf_dirs_create }}"
