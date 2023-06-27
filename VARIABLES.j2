@@ -1,0 +1,41 @@
+# Webarchitects Ansible WordPress Command Line Interface (WP-CLI) Role Variables
+
+Documentation for all the variables, including internal ones which you do not need to set, follow, this documentation has been generated from the [meta/argument_specs.yml](meta/argument_specs.yml).
+
+{% for entrypoint in argument_specs.keys() %}
+{%- set path, options=entrypoint_options[entrypoint][0] -%}
+## Entrypoint: {{ entrypoint }}
+
+{{ argument_specs[entrypoint].short_description }}
+
+|Option|Description|Type|Required|
+|---|---|---|---|
+{%- for name, details in options.items() %}
+| {{ name }} | {{ details.display_description }} | {{ details.display_type }} | {{ details.display_required }} |
+{%- endfor %}
+
+{% if entrypoint_options[entrypoint] | length > 1 -%}
+{% for path, options in entrypoint_options[entrypoint][1:] -%}
+### Options for {{ path | join(" > ") }}
+
+|Option|Description|Type|Required|
+|---|---|---|---|
+{%- for name, details in options.items() %}
+| {{ name }} | {{ details.display_description }} | {{ details.display_type }} | {{ details.display_required }} |
+{%- endfor %}
+
+{% endfor -%}
+{% endif -%}
+{% if entrypoint in entrypoint_choices -%}
+{% for path, choices in entrypoint_choices[entrypoint] -%}
+### Choices for {{ path | join(" > ") }}
+
+|Choice|
+|---|
+{%- for item in choices %}
+| {{ item }} |
+{%- endfor %}
+
+{% endfor -%}
+{% endif -%}
+{% endfor %}

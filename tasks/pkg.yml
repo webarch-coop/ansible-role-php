@@ -92,6 +92,11 @@
       register: php_packages_removed
       when: php_pkg_rm != []
 
+    - name: Debug PHP packages absent result
+      ansible.builtin.debug:
+        var: php_packages_removed
+      when: php_packages_removed.changed | bool
+
     - name: PHP packages present
       ansible.builtin.apt:
         pkg: "{{ php_pkg_install }}"
@@ -102,6 +107,11 @@
         UCF_FORCE_CONFFMISS: "1"
       register: php_packages_installed
       when: php_pkg_install != []
+
+    - name: Debug PHP packages present result
+      ansible.builtin.debug:
+        var: php_packages_installed
+      when: php_packages_installed.changed | bool
 
     - name: Apt clean
       ansible.builtin.include_tasks: apt_clean.yml
