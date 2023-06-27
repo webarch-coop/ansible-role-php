@@ -8,10 +8,8 @@
 #
 # You should have received a copy of the GNU General Public License along with the Webarchitects PHP Ansible role. If not, see <https://www.gnu.org/licenses/>.
 ---
-# https://ansible-lint.readthedocs.io/rules/
-skip_list:
-  - key-order[task]
-  - name[template]
-  - package-latest
-# vim: syntax=yaml
+- name: apt
+  src: https://git.coop/webarch/apt.git
+  version: 2.2.3  # apt
+  scm: git
 ...

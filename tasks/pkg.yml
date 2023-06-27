@@ -19,7 +19,7 @@
 
     - name: Set a fact for installed PHP packages that are to be removed
       ansible.builtin.set_fact:
-        php_pkg_remove: "{{ ansible_local.dpkg.installed | ansible.builtin.intersect(php_pkg_absent) | default ([]) }}"
+        php_pkg_remove: "{{ ansible_local.dpkg.installed | ansible.builtin.intersect(php_pkg_absent) | default([]) }}"
 
     - name: Debug installed PHP packages that are to be removed
       ansible.builtin.debug:

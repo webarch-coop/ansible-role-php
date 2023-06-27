@@ -16,5 +16,4 @@ provisioner:
   name: ansible
 verifier:
   name: ansible
-# vim: syntax=yaml
 ...

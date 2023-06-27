@@ -8,10 +8,21 @@
 #
 # You should have received a copy of the GNU General Public License along with the Webarchitects PHP Ansible role. If not, see <https://www.gnu.org/licenses/>.
 ---
-# https://ansible-lint.readthedocs.io/rules/
-skip_list:
-  - key-order[task]
-  - name[template]
-  - package-latest
-# vim: syntax=yaml
+- name: Verify as root
+  become: true
+  connection: local
+  gather_facts: true
+  hosts:
+    - localhost
+  tasks:
+
+    - name: Run which php
+      ansible.builtin.command: which php
+      check_mode: false
+      changed_when: false
+      register: molecule_root_which_php
+
+    - name: Debug which php
+      ansible.builtin.debug:
+        var: molecule_root_which_php.stdout
 ...
