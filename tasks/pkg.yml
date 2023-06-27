@@ -92,7 +92,7 @@
       register: php_packages_removed
       when: php_pkg_rm != []
 
-    - name: Debug PHP packages absent result
+    - name: Debug PHP packages absent result  # noqa no-handler
       ansible.builtin.debug:
         var: php_packages_removed
       when: php_packages_removed.changed | bool
@@ -108,7 +108,7 @@
       register: php_packages_installed
       when: php_pkg_install != []
 
-    - name: Debug PHP packages present result
+    - name: Debug PHP packages present result  # noqa no-handler
       ansible.builtin.debug:
         var: php_packages_installed
       when: php_packages_installed.changed | bool
