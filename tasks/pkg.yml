@@ -126,6 +126,17 @@
         var: php_packages_removed.stdout_lines
       when: php_packages_removed.changed | bool
 
+    - name: Dist upgrade
+      ansible.builtin.apt:
+        upgrade: dist
+        update_cache: false
+      register: php_dist_upgrade
+
+    - name: Debug dist upgrade result  # noqa no-handler
+      ansible.builtin.debug:
+        var: php_dist_upgrade.stdout_lines
+      when: php_dist_upgrade.changed | bool
+
     - name: Apt clean
       ansible.builtin.include_tasks: apt_clean.yml
       when: >-
