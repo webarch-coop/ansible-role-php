@@ -15,12 +15,12 @@ galaxy_info:
   description: Ansible role for installing and configuring PHP on Debian Bullseye and Buster
   company: Webarchitects Co-operative
   license: GNU General Public License v3.0 (GPLv3)
-  min_ansible_version: "2.13"
+  min_ansible_version: "2.14.3"
   platforms:
     - name: Debian
       versions:
+        - bookworm
         - bullseye
-        - buster
   galaxy_tags:
     - debian
     - php
