@@ -1,6 +1,6 @@
 # Webarchitects PHP Ansible role
 
-This Ansible role is designed to install and configure PHP on Debian, by default it installs packages from [deb.sury.org](https://deb.sury.org/), but it can also be used to install and cpnfigure only PHP packages from Debian.
+This Ansible role is designed to install and configure PHP on Debian, by default it installs packages from [deb.sury.org](https://deb.sury.org/), but it can also be used to install and configure PHP packages from Debian.
 
 ## Role variables
 
