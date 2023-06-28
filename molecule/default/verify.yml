@@ -53,5 +53,5 @@
 
     - name: Debug stat /usr/bin/php.default
       ansible.builtin.debug:
-        var: molecule_php_default.stat.results
+        var: molecule_php_default
 ...
