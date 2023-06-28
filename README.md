@@ -6,7 +6,7 @@ This Ansible role is designed to install and configure PHP on Debian, by default
 
 See the [defaults/main.yml](defaults/main.yml) file for the default variables, the [vars/main.yml](vars/main.yml) file for the preset variables and the [meta/argument_specs.yml](meta/argument_specs.yml) file for the variable specification.
 
-This roles has one required boolean variable and two optional boolean variables and two optional lists:
+This roles has one required boolean variable, [php](#php), two optional boolean variables, [php_check_legacy_variables](#php_check_legacy_variables), [php_sury](#php_sury) and [php_verify](#php_verify) and three optional lists, [php_config](#php_config), [php_modules](#php_modules) and [php_versions](#php_versions), the [VARIABLES.md](VARIABLES.md) file contains documentation generated from the [meta/argument_specs.yml](meta/argument_specs.yml) for all the variables including the internal ones.
 
 ### php
 
@@ -15,10 +15,6 @@ The `php` variable is required to be defined, by default it is `true`, when it i
 ### php_check_legacy_variables
 
 The optional `php_check_legacy_variables` variable is `true` by default, this results in the role failing if any variables names from older versions of this role are defined, set it to `false` to skip these checks.
-
-### php_sury
-
-The optional `php_sury` variable is `true` by default which results in the [Debian PHP repo](https://packages.sury.org/php/) provided by Ondřej Surý being enabled for installing `.deb` packages. When `php_sury` is `false` the Ondřej Surý repo configuration is removed if present.
 
 ### php_config
 
@@ -110,6 +106,14 @@ php_modules:
   ⦙ ⦙ ⦙ ⦙ - mysqli
 ```
 
+### php_sury
+
+The optional `php_sury` variable is `true` by default which results in the [Debian PHP repo](https://packages.sury.org/php/) provided by Ondřej Surý being enabled for installing `.deb` packages. When `php_sury` is `false` the Ondřej Surý repo configuration is removed if present.
+
+### php_verify
+
+The optional `php_verify` variable is `true` by default which results in all variables that start with `php_` being checked using the [meta/argument_specs.yml](meta/argument_specs.yml), this is a stricter check than Ansible uses by default as non-defined variables, such as `php_foo` cause the verification to fail.
+
 ### php_versions
 
 The optional `php_versions` list is used to install and remove PHP packages, each item in the list requires a `state`, which can be `absent` or `present` and a `version` which must be a string from this list of PHP versions:
@@ -124,7 +128,7 @@ The optional `php_versions` list is used to install and remove PHP packages, eac
 - "7.1"
 - "7.0"
 - "5.6"
-``` 
+```
 
 Two optional lists, `pkg_absent` and `pkg_present` are used to list `.deb` packages that are to be installed or removed.
 
