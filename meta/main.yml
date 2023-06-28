@@ -21,6 +21,7 @@ galaxy_info:
       versions:
         - bookworm
         - bullseye
+        - buster
   galaxy_tags:
     - debian
     - php

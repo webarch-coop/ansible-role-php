@@ -13,7 +13,7 @@
 
 set -euo pipefail
 
-debian_distros=(bullseye buster)
+debian_distros=(bookworm bullseye buster)
 
 for distro in "${debian_distros[@]}"; do
   # shellcheck disable=SC2016 disable=SC2086

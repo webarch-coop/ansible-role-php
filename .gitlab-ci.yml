@@ -32,7 +32,6 @@ before_script:
 stages:
   - bookworm
   - bullseye
-  - jammy
 bookworm:
   image: registry.git.coop/webarch/containers/images/bookworm:20230605
   stage: bookworm
