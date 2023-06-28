@@ -69,4 +69,45 @@
     - name: Debug update-alternatives --query php
       ansible.builtin.debug:
         var: molecule_php_update_alternatives_php.stdout_lines
+
+    - name: Packages present
+      ansible.builtin.apt:
+        pkg:
+          - jo
+        state: preesent
+
+    - name: Check PHP SAPIs and modules
+      ansible.builtin.shell: |-
+        set -euo pipefail
+        VERSIONS=$(/usr/sbin/phpquery -V | sort -V)
+        jo state=present versions=$(
+          jo $(
+            for v in ${VERSIONS}; do
+              SAPI=$(/usr/sbin/phpquery -v ${v} -S | sort)
+              echo ${v}=$(
+                jo state=present $(
+                  for s in ${SAPI}; do
+                    MODULES=$(/usr/sbin/phpquery -v ${v} -s ${s} -M | sort)
+                    echo sapis[${s}]=$(
+                      jo state=present modules=$(jo -a ${MODULES} )
+                    )
+                  done
+                )
+              )
+            done
+          )
+        )
+      args:
+        executable: /bin/bash
+      check_mode: false
+      changed_when: false
+      register: molecule_php_check
+
+    - name: Set a fact for the results of the check PHP SAPIs and modules result
+      ansible.builtin.set_fact:
+        molecule_php_json: "{{ molecule_php_check.stdout | from_json }}"
+
+    - name: Debug the results of the PHP SAPIs and modules check
+      ansible.builtin.debug:
+        var: molecule_php_json
 ...
