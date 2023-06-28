@@ -17,7 +17,7 @@
           - php_conf_file is regex(php_conf_file_path_regex)
         fail_msg: "Path / version mismatch: {{ php_conf_file }} is set to be configured for PHP {{ php_ver }}"
       vars:
-        php_conf_file_path_regex: "^[/]etc[/]php[/]{{ php_ver }}[/].*"
+        php_conf_file_path_regex: "^[/]etc[/]php[/]{{ php_ver_chk }}[/].*"
       loop: "{{ php_conf_file_paths }}"
       loop_control:
         loop_var: php_conf_file
