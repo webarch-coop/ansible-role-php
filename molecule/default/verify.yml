@@ -33,7 +33,22 @@
 
     - name: Debug stat /usr/bin/php
       ansible.builtin.debug:
-        var: molecule_stat_php
+        msg:
+          - "path: {{ molecule_stat_php.stat.path }}"
+          - "lnk_target: {{ molecule_stat_php.stat.lnk_target }}"
+          - "lnk_source: {{ molecule_stat_php.stat.lnk_source }}"
+
+    - name: Stat /etc/alternatives/php
+      ansible.builtin.stat:
+        path: /etc/alternatives/php
+      register: molecule_stat_alt_php
+
+    - name: Debug stat /etc/alternatives/php
+      ansible.builtin.debug:
+        msg:
+          - "path: {{ molecule_stat_alt_php.stat.path }}"
+          - "lnk_target: {{ molecule_stat_alt_php.stat.lnk_target }}"
+          - "lnk_source: {{ molecule_stat_alt_php.stat.lnk_source }}"
 
     - name: Run php --version
       ansible.builtin.command: php --version
