@@ -88,7 +88,7 @@
     - name: Check if the PHP version in the file path matches the PHP version that is being configured
       ansible.builtin.debug:
         msg:
-          - "PHP version: {{ php_ver_pth_dbg }}"
+          - "PHP version: {{ php_ver_dbg }}"
           - "PHP file path versions: {{ php_config | community.general.json_query(php_conf_file_paths_jmespath_query) | map('regex_replace', '^[/]etc[/]php[/]') | map('regex_replace', '[/].*$') | unique }}"
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
       vars:

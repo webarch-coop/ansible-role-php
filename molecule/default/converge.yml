@@ -20,7 +20,7 @@
       ansible.builtin.debug:
         var: ansible_effective_user_id
 
-    - name: Include php role as root with install set to deb
+    - name: Include php role as root
       ansible.builtin.include_role:
         name: php
       vars:  # noqa var-naming[no-role-prefix]
