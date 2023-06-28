@@ -74,7 +74,7 @@
       ansible.builtin.apt:
         pkg:
           - jo
-        state: preesent
+        state: present
 
     - name: Check PHP SAPIs and modules
       ansible.builtin.shell: |-
