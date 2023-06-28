@@ -45,7 +45,7 @@ The `files` dictionary requires a `path` and `state` for each file, the state ca
 - templated
 ```
 
-The `edited` state can only be used for existing files, it enables the [Ansible ini module](https://docs.ansible.com/ansible/latest/collections/community/general/ini_file_module.html) to be used to edit configuration files withoiyt the need to template them.
+The `edited` state can only be used for existing files, it enables the [Ansible ini module](https://docs.ansible.com/ansible/latest/collections/community/general/ini_file_module.html) to be used to edit configuration files without the need to template them.
 
 The `present` state will result in existing files being edited and not existing files to be templated.
 
@@ -73,7 +73,7 @@ php_config:
 
 ### php_modules
 
-The optional `php_modules` list can be used to enable and disable PHP modules using `phpmyquery`, which adds and removes symlinks in the `apache2/conf.d`, `cli/conf.d` and `fpm/conf.d` directories which point to `.ini` files in the `mods-available` directory for each version of PHP/
+The optional `php_modules` list can be used to enable and disable PHP modules using `phpmyquery`, which adds and removes symlinks in the `apache2/conf.d`, `cli/conf.d` and `fpm/conf.d` directories which point to `.ini` files in the `mods-available` directory for each version of PHP.
 
 Each item in the list requires a `state`, which can be `absent` or `present` and a `version` which must be a string from this list of PHP versions:
 
