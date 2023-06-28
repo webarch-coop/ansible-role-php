@@ -20,11 +20,20 @@
       ansible.builtin.command: which php
       check_mode: false
       changed_when: false
-      register: molecule_root_which_php
+      register: molecule_which_php
 
     - name: Debug which php
       ansible.builtin.debug:
-        var: molecule_root_which_php.stdout
+        var: molecule_which_php.stdout
+
+    - name: Stat /usr/bin/php
+      ansible.builtin.stat:
+        path: /usr/bin/php
+      register: molecule_stat_php
+
+    - name: Debug stat /usr/bin/php
+      ansible.builtin.debug:
+        var: molecule_stat_php
 
     - name: Run php --version
       ansible.builtin.command: php --version
@@ -45,13 +54,4 @@
     - name: Debug update-alternatives --query php
       ansible.builtin.debug:
         var: molecule_php_update_alternatives_php.stdout_lines
-
-    - name: Stat /usr/bin/php.default
-      ansible.builtin.stat:
-        path: /usr/bin/php.default
-      register: molecule_php_default
-
-    - name: Debug stat /usr/bin/php.default
-      ansible.builtin.debug:
-        var: molecule_php_default
 ...
