@@ -159,6 +159,8 @@ The primary URL of this repo is [`https://git.coop/webarch/php`](https://git.coo
 
 If you use this role please use a tagged release, see [the release notes](https://git.coop/webarch/php/-/releases).
 
+This repo had the `master` branch set to the default until June 2023, then the `sury` branch that was used to refactor the role to support the Debian packages built and provided by Ondřej Surý, was renamed to `main` and made the default.
+
 In June 2021 this role was renamed from `phpfpm` to `php` and the URL of the git repo was updated to match, at the same time the git repo that was at `https://git.coop/webarch/php` was archived to [git.coop/webarch/php7](https://git.coop/webarch/php7).
 
 ## Copyright
