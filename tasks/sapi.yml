@@ -151,6 +151,8 @@
           vars:
             php_task_name: "Run phpdismod for the PHP {{ php_version.version }} {{ php_sapi }} SAPI mods{% for php_dismod in php_dismods %} {{ php_dismod }}{% endfor %}"
           changed_when: true
+          register: php_dismods_result
+          failed_when: php_dismods_result.stderr_lines != []
 
         - name: PHP FPM reloaded
           ansible.builtin.service:
@@ -177,6 +179,8 @@
           vars:
             php_task_name: "Run phpenmod for the PHP {{ php_version.version }} {{ php_sapi }} SAPI mods{% for php_enmod in php_enmods %} {{ php_enmod }}{% endfor %}"
           changed_when: true
+          register: php_enmods_result
+          failed_when: php_enmods_result.stderr_lines != []
 
         - name: PHP FPM reloaded
           ansible.builtin.service:
