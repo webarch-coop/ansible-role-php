@@ -14,7 +14,6 @@
     autoremove: true
     clean: true
   register: php_apt_clean
-  when: ansible_version.full is version('2.13', '>=')
   tags:
     - php
 ...
