@@ -153,10 +153,10 @@
         filter: ansible_local
       when: >-
         ( ( php_packages_removed_first_run.changed is defined ) and
-        ( php_packages_removed_first_run | bool ) ) or
+        ( php_packages_removed_first_run.changed | bool ) ) or
         ( ( php_packages_installed.changed is defined ) and
         ( php_packages_installed.changed | bool ) ) or
-        ( ( php_packages_removed_second_run is defined ) and
+        ( ( php_packages_removed_second_run.changed is defined ) and
         ( php_packages_removed_second_run.changed | bool ) ) or
         ( ( php_dist_upgrade.changed is defined ) and
         ( php_dist_upgrade.changed | bool ) ) or
