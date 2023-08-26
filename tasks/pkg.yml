@@ -143,7 +143,7 @@
     - name: Apt clean
       ansible.builtin.include_tasks: apt_clean.yml
       when: >-
-        ( ansible_version.full is version('2.13', '>=') and
+        ( ansible_version.full is version('2.13', '>=') ) and
         ( ( ( php_packages_installed.changed  is defined ) and ( php_packages_installed.changed | bool ) ) or
         ( ( php_packages_removed_first_run.changed is defined ) and ( php_packages_removed_first_run.changed | bool ) ) or
         ( ( php_packages_removed_second_run.changed is defined ) and ( php_packages_removed_second_run.changed | bool ) ) )
