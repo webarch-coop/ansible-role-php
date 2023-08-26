@@ -11,7 +11,7 @@
 - name: Check the init system
   block:
 
-    # When in a docker container php_init.stdout == "sh"
+    # When in a docker container php_init.stdout == "sh" or "bash"
     - name: Check if system has been booted with systemd as init system
       ansible.builtin.command: ps -p 1 -o comm=
       changed_when: false

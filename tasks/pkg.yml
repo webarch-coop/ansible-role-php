@@ -89,14 +89,14 @@
         pkg: "{{ php_pkg_rm }}"
         purge: false
         state: absent
-      register: php_packages_removed
+      register: php_packages_removed_first_run
       when: php_pkg_rm != []
 
     - name: Debug PHP packages absent result  # noqa no-handler
       ansible.builtin.debug:
-        var: php_packages_removed.stdout_lines
+        var: php_packages_removed_first_run.stdout_lines
         verbosity: "{% if ansible_check_mode | bool and php_pkg_present != [] %}1{% elif php_pkg_present != [] %}2{% else %}3{% endif %}"
-      when: php_packages_removed.changed | bool
+      when: php_packages_removed_first_run.changed | bool
 
     - name: PHP packages present
       ansible.builtin.apt:
@@ -120,14 +120,28 @@
         pkg: "{{ php_pkg_absent }}"
         purge: false
         state: absent
-      register: php_packages_removed
+      register: php_packages_removed_second_run
       when: php_pkg_absent != []
 
     - name: Debug PHP packages absent result  # noqa no-handler
       ansible.builtin.debug:
-        var: php_packages_removed.stdout_lines
+        var: php_packages_removed_second_run.stdout_lines
         verbosity: "{% if ansible_check_mode | bool and php_pkg_present != [] %}1{% elif php_pkg_present != [] %}2{% else %}3{% endif %}"
       when: php_packages_removed.changed | bool
+
+    - name: Re-read local facts after updating PHP packages
+      ansible.builtin.setup:
+        filter: ansible_local
+      when: >-
+        ( ( php_packages_removed_first_run.changed is defined ) and
+        ( php_packages_removed_first_run | bool ) ) or
+        ( ( php_packages_installed.changed is defined ) and
+        ( php_packages_installed.changed | bool ) ) or
+        ( ( php_packages_removed_second_run is defined ) and
+        ( php_packages_removed_second_run.changed | bool ) )
+
+    - name: Debug fail
+      ansible.builtin.fail:
 
     - name: Dist upgrade
       ansible.builtin.apt:

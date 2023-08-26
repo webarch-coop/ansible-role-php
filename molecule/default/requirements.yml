@@ -8,18 +8,13 @@
 #
 # You should have received a copy of the GNU General Public License along with the Webarchitects PHP Ansible role. If not, see <https://www.gnu.org/licenses/>.
 ---
-dependency:
-  name: galaxy
-platforms:
-  - name: instance
-provisioner:
-  name: ansible
-    # host_vars:
-    #   instance:
-    #     ansible_user: ansible
-verifier:
-  name: ansible
-    # host_vars:
-    #   instance:
-    #     ansible_user: ansible
+- name: apt
+  src: https://git.coop/webarch/apt.git
+  version: 3.0.2  # apt
+  scm: git
+
+# - name: systemd
+#   src: https://git.coop/webarch/systemd.git
+#   version: 2.0.2  # systemd
+#   scm: git
 ...
