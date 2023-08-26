@@ -140,6 +140,24 @@ argument_specs:
         description: The file path seperator to use.
         choices:
           - '/'
+      php_fpm_package:
+        type: str
+        required: false
+        description: Loop variables for a PHP-FPM package.
+      php_fpm_packages_present:
+        type: list
+        elements: str
+        required: false
+        description: A generated list of PHP-FPM packages present.
+      php_fpm_version:
+        type: str
+        required: false
+        description: Loop variables for a PHP-FPM version.
+      php_fpm_versions_present:
+        type: list
+        elements: str
+        required: false
+        description: A generated list of PHP-FPM versions present.
       php_gpg_checksum:
         type: str
         required: true

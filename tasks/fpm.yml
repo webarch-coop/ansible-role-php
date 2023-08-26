@@ -8,13 +8,27 @@
 #
 # You should have received a copy of the GNU General Public License along with the Webarchitects PHP Ansible role. If not, see <https://www.gnu.org/licenses/>.
 ---
-- name: Apt clean
-  ansible.builtin.apt:
-    autoclean: true
-    autoremove: true
-    clean: true
-  register: php_apt_clean
-  when: ansible_version.full is version('2.13', '>=')
+- name: PHP-FPM systemd tasks
+  block:
+
+    - name: "Stat /etc/systemd/system/multi-user.target.wants/php{{ php_fpm_version }}-fpm.service"
+      ansible.builtin.stat:
+        path: "/etc/systemd/system/multi-user.target.wants/php{{ php_fpm_version }}-fpm.service"
+      register: php_fpm_system_service
+
+    - name: "Ensure that PHP-FPM service is started for {{ php_fpm_version }}"
+      ansible.builtin.service:
+        name: "php{{ php_fpm_version }}-fpm.service"
+        state: started
+      register: php_fpm_service
+      when: php_fpm_system_service.stat.exists | bool
+
+    - name: Debug php_fpm_service
+      ansible.builtin.debug:
+        var: php_fpm_service
+        verbosity: 2
+
   tags:
     - php
+    - php_pkg
 ...
