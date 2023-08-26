@@ -127,7 +127,7 @@
       ansible.builtin.debug:
         var: php_packages_removed_second_run.stdout_lines
         verbosity: "{% if ansible_check_mode | bool and php_pkg_present != [] %}1{% elif php_pkg_present != [] %}2{% else %}3{% endif %}"
-      when: php_packages_removed.changed | bool
+      when: php_packages_removed_second_run.changed | bool
 
     - name: Dist upgrade
       ansible.builtin.apt:
@@ -145,7 +145,8 @@
       when: >-
         ( ansible_version.full is version('2.13', '>=') ) and
         ( ( ( php_packages_installed is defined ) and ( php_packages_installed.changed | bool ) ) or
-        ( ( php_packages_removed is defined ) and ( php_packages_removed.changed | bool ) ) )
+        ( ( php_packages_removed_first_run is defined ) and ( php_packages_removed_first_run.changed | bool ) ) ) or
+        ( ( php_packages_removed_second_run is defined ) and ( php_packages_removed_second_run.changed | bool ) ) )
 
     - name: Re-read local facts after updating PHP packages
       ansible.builtin.setup:
