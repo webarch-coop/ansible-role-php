@@ -1,0 +1,174 @@
+# Copyright 2019-2023 Chris Croome
+#
+# This file is part of the Webarchitects PHP Ansible role.
+#
+# The Webarchitects PHP Ansible role is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#
+# The Webarchitects PHP Ansible role is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with the Webarchitects PHP Ansible role. If not, see <https://www.gnu.org/licenses/>.
+---
+- name: Verify as root
+  # become: true
+  connection: local
+  # gather_facts: true
+  hosts:
+    - localhost
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  tasks:
+
+    - name: Run which php
+      ansible.builtin.command: which php
+      check_mode: false
+      changed_when: false
+      register: molecule_which_php
+
+    - name: Debug which php
+      ansible.builtin.debug:
+        var: molecule_which_php.stdout
+
+    - name: Stat /usr/bin/php
+      ansible.builtin.stat:
+        path: /usr/bin/php
+      register: molecule_stat_php
+
+    - name: Debug stat /usr/bin/php
+      ansible.builtin.debug:
+        msg:
+          - "path: {{ molecule_stat_php.stat.path }}"
+          - "lnk_target: {{ molecule_stat_php.stat.lnk_target }}"
+          - "lnk_source: {{ molecule_stat_php.stat.lnk_source }}"
+
+    - name: Stat /etc/alternatives/php
+      ansible.builtin.stat:
+        path: /etc/alternatives/php
+      register: molecule_stat_alt_php
+
+    - name: Debug stat /etc/alternatives/php
+      ansible.builtin.debug:
+        msg:
+          - "path: {{ molecule_stat_alt_php.stat.path }}"
+          - "lnk_target: {{ molecule_stat_alt_php.stat.lnk_target }}"
+          - "lnk_source: {{ molecule_stat_alt_php.stat.lnk_source }}"
+
+    - name: Run php --version
+      ansible.builtin.command: php --version
+      check_mode: false
+      changed_when: false
+      register: molecule_php_version
+
+    - name: Debug php --version
+      ansible.builtin.debug:
+        var: molecule_php_version.stdout_lines
+
+    - name: Run update-alternatives --query php
+      ansible.builtin.command: update-alternatives --query php
+      check_mode: false
+      changed_when: false
+      register: molecule_php_update_alternatives_php
+
+    - name: Debug update-alternatives --query php
+      ansible.builtin.debug:
+        var: molecule_php_update_alternatives_php.stdout_lines
+
+    - name: Packages present
+      ansible.builtin.apt:
+        pkg:
+          - jo
+        state: present
+
+    - name: Check PHP SAPIs and modules
+      ansible.builtin.shell: |-
+        set -euo pipefail
+        VERSIONS=$(/usr/sbin/phpquery -V | sort -V)
+        jo state=present versions=$(
+          jo $(
+            for v in ${VERSIONS}; do
+              SAPI=$(/usr/sbin/phpquery -v ${v} -S | sort)
+              echo ${v}=$(
+                jo state=present $(
+                  for s in ${SAPI}; do
+                    MODULES=$(/usr/sbin/phpquery -v ${v} -s ${s} -M | sort)
+                    echo sapis[${s}]=$(
+                      jo state=present modules=$(jo -a ${MODULES} )
+                    )
+                  done
+                )
+              )
+            done
+          )
+        )
+      args:
+        executable: /bin/bash
+      check_mode: false
+      changed_when: false
+      register: molecule_php_check
+
+    - name: Set a fact for the results of the check PHP SAPIs and modules result
+      ansible.builtin.set_fact:
+        molecule_php_json: "{{ molecule_php_check.stdout | from_json }}"
+
+    - name: Debug the results of the PHP SAPIs and modules check
+      ansible.builtin.debug:
+        var: molecule_php_json
+
+    - name: Verify the results of the PHP SAPIs and module checks
+      ansible.builtin.assert:
+        that:
+          - molecule_php_json == molecule_verify
+      vars:
+        molecule_verify:
+          state: present
+          versions:
+            "8.2":
+              sapis:
+                cli:
+                  modules:
+                    - apcu
+                    - bcmath
+                    - bz2
+                    - calendar
+                    - ctype
+                    - curl
+                    - dom
+                    - exif
+                    - ffi
+                    - fileinfo
+                    - ftp
+                    - gd
+                    - gettext
+                    - gmp
+                    - iconv
+                    - imagick
+                    - imap
+                    - intl
+                    - ldap
+                    - mbstring
+                    - mysqli
+                    - mysqlnd
+                    - opcache
+                    - pdo
+                    - pdo_mysql
+                    - pdo_sqlite
+                    - phar
+                    - posix
+                    - readline
+                    - shmop
+                    - simplexml
+                    - soap
+                    - sockets
+                    - sqlite3
+                    - sysvmsg
+                    - sysvsem
+                    - sysvshm
+                    - tokenizer
+                    - uploadprogress
+                    - xml
+                    - xmlreader
+                    - xmlrpc
+                    - xmlwriter
+                    - xsl
+                    - zip
+                  state: present
+...
