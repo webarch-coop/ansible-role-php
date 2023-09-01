@@ -179,10 +179,10 @@
 
       rescue:
 
-        # - name: Diff to debug the varification failure  # noqa: syntax-check[specific]
-        #   ansible.utils.fact_diff:
-        #     before: "{{ molecule_php_present }}"
-        #     after: "{{ molecule_php_required }}"
+        - name: Diff to debug the varification failure
+          ansible.utils.fact_diff:
+            before: "{{ molecule_php_present }}"
+            after: "{{ molecule_php_required }}"
 
         - name: Fail due to existing and required configuration not matching
           ansible.builtin.fail:
