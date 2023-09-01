@@ -180,7 +180,7 @@
 
       rescue:
 
-        - name: Diff to debug the varification failure
+        - name: Diff to debug the verification failure
           ansible.utils.fact_diff:
             before: "{{ molecule_php_present }}"
             after: "{{ molecule_php_required }}"
