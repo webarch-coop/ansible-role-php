@@ -109,6 +109,7 @@ php_debian_bookworm_pkg:
   - libapache2-mod-php8.0
   - libapache2-mod-php8.1
   - libapache2-mod-php8.2
+  - libapache2-mod-php8.3
   - libpcre16-3
   - libpcre3
   - libpcre32-3
@@ -122,6 +123,7 @@ php_debian_bookworm_pkg:
   - libphp8.0-embed
   - libphp8.1-embed
   - libphp8.2-embed
+  - libphp8.3-embed
   - libphp-embed
   - pcregrep
   - php
@@ -863,6 +865,38 @@ php_debian_bookworm_pkg:
   - php8.2-zip
   - php8.2-zmq
   - php8.2-zstd
+  - php8.3
+  - php8.3-bcmath
+  - php8.3-bz2
+  - php8.3-cgi
+  - php8.3-cli
+  - php8.3-common
+  - php8.3-curl
+  - php8.3-dba
+  - php8.3-enchant
+  - php8.3-fpm
+  - php8.3-gd
+  - php8.3-gmp
+  - php8.3-imap
+  - php8.3-interbase
+  - php8.3-intl
+  - php8.3-ldap
+  - php8.3-mbstring
+  - php8.3-mysql
+  - php8.3-odbc
+  - php8.3-opcache
+  - php8.3-pgsql
+  - php8.3-phpdbg
+  - php8.3-pspell
+  - php8.3-readline
+  - php8.3-snmp
+  - php8.3-soap
+  - php8.3-sqlite3
+  - php8.3-sybase
+  - php8.3-tidy
+  - php8.3-xml
+  - php8.3-xsl
+  - php8.3-zip
   - php-amqp
   - php-apcu
   - php-apcu-bc
@@ -965,6 +999,7 @@ php_debian_bullseye_pkg:
   - libapache2-mod-php8.0
   - libapache2-mod-php8.1
   - libapache2-mod-php8.2
+  - libapache2-mod-php8.3
   - libenchant1c2a
   - libenchant-voikko
   - libgd3
@@ -986,6 +1021,7 @@ php_debian_bullseye_pkg:
   - libphp8.0-embed
   - libphp8.1-embed
   - libphp8.2-embed
+  - libphp8.3-embed
   - libphp-embed
   - libxml2
   - libxml2-doc
@@ -1768,6 +1804,38 @@ php_debian_bullseye_pkg:
   - php8.2-zip
   - php8.2-zmq
   - php8.2-zstd
+  - php8.3
+  - php8.3-bcmath
+  - php8.3-bz2
+  - php8.3-cgi
+  - php8.3-cli
+  - php8.3-common
+  - php8.3-curl
+  - php8.3-dba
+  - php8.3-enchant
+  - php8.3-fpm
+  - php8.3-gd
+  - php8.3-gmp
+  - php8.3-imap
+  - php8.3-interbase
+  - php8.3-intl
+  - php8.3-ldap
+  - php8.3-mbstring
+  - php8.3-mysql
+  - php8.3-odbc
+  - php8.3-opcache
+  - php8.3-pgsql
+  - php8.3-phpdbg
+  - php8.3-pspell
+  - php8.3-readline
+  - php8.3-snmp
+  - php8.3-soap
+  - php8.3-sqlite3
+  - php8.3-sybase
+  - php8.3-tidy
+  - php8.3-xml
+  - php8.3-xsl
+  - php8.3-zip
   - php-amqp
   - php-apcu
   - php-apcu-bc
@@ -1880,6 +1948,7 @@ php_debian_buster_pkg:
   - libapache2-mod-php8.0
   - libapache2-mod-php8.1
   - libapache2-mod-php8.2
+  - libapache2-mod-php8.3
   - libargon2-0
   - libargon2-1
   - libenchant1c2a
@@ -1909,6 +1978,7 @@ php_debian_buster_pkg:
   - libphp8.0-embed
   - libphp8.1-embed
   - libphp8.2-embed
+  - libphp8.3-embed
   - libphp-embed
   - libsodium23
   - libtidy5deb1
@@ -2695,6 +2765,38 @@ php_debian_buster_pkg:
   - php8.2-zip
   - php8.2-zmq
   - php8.2-zstd
+  - php8.3
+  - php8.3-bcmath
+  - php8.3-bz2
+  - php8.3-cgi
+  - php8.3-cli
+  - php8.3-common
+  - php8.3-curl
+  - php8.3-dba
+  - php8.3-enchant
+  - php8.3-fpm
+  - php8.3-gd
+  - php8.3-gmp
+  - php8.3-imap
+  - php8.3-interbase
+  - php8.3-intl
+  - php8.3-ldap
+  - php8.3-mbstring
+  - php8.3-mysql
+  - php8.3-odbc
+  - php8.3-opcache
+  - php8.3-pgsql
+  - php8.3-phpdbg
+  - php8.3-pspell
+  - php8.3-readline
+  - php8.3-snmp
+  - php8.3-soap
+  - php8.3-sqlite3
+  - php8.3-sybase
+  - php8.3-tidy
+  - php8.3-xml
+  - php8.3-xsl
+  - php8.3-zip
   - php-amqp
   - php-apcu
   - php-apcu-bc
