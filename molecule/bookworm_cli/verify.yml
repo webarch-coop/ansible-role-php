@@ -107,21 +107,18 @@
 
     - name: Set a fact for the results of the check PHP SAPIs and modules result
       ansible.builtin.set_fact:
-        molecule_php_json: "{{ molecule_php_check.stdout | from_json }}"
+        molecule_php_present: "{{ molecule_php_check.stdout | from_json }}"
 
     - name: Debug the results of the PHP SAPIs and modules check
       ansible.builtin.debug:
-        var: molecule_php_json
+        var: molecule_php_present
 
-    - name: Verify the results of the PHP SAPIs and module checks
-      ansible.builtin.assert:
-        that:
-          - molecule_php_json == molecule_verify
-      vars:
-        molecule_verify:
+    - name: Set a fact for the required results of the PHP SAPIs and module checks
+      ansible.builtin.set_fact:
+        molecule_php_required:
           state: present
           versions:
-            "8.2":
+            '8.2':
               sapis:
                 cli:
                   modules:
@@ -171,4 +168,22 @@
                     - xsl
                     - zip
                   state: present
+
+    - name: Check the PHP configuratioon present
+      block:
+
+        - name: Verify the results of the PHP SAPIs and module checks
+          ansible.builtin.assert:
+            that:
+              - molecule_php_present == molecule_php_required
+
+      rescue:
+
+        # - name: Diff to debug the varification failure  # noqa: syntax-check[specific]
+        #   ansible.utils.fact_diff:
+        #     before: "{{ molecule_php_present }}"
+        #     after: "{{ molecule_php_required }}"
+
+        - name: Fail due to existing and required configuration not matching
+          ansible.builtin.fail:
 ...
