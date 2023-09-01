@@ -115,7 +115,7 @@
 
     - name: Check that PHP packages that are set to be present match the config that is set to be present
       ansible.builtin.debug:
-        msg: "Note that PHP pkgs set to be present: {% for php_v in php_ver_present %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %} doesn't not match the PHP cfg set to be present: {% for php_v in php_conf_ver_present %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %}"
+        msg: "Note that PHP pkgs set to be present: {% for php_v in php_ver_present %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %} does not match the PHP cfg set to be present: {% for php_v in php_conf_ver_present %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %}"
       when: php_ver_present != php_conf_ver_present
 
     - name: Check that PHP packages that are set to be absent match the config that is set to be absent
