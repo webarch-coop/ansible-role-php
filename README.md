@@ -1,6 +1,8 @@
 # Webarchitects PHP Ansible role
 
-This Ansible role is designed to install and configure PHP on Debian, by default it installs packages from [deb.sury.org](https://deb.sury.org/), but it can also be used to install and configure PHP packages from Debian.
+This Ansible role is designed to install and configure PHP on Debian, by default it installs PHP packaged by Ondřej Surý from [deb.sury.org](https://deb.sury.org/), but it can also be used to install and configure PHP packages from Debian.
+
+This role is tested using `molecule` via [GitLab CI](.gitlab-ci.yml) on Debian Bookworm using [three molecule senarios](molecule/), firstly by installing and configuring the Debian Bookworm PHP CLI Server API (SAPI), secondly installing the Debian Bookworm FPM SAPI and finally installing the Ondřej Surý packages.
 
 ## Role variables
 

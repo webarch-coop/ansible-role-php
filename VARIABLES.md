@@ -23,8 +23,12 @@ The main entry point for the PHP role.
 | php_debian_buster_pkg | A list of Debian Buster packages to install. | list of 'str' | no |
 | php_conf_file_paths_jmespath_query | A internale JMESPath query string. | str | yes |
 | php_file_path_separator | The file path seperator to use. | str | yes |
-| php_gpg_checksum | The SHA256 checksum for https://packages.sury.org/php/apt.gpg. | str | yes |
-| php_gpg_fingerprints | A list GPG fingerprints from https://packages.sury.org/php/apt.gpg. | list of 'str' | yes |
+| php_fpm_package | Loop variables for a PHP-FPM package. | str | no |
+| php_fpm_packages_present | A generated list of PHP-FPM packages present. | list of 'str' | no |
+| php_fpm_version | Loop variables for a PHP-FPM version. | str | no |
+| php_fpm_versions_present | A generated list of PHP-FPM versions present. | list of 'str' | no |
+| php_gpg_checksum | The SHA256 checksum for packages.sury.org/php/apt.gpg. | str | yes |
+| php_gpg_fingerprints | A list GPG fingerprints from packages.sury.org/php/apt.gpg. | list of 'str' | yes |
 | php_gpg_url | The URL of the Sury GPG public key. | str | yes |
 | php_mods_ver_absent | A generated list of PHP versions for which module configuration should be absent. | list of 'str' | no |
 | php_mods_ver_present | A generated list of PHP versions for which module configuration should be present. | list of 'str' | no |
@@ -37,7 +41,7 @@ The main entry point for the PHP role.
 | php_ver_absent_regex | A pattern to use as a regular expression to find versions of PHP which should be absent. | str | yes |
 | php_ver_pkg_remove | A generated list of PHP packages to remove. | list of 'str' | no |
 | php_ver_present | A generated list of PHP versions which should be present. | list of 'str' | no |
-| php_verify | Varify all variables starting with php_ using the argument spec. | bool | no |
+| php_verify | Varify all variables starting with php underscore using the argument spec. | bool | no |
 | php_versions | A list of PHP versions and their packages and state. | list of dicts of 'php_versions' options | no |
 
 ### Options for main > php_config
@@ -93,16 +97,12 @@ The main entry point for the PHP role.
 | absent |
 | edited |
 | present |
-| templated |
-
-### Choices for main > php_config > state
+| templated |### Choices for main > php_config > state
 
 |Choice|
 |---|
 | absent |
-| present |
-
-### Choices for main > php_config > version
+| present |### Choices for main > php_config > version
 
 |Choice|
 |---|
@@ -114,30 +114,39 @@ The main entry point for the PHP role.
 | 7.2 |
 | 7.1 |
 | 7.0 |
-| 5.6 |
-
-### Choices for main > php_file_path_separator
+| 5.6 |### Choices for main > php_file_path_separator
 
 |Choice|
 |---|
-| / |
-
-### Choices for main > php_modules > sapis > sapi
+| / |### Choices for main > php_modules > sapis > sapi
 
 |Choice|
 |---|
 | apache2 |
 | cli |
-| fpm |
-
-### Choices for main > php_modules > state
+| fpm |### Choices for main > php_modules > state
 
 |Choice|
 |---|
 | absent |
-| present |
+| present |### Choices for main > php_modules > version
 
-### Choices for main > php_modules > version
+|Choice|
+|---|
+| 8.2 |
+| 8.1 |
+| 8.0 |
+| 7.4 |
+| 7.3 |
+| 7.2 |
+| 7.1 |
+| 7.0 |
+| 5.6 |### Choices for main > php_versions > state
+
+|Choice|
+|---|
+| absent |
+| present |### Choices for main > php_versions > version
 
 |Choice|
 |---|
@@ -150,26 +159,3 @@ The main entry point for the PHP role.
 | 7.1 |
 | 7.0 |
 | 5.6 |
-
-### Choices for main > php_versions > state
-
-|Choice|
-|---|
-| absent |
-| present |
-
-### Choices for main > php_versions > version
-
-|Choice|
-|---|
-| 8.2 |
-| 8.1 |
-| 8.0 |
-| 7.4 |
-| 7.3 |
-| 7.2 |
-| 7.1 |
-| 7.0 |
-| 5.6 |
-
-

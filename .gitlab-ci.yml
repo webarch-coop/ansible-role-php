@@ -34,9 +34,6 @@ bookworm:
   stage: bookworm
   script:
     - molecule test --all
-    # - molecule test --scenario-name bookwork_cli
-    # - molecule test --scenario-name bookwork_fpm
-    # - molecule test --scenario-name default
 # The Bullseye test run OK but Molecule never completes
 # https://github.com/ansible/molecule/discussions/4020
 # bullseye:

@@ -161,12 +161,12 @@ argument_specs:
       php_gpg_checksum:
         type: str
         required: true
-        description: The SHA256 checksum for https://packages.sury.org/php/apt.gpg.
+        description: The SHA256 checksum for packages.sury.org/php/apt.gpg.
       php_gpg_fingerprints:
         type: list
         elements: str
         required: true
-        description: A list GPG fingerprints from https://packages.sury.org/php/apt.gpg.
+        description: A list GPG fingerprints from packages.sury.org/php/apt.gpg.
       php_gpg_url:
         type: str
         required: true
@@ -280,7 +280,7 @@ argument_specs:
       php_verify:
         type: bool
         required: false
-        description: Varify all variables starting with php_ using the argument spec.
+        description: Varify all variables starting with php underscore using the argument spec.
       php_versions:
         type: list
         elements: dict
