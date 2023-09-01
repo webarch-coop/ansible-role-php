@@ -33,7 +33,7 @@ bookworm:
   image: registry.git.coop/webarch/containers/images/bookworm:20230822
   stage: bookworm
   script:
-    - molecule --debug test --scenario-name bookwork-cli
+    - molecule --debug test --scenario-name bookwork
     - molecule test --scenario-name bookwork-fpm
     - molecule test --scenario-name default
 # The Bullseye test run OK but Molecule never completes
