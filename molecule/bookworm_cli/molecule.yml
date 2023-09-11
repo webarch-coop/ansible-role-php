@@ -17,6 +17,8 @@ provisioner:
     # host_vars:
     #   instance:
     #     ansible_user: ansible
+  options:
+    D: true
 verifier:
   name: ansible
     # host_vars:
