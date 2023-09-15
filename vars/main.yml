@@ -8,6 +8,8 @@
 #
 # You should have received a copy of the GNU General Public License along with the Webarchitects PHP Ansible role. If not, see <https://www.gnu.org/licenses/>.
 ---
+php_pool_names_not_absent: []
+
 # https://docs.ansible.com/ansible/latest/playbook_guide/complex_data_manipulation.html
 phpvarnames: "{{ q('varnames', '^php_') | sort }}"
 phphostvars: "{{ dict(phpvarnames | list | zip(q('vars', *phpvarnames))) }}"
@@ -68,6 +70,18 @@ php_conf_files_present: "{{ php_config | community.general.json_query('[?state==
 # PHP versions present configuration files templated
 # cat defaults/main.yml | yq -o=json | jp "php_config[?state=='present'].files[]|[?state=='templated'].path"
 php_conf_files_templated: "{{ php_config | community.general.json_query('[?state==`present`].files[]|[?state==`templated`].path') | sort }}"
+
+# PHP versions present configuration files not absent
+# cat defaults/main.yml | yq -o=json | jp "php_config[?state=='present'].files[]|[?state!='absent'].path"
+php_conf_files_not_absent: "{{ php_config | community.general.json_query('[?state==`present`].files[]|[?state!=`absent`].path') }}"
+
+# PHP versions present pool configuration files not absent paths
+# cat defaults/main.yml | yq -o=json | jp "php_config[?state=='present'].files[]|[?state!='absent'].path" | egrep -e '^\[' -e '[\/]etc[\/]php[\/][0-9]{1,2}[.][0-9][\/]fpm[\/]pool.d[\/].*[.]conf' -e '\]$'
+php_conf_pool_files_not_absent: "{{ php_config | community.general.json_query('[?state==`present`].files[]|[?state!=`absent`].path') | select('regex', '^[\/]etc[\/]php[\/][0-9]{1,2}[.][0-9][\/]fpm[\/]pool.d[\/].*[.]conf$') }}"
+
+# PHP versions present configuration not absent
+# cat defaults/main.yml | yq -o=json | jp "php_config[?state=='present'].files[]|[?state!='absent']"
+php_conf_not_absent: "{{ php_config | community.general.json_query('[?state==`present`].files[]|[?state!=`absent`]') }}"
 
 # PHP modules configuration absent
 # cat defaults/main.yml | yq -o=json | jp "php_modules[?state=='absent'].version"

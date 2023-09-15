@@ -143,7 +143,33 @@
         msg: "PHP modules are set to be present for {% for php_v in php_mods_ver_present | ansible.builtin.intersect(php_ver_absent) %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %} but the pkgs are set to be absent."
       when: php_mods_ver_present | ansible.builtin.intersect(php_ver_absent) != []
 
-    # sapis are required when php_modules are set to be present
+    - name: Set a fact for the PHP FPM pool names that are not set to be absent
+      ansible.builtin.set_fact:
+        php_pool_names_not_absent: "{{ php_pool_names_not_absent + (php_conf_file.conf.keys() | list ) }}"
+      # ansible.builtin.debug:
+      #   var: php_conf_file.conf.keys()
+      when:
+        - php_conf_not_absent is defined
+        - php_conf_not_absent != []
+        - php_conf_file.path in php_conf_pool_files_not_absent
+      loop: "{{ php_conf_not_absent }}"
+      loop_control:
+        loop_var: php_conf_file
+        # label: "{{ (php_conf_file.conf.keys() | list)[0] }}"
+        label: "{{ php_conf_file.path }}"
+
+    - name: Debug php_pool_names_not_absent
+      ansible.builtin.debug:
+        var: php_pool_names_not_absent
+
+    - name: PHP-FPM pools that are set to be present should be unique accross all versions of PHP
+      ansible.builtin.assert:
+        that:
+          - php_pool_names_not_absent | list | length == php_pool_names_not_absent | unique | list | length
+        quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
+        fail_msg: "Non unique PHP-FPM pool names:{% for php_pool_name in php_pool_names_not_absent %} {{ php_pool_name }}{% endfor %}"
+
+    # TODO sapis are required when php_modules are set to be present
 
   tags:
     - php
