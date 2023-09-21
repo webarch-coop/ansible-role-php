@@ -17,21 +17,21 @@ repos:
         name: YAML Lint
   # https://github.com/ansible/ansible-lint/releases
   - repo: https://github.com/ansible/ansible-lint.git
-    rev: v6.18.0
+    rev: v6.20.0
     hooks:
       - id: ansible-lint
         name: Ansible Lint
         language: python
         additional_dependencies:
           # https://pypi.org/project/ansible/
-          - ansible==8.3.0
+          - ansible==8.4.0
           # https://github.com/kellyjonbrazil/jc/releases
           - jc==1.23.4
           # https://github.com/jmespath/jmespath.py/tags
           - jmespath==1.0.1
   # https://github.com/jackdewinter/pymarkdown/releases
   - repo: https://github.com/jackdewinter/pymarkdown
-    rev: v0.9.12
+    rev: v0.9.13.4
     hooks:
       - id: pymarkdown
         name: Markdown Lint
