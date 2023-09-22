@@ -35,4 +35,5 @@
         name: php
       vars:  # noqa var-naming[no-role-prefix]
         php: true
+        php_fpm_pool_check_fail: false
 ...

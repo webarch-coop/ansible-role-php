@@ -35,7 +35,8 @@
         name: php
       vars:  # noqa var-naming[no-role-prefix]
         php: true
-        php_fpm_pool_check_fail: false
+        php_sury: false
+        php_fpm_pool_check_fail: true
         php_config:
           - name: PHP 8.2 configuration
             version: "8.2"
@@ -176,7 +177,6 @@
                   - xmlwriter
                   - xsl
                   - zip
-        php_sury: false
         php_versions:
           - name: PHP 8.2 packages
             version: "8.2"
