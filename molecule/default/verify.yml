@@ -544,10 +544,36 @@
       vars:  # noqa var-naming[no-role-prefix]
         php_fpm_pool_check_fail: true
 
+    - name: Debug 1 strings to check service_facts
+      ansible.builtin.debug:
+        var: molecule_jpq
+      vars:
+        molecule_jpq: "ansible_facts.services.['php{{ molecule_php_ver }}-fpm.service']|[0].state"
+      loop:
+        - "7.4"
+        - "8.0"
+        - "8.1"
+        - "8.2"
+      loop_control:
+        loop_var: molecule_php_ver
+
+    - name: Debug 2 strings to check service_facts
+      ansible.builtin.debug:
+        var: molecule_jpq
+      vars:
+        molecule_jpq: 'ansible_facts.services.["php{{ molecule_php_ver }}-fpm.service"]|[0].state'
+      loop:
+        - "7.4"
+        - "8.0"
+        - "8.1"
+        - "8.2"
+      loop_control:
+        loop_var: molecule_php_ver
+
     - name: Check that all the versions of PHP-FPM are running
       ansible.builtin.service_facts:
       vars:
-        molecule_jpq: "ansible_facts.services.['php{{ molecule_php_ver }}-fpm']|[0].state"
+        molecule_jpq: "ansible_facts.services.['php{{ molecule_php_ver }}-fpm.service']|[0].state"
       register: molecule_php_service_facts
       until: molecule_php_service_facts | community.general.json_query(molecule_jpq) == "running"
       retries: 20
