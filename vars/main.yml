@@ -108,7 +108,7 @@ php_gpg_fingerprints:
   - 45BEA3E529112086C622F8A4B214EAC28059B8AC
 
 # The following lists can be generated using the sury-packages.sh script in this directory.
-# To update them deleting everything after this comment and inset the results of the script.
+# To update them delete everything after this comment and inset the results of the script.
 # For example delete the lines and run:
 # bash ./sury-packages.sh >> main.yml
 

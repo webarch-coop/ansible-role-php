@@ -93,7 +93,7 @@
     - name: Ansible managed comment present at the top of the file
       ansible.builtin.lineinfile:
         path: "{{ php_conf_file }}"
-        line: "; Ansible managed"
+        line: "; {{ php_ansible_managed }}"
         state: present
         insertbefore: BOF
         mode: "0644"
