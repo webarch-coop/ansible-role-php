@@ -218,7 +218,7 @@
                   state: present
               state: present
 
-    - name: Check the PHP configuratioon present
+    - name: Check the PHP configuration present
       block:
 
         - name: Verify the results of the PHP SAPIs and module checks
@@ -235,4 +235,19 @@
 
         - name: Fail due to existing and required configuration not matching
           ansible.builtin.fail:
+
+    - name: Include php role pool name checks
+      ansible.builtin.include_role:
+        name: php
+        tasks_from: checks.yml
+      vars:  # noqa var-naming[no-role-prefix]
+        php_fpm_pool_check_fail: true
+
+    - name: Check that PHP-FPM is running
+      ansible.builtin.service_facts:
+      register: molecule_php_service_facts
+      until: molecule_php_service_facts | community.general.json_query(ansible_facts.services.['php8.2-fpm']|[0].state) == "running"
+      retries: 20
+      delay: 1
+
 ...

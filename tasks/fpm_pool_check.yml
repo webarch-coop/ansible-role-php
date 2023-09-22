@@ -1,0 +1,113 @@
+---
+- name: Run phpquery to check is FPM is an available SAPI
+  ansible.builtin.command: "phpquery -v {{ php_ver }} -s fpm"
+  check_mode: false
+  changed_when: false
+  register: php_phpquery_sapi
+  failed_when: php_phpquery_sapi.rc is not regex('^0|1')
+  tags:
+    - php
+    - php_cfg
+    - php_conf
+    - php_mods
+
+- name: Get PHP-FPM pool socket paths when FPM is present
+  block:
+
+    - name: "Find PHP-FPM pool files for {{ php_ver }}"
+      ansible.builtin.find:
+        paths: "/etc/php/{{ php_ver }}/fpm/pool.d"
+        recurse: false
+        file_type: file
+        use_regex: false
+        patterns: '*.conf'
+      register: php_fpm_pool_files_found
+
+    - name: Debug PHP pool paths
+      ansible.builtin.debug:
+        var: php_fpm_pool_files_found
+        verbosity: 1
+
+    - name: Set a fact for all the PHP pool.d file paths
+      ansible.builtin.set_fact:
+        php_fpm_version_socket_paths: []
+        php_fpm_pool_files: "{{ php_fpm_pool_files_found | json_query('files[].path') }}"
+
+    - name: Slurp all the pool.d files
+      ansible.builtin.slurp:
+        path: "{{ php_fpm_pool_file }}"
+      register: php_fpm_pool_files_b64encoded
+      loop: "{{ php_fpm_pool_files }}"
+      loop_control:
+        loop_var: php_fpm_pool_file
+
+    - name: Debug the slurped pool.d files
+      ansible.builtin.debug:
+        var: php_fpm_pool_files_b64encoded
+        verbosity: 3
+
+    - name: Decode the base64 encoded pool.d files
+      ansible.builtin.set_fact:
+        php_fpm_pool_file_contents: "{{ php_fpm_pool_files_b64encoded | json_query('results[].content') | map('b64decode') }}"
+
+    - name: Debug the slurped pool.d file contents
+      ansible.builtin.debug:
+        var: php_fpm_pool_file_contents
+        verbosity: 2
+
+    - name: "Debug the PHP-FPM socket paths for PHP version {{ php_ver }}"
+      ansible.builtin.debug:
+        var: php_fpm_pool_file_json
+        verbosity: 3
+      vars:
+        php_fpm_pool_file_json: |-
+          {
+            "name": "{{ php_fpm_pool_file_content | string | community.general.jc('ini') | json_query('keys(@)|[0]') }}",
+            "socket": "{{ php_fpm_pool_file_content | string | community.general.jc('ini') | json_query('*.listen|[0]') }}"
+          }
+      loop: "{{ php_fpm_pool_file_contents }}"
+      loop_control:
+        label: "{{ php_fpm_pool_file_content | string | community.general.jc('ini') | json_query('keys(@)|[0]') }}"
+        loop_var: php_fpm_pool_file_content
+
+    - name: "Set a fact for a list of PHP-FPM socket paths for PHP version {{ php_ver }}"
+      ansible.builtin.set_fact:
+        php_fpm_version_socket_paths: "{{ php_fpm_version_socket_paths + [ php_fpm_pool_file_json ] }}"
+      vars:
+        php_fpm_pool_file_json: |-
+         {
+           "name": "{{ php_fpm_pool_file_content | string | community.general.jc('ini') | json_query('keys(@)|[0]') }}",
+           "socket": "{{ php_fpm_pool_file_content | string | community.general.jc('ini') | json_query('*.listen|[0]') }}"
+         }
+      loop: "{{ php_fpm_pool_file_contents }}"
+      loop_control:
+        label: "{{ php_fpm_pool_file_content | string | community.general.jc('ini') | json_query('keys(@)|[0]') }}"
+        loop_var: php_fpm_pool_file_content
+
+    - name: "Debug the PHP-FPM socket paths for {{ php_ver }}"
+      ansible.builtin.debug:
+        var: php_fpm_version_socket_paths
+        verbosity: 1
+
+    - name: Set a fact the PHP-FPM socket paths for all PHP versions
+      ansible.builtin.set_fact:
+        php_fpm_pools: "{{ php_fpm_pools + [ php_fpm_pool_files_json ] }}"
+      vars:
+        php_fpm_pool_files_json: |-
+         {
+           "name": "{{ php_ver }}",
+           "pools": {{ php_fpm_version_socket_paths }}
+         }
+
+    - name: Debug the PHP-FPM socket paths for all PHP versions
+      ansible.builtin.debug:
+        var: php_fpm_pools
+        verbosity: 1
+
+  when: php_phpquery_sapi.rc == 0
+  tags:
+    - php
+    - php_cfg
+    - php_conf
+    - php_mods
+...

@@ -8,6 +8,7 @@
 #
 # You should have received a copy of the GNU General Public License along with the Webarchitects PHP Ansible role. If not, see <https://www.gnu.org/licenses/>.
 ---
+php_fpm_pools: []
 php_pool_names_not_absent: []
 
 # https://docs.ansible.com/ansible/latest/playbook_guide/complex_data_manipulation.html

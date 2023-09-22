@@ -28,6 +28,15 @@
         var: php_fpm_service
         verbosity: 2
 
+    - name: Check that PHP FPM is running
+      ansible.builtin.service_facts:
+      register: php_service_facts
+      until: php_service_facts | community.general.json_query(php_service_jpq) == "running"
+      retries: 20
+      delay: 1
+      vars:
+        php_service_jpq: 'ansible_facts.services.["php{{ php_fpm_version }}-fpm"]|[0].state'
+
   tags:
     - php
     - php_pkg

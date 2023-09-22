@@ -35,6 +35,7 @@
         name: php
       vars:  # noqa var-naming[no-role-prefix]
         php: true
+        php_fpm_pool_check_fail: false
         php_config:
           - name: PHP 8.2 configuration
             version: "8.2"
@@ -110,13 +111,18 @@
                 state: edited
                 conf:
                   www:
-                    pm: dynamic
+                    "user": www-data
+                    "group": www-data
+                    "listen": /run/php/php8.2-fpm.sock
+                    "listen.owner": www-data
+                    "listen.group": www-data
+                    "pm": dynamic
                     "pm.max_children": "4"
-                    "pm.max_requests": "1000"
-                    "pm.max_spare_servers": "1"
-                    "pm.min_spare_servers": "1"
-                    "pm.process_idle_timeout": "10s"
                     "pm.start_servers": "1"
+                    "pm.min_spare_servers": "1"
+                    "pm.max_spare_servers": "1"
+                    "pm.process_idle_timeout": 10s
+                    "pm.max_requests": "1000"
         php_modules:
           - name: PHP 8.2 modules
             version: "8.2"

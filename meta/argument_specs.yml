@@ -149,6 +149,10 @@ argument_specs:
         elements: str
         required: false
         description: A generated list of PHP-FPM packages present.
+      php_fpm_pool_check_fail:
+        type: bool
+        required: true
+        description: Fail when duplicated PHP-FPM pool names are found.
       php_fpm_version:
         type: str
         required: false
