@@ -1,6 +1,6 @@
 ---
 - name: Run phpquery to check is FPM is an available SAPI
-  ansible.builtin.command: "phpquery -v {{ php_ver }} -s fpm"
+  ansible.builtin.command: "phpquery -v {{ php_check_ver }} -s fpm"
   check_mode: false
   changed_when: false
   register: php_phpquery_sapi
@@ -14,9 +14,9 @@
 - name: Get PHP-FPM pool socket paths when FPM is present
   block:
 
-    - name: "Find PHP-FPM pool files for {{ php_ver }}"
+    - name: "Find PHP-FPM pool files for {{ php_check_ver }}"
       ansible.builtin.find:
-        paths: "/etc/php/{{ php_ver }}/fpm/pool.d"
+        paths: "/etc/php/{{ php_check_ver }}/fpm/pool.d"
         recurse: false
         file_type: file
         use_regex: false
@@ -55,7 +55,7 @@
         var: php_fpm_pool_file_contents
         verbosity: 2
 
-    - name: "Debug the PHP-FPM socket paths for PHP version {{ php_ver }}"
+    - name: "Debug the PHP-FPM socket paths for PHP version {{ php_check_ver }}"
       ansible.builtin.debug:
         var: php_fpm_pool_file_json
         verbosity: 3
@@ -70,7 +70,7 @@
         label: "{{ php_fpm_pool_file_content | string | community.general.jc('ini') | json_query('keys(@)|[0]') }}"
         loop_var: php_fpm_pool_file_content
 
-    - name: "Set a fact for a list of PHP-FPM socket paths for PHP version {{ php_ver }}"
+    - name: "Set a fact for a list of PHP-FPM socket paths for PHP version {{ php_check_ver }}"
       ansible.builtin.set_fact:
         php_fpm_version_socket_paths: "{{ php_fpm_version_socket_paths + [ php_fpm_pool_file_json ] }}"
       vars:
@@ -84,7 +84,7 @@
         label: "{{ php_fpm_pool_file_content | string | community.general.jc('ini') | json_query('keys(@)|[0]') }}"
         loop_var: php_fpm_pool_file_content
 
-    - name: "Debug the PHP-FPM socket paths for {{ php_ver }}"
+    - name: "Debug the PHP-FPM socket paths for {{ php_check_ver }}"
       ansible.builtin.debug:
         var: php_fpm_version_socket_paths
         verbosity: 1
@@ -95,7 +95,7 @@
       vars:
         php_fpm_pool_files_json: |-
          {
-           "name": "{{ php_ver }}",
+           "name": "{{ php_check_ver }}",
            "pools": {{ php_fpm_version_socket_paths }}
          }
 
