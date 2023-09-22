@@ -62,8 +62,6 @@
         mode: "0644"
         owner: root
         group: root
-      environment:
-        DEFAULT_MANAGED_STR: "{{ php_ansible_managed }}"
       register: php_conf_file_templated
 
     - name: Test and reload PHP configuration file when file is in a FPM directory and the init system is systemd

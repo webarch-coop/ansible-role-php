@@ -1,6 +1,6 @@
 # Webarchitects PHP Ansible role
 
-[![pipeline status](https://git.coop/webarch/php/badges/master/pipeline.svg)](https://git.coop/webarch/php/-/commits/master)
+[![pipeline status](https://git.coop/webarch/php/badges/main/pipeline.svg)](https://git.coop/webarch/php/-/commits/main)
 
 This Ansible role is designed to install and configure PHP on Debian, by default it installs PHP packaged by Ondřej Surý from [deb.sury.org](https://deb.sury.org/), but it can also be used to install and configure PHP packages from Debian.
 
