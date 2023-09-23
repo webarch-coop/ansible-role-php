@@ -25,6 +25,7 @@ The optional `php_config` list is used to specify the state of the PHP configura
 Each item in the list requires a `state`, which can be `absent` or `present` and a `version` which must be a string from this list of PHP versions:
 
 ```yaml
+- "8.3"
 - "8.2"
 - "8.1"
 - "8.0"
@@ -80,6 +81,7 @@ The optional `php_modules` list can be used to enable and disable PHP modules us
 Each item in the list requires a `state`, which can be `absent` or `present` and a `version` which must be a string from this list of PHP versions:
 
 ```yaml
+- "8.3"
 - "8.2"
 - "8.1"
 - "8.0"
