@@ -526,6 +526,7 @@
           ansible.builtin.assert:
             that:
               - molecule_php_present == molecule_php_required
+            quiet: true
 
       rescue:
 
@@ -552,6 +553,7 @@
       ansible.builtin.assert:
         that:
           - molecule_php_service_facts | community.general.json_query(molecule_php_fpm_ver_jpq) == "running"
+        quiet: true
       vars:
         molecule_php_fpm_ver_jpq: 'ansible_facts.services.["php{{ molecule_php_fpm_ver }}-fpm.service"]|[0].state'
       loop:
