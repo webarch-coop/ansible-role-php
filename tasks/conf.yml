@@ -97,7 +97,7 @@
       loop_control:
         loop_var: php_ver_dbg
 
-    - name: Include PHPconf file path checks
+    - name: Include PHP conf file path checks
       ansible.builtin.include_tasks: conf_path_check.yml
       vars:
         php_conf_file_paths: "{{ php_config | community.general.json_query(php_conf_file_paths_jmespath_query) }}"
@@ -183,24 +183,6 @@
         var: php_conf_files_present
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
 
-    - name: Set a fact for all PHP configuration files that should be edited
-      ansible.builtin.set_fact:
-        php_conf_files_edit: "{{ php_conf_files_edited + php_conf_files_present | ansible.builtin.intersect(php_conf_files_existing) }}"
-
-    - name: Debug all PHP configuration files that should be edited
-      ansible.builtin.debug:
-        var: php_conf_files_edit
-        verbosity: "{% if ansible_check_mode | bool %}0{% else %}1{% endif %}"
-
-    - name: Include PHP configuration file edited tasks
-      ansible.builtin.include_tasks: file_edited.yml
-      loop: "{{ php_conf_files_edit }}"
-      loop_control:
-        loop_var: php_conf_file
-      when:
-        - php_conf_files_edit is defined
-        - php_conf_files_edit != []
-
     - name: Debug PHP configuration files set to be templated
       ansible.builtin.debug:
         var: php_conf_files_templated
@@ -223,6 +205,24 @@
       when:
         - php_conf_files_template is defined
         - php_conf_files_template != []
+
+    - name: Set a fact for all PHP configuration files that should be edited
+      ansible.builtin.set_fact:
+        php_conf_files_edit: "{{ php_conf_files_edited + php_conf_files_present | ansible.builtin.intersect(php_conf_files_existing) }}"
+
+    - name: Debug all PHP configuration files that should be edited
+      ansible.builtin.debug:
+        var: php_conf_files_edit
+        verbosity: "{% if ansible_check_mode | bool %}0{% else %}1{% endif %}"
+
+    - name: Include PHP configuration file edited tasks
+      ansible.builtin.include_tasks: file_edited.yml
+      loop: "{{ php_conf_files_edit }}"
+      loop_control:
+        loop_var: php_conf_file
+      when:
+        - php_conf_files_edit is defined
+        - php_conf_files_edit != []
 
   tags:
     - php

@@ -72,7 +72,7 @@
 
     - name: "Set a fact for a list of PHP-FPM socket paths for PHP version {{ php_check_ver }}"
       ansible.builtin.set_fact:
-        php_fpm_version_socket_paths: "{{ php_fpm_version_socket_paths + [ php_fpm_pool_file_json ] }}"
+        php_fpm_version_socket_paths: "{{ php_fpm_version_socket_paths + [php_fpm_pool_file_json] }}"
       vars:
         php_fpm_pool_file_json: |-
          {
@@ -91,7 +91,7 @@
 
     - name: Set a fact the PHP-FPM socket paths for all PHP versions
       ansible.builtin.set_fact:
-        php_fpm_pools: "{{ php_fpm_pools + [ php_fpm_pool_files_json ] }}"
+        php_fpm_pools: "{{ php_fpm_pools + [php_fpm_pool_files_json] }}"
       vars:
         php_fpm_pool_files_json: |-
          {

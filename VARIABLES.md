@@ -25,6 +25,7 @@ The main entry point for the PHP role.
 | php_file_path_separator | The file path seperator to use. | str | yes |
 | php_fpm_package | Loop variables for a PHP-FPM package. | str | no |
 | php_fpm_packages_present | A generated list of PHP-FPM packages present. | list of 'str' | no |
+| php_fpm_pool_check_fail | Fail when duplicated PHP-FPM pool names are found. | bool | yes |
 | php_fpm_version | Loop variables for a PHP-FPM version. | str | no |
 | php_fpm_versions_present | A generated list of PHP-FPM versions present. | list of 'str' | no |
 | php_gpg_checksum | The SHA256 checksum for packages.sury.org/php/apt.gpg. | str | yes |

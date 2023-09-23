@@ -145,7 +145,7 @@
 
     - name: Set a fact for the PHP FPM pool names that are not set to be absent
       ansible.builtin.set_fact:
-        php_pool_names_not_absent: "{{ php_pool_names_not_absent + (php_conf_file.conf.keys() | list ) }}"
+        php_pool_names_not_absent: "{{ php_pool_names_not_absent + (php_conf_file.conf.keys() | list) }}"
       # ansible.builtin.debug:
       #   var: php_conf_file.conf.keys()
       when:

@@ -1,14 +1,18 @@
 # Webarchitects PHP Ansible role
 
+[![pipeline status](https://git.coop/webarch/php/badges/main/pipeline.svg)](https://git.coop/webarch/php/-/commits/main)
+
 This Ansible role is designed to install and configure PHP on Debian, by default it installs PHP packaged by Ondřej Surý from [deb.sury.org](https://deb.sury.org/), but it can also be used to install and configure PHP packages from Debian.
 
-This role is tested using `molecule` via [GitLab CI](.gitlab-ci.yml) on Debian Bookworm using [three molecule senarios](molecule/), firstly by installing and configuring the Debian Bookworm PHP CLI Server API (SAPI), secondly installing the Debian Bookworm FPM SAPI and finally installing the Ondřej Surý packages.
+This role is tested using `molecule` via [GitLab CI](.gitlab-ci.yml) on Debian Bookworm using [three molecule senarios](molecule/), firstly by installing and configuring the Debian Bookworm PHP CLI Server API (SAPI), secondly installing the Debian Bookworm FPM SAPI and finally installing the Ondřej Surý packages and enabling and starting PHP-FPM pools for PHP 7.4, 8.0, 8.1 and 8.2.
+
+This role enforces unique PHP-FPM pool names across all versions of PHP as this enables better monitoring, by default the `www` pools are renamed to `www82`, `www81` etc.
 
 ## Role variables
 
 See the [defaults/main.yml](defaults/main.yml) file for the default variables, the [vars/main.yml](vars/main.yml) file for the preset variables and the [meta/argument_specs.yml](meta/argument_specs.yml) file for the variable specification.
 
-This roles has one required boolean variable, [php](#php), two optional boolean variables, [php_check_legacy_variables](#php_check_legacy_variables), [php_sury](#php_sury) and [php_verify](#php_verify) and three optional lists, [php_config](#php_config), [php_modules](#php_modules) and [php_versions](#php_versions), the [VARIABLES.md](VARIABLES.md) file contains documentation generated from the [meta/argument_specs.yml](meta/argument_specs.yml) for all the variables including the internal ones.
+This role has two required boolean variables, [php](#php) and [php_fpm_pool_check_fail](#php_fpm_pool_check_fail), two optional boolean variables, [php_check_legacy_variables](#php_check_legacy_variables), [php_sury](#php_sury) and [php_verify](#php_verify) and three optional lists, [php_config](#php_config), [php_modules](#php_modules) and [php_versions](#php_versions), the [VARIABLES.md](VARIABLES.md) file contains documentation generated from the [meta/argument_specs.yml](meta/argument_specs.yml) for all the variables including the internal ones.
 
 ### php
 
@@ -73,6 +77,10 @@ php_config:
           Date:
             "date.timezone": "Europe/London"
 ```
+
+### php_fpm_pool_check_fail
+
+The compulsory `php_fpm_pool_check_fail` variable defaults to `true`, set it to `false` to allw this role to run when duplicate PHP-FPM pool names are found on the server, once this role has updated the poool names to ensure that are unique it can be set back to `true`.
 
 ### php_modules
 

@@ -69,6 +69,8 @@
         mode: "0644"
         owner: root
         group: root
+      environment:
+        DEFAULT_MANAGED_STR: "{{ php_ansible_managed }}"
       register: php_sources
 
     - name: PHP apt preferences present
@@ -78,6 +80,8 @@
         mode: "0644"
         owner: root
         group: root
+      environment:
+        DEFAULT_MANAGED_STR: "{{ php_ansible_managed }}"
       register: php_preferences
 
     - name: Update apt cache  # noqa: no-handler

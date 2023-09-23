@@ -225,6 +225,7 @@
           ansible.builtin.assert:
             that:
               - molecule_php_present == molecule_php_required
+            quiet: true
 
       rescue:
 
@@ -246,7 +247,7 @@
     - name: Check that PHP-FPM is running
       ansible.builtin.service_facts:
       register: molecule_php_service_facts
-      until: molecule_php_service_facts | community.general.json_query('ansible_facts.services.["php8.2-fpm"]|[0].state') == "running"
+      until: molecule_php_service_facts | community.general.json_query('ansible_facts.services.["php8.2-fpm.service"]|[0].state') == "running"
       retries: 20
       delay: 1
 

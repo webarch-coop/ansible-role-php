@@ -177,6 +177,7 @@
           ansible.builtin.assert:
             that:
               - molecule_php_present == molecule_php_required
+            quiet: true
 
       rescue:
 

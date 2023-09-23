@@ -8,6 +8,10 @@
 #
 # You should have received a copy of the GNU General Public License along with the Webarchitects PHP Ansible role. If not, see <https://www.gnu.org/licenses/>.
 ---
+# The ansible_managed string for lineinfile is set here, ensure it matches
+# the values that ansible_managed is set to for idempotency
+php_ansible_managed: Ansible managed
+
 php_fpm_pools: []
 php_pool_names_not_absent: []
 
@@ -107,7 +111,7 @@ php_gpg_fingerprints:
   - 45BEA3E529112086C622F8A4B214EAC28059B8AC
 
 # The following lists can be generated using the sury-packages.sh script in this directory.
-# To update them deleting everything after this comment and inset the results of the script.
+# To update them delete everything after this comment and inset the results of the script.
 # For example delete the lines and run:
 # bash ./sury-packages.sh >> main.yml
 

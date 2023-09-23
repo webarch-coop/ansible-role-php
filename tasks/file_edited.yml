@@ -93,7 +93,7 @@
     - name: Ansible managed comment present at the top of the file
       ansible.builtin.lineinfile:
         path: "{{ php_conf_file }}"
-        line: "; Ansible managed"
+        line: "; {{ php_ansible_managed }}"
         state: present
         insertbefore: BOF
         mode: "0644"
@@ -171,7 +171,7 @@
           retries: 20
           delay: 1
           vars:
-            php_service_jpq: 'ansible_facts.services.["php{{ php_conf_file_version }}-fpm"]|[0].state'
+            php_service_jpq: 'ansible_facts.services.["php{{ php_conf_file_version }}-fpm.service"]|[0].state'
 
       when:
         - php_init is defined

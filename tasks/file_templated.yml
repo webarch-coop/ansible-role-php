@@ -62,6 +62,8 @@
         mode: "0644"
         owner: root
         group: root
+      environment:
+        DEFAULT_MANAGED_STR: "{{ php_ansible_managed }}"
       register: php_conf_file_templated
 
     - name: Test and reload PHP configuration file when file is in a FPM directory and the init system is systemd
@@ -125,7 +127,7 @@
           retries: 20
           delay: 1
           vars:
-            php_service_jpq: 'ansible_facts.services.["php{{ php_conf_file_version }}-fpm"]|[0].state'
+            php_service_jpq: 'ansible_facts.services.["php{{ php_conf_file_version }}-fpm.service"]|[0].state'
 
       when:
         - php_init is defined

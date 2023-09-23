@@ -83,20 +83,20 @@ php_config:
       - name: PHP 8.2 FPM www pool configuration
         path: /etc/php/8.2/fpm/pool.d/www.conf
         state: absent
+      - name: PHP 8.2 FPM www82 pool configuration
+        path: /etc/php/8.2/fpm/pool.d/www82.conf
+        state: present
         conf:
-          www:
+          www82:
             "user": www-data
             "group": www-data
             "listen": /run/php/php8.2-fpm.sock
             "listen.owner": www-data
             "listen.group": www-data
-            "pm": dynamic
+            "pm": ondemand
             "pm.max_children": "4"
-            "pm.start_servers": "1"
-            "pm.min_spare_servers": "1"
-            "pm.max_spare_servers": "1"
             "pm.process_idle_timeout": 10s
-            "pm.max_requests": "1000"
+            "pm.status_path": /fpm82-status
   - name: PHP 8.1 configuration
     version: "8.1"
     state: present
@@ -169,20 +169,20 @@ php_config:
       - name: PHP 8.1 FPM www pool configuration
         path: /etc/php/8.1/fpm/pool.d/www.conf
         state: absent
+      - name: PHP 8.1 FPM www81 pool configuration
+        path: /etc/php/8.1/fpm/pool.d/www81.conf
+        state: present
         conf:
-          www:
+          www81:
             "user": www-data
             "group": www-data
             "listen": /run/php/php8.1-fpm.sock
             "listen.owner": www-data
             "listen.group": www-data
-            "pm": dynamic
+            "pm": ondemand
             "pm.max_children": "4"
-            "pm.start_servers": "1"
-            "pm.min_spare_servers": "1"
-            "pm.max_spare_servers": "1"
             "pm.process_idle_timeout": 10s
-            "pm.max_requests": "1000"
+            "pm.status_path": /fpm81-status
   - name: PHP 8.0 configuration
     version: "8.0"
     state: present
@@ -255,20 +255,20 @@ php_config:
       - name: PHP 8.0 FPM www pool configuration
         path: /etc/php/8.0/fpm/pool.d/www.conf
         state: absent
+      - name: PHP 8.0 FPM www81 pool configuration
+        path: /etc/php/8.0/fpm/pool.d/www80.conf
+        state: present
         conf:
-          www:
+          www80:
             "user": www-data
             "group": www-data
             "listen": /run/php/php8.0-fpm.sock
             "listen.owner": www-data
             "listen.group": www-data
-            "pm": dynamic
+            "pm": ondemand
             "pm.max_children": "4"
-            "pm.start_servers": "1"
-            "pm.min_spare_servers": "1"
-            "pm.max_spare_servers": "1"
             "pm.process_idle_timeout": 10s
-            "pm.max_requests": "1000"
+            "pm.status_path": /fpm80-status
   - name: PHP 7.4 configuration
     version: "7.4"
     state: present
@@ -341,20 +341,20 @@ php_config:
       - name: PHP 7.4 FPM www pool configuration
         path: /etc/php/7.4/fpm/pool.d/www.conf
         state: absent
+      - name: PHP 7.4 FPM www74 pool configuration
+        path: /etc/php/7.4/fpm/pool.d/www74.conf
+        state: present
         conf:
-          www:
+          www74:
             "user": www-data
             "group": www-data
             "listen": /run/php/php7.4-fpm.sock
             "listen.owner": www-data
             "listen.group": www-data
-            "pm": dynamic
+            "pm": ondemand
             "pm.max_children": "4"
-            "pm.start_servers": "1"
-            "pm.min_spare_servers": "1"
-            "pm.max_spare_servers": "1"
             "pm.process_idle_timeout": 10s
-            "pm.max_requests": "1000"
+            "pm.status_path": /fpm74-status
   # - name: PHP 7.3 configuration
   #   version: "7.3"
   #   state: present
