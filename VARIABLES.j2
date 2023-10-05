@@ -22,12 +22,12 @@ Documentation for all the variables, including internal ones which you do not ne
 |---|---|---|---|
 {%- for name, details in options.items() %}
 | {{ name }} | {{ details.display_description }} | {{ details.display_type }} | {{ details.display_required }} |
-{%- endfor %}
-
+{%- endfor -%}
 {% endfor -%}
 {% endif -%}
 {% if entrypoint in entrypoint_choices -%}
-{% for path, choices in entrypoint_choices[entrypoint] -%}
+{%- for path, choices in entrypoint_choices[entrypoint] %}
+
 ### Choices for {{ path | join(" > ") }}
 
 |Choice|
@@ -35,7 +35,6 @@ Documentation for all the variables, including internal ones which you do not ne
 {%- for item in choices %}
 | {{ item }} |
 {%- endfor -%}
-
 {%- endfor -%}
 {%- endif -%}
 {%- endfor %}

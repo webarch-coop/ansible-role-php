@@ -52,36 +52,28 @@ The main entry point for the PHP role.
 | files | A optional list of PHP file paths and their configuration. | list of dicts of 'files' options | no |
 | name | A optional name for the PHP version configuration. | str | no |
 | state | The state of the configuration files for the version of PHP. | str | yes |
-| version | The PHP version number. | str | yes |
-
-### Options for main > php_config > files
+| version | The PHP version number. | str | yes |### Options for main > php_config > files
 
 |Option|Description|Type|Required|
 |---|---|---|---|
 | conf | A optional YAML dictionary representing the sections, variables and values of a PHP configuration file. | dict | no |
 | name | A optional name for the PHP configuration file. | str | no |
 | path | The path of the PHP configuration file. | str | yes |
-| state | The state of the PHP configuration file. | str | yes |
-
-### Options for main > php_modules
+| state | The state of the PHP configuration file. | str | yes |### Options for main > php_modules
 
 |Option|Description|Type|Required|
 |---|---|---|---|
 | name | A optional name for the PHP modules version. | str | no |
 | sapis | An optional list of PHP SAPIs. | list of dicts of 'sapis' options | no |
 | state | The state of the PHP modules. | str | no |
-| version | The PHP version number. | str | yes |
-
-### Options for main > php_modules > sapis
+| version | The PHP version number. | str | yes |### Options for main > php_modules > sapis
 
 |Option|Description|Type|Required|
 |---|---|---|---|
 | mods_disabled | A list of PHP modules to be disabled for the specific SAPI and PHP version. | list of 'str' | no |
 | mods_enabled | A list of PHP modules to be enabled for the specific SAPI and PHP version. | list of 'str' | no |
 | name | A optional name for the PHP version SAPI modules. | str | no |
-| sapi | The name of the SAPI to have modules configured. | str | yes |
-
-### Options for main > php_versions
+| sapi | The name of the SAPI to have modules configured. | str | yes |### Options for main > php_versions
 
 |Option|Description|Type|Required|
 |---|---|---|---|
@@ -98,12 +90,16 @@ The main entry point for the PHP role.
 | absent |
 | edited |
 | present |
-| templated |### Choices for main > php_config > state
+| templated |
+
+### Choices for main > php_config > state
 
 |Choice|
 |---|
 | absent |
-| present |### Choices for main > php_config > version
+| present |
+
+### Choices for main > php_config > version
 
 |Choice|
 |---|
@@ -116,22 +112,30 @@ The main entry point for the PHP role.
 | 7.2 |
 | 7.1 |
 | 7.0 |
-| 5.6 |### Choices for main > php_file_path_separator
+| 5.6 |
+
+### Choices for main > php_file_path_separator
 
 |Choice|
 |---|
-| / |### Choices for main > php_modules > sapis > sapi
+| / |
+
+### Choices for main > php_modules > sapis > sapi
 
 |Choice|
 |---|
 | apache2 |
 | cli |
-| fpm |### Choices for main > php_modules > state
+| fpm |
+
+### Choices for main > php_modules > state
 
 |Choice|
 |---|
 | absent |
-| present |### Choices for main > php_modules > version
+| present |
+
+### Choices for main > php_modules > version
 
 |Choice|
 |---|
@@ -144,12 +148,16 @@ The main entry point for the PHP role.
 | 7.2 |
 | 7.1 |
 | 7.0 |
-| 5.6 |### Choices for main > php_versions > state
+| 5.6 |
+
+### Choices for main > php_versions > state
 
 |Choice|
 |---|
 | absent |
-| present |### Choices for main > php_versions > version
+| present |
+
+### Choices for main > php_versions > version
 
 |Choice|
 |---|
