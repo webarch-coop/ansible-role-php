@@ -1,6 +1,6 @@
-# Webarchitects Ansible WordPress Command Line Interface (WP-CLI) Role Variables
+# Webarchitects PHP Ansible Role Variables
 
-Documentation for all the variables, including internal ones which you do not need to set, follow, this documentation has been generated from the [meta/argument_specs.yml](meta/argument_specs.yml).
+Documentation for all the variables, including internal ones which you do not need to set, follow, this documentation has been generated from the [meta/argument_specs.yml](meta/argument_specs.yml), see also the [README.md](README.md).
 
 ## Entrypoint: main
 
@@ -107,6 +107,7 @@ The main entry point for the PHP role.
 
 |Choice|
 |---|
+| 8.3 |
 | 8.2 |
 | 8.1 |
 | 8.0 |
@@ -134,6 +135,7 @@ The main entry point for the PHP role.
 
 |Choice|
 |---|
+| 8.3 |
 | 8.2 |
 | 8.1 |
 | 8.0 |
@@ -151,6 +153,7 @@ The main entry point for the PHP role.
 
 |Choice|
 |---|
+| 8.3 |
 | 8.2 |
 | 8.1 |
 | 8.0 |
