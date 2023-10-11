@@ -16,7 +16,7 @@
 
     - name: "Find PHP-FPM pool files for {{ php_check_ver }}"
       ansible.builtin.find:
-        paths: "/etc/php/{{ php_check_ver }}/fpm/pool.d"
+        paths: "/etc/php/{{ php_check_ver }}/fpm/pool.d/*.conf"
         recurse: false
         file_type: file
         use_regex: false
