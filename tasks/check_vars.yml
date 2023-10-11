@@ -167,7 +167,7 @@
         that:
           - php_pool_names_not_absent | list | length == php_pool_names_not_absent | unique | list | length
         quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
-        fail_msg: "Non unique PHP-FPM pool names:{% for php_pool_name in php_pool_names_not_absent %} {{ php_pool_name }}{% endfor %}"
+        fail_msg: "Non unique PHP-FPM pool names:{% for php_pool_name in php_pool_names_not_absent %} {{ php_pool_name }}{% endfor %}, please run the role once with --extra-vars='php_fpm_pool_check_fail=false' to fix this"
       when: php_fpm_pool_check_fail | bool
 
     # TODO sapis are required when php_modules are set to be present
