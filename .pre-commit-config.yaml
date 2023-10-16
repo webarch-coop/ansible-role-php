@@ -24,7 +24,7 @@ repos:
         language: python
         additional_dependencies:
           # https://pypi.org/project/ansible/
-          - ansible==8.4.0
+          - ansible==8.5.0
           # https://github.com/kellyjonbrazil/jc/releases
           - jc==1.23.4
           # https://github.com/jmespath/jmespath.py/tags
