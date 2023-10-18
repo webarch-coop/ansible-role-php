@@ -120,7 +120,7 @@
 
     - name: Check that PHP packages that are set to be absent match the config that is set to be absent
       ansible.builtin.debug:
-        msg: "Note that PHP pkgs set to be absent: {% for php_v in php_ver_absent %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %} doesn't not match the PHP cfg set to be absent: {% for php_v in php_conf_ver_absent %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %}"
+        msg: "Note that PHP pkgs set to be absent: {% for php_v in php_ver_absent %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %} does not match the PHP cfg set to be absent: {% for php_v in php_conf_ver_absent %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %}"
       when: php_ver_absent != php_conf_ver_absent
 
     - name: PHP configuration should not be removed when the packages are set to be present
