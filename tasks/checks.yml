@@ -48,7 +48,7 @@
       ansible.builtin.assert:
         that:
           - php_fpm_pool_names | length == php_fpm_pool_names | unique | length
-        quiet: true
+        quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
         fail_msg:
           - "PHP-FPM pool names need to be unique, these names are dumplicated{% for php_fpm_pool_name in php_fpm_pool_names %} {{ php_fpm_pool_name }}{% endfor %}"
           - "Please set php_fpm_pool_check_fail to false for this host to skip this check and then remember to remove it afterwards!"

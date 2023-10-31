@@ -184,6 +184,7 @@
       ansible.builtin.assert:
         that:
           - php_fpm_package in ansible_local.dpkg.installed
+        quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
       loop: "{{ php_fpm_packages_present }}"
       loop_control:
         loop_var: php_fpm_package

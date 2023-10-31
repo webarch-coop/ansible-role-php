@@ -15,6 +15,7 @@
       ansible.builtin.assert:
         that:
           - php_conf_file is regex(php_conf_file_path_regex)
+        quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
         fail_msg: "Path / version mismatch: {{ php_conf_file }} is set to be configured for PHP {{ php_ver }}"
       vars:
         php_conf_file_path_regex: "^[/]etc[/]php[/]{{ php_ver_chk }}[/].*"
