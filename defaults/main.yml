@@ -677,7 +677,6 @@ php_modules:
   #         - curl
   #         - dom
   #         - exif
-  #         - ffi
   #         - fileinfo
   #         - ftp
   #         - gd
