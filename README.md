@@ -8,6 +8,15 @@ This role is tested using `molecule` via [GitLab CI](.gitlab-ci.yml) on Debian B
 
 This role enforces unique PHP-FPM pool names across all versions of PHP as this enables better monitoring, by default the `www` pools are renamed to `www82`, `www81` etc.
 
+## Usage
+
+The safe way to run this role is incrementally using `--diff -C` to diff and check what changes are to be made:
+
+* Run with the `php_apt` tag to update the apt repo configuration, this supports check mode.
+* Run with the `php_pkg` tag to update the packages, this doesn't support check mode.
+* Run with the `php_cfg` tag to update the PHP configuration, this supports check mode.
+* Run with the `php` tag to update everything.
+
 ## Role variables
 
 See the [defaults/main.yml](defaults/main.yml) file for the default variables, the [vars/main.yml](vars/main.yml) file for the preset variables and the [meta/argument_specs.yml](meta/argument_specs.yml) file for the variable specification.
