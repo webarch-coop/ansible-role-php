@@ -84,10 +84,21 @@
         DEFAULT_MANAGED_STR: "{{ php_ansible_managed }}"
       register: php_preferences
 
-    - name: Update apt cache  # noqa: no-handler
-      ansible.builtin.apt:
-        update_cache: true
-        cache_valid_time: 60
+    - name: Upgrade everything and autoclean and autoremove when switching sources
+      block:
+
+        - name: Update apt cache  # noqa: no-handler
+          ansible.builtin.apt:
+            update_cache: true
+            cache_valid_time: 0
+
+        - name: Dist upgrade  # noqa: no-handler
+          ansible.builtin.apt:
+            upgrade: dist
+            autoclean: true
+            autoremove: true
+            update_cache: false
+
       when: >-
         ( php_sources.changed | bool ) or
         ( php_preferences.changed | bool )
@@ -113,10 +124,21 @@
         label: "{{ path | basename }}"
       register: php_repo_absent
 
-    - name: Update apt cache  # noqa: no-handler
-      ansible.builtin.apt:
-        update_cache: true
-        cache_valid_time: 60
+    - name: Upgrade everything and autoclean and autoremove when removing the sury repo
+      block:
+
+        - name: Update apt cache  # noqa: no-handler
+          ansible.builtin.apt:
+            update_cache: true
+            cache_valid_time: 0
+
+        - name: Dist upgrade  # noqa: no-handler
+          ansible.builtin.apt:
+            upgrade: dist
+            autoclean: true
+            autoremove: true
+            update_cache: false
+
       when: php_repo_absent.changed
 
   when: not php_sury | bool
