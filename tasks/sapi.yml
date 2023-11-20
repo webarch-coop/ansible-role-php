@@ -79,9 +79,9 @@
 
         - name: "{{ php_task_name }}"
           ansible.builtin.debug:
-            var: php_mods_proposed
+            var: php_mods_enable
           vars:
-            php_task_name: "Debug PHP {{ php_version.version }} mods proposed"
+            php_task_name: "Debug PHP {{ php_version.version }} mods enable"
 
         - name: Fail as mods to be enabled are not available
           ansible.builtin.fail:
