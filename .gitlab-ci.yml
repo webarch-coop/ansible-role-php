@@ -30,7 +30,7 @@ stages:
   - bookworm
   # - bullseye
 bookworm:
-  image: registry.git.coop/webarch/containers/images/bookworm:20231016
+  image: registry.git.coop/webarch/containers/images/bookworm:20231119
   stage: bookworm
   script:
     - molecule test --all
