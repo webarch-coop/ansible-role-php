@@ -185,6 +185,7 @@ php_debian_bookworm_pkg:
   - php5.6-mongodb
   - php5.6-msgpack
   - php5.6-mysql
+  - php5.6-mysqlnd-ms
   - php5.6-oauth
   - php5.6-odbc
   - php5.6-opcache
@@ -885,6 +886,8 @@ php_debian_bookworm_pkg:
   - php8.2-zmq
   - php8.2-zstd
   - php8.3
+  - php8.3-amqp
+  - php8.3-apcu
   - php8.3-bcmath
   - php8.3-bz2
   - php8.3-cgi
@@ -892,21 +895,36 @@ php_debian_bookworm_pkg:
   - php8.3-common
   - php8.3-curl
   - php8.3-dba
+  - php8.3-ds
   - php8.3-enchant
+  - php8.3-excimer
   - php8.3-fpm
   - php8.3-gd
+  - php8.3-gearman
+  - php8.3-gmagick
   - php8.3-gmp
+  - php8.3-gnupg
+  - php8.3-grpc
+  - php8.3-http
+  - php8.3-igbinary
+  - php8.3-imagick
   - php8.3-imap
+  - php8.3-inotify
   - php8.3-interbase
   - php8.3-intl
   - php8.3-ldap
+  - php8.3-mailparse
+  - php8.3-maxminddb
   - php8.3-mbstring
   - php8.3-mysql
   - php8.3-odbc
   - php8.3-opcache
   - php8.3-pgsql
   - php8.3-phpdbg
+  - php8.3-protobuf
+  - php8.3-ps
   - php8.3-pspell
+  - php8.3-raphf
   - php8.3-readline
   - php8.3-snmp
   - php8.3-soap
@@ -958,6 +976,7 @@ php_debian_bookworm_pkg:
   - php-mongodb
   - php-msgpack
   - php-mysql
+  - php-mysqlnd-ms
   - php-oauth
   - php-odbc
   - php-pcov
@@ -1088,6 +1107,7 @@ php_debian_bullseye_pkg:
   - php5.6-mongodb
   - php5.6-msgpack
   - php5.6-mysql
+  - php5.6-mysqlnd-ms
   - php5.6-oauth
   - php5.6-odbc
   - php5.6-opcache
@@ -1824,6 +1844,8 @@ php_debian_bullseye_pkg:
   - php8.2-zmq
   - php8.2-zstd
   - php8.3
+  - php8.3-amqp
+  - php8.3-apcu
   - php8.3-bcmath
   - php8.3-bz2
   - php8.3-cgi
@@ -1831,21 +1853,33 @@ php_debian_bullseye_pkg:
   - php8.3-common
   - php8.3-curl
   - php8.3-dba
+  - php8.3-decimal
   - php8.3-enchant
   - php8.3-fpm
   - php8.3-gd
+  - php8.3-gearman
+  - php8.3-gmagick
   - php8.3-gmp
+  - php8.3-gnupg
+  - php8.3-imagick
   - php8.3-imap
+  - php8.3-inotify
   - php8.3-interbase
   - php8.3-intl
   - php8.3-ldap
+  - php8.3-mailparse
+  - php8.3-maxminddb
   - php8.3-mbstring
+  - php8.3-memcache
+  - php8.3-mongodb
   - php8.3-mysql
   - php8.3-odbc
   - php8.3-opcache
+  - php8.3-pcov
   - php8.3-pgsql
   - php8.3-phpdbg
   - php8.3-pspell
+  - php8.3-psr
   - php8.3-readline
   - php8.3-snmp
   - php8.3-soap
@@ -1899,6 +1933,7 @@ php_debian_bullseye_pkg:
   - php-mongodb
   - php-msgpack
   - php-mysql
+  - php-mysqlnd-ms
   - php-oauth
   - php-odbc
   - php-pcov
@@ -2785,6 +2820,9 @@ php_debian_buster_pkg:
   - php8.2-zmq
   - php8.2-zstd
   - php8.3
+  - php8.3-amqp
+  - php8.3-apcu
+  - php8.3-ast
   - php8.3-bcmath
   - php8.3-bz2
   - php8.3-cgi
@@ -2792,16 +2830,26 @@ php_debian_buster_pkg:
   - php8.3-common
   - php8.3-curl
   - php8.3-dba
+  - php8.3-decimal
   - php8.3-enchant
   - php8.3-fpm
   - php8.3-gd
+  - php8.3-gearman
+  - php8.3-gmagick
   - php8.3-gmp
+  - php8.3-gnupg
+  - php8.3-imagick
   - php8.3-imap
+  - php8.3-inotify
   - php8.3-interbase
   - php8.3-intl
   - php8.3-ldap
+  - php8.3-maxminddb
   - php8.3-mbstring
+  - php8.3-memcache
+  - php8.3-mongodb
   - php8.3-mysql
+  - php8.3-oauth
   - php8.3-odbc
   - php8.3-opcache
   - php8.3-pgsql
