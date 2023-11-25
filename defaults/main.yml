@@ -882,7 +882,6 @@ php_versions:
       - php8.3-soap
       - php8.3-uploadprogress
       - php8.3-xml
-      - php8.3-xmlrpc
       - php8.3-xsl
       - php8.3-zip
       - php-pear
