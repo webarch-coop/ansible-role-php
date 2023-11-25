@@ -585,8 +585,10 @@ php_modules:
           - sysvsem
           - sysvshm
           - tokenizer
+          - uploadprogress
           - xml
           - xmlreader
+          - xmlrpc
           - xmlwriter
           - xsl
           - zip
@@ -878,7 +880,9 @@ php_versions:
       # - php8.3-redis
       - php8.3-sqlite3
       - php8.3-soap
+      - php8.3-uploadprogress
       - php8.3-xml
+      - php8.3-xmlrpc
       - php8.3-xsl
       - php8.3-zip
       - php-pear

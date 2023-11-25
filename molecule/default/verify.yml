@@ -560,8 +560,10 @@
                     - sysvsem
                     - sysvshm
                     - tokenizer
+                    - uploadprogress
                     - xml
                     - xmlreader
+                    - xmlrpc
                     - xmlwriter
                     - xsl
                     - zip
@@ -606,8 +608,10 @@
                     - sysvsem
                     - sysvshm
                     - tokenizer
+                    - uploadprogress
                     - xml
                     - xmlreader
+                    - xmlrpc
                     - xmlwriter
                     - xsl
                     - zip
