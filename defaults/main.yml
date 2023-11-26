@@ -83,11 +83,11 @@ php_config:
       - name: PHP 8.3 FPM www pool configuration
         path: /etc/php/8.3/fpm/pool.d/www.conf
         state: absent
-      - name: PHP 8.3 FPM www82 pool configuration
-        path: /etc/php/8.3/fpm/pool.d/www82.conf
+      - name: PHP 8.3 FPM www83 pool configuration
+        path: /etc/php/8.3/fpm/pool.d/www83.conf
         state: present
         conf:
-          www82:
+          www83:
             "user": www-data
             "group": www-data
             "listen": /run/php/php8.3-fpm.sock
@@ -96,7 +96,7 @@ php_config:
             "pm": ondemand
             "pm.max_children": "4"
             "pm.process_idle_timeout": 10s
-            "pm.status_path": /fpm82-status
+            "pm.status_path": /fpm83-status
   - name: PHP 8.2 configuration
     version: "8.2"
     state: present
