@@ -31,5 +31,5 @@
     - php_verify | bool
   tags:
     - php
-    - pgp_verify
+    - php_verify
 ...
