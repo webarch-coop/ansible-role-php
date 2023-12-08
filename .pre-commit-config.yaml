@@ -24,14 +24,14 @@ repos:
         language: python
         additional_dependencies:
           # https://pypi.org/project/ansible/
-          - ansible==9.0.1
+          - ansible==9.1.0
           # https://github.com/kellyjonbrazil/jc/releases
           - jc==1.23.6
           # https://github.com/jmespath/jmespath.py/tags
           - jmespath==1.0.1
   # https://github.com/jackdewinter/pymarkdown/releases
   - repo: https://github.com/jackdewinter/pymarkdown
-    rev: v0.9.14
+    rev: v0.9.15
     hooks:
       - id: pymarkdown
         name: Markdown Lint
