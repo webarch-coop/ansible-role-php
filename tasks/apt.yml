@@ -102,6 +102,8 @@
       when: >-
         ( php_sources.changed | bool ) or
         ( php_preferences.changed | bool )
+      tags:
+        - molecule-idempotence-notest
 
   when: php_sury | bool
   tags:
@@ -139,6 +141,8 @@
             update_cache: false
 
       when: php_repo_absent.changed
+      tags:
+        - molecule-idempotence-notest
 
   when: not php_sury | bool
   tags:

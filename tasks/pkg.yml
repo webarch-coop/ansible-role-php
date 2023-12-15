@@ -133,6 +133,8 @@
       ansible.builtin.apt:
         update_cache: true
         cache_valid_time: 0
+      tags:
+        - molecule-idempotence-notest
 
     - name: Dist upgrade
       ansible.builtin.apt:
@@ -141,11 +143,16 @@
         autoremove: true
         update_cache: false
       register: php_dist_upgrade
+      tags:
+        - molecule-idempotence-notest
 
     - name: Debug dist upgrade result  # noqa no-handler
       ansible.builtin.debug:
         var: php_dist_upgrade.stdout_lines
-      when: php_dist_upgrade.changed | bool
+        verbosity: "{% if ansible_check_mode | bool and php_pkg_present != [] %}1{% elif php_pkg_present != [] %}2{% else %}3{% endif %}"
+      when:
+        - php_dist_upgrade.changed is defined
+        - php_dist_upgrade.changed | bool
 
     - name: Apt clean
       ansible.builtin.include_tasks: apt_clean.yml
