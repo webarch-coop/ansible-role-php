@@ -18,6 +18,10 @@ argument_specs:
         type: bool
         required: true
         description: Run the tasks in this role.
+      php_ansible_managed:
+        type: str
+        required: true
+        description: The ansible_managed string.
       php_check_legacy_variables:
         type: bool
         required: false
@@ -46,12 +50,27 @@ argument_specs:
         type: list
         elements: str
         required: false
-        description: a generated list of php configuration files to edit if present or template if absent.
+        description: A generated list of php configuration files to edit if present or template if absent.
+      php_conf_files_not_absent:
+        type: list
+        elements: str
+        required: false
+        description: A generated list of php configuration files that are not absent.
       php_conf_files_templated:
         type: list
         elements: str
         required: false
-        description: a generated list of php configuration files to template.
+        description: A generated list of php configuration files to template.
+      php_conf_not_absent:
+        type: list
+        elements: str
+        required: false
+        description: A generated list of php configuration that is not absent.
+      php_conf_pool_files_not_absent:
+        type: list
+        elements: str
+        required: false
+        description: A generated list of php pool files that are not absent.
       php_conf_ver_absent:
         type: list
         elements: str
@@ -131,6 +150,11 @@ argument_specs:
         elements: str
         required: false
         description: A list of Debian Buster packages to install.
+      php_debian_bookworm_pkg:
+        type: list
+        elements: str
+        required: false
+        description: A list of Debian Bookworm packages to install.
       php_conf_file_paths_jmespath_query:
         type: str
         required: true
@@ -154,6 +178,21 @@ argument_specs:
         type: bool
         required: true
         description: Fail when duplicated PHP-FPM pool names are found.
+      php_fpm_pools:
+        type: list
+        elements: dict
+        required: false
+        description: A generated list of FPM pool names and socket paths.
+        options:
+          name:
+            type: str
+            required: true
+            description: The PHP version.
+          pools:
+            type: list
+            elements: str
+            required: false
+            description: A list of PHP-FPM pool socket paths for the PHP version.
       php_fpm_version:
         type: str
         required: false
@@ -256,6 +295,11 @@ argument_specs:
         elements: str
         required: false
         description: A generated list of PHP packages which should be present.
+      php_pool_names_not_absent:
+        type: list
+        elements: str
+        required: false
+        description: A generated list of PHP-FPM pool names that are not absent.
       php_sury:
         type: bool
         required: false
