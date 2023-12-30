@@ -26,7 +26,7 @@ repos:
           # https://pypi.org/project/ansible/
           - ansible==9.1.0
           # https://github.com/kellyjonbrazil/jc/releases
-          - jc==1.23.6
+          - jc==1.24.0
           # https://github.com/jmespath/jmespath.py/tags
           - jmespath==1.0.1
   # https://github.com/jackdewinter/pymarkdown/releases

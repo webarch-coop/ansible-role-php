@@ -8,7 +8,7 @@
 #
 # You should have received a copy of the GNU General Public License along with the Webarchitects PHP Ansible role. If not, see <https://www.gnu.org/licenses/>.
 ---
-php: true
+php: false
 php_check_legacy_variables: true
 php_config:
   - name: PHP 8.3 configuration
