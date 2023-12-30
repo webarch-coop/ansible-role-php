@@ -25,7 +25,7 @@ This role has two required boolean variables, [php](#php) and [php_fpm_pool_chec
 
 ### php
 
-The `php` variable is required to be defined, by default it is `true`, when it is `false` all tasks in this role will be skipped.
+The `php` variable is required to be defined, by default it is `false`, when it is `true` all tasks in this role will be run.
 
 ### php_check_legacy_variables
 
