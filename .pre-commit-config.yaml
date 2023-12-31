@@ -36,7 +36,7 @@ repos:
       - id: j2lint
         name: Jinja2-Linter
         args:
-          - templates/*.j2
+          - templates
   # https://github.com/jackdewinter/pymarkdown/releases
   - repo: https://github.com/jackdewinter/pymarkdown.git
     rev: v0.9.15
