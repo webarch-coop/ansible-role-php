@@ -29,8 +29,16 @@ repos:
           - jc==1.24.0
           # https://github.com/jmespath/jmespath.py/tags
           - jmespath==1.0.1
+  # https://github.com/aristanetworks/j2lint/releases
+  - repo: https://github.com/aristanetworks/j2lint.git
+    rev: v1.1.0
+    hooks:
+      - id: j2lint
+        name: Jinja2-Linter
+        args:
+          - templates/*.j2
   # https://github.com/jackdewinter/pymarkdown/releases
-  - repo: https://github.com/jackdewinter/pymarkdown
+  - repo: https://github.com/jackdewinter/pymarkdown.git
     rev: v0.9.15
     hooks:
       - id: pymarkdown
