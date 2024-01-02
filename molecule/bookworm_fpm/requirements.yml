@@ -1,4 +1,4 @@
-# Copyright 2019-2023 Chris Croome
+# Copyright 2019-2024 Chris Croome
 #
 # This file is part of the Webarchitects PHP Ansible role.
 #
@@ -10,7 +10,7 @@
 ---
 - name: apt
   src: https://git.coop/webarch/apt.git
-  version: 3.0.2  # apt
+  version: 3.1.0  # apt
   scm: git
 
 # - name: systemd
