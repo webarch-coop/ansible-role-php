@@ -115,6 +115,7 @@ php_gpg_fingerprints:
 # For example delete the lines and run:
 # bash ./sury-packages.sh >> main.yml
 
+
 # Debian bookworm packages
 php_debian_bookworm_pkg:
   - dh-php
@@ -921,7 +922,9 @@ php_debian_bookworm_pkg:
   - php8.3-maxminddb
   - php8.3-mbstring
   - php8.3-memcache
+  - php8.3-memcached
   - php8.3-mongodb
+  - php8.3-msgpack
   - php8.3-mysql
   - php8.3-oauth
   - php8.3-odbc
@@ -952,6 +955,7 @@ php_debian_bookworm_pkg:
   - php8.3-uploadprogress
   - php8.3-uuid
   - php8.3-vips
+  - php8.3-xdebug
   - php8.3-xhprof
   - php8.3-xml
   - php8.3-xmlrpc
@@ -1905,7 +1909,9 @@ php_debian_bullseye_pkg:
   - php8.3-maxminddb
   - php8.3-mbstring
   - php8.3-memcache
+  - php8.3-memcached
   - php8.3-mongodb
+  - php8.3-msgpack
   - php8.3-mysql
   - php8.3-oauth
   - php8.3-odbc
@@ -1936,6 +1942,7 @@ php_debian_bullseye_pkg:
   - php8.3-uploadprogress
   - php8.3-uuid
   - php8.3-vips
+  - php8.3-xdebug
   - php8.3-xhprof
   - php8.3-xml
   - php8.3-xmlrpc
@@ -2898,6 +2905,7 @@ php_debian_buster_pkg:
   - php8.3-gmp
   - php8.3-gnupg
   - php8.3-grpc
+  - php8.3-http
   - php8.3-igbinary
   - php8.3-imagick
   - php8.3-imap
@@ -2909,7 +2917,9 @@ php_debian_buster_pkg:
   - php8.3-maxminddb
   - php8.3-mbstring
   - php8.3-memcache
+  - php8.3-memcached
   - php8.3-mongodb
+  - php8.3-msgpack
   - php8.3-mysql
   - php8.3-oauth
   - php8.3-odbc
@@ -2924,6 +2934,7 @@ php_debian_buster_pkg:
   - php8.3-raphf
   - php8.3-rdkafka
   - php8.3-readline
+  - php8.3-redis
   - php8.3-rrd
   - php8.3-smbclient
   - php8.3-snmp
@@ -2939,6 +2950,7 @@ php_debian_buster_pkg:
   - php8.3-uploadprogress
   - php8.3-uuid
   - php8.3-vips
+  - php8.3-xdebug
   - php8.3-xhprof
   - php8.3-xml
   - php8.3-xmlrpc
