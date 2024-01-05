@@ -15,20 +15,6 @@ repos:
     hooks:
       - id: yamllint
         name: YAML Lint
-  # https://github.com/ansible/ansible-lint/releases
-  - repo: https://github.com/ansible/ansible-lint.git
-    rev: v6.22.1
-    hooks:
-      - id: ansible-lint
-        name: Ansible Lint
-        language: python
-        additional_dependencies:
-          # https://pypi.org/project/ansible/
-          - ansible==9.1.0
-          # https://github.com/kellyjonbrazil/jc/releases
-          - jc==1.24.0
-          # https://github.com/jmespath/jmespath.py/tags
-          - jmespath==1.0.1
   # https://github.com/aristanetworks/j2lint/releases
   - repo: https://github.com/aristanetworks/j2lint.git
     rev: v1.1.0
@@ -47,4 +33,18 @@ repos:
           - scan
           - README.md
           - VARIABLES.md
+  # https://github.com/ansible/ansible-lint/releases
+  - repo: https://github.com/ansible/ansible-lint.git
+    rev: v6.22.1
+    hooks:
+      - id: ansible-lint
+        name: Ansible Lint
+        language: python
+        additional_dependencies:
+          # https://pypi.org/project/ansible/
+          - ansible==9.1.0
+          # https://github.com/kellyjonbrazil/jc/releases
+          - jc==1.24.0
+          # https://github.com/jmespath/jmespath.py/tags
+          - jmespath==1.0.1
 ...
