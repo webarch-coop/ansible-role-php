@@ -102,7 +102,7 @@ php_gpg_url: https://packages.sury.org/php/apt.gpg
 
 # GPG public key sha256sum
 # wget -q 'https://packages.sury.org/php/apt.gpg' -O - | sha256sum - | awk '{ print $1 }' | sed 's/^/"sha256:/' | sed 's/$/"/'
-php_gpg_checksum: "sha256:b3ea944563435e54bb64f181ee8bc26200985d09164cdc4c1702fc3ef051f19d"
+php_gpg_checksum: "sha256:3e782e805ea1253a16c05cb22499a9fb69993096d593e979fa61ed3fd43c135e"
 
 # GPG fingerprints
 # wget -q 'https://packages.sury.org/php/apt.gpg' -O - | gpg --dearmor | gpg --with-colons --show-keys - | grep ^fpr | sed 's/^fpr//' | sed 's/://g' | sed 's/^/  - /'
@@ -114,7 +114,6 @@ php_gpg_fingerprints:
 # To update them delete everything after this comment and inset the results of the script.
 # For example delete the lines and run:
 # bash ./sury-packages.sh >> main.yml
-
 
 # Debian bookworm packages
 php_debian_bookworm_pkg:
