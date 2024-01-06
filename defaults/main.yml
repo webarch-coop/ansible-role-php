@@ -69,7 +69,7 @@ php_config:
           PHP:
             allow_url_include: "Off"
             default_socket_timeout: "600"
-            disable_functions: "chgrp,chown,dl,exec,passthru,pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_get_handler,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,pcntl_async_signals,pcntl_unshare,popen,posix_kill,posix_mkfifo,posix_setpgid,posix_setsid,posix_setuid,show_source,socket_create,symlink,system,system_exec"
+            disable_functions: "chgrp,chown,dl,pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_get_handler,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,pcntl_async_signals,pcntl_unshare,posix_kill,posix_mkfifo,posix_setpgid,posix_setsid,posix_setuid"
             max_file_uploads: "60"
             max_execution_time: "600"
             max_input_nesting_level: "512"
@@ -157,7 +157,7 @@ php_config:
           PHP:
             allow_url_include: "Off"
             default_socket_timeout: "600"
-            disable_functions: "chgrp,chown,dl,exec,passthru,pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_get_handler,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,pcntl_async_signals,pcntl_unshare,popen,posix_kill,posix_mkfifo,posix_setpgid,posix_setsid,posix_setuid,show_source,socket_create,symlink,system,system_exec"
+            disable_functions: "chgrp,chown,dl,pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_get_handler,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,pcntl_async_signals,pcntl_unshare,posix_kill,posix_mkfifo,posix_setpgid,posix_setsid,posix_setuid"
             max_file_uploads: "60"
             max_execution_time: "600"
             max_input_nesting_level: "512"
@@ -245,7 +245,7 @@ php_config:
           PHP:
             allow_url_include: "Off"
             default_socket_timeout: "600"
-            disable_functions: "chgrp,chown,dl,exec,passthru,pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_get_handler,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,pcntl_async_signals,pcntl_unshare,popen,posix_kill,posix_mkfifo,posix_setpgid,posix_setsid,posix_setuid,show_source,socket_create,symlink,system,system_exec"
+            disable_functions: "chgrp,chown,dl,pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_get_handler,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,pcntl_async_signals,pcntl_unshare,posix_kill,posix_mkfifo,posix_setpgid,posix_setsid,posix_setuid"
             max_file_uploads: "60"
             max_execution_time: "600"
             max_input_nesting_level: "512"
@@ -333,7 +333,7 @@ php_config:
           PHP:
             allow_url_include: "Off"
             default_socket_timeout: "600"
-            disable_functions: "chgrp,chown,dl,exec,passthru,pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_get_handler,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,pcntl_async_signals,pcntl_unshare,popen,posix_kill,posix_mkfifo,posix_setpgid,posix_setsid,posix_setuid,show_source,socket_create,symlink,system,system_exec"
+            disable_functions: "chgrp,chown,dl,pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_get_handler,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,pcntl_async_signals,pcntl_unshare,posix_kill,posix_mkfifo,posix_setpgid,posix_setsid,posix_setuid"
             max_file_uploads: "60"
             max_execution_time: "600"
             max_input_nesting_level: "512"
@@ -421,7 +421,7 @@ php_config:
           PHP:
             allow_url_include: "Off"
             default_socket_timeout: "600"
-            disable_functions: "chgrp,chown,dl,exec,passthru,pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_get_handler,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,pcntl_async_signals,pcntl_unshare,popen,posix_kill,posix_mkfifo,posix_setpgid,posix_setsid,posix_setuid,show_source,socket_create,symlink,system,system_exec"
+            disable_functions: "chgrp,chown,dl,pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_get_handler,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,pcntl_async_signals,pcntl_unshare,posix_kill,posix_mkfifo,posix_setpgid,posix_setsid,posix_setuid"
             max_file_uploads: "60"
             max_execution_time: "600"
             max_input_nesting_level: "512"
@@ -509,7 +509,7 @@ php_config:
   #         PHP:
   #           allow_url_include: "Off"
   #           default_socket_timeout: "600"
-  #           disable_functions: "chgrp,chown,dl,exec,passthru,pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_get_handler,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,pcntl_async_signals,pcntl_unshare,popen,posix_kill,posix_mkfifo,posix_setpgid,posix_setsid,posix_setuid,show_source,socket_create,symlink,system,system_exec"
+  #           disable_functions: "chgrp,chown,dl,pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_get_handler,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,pcntl_async_signals,pcntl_unshare,posix_kill,posix_mkfifo,posix_setpgid,posix_setsid,posix_setuid"
   #           max_file_uploads: "60"
   #           max_execution_time: "600"
   #           max_input_nesting_level: "512"
