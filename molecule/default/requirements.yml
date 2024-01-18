@@ -13,8 +13,18 @@
   version: 3.1.0  # apt
   scm: git
 
+# - name: mariadb
+#   src: https://git.coop/webarch/mariadb.git
+#   version: 3.4.1  # mariadb
+#   scm: git
+
 # - name: systemd
 #   src: https://git.coop/webarch/systemd.git
 #   version: 2.0.2  # systemd
+#   scm: git
+
+# - name: ufw
+#   src: https://git.coop/webarch/ufw.git
+#   version: 2.1.0  # ufw
 #   scm: git
 ...
