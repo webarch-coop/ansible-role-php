@@ -17,6 +17,12 @@ The safe way to run this role is incrementally using `--diff -C` to diff and che
 * Run with the `php_cfg` tag to update the PHP configuration, this supports check mode.
 * Run with the `php` tag to update everything.
 
+This role supports having all the PHP settings in Ansible, to read existing config files and convert them into YAML you can do soemthing like this:
+
+```bash
+cat /etc/php/8.2/fpm/php.ini | jc --ini -p | yq -o=yaml -P
+```
+
 ## Role variables
 
 See the [defaults/main.yml](defaults/main.yml) file for the default variables, the [vars/main.yml](vars/main.yml) file for the preset variables and the [meta/argument_specs.yml](meta/argument_specs.yml) file for the variable specification.
