@@ -330,7 +330,7 @@ argument_specs:
       php_verify:
         type: bool
         required: false
-        description: Varify all variables starting with php underscore using the argument spec.
+        description: Verify all variables starting with php underscore using the argument spec.
       php_versions:
         type: list
         elements: dict
