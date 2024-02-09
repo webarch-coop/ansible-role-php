@@ -117,6 +117,7 @@ php_gpg_fingerprints:
 
 # Debian bookworm packages
 php_debian_bookworm_pkg:
+  - debsuryorg-archive-keyring
   - dh-php
   - libapache2-mod-php
   - libapache2-mod-php5.6
@@ -129,6 +130,10 @@ php_debian_bookworm_pkg:
   - libapache2-mod-php8.1
   - libapache2-mod-php8.2
   - libapache2-mod-php8.3
+  - libhashkit2
+  - libmemcached11
+  - libmemcached-tools
+  - libmemcachedutil2
   - libpcre16-3
   - libpcre3
   - libpcre32-3
@@ -1056,6 +1061,7 @@ php_debian_bookworm_pkg:
 
 # Debian bullseye packages
 php_debian_bullseye_pkg:
+  - debsuryorg-archive-keyring
   - dh-php
   - enchant
   - libapache2-mod-php
@@ -1073,6 +1079,10 @@ php_debian_bullseye_pkg:
   - libenchant-voikko
   - libgd3
   - libgd-tools
+  - libhashkit2
+  - libmemcached11
+  - libmemcached-tools
+  - libmemcachedutil2
   - libpcre16-3
   - libpcre2-16-0
   - libpcre2-32-0
@@ -2049,6 +2059,7 @@ php_debian_bullseye_pkg:
 # Debian buster packages
 php_debian_buster_pkg:
   - argon2
+  - debsuryorg-archive-keyring
   - dh-php
   - enchant
   - icu-devtools
