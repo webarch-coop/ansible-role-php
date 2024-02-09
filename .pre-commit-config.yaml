@@ -11,7 +11,7 @@
 repos:
   # https://github.com/adrienverge/yamllint/tags
   - repo: https://github.com/adrienverge/yamllint.git
-    rev: v1.33.0
+    rev: v1.34.0
     hooks:
       - id: yamllint
         name: YAML Lint
@@ -35,16 +35,16 @@ repos:
           - VARIABLES.md
   # https://github.com/ansible/ansible-lint/releases
   - repo: https://github.com/ansible/ansible-lint.git
-    rev: v6.22.2
+    rev: v24.2.0
     hooks:
       - id: ansible-lint
         name: Ansible Lint
         language: python
         additional_dependencies:
           # https://pypi.org/project/ansible/
-          - ansible==9.1.0
+          - ansible==9.2.0
           # https://github.com/kellyjonbrazil/jc/releases
-          - jc==1.24.0
+          - jc==1.25.0
           # https://github.com/jmespath/jmespath.py/tags
           - jmespath==1.0.1
 ...
