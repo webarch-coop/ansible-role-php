@@ -11,7 +11,7 @@
 repos:
   # https://github.com/adrienverge/yamllint/tags
   - repo: https://github.com/adrienverge/yamllint.git
-    rev: v1.34.0
+    rev: v1.35.1
     hooks:
       - id: yamllint
         name: YAML Lint
@@ -25,7 +25,7 @@ repos:
           - templates
   # https://github.com/jackdewinter/pymarkdown/releases
   - repo: https://github.com/jackdewinter/pymarkdown.git
-    rev: 0.9.16
+    rev: v0.9.17
     hooks:
       - id: pymarkdown
         name: Markdown Lint
@@ -42,9 +42,9 @@ repos:
         language: python
         additional_dependencies:
           # https://pypi.org/project/ansible/
-          - ansible==9.2.0
+          - ansible==9.3.0
           # https://github.com/kellyjonbrazil/jc/releases
-          - jc==1.25.0
+          - jc==1.25.1
           # https://github.com/jmespath/jmespath.py/tags
           - jmespath==1.0.1
 ...
