@@ -134,6 +134,8 @@ php_debian_bookworm_pkg:
   - libmemcached11
   - libmemcached-tools
   - libmemcachedutil2
+  - libmpdec3
+  - libmpdec-doc
   - libpcre16-3
   - libpcre3
   - libpcre32-3
@@ -179,6 +181,7 @@ php_debian_bookworm_pkg:
   - php5.6-intl
   - php5.6-json
   - php5.6-ldap
+  - php5.6-libvirt-php
   - php5.6-lua
   - php5.6-lz4
   - php5.6-mailparse
@@ -237,6 +240,7 @@ php_debian_bookworm_pkg:
   - php7.0-common
   - php7.0-curl
   - php7.0-dba
+  - php7.0-decimal
   - php7.0-ds
   - php7.0-enchant
   - php7.0-fpm
@@ -256,6 +260,7 @@ php_debian_bookworm_pkg:
   - php7.0-intl
   - php7.0-json
   - php7.0-ldap
+  - php7.0-libvirt-php
   - php7.0-lua
   - php7.0-lz4
   - php7.0-mbstring
@@ -271,6 +276,7 @@ php_debian_bookworm_pkg:
   - php7.0-pgsql
   - php7.0-phpdbg
   - php7.0-pinba
+  - php7.0-pq
   - php7.0-propro
   - php7.0-protobuf
   - php7.0-ps
@@ -317,6 +323,7 @@ php_debian_bookworm_pkg:
   - php7.1-common
   - php7.1-curl
   - php7.1-dba
+  - php7.1-decimal
   - php7.1-ds
   - php7.1-enchant
   - php7.1-excimer
@@ -337,6 +344,7 @@ php_debian_bookworm_pkg:
   - php7.1-intl
   - php7.1-json
   - php7.1-ldap
+  - php7.1-libvirt-php
   - php7.1-lua
   - php7.1-lz4
   - php7.1-mbstring
@@ -353,6 +361,7 @@ php_debian_bookworm_pkg:
   - php7.1-pgsql
   - php7.1-phpdbg
   - php7.1-pinba
+  - php7.1-pq
   - php7.1-propro
   - php7.1-protobuf
   - php7.1-ps
@@ -401,6 +410,7 @@ php_debian_bookworm_pkg:
   - php7.2-common
   - php7.2-curl
   - php7.2-dba
+  - php7.2-decimal
   - php7.2-ds
   - php7.2-enchant
   - php7.2-excimer
@@ -421,6 +431,7 @@ php_debian_bookworm_pkg:
   - php7.2-intl
   - php7.2-json
   - php7.2-ldap
+  - php7.2-libvirt-php
   - php7.2-lua
   - php7.2-lz4
   - php7.2-maxminddb
@@ -439,6 +450,7 @@ php_debian_bookworm_pkg:
   - php7.2-phalcon4
   - php7.2-phpdbg
   - php7.2-pinba
+  - php7.2-pq
   - php7.2-propro
   - php7.2-protobuf
   - php7.2-ps
@@ -486,6 +498,7 @@ php_debian_bookworm_pkg:
   - php7.3-common
   - php7.3-curl
   - php7.3-dba
+  - php7.3-decimal
   - php7.3-ds
   - php7.3-enchant
   - php7.3-excimer
@@ -506,6 +519,7 @@ php_debian_bookworm_pkg:
   - php7.3-intl
   - php7.3-json
   - php7.3-ldap
+  - php7.3-libvirt-php
   - php7.3-lua
   - php7.3-lz4
   - php7.3-mailparse
@@ -525,6 +539,7 @@ php_debian_bookworm_pkg:
   - php7.3-phalcon4
   - php7.3-phpdbg
   - php7.3-pinba
+  - php7.3-pq
   - php7.3-propro
   - php7.3-protobuf
   - php7.3-ps
@@ -573,6 +588,7 @@ php_debian_bookworm_pkg:
   - php7.4-common
   - php7.4-curl
   - php7.4-dba
+  - php7.4-decimal
   - php7.4-ds
   - php7.4-enchant
   - php7.4-excimer
@@ -593,6 +609,7 @@ php_debian_bookworm_pkg:
   - php7.4-intl
   - php7.4-json
   - php7.4-ldap
+  - php7.4-libvirt-php
   - php7.4-lua
   - php7.4-lz4
   - php7.4-mailparse
@@ -613,6 +630,7 @@ php_debian_bookworm_pkg:
   - php7.4-phalcon5
   - php7.4-phpdbg
   - php7.4-pinba
+  - php7.4-pq
   - php7.4-propro
   - php7.4-protobuf
   - php7.4-ps
@@ -659,6 +677,7 @@ php_debian_bookworm_pkg:
   - php8.0-common
   - php8.0-curl
   - php8.0-dba
+  - php8.0-decimal
   - php8.0-ds
   - php8.0-enchant
   - php8.0-excimer
@@ -677,6 +696,7 @@ php_debian_bookworm_pkg:
   - php8.0-interbase
   - php8.0-intl
   - php8.0-ldap
+  - php8.0-libvirt-php
   - php8.0-lz4
   - php8.0-mailparse
   - php8.0-maxminddb
@@ -695,6 +715,7 @@ php_debian_bookworm_pkg:
   - php8.0-phalcon5
   - php8.0-phpdbg
   - php8.0-pinba
+  - php8.0-pq
   - php8.0-propro
   - php8.0-protobuf
   - php8.0-ps
@@ -741,6 +762,7 @@ php_debian_bookworm_pkg:
   - php8.1-common
   - php8.1-curl
   - php8.1-dba
+  - php8.1-decimal
   - php8.1-ds
   - php8.1-enchant
   - php8.1-excimer
@@ -759,6 +781,7 @@ php_debian_bookworm_pkg:
   - php8.1-interbase
   - php8.1-intl
   - php8.1-ldap
+  - php8.1-libvirt-php
   - php8.1-lz4
   - php8.1-mailparse
   - php8.1-maxminddb
@@ -777,6 +800,7 @@ php_debian_bookworm_pkg:
   - php8.1-phalcon5
   - php8.1-phpdbg
   - php8.1-pinba
+  - php8.1-pq
   - php8.1-propro
   - php8.1-protobuf
   - php8.1-ps
@@ -823,6 +847,7 @@ php_debian_bookworm_pkg:
   - php8.2-common
   - php8.2-curl
   - php8.2-dba
+  - php8.2-decimal
   - php8.2-ds
   - php8.2-enchant
   - php8.2-excimer
@@ -841,6 +866,7 @@ php_debian_bookworm_pkg:
   - php8.2-interbase
   - php8.2-intl
   - php8.2-ldap
+  - php8.2-libvirt-php
   - php8.2-lz4
   - php8.2-mailparse
   - php8.2-maxminddb
@@ -856,8 +882,10 @@ php_debian_bookworm_pkg:
   - php8.2-opcache
   - php8.2-pcov
   - php8.2-pgsql
+  - php8.2-phalcon5
   - php8.2-phpdbg
   - php8.2-pinba
+  - php8.2-pq
   - php8.2-propro
   - php8.2-protobuf
   - php8.2-ps
@@ -904,6 +932,7 @@ php_debian_bookworm_pkg:
   - php8.3-common
   - php8.3-curl
   - php8.3-dba
+  - php8.3-decimal
   - php8.3-ds
   - php8.3-enchant
   - php8.3-excimer
@@ -922,9 +951,11 @@ php_debian_bookworm_pkg:
   - php8.3-interbase
   - php8.3-intl
   - php8.3-ldap
+  - php8.3-libvirt-php
   - php8.3-mailparse
   - php8.3-maxminddb
   - php8.3-mbstring
+  - php8.3-mcrypt
   - php8.3-memcache
   - php8.3-memcached
   - php8.3-mongodb
@@ -935,7 +966,9 @@ php_debian_bookworm_pkg:
   - php8.3-opcache
   - php8.3-pcov
   - php8.3-pgsql
+  - php8.3-phalcon5
   - php8.3-phpdbg
+  - php8.3-pq
   - php8.3-protobuf
   - php8.3-ps
   - php8.3-pspell
@@ -979,6 +1012,7 @@ php_debian_bookworm_pkg:
   - php-cli
   - php-common
   - php-curl
+  - php-decimal
   - php-ds
   - php-enchant
   - php-excimer
@@ -999,6 +1033,7 @@ php_debian_bookworm_pkg:
   - php-intl
   - php-json
   - php-ldap
+  - php-libvirt-php
   - php-lua
   - php-lz4
   - php-mailparse
@@ -1021,6 +1056,7 @@ php_debian_bookworm_pkg:
   - php-phalcon5
   - php-phpdbg
   - php-pinba
+  - php-pq
   - php-propro
   - php-protobuf
   - php-ps
@@ -1083,6 +1119,8 @@ php_debian_bullseye_pkg:
   - libmemcached11
   - libmemcached-tools
   - libmemcachedutil2
+  - libmpdec3
+  - libmpdec-doc
   - libpcre16-3
   - libpcre2-16-0
   - libpcre2-32-0
@@ -1236,6 +1274,7 @@ php_debian_bullseye_pkg:
   - php7.0-phalcon3
   - php7.0-phpdbg
   - php7.0-pinba
+  - php7.0-pq
   - php7.0-propro
   - php7.0-protobuf
   - php7.0-ps
@@ -1324,6 +1363,7 @@ php_debian_bullseye_pkg:
   - php7.1-phalcon3
   - php7.1-phpdbg
   - php7.1-pinba
+  - php7.1-pq
   - php7.1-propro
   - php7.1-protobuf
   - php7.1-ps
@@ -1415,6 +1455,7 @@ php_debian_bullseye_pkg:
   - php7.2-phalcon4
   - php7.2-phpdbg
   - php7.2-pinba
+  - php7.2-pq
   - php7.2-propro
   - php7.2-protobuf
   - php7.2-ps
@@ -1506,6 +1547,7 @@ php_debian_bullseye_pkg:
   - php7.3-phalcon4
   - php7.3-phpdbg
   - php7.3-pinba
+  - php7.3-pq
   - php7.3-propro
   - php7.3-protobuf
   - php7.3-ps
@@ -1597,6 +1639,7 @@ php_debian_bullseye_pkg:
   - php7.4-phalcon5
   - php7.4-phpdbg
   - php7.4-pinba
+  - php7.4-pq
   - php7.4-propro
   - php7.4-protobuf
   - php7.4-ps
@@ -1682,6 +1725,7 @@ php_debian_bullseye_pkg:
   - php8.0-phalcon5
   - php8.0-phpdbg
   - php8.0-pinba
+  - php8.0-pq
   - php8.0-propro
   - php8.0-protobuf
   - php8.0-ps
@@ -1766,6 +1810,7 @@ php_debian_bullseye_pkg:
   - php8.1-phalcon5
   - php8.1-phpdbg
   - php8.1-pinba
+  - php8.1-pq
   - php8.1-propro
   - php8.1-protobuf
   - php8.1-ps
@@ -1847,8 +1892,10 @@ php_debian_bullseye_pkg:
   - php8.2-opcache
   - php8.2-pcov
   - php8.2-pgsql
+  - php8.2-phalcon5
   - php8.2-phpdbg
   - php8.2-pinba
+  - php8.2-pq
   - php8.2-propro
   - php8.2-protobuf
   - php8.2-ps
@@ -1914,9 +1961,11 @@ php_debian_bullseye_pkg:
   - php8.3-interbase
   - php8.3-intl
   - php8.3-ldap
+  - php8.3-libvirt-php
   - php8.3-mailparse
   - php8.3-maxminddb
   - php8.3-mbstring
+  - php8.3-mcrypt
   - php8.3-memcache
   - php8.3-memcached
   - php8.3-mongodb
@@ -1927,7 +1976,9 @@ php_debian_bullseye_pkg:
   - php8.3-opcache
   - php8.3-pcov
   - php8.3-pgsql
+  - php8.3-phalcon5
   - php8.3-phpdbg
+  - php8.3-pq
   - php8.3-protobuf
   - php8.3-ps
   - php8.3-pspell
@@ -2016,6 +2067,7 @@ php_debian_bullseye_pkg:
   - php-phalcon5
   - php-phpdbg
   - php-pinba
+  - php-pq
   - php-propro
   - php-protobuf
   - php-ps
@@ -2087,6 +2139,8 @@ php_debian_buster_pkg:
   - libicu65
   - libidn2-0
   - libidn2-doc
+  - libmpdec3
+  - libmpdec-doc
   - libpcre16-3
   - libpcre2-16-0
   - libpcre2-32-0
@@ -2245,6 +2299,7 @@ php_debian_buster_pkg:
   - php7.0-phalcon3
   - php7.0-phpdbg
   - php7.0-pinba
+  - php7.0-pq
   - php7.0-propro
   - php7.0-protobuf
   - php7.0-ps
@@ -2333,6 +2388,7 @@ php_debian_buster_pkg:
   - php7.1-phalcon3
   - php7.1-phpdbg
   - php7.1-pinba
+  - php7.1-pq
   - php7.1-propro
   - php7.1-protobuf
   - php7.1-ps
@@ -2424,6 +2480,7 @@ php_debian_buster_pkg:
   - php7.2-phalcon4
   - php7.2-phpdbg
   - php7.2-pinba
+  - php7.2-pq
   - php7.2-propro
   - php7.2-protobuf
   - php7.2-ps
@@ -2515,6 +2572,7 @@ php_debian_buster_pkg:
   - php7.3-phalcon4
   - php7.3-phpdbg
   - php7.3-pinba
+  - php7.3-pq
   - php7.3-propro
   - php7.3-protobuf
   - php7.3-ps
@@ -2606,6 +2664,7 @@ php_debian_buster_pkg:
   - php7.4-phalcon5
   - php7.4-phpdbg
   - php7.4-pinba
+  - php7.4-pq
   - php7.4-propro
   - php7.4-protobuf
   - php7.4-ps
@@ -2691,6 +2750,7 @@ php_debian_buster_pkg:
   - php8.0-phalcon5
   - php8.0-phpdbg
   - php8.0-pinba
+  - php8.0-pq
   - php8.0-propro
   - php8.0-protobuf
   - php8.0-ps
@@ -2775,6 +2835,7 @@ php_debian_buster_pkg:
   - php8.1-phalcon5
   - php8.1-phpdbg
   - php8.1-pinba
+  - php8.1-pq
   - php8.1-propro
   - php8.1-protobuf
   - php8.1-ps
@@ -2856,8 +2917,10 @@ php_debian_buster_pkg:
   - php8.2-opcache
   - php8.2-pcov
   - php8.2-pgsql
+  - php8.2-phalcon5
   - php8.2-phpdbg
   - php8.2-pinba
+  - php8.2-pq
   - php8.2-propro
   - php8.2-protobuf
   - php8.2-ps
@@ -2926,6 +2989,7 @@ php_debian_buster_pkg:
   - php8.3-mailparse
   - php8.3-maxminddb
   - php8.3-mbstring
+  - php8.3-mcrypt
   - php8.3-memcache
   - php8.3-memcached
   - php8.3-mongodb
@@ -2936,7 +3000,9 @@ php_debian_buster_pkg:
   - php8.3-opcache
   - php8.3-pcov
   - php8.3-pgsql
+  - php8.3-phalcon5
   - php8.3-phpdbg
+  - php8.3-pq
   - php8.3-protobuf
   - php8.3-ps
   - php8.3-pspell
@@ -3027,6 +3093,7 @@ php_debian_buster_pkg:
   - php-phalcon5
   - php-phpdbg
   - php-pinba
+  - php-pq
   - php-propro
   - php-protobuf
   - php-ps
