@@ -33,7 +33,7 @@ stages:
   - bookworm
   # - bullseye
 bookworm:
-  image: registry.git.coop/webarch/containers/images/bookworm:20240209
+  image: registry.git.coop/webarch/containers/images/bookworm:20240326
   stage: bookworm
   script:
     - pre-commit install
@@ -42,7 +42,7 @@ bookworm:
 # The Bullseye test run OK but Molecule never completes
 # https://github.com/ansible/molecule/discussions/4020
 # bullseye:
-#   image: registry.git.coop/webarch/containers/images/bullseye:20240209
+#   image: registry.git.coop/webarch/containers/images/bullseye:20240326
 #   stage: bullseye
 #   script:
 #     - molecule test
