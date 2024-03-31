@@ -49,7 +49,7 @@ The main entry point for the PHP role.
 | php_ver_absent_regex | A pattern to use as a regular expression to find versions of PHP which should be absent. | str | yes |
 | php_ver_pkg_remove | A generated list of PHP packages to remove. | list of 'str' | no |
 | php_ver_present | A generated list of PHP versions which should be present. | list of 'str' | no |
-| php_verify | Varify all variables starting with php underscore using the argument spec. | bool | no |
+| php_verify | Verify all variables starting with php underscore using the argument spec. | bool | no |
 | php_versions | A list of PHP versions and their packages and state. | list of dicts of 'php_versions' options | no |
 
 ### Options for main > php_config
