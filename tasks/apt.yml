@@ -62,16 +62,61 @@
 
       when: ( php_gpg_file.stat.exists | bool )
 
+    - name: Stat PHP repository sources file
+      ansible.builtin.stat:
+        path: /etc/apt/sources.list.d/php.sources
+      register: php_sources_path
+
+    - name: Read the PHP repository sources file
+      ansible.builtin.include_tasks: sources_file.yml
+      when: php_sources_path.stat.exists | bool
+
+    - name: Set a fact for the prior PHP repository sources file contents
+      ansible.builtin.set_fact:
+        php_sources_contents_prior: "{{ php_sources_contents }}"
+      when: php_sources_contents is defined
+
     - name: PHP repository sources file present
-      ansible.builtin.template:
-        src: php.sources.j2
-        dest: /etc/apt/sources.list.d/php.sources
-        mode: "0644"
-        owner: root
-        group: root
-      environment:
-        DEFAULT_MANAGED_STR: "{{ php_ansible_managed }}"
+      ansible.builtin.deb822_repository:
+        allow_downgrade_to_insecure: false
+        allow_insecure: false
+        allow_weak: false
+        architectures: "{{ ansible_facts.ansible_local.dpkg.arch }}"
+        check_date: true
+        check_valid_until: true
+        components: main
+        enabled: true
+        name: php
+        signed_by: /etc/apt/keyrings/php.gpg
+        suites: "{{ ansible_distribution_release }}"
+        types: deb
+        uris: https://packages.sury.org/php/
       register: php_sources
+
+    - name: Stat PHP repository sources file
+      ansible.builtin.stat:
+        path: /etc/apt/sources.list.d/php.sources
+      register: php_sources_path
+
+    - name: Read the PHP repository sources file
+      ansible.builtin.include_tasks: sources_file.yml
+      when: php_sources_path.stat.exists | bool
+
+    - name: Set a fact for the updated PHP repository sources file contents
+      ansible.builtin.set_fact:
+        php_sources_contents_updated: "{{ php_sources_contents }}"
+      when: php_sources_contents is defined
+
+    - name: Diff PHP repository sources file update
+      ansible.utils.fact_diff:
+        before: "{{ php_sources_contents_prior }}"
+        after: "{{ php_sources_contents_updated }}"
+      check_mode: false
+      changed_when: false
+      when:
+        - php_sources_contents_prior is defined
+        - php_sources_contents_updated is defined
+        - php_sources_contents_prior != php_sources_contents_updated
 
     - name: PHP apt preferences present
       ansible.builtin.template:
