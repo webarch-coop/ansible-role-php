@@ -88,6 +88,7 @@
       loop: "{{ php_conf_file_proposed_vars | dict2items }}"
       loop_control:
         loop_var: php_conf_section
+        label: "{{ php_conf_section.key }}"
       when: php_conf_file_proposed_vars.keys() | length != 0
 
     - name: Ansible managed comment present at the top of the file
