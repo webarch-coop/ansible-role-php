@@ -11,6 +11,11 @@
     - php_conf
     - php_mods
 
+- name: "Check if the PHP-FPM pool directory exists for {{ php_check_ver }}"
+  ansible.builtin.stat:
+    path: "/etc/php/{{ php_check_ver }}/fpm/pool.d"
+  register: php_fpm_pool_path
+
 - name: Get PHP-FPM pool socket paths when FPM is present
   block:
 
@@ -104,7 +109,9 @@
         var: php_fpm_pools
         verbosity: 1
 
-  when: php_phpquery_sapi.rc == 0
+  when:
+    - php_phpquery_sapi.rc == 0
+    - php_fpm_pool_path.stat.exists | bool
   tags:
     - php
     - php_cfg
