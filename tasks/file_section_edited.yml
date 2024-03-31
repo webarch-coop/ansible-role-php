@@ -18,7 +18,7 @@
           - "Section: {{ php_conf_section.key }}"
           - "Existing {{ php_conf_variable_pair.key }}: '{{ php_conf_file_existing_vars | community.general.json_query(php_conf_variable_json_query) }}'"
           - "Proposed {{ php_conf_variable_pair.key }}: '{{ php_conf_variable_pair.value }};"
-        verbosity: "{% if ansible_check_mode | bool %}0{% else %}1{% endif %}"
+        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}0{% else %}1{% endif %}"
       when: php_conf_variable_pair.value != php_conf_file_existing_vars | community.general.json_query(php_conf_variable_json_query)
       vars:
         php_conf_variable_json_query: '"{{ php_conf_section.key }}"."{{ php_conf_variable_pair.key }}"'
@@ -27,24 +27,25 @@
         loop_var: php_conf_variable_pair
 
     # This is to ensure that variables are written to the same place as existing commented values
-    - name: Uncomment commented variables in the PHP configuration file that are to be edited
-      ansible.builtin.lineinfile:
-        path: "{{ php_conf_file }}"
-        line: "{{ php_conf_variable_pair.key }} = {{ php_conf_variable_pair.value }}"
-        regex: "{{ php_conf_variable_regex }}"
-        state: present
-        backrefs: true
-        mode: "0644"
-        owner: root
-        group: root
-      when: php_conf_variable_pair.value != php_conf_file_existing_vars | community.general.json_query(php_conf_variable_json_query)
-      vars:
-        php_conf_variable_json_query: '"{{ php_conf_section.key }}"."{{ php_conf_variable_pair.key }}"'
-        php_conf_variable_regex: "^[;]{{ php_conf_variable_pair.key }}[ =]"
-      loop: "{{ php_conf_section.value | ansible.builtin.dict2items }}"
-      loop_control:
-        loop_var: php_conf_variable_pair
-      register: php_conf_file_comments_edited
+    # No longer necessary due to the modify_inactive_option for community.general.ini_file
+    # - name: Uncomment commented variables in the PHP configuration file that are to be edited
+    #   ansible.builtin.lineinfile:
+    #     path: "{{ php_conf_file }}"
+    #     line: "{{ php_conf_variable_pair.key }} = {{ php_conf_variable_pair.value }}"
+    #     regex: "{{ php_conf_variable_regex }}"
+    #     state: present
+    #     backrefs: true
+    #     mode: "0644"
+    #     owner: root
+    #     group: root
+    #   when: php_conf_variable_pair.value != php_conf_file_existing_vars | community.general.json_query(php_conf_variable_json_query)
+    #   vars:
+    #     php_conf_variable_json_query: '"{{ php_conf_section.key }}"."{{ php_conf_variable_pair.key }}"'
+    #     php_conf_variable_regex: "^[;]{{ php_conf_variable_pair.key }}[ =]"
+    #   loop: "{{ php_conf_section.value | ansible.builtin.dict2items }}"
+    #   loop_control:
+    #     loop_var: php_conf_variable_pair
+    #   register: php_conf_file_comments_edited
 
     - name: PHP configuration file edited
       community.general.ini_file:
@@ -52,6 +53,7 @@
         section: "{{ php_conf_section.key }}"
         option: "{{ php_conf_variable_pair.key }}"
         value: "{{ php_conf_variable_pair.value }}"
+        modify_inactive_option: true
         no_extra_spaces: false
         mode: "0644"
         owner: root
@@ -67,7 +69,8 @@
     - name: Set a fact to indicate that the file has changed  # noqa: no-handler
       ansible.builtin.set_fact:
         php_conf_file_changed: true
-      when: (php_conf_file_comments_edited.changed ) or ( php_conf_file_edited.changed | bool )
+      # when: (php_conf_file_comments_edited.changed ) or ( php_conf_file_edited.changed | bool )
+      when: php_conf_file_edited.changed | bool
 
   tags:
     - php
