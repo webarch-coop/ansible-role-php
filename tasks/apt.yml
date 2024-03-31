@@ -93,27 +93,35 @@
         uris: https://packages.sury.org/php/
       register: php_sources
 
-    - name: Stat PHP repository sources file
-      ansible.builtin.stat:
-        path: /etc/apt/sources.list.d/php.sources
-      register: php_sources_path
+    # - name: Stat PHP repository sources file
+    #   ansible.builtin.stat:
+    #     path: /etc/apt/sources.list.d/php.sources
+    #   register: php_sources_path
 
-    - name: Read the PHP repository sources file
-      ansible.builtin.include_tasks: sources_file.yml
-      when: php_sources_path.stat.exists | bool
+    # - name: Read the PHP repository sources file
+    #   ansible.builtin.include_tasks: sources_file.yml
+    #   when: php_sources_path.stat.exists | bool
 
-    - name: Set a fact for the updated PHP repository sources file contents
-      ansible.builtin.set_fact:
-        php_sources_contents_updated: "{{ php_sources_contents }}"
-      when: php_sources_contents is defined
+    # - name: Set a fact for the updated PHP repository sources file contents
+    #   ansible.builtin.set_fact:
+    #     php_sources_contents_updated: "{{ php_sources_contents }}"
+    #   when: php_sources_contents is defined
+
+    - name: Debug php_sources
+      ansible.builtin.debug:
+        var: php_sources
+        verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
 
     - name: Diff PHP repository sources file update
       ansible.utils.fact_diff:
         before: "{{ php_sources_contents_prior }}"
         after: "{{ php_sources_contents_updated }}"
+      vars:
+        php_sources_contents_updated: "{{ php_sources.results.repo | string | community.general.jc('ini') }}"
       check_mode: false
       changed_when: false
       when:
+        - ansible_diff_mode | bool
         - php_sources_contents_prior is defined
         - php_sources_contents_updated is defined
         - php_sources_contents_prior != php_sources_contents_updated
