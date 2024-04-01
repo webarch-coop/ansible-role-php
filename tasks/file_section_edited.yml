@@ -25,6 +25,7 @@
       loop: "{{ php_conf_section.value | ansible.builtin.dict2items }}"
       loop_control:
         loop_var: php_conf_variable_pair
+        label: "{{ php_conf_variable_pair.key }}"
 
     # This is to ensure that variables are written to the same place as existing commented values
     # No longer necessary due to the modify_inactive_option for community.general.ini_file
@@ -64,6 +65,7 @@
       loop: "{{ php_conf_section.value | ansible.builtin.dict2items }}"
       loop_control:
         loop_var: php_conf_variable_pair
+        label: "{{ php_conf_variable_pair.key }}"
       register: php_conf_file_edited
 
     - name: Set a fact to indicate that the file has changed  # noqa: no-handler
