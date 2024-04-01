@@ -194,7 +194,7 @@
 
     - name: Set a fact for all PHP configuration files that should be templated
       ansible.builtin.set_fact:
-        php_conf_files_template: "{{ php_conf_files_templated + php_conf_files_present | ansible.builtin.difference(php_conf_files_existing) }}"
+        php_conf_files_template: "{{ (php_conf_files_templated + php_conf_files_present | ansible.builtin.difference(php_conf_files_existing)) | sort }}"
 
     - name: Debug all PHP configuration files that should be templated
       ansible.builtin.debug:
@@ -206,14 +206,14 @@
       loop: "{{ php_conf_files_template }}"
       loop_control:
         loop_var: php_conf_file
-        label: "{{ php_conf_file | ansible.builtin.basename }}"
+        label: "{{ php_conf_file }}"
       when:
         - php_conf_files_template is defined
         - php_conf_files_template != []
 
     - name: Set a fact for all PHP configuration files that should be edited
       ansible.builtin.set_fact:
-        php_conf_files_edit: "{{ php_conf_files_edited + php_conf_files_present | ansible.builtin.intersect(php_conf_files_existing) }}"
+        php_conf_files_edit: "{{ (php_conf_files_edited + php_conf_files_present | ansible.builtin.intersect(php_conf_files_existing)) | sort }}"
 
     - name: Debug all PHP configuration files that should be edited
       ansible.builtin.debug:
@@ -225,7 +225,7 @@
       loop: "{{ php_conf_files_edit }}"
       loop_control:
         loop_var: php_conf_file
-        label: "{{ php_conf_file | ansible.builtin.basename }}"
+        label: "{{ php_conf_file }}"
       when:
         - php_conf_files_edit is defined
         - php_conf_files_edit != []
