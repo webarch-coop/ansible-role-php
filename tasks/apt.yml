@@ -11,6 +11,11 @@
 - name: Sury PHP apt repo present
   block:
 
+    - name: Python3 Debian present for deb822 module
+      ansible.builtin.apt:
+        pkg: python3-debian
+        state: present
+
     - name: Apt keyrings directory present
       ansible.builtin.file:
         path: /etc/apt/keyrings
@@ -93,20 +98,6 @@
         uris: https://packages.sury.org/php/
       register: php_sources
 
-    # - name: Stat PHP repository sources file
-    #   ansible.builtin.stat:
-    #     path: /etc/apt/sources.list.d/php.sources
-    #   register: php_sources_path
-
-    # - name: Read the PHP repository sources file
-    #   ansible.builtin.include_tasks: sources_file.yml
-    #   when: php_sources_path.stat.exists | bool
-
-    # - name: Set a fact for the updated PHP repository sources file contents
-    #   ansible.builtin.set_fact:
-    #     php_sources_contents_updated: "{{ php_sources_contents }}"
-    #   when: php_sources_contents is defined
-
     - name: Debug php_sources
       ansible.builtin.debug:
         var: php_sources
@@ -115,16 +106,11 @@
     - name: Diff PHP repository sources file update
       ansible.utils.fact_diff:
         before: "{{ php_sources_contents_prior }}"
-        after: "{{ php_sources_contents_updated }}"
-      vars:
-        php_sources_contents_updated: "{{ php_sources.results.repo | string | community.general.jc('ini') }}"
-      check_mode: false
-      changed_when: false
+        after: "{{ php_sources.repo | string | community.general.jc('ini') }}"
       when:
-        - ansible_diff_mode | bool
+        - ( ansible_check_mode | bool ) or ( ansible_diff_mode | bool )
         - php_sources_contents_prior is defined
-        - php_sources_contents_updated is defined
-        - php_sources_contents_prior != php_sources_contents_updated
+        - php_sources.repo is defined
 
     - name: PHP apt preferences present
       ansible.builtin.template:
