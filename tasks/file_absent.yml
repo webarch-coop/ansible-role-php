@@ -1,0 +1,40 @@
+# Copyright 2019-2024 Chris Croome
+#
+# This file is part of the Webarchitects PHP Ansible role.
+#
+# The Webarchitects PHP Ansible role is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#
+# The Webarchitects PHP Ansible role is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with the Webarchitects PHP Ansible role. If not, see <https://www.gnu.org/licenses/>.
+---
+- name: File absent
+  block:
+
+    - name: Debug php_file_absent
+      ansible.builtin.debug:
+        var: php_file_absent
+        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}0{% else %}1{% endif %}"
+
+    - name: "Stat {{ php_file_absent }}"
+      ansible.builtin.stat:
+        path: "{{ php_file_absent }}"
+      register: php_file_absent_path
+
+    - name: "Backup and remove {{ php_file_absent }}"
+      ansible.builtin.command:
+        cmd: >-
+          mv
+          {{ php_file_absent }}
+          {{ php_file_backup }}
+      args:
+        removes: "{{ php_file_absent }}"
+        creates: "{{ php_file_backup }}"
+      vars:
+        php_file_backup: "{{ php_file_absent | ansible.builtin.dirname }}/.{{ php_file_absent | ansible.builtin.basename }}.{{ ansible_date_time.iso8601_basic_short }}.ansible.save"
+      register: php_file_path_absent
+      when: php_file_absent_path.stat.exists | bool
+
+  tags:
+    - php
+...

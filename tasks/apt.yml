@@ -16,74 +16,80 @@
         pkg: python3-debian
         state: present
 
-    - name: Apt keyrings directory present
+    - name: Package debsuryorg-archive-keyring.deb present
+      ansible.builtin.apt:
+        deb: https://packages.sury.org/debsuryorg-archive-keyring.deb
+        state: present
+
+    - name: Legacy PHP GPG key absent
       ansible.builtin.file:
-        path: /etc/apt/keyrings
-        state: directory
-        mode: "0755"
-        owner: root
-        group: root
-
-    - name: Sury GPG key present
-      ansible.builtin.get_url:
-        url: "{{ php_gpg_url }}"
-        checksum: "{{ php_gpg_checksum }}"
-        dest: /etc/apt/keyrings/php.gpg
-        mode: "0644"
-        owner: root
-        group: root
-
-    - name: Stat the GPG key
-      ansible.builtin.stat:
         path: /etc/apt/keyrings/php.gpg
-      register: php_gpg_file
+        state: absent
 
-    - name: Check the GPG fingerprints when the public key is present
-      block:
-
-        - name: PHP gpg key check command
-          ansible.builtin.command: >-
-            gpg --with-colons
-            {% if ansible_local.gpg.version is version('2.2.12', '<') %}
-            --with-fingerprint --with-subkey-fingerprint
-            {% else %}
-            --show-keys
-            {% endif %}
-            /etc/apt/keyrings/php.gpg
-          check_mode: false
-          changed_when: false
-          register: php_gpg
-
-        - name: Set a fact for the PHP GPG fingerprints on the server
-          ansible.builtin.set_fact:
-            php_gpg_fingerprints_found: "{{ php_gpg.stdout | string | community.general.jc('gpg') | community.general.json_query('[?type==`fpr`].user_id') | list }}"
-
-        - name: PHP gpg key check fingerprints
-          ansible.builtin.assert:
-            that:
-              - php_gpg_fingerprints_found | difference(php_gpg_fingerprints) | length == 0
-              - php_gpg_fingerprints | difference(php_gpg_fingerprints_found) | length == 0
-            quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
-
-      when: ( php_gpg_file.stat.exists | bool )
-
-    - name: Stat PHP repository sources file
+    - name: Stat the debsuryorg-archive-keyring.deb GPG key
       ansible.builtin.stat:
-        path: /etc/apt/sources.list.d/php.sources
-      register: php_sources_path
+        path: /usr/share/keyrings/deb.sury.org-php.gpg
+      register: php_apt_key_path
 
-    - name: Read and backup PHP repository sources file
+    - name: Configure the Sury apt repo when the GPG public key is present
       block:
 
-        - name: Read the PHP repository sources file
-          ansible.builtin.include_tasks: sources_file.yml
+        - name: Stat PHP repository sources file
+          ansible.builtin.stat:
+            path: /etc/apt/sources.list.d/php.sources
+          register: php_sources_path
 
-        - name: Set a fact for the prior PHP repository sources file contents
-          ansible.builtin.set_fact:
-            php_sources_contents_prior: "{{ php_sources_contents }}"
-          when: php_sources_contents is defined
+        - name: Read and backup PHP repository sources file
+          block:
 
-        - name: Check PHP repository sources file present
+            - name: Read the PHP repository sources file
+              ansible.builtin.include_tasks: sources_file.yml
+
+            - name: Set a fact for the prior PHP repository sources file contents
+              ansible.builtin.set_fact:
+                php_sources_contents_prior: "{{ php_sources_contents }}"
+              when: php_sources_contents is defined
+
+            - name: Check PHP repository sources file present
+              ansible.builtin.deb822_repository:
+                allow_downgrade_to_insecure: false
+                allow_insecure: false
+                allow_weak: false
+                architectures: "{{ ansible_facts.ansible_local.dpkg.arch }}"
+                check_date: true
+                check_valid_until: true
+                components: main
+                enabled: true
+                name: php
+                signed_by: /usr/share/keyrings/deb.sury.org-php.gpg
+                suites: "{{ ansible_distribution_release }}"
+                types: deb
+                uris: https://packages.sury.org/php/
+              check_mode: true
+              changed_when: false
+              register: php_sources_check
+
+            - name: Debug proposed php_sources_check.repo
+              ansible.builtin.debug:
+                var: php_sources_check.repo
+                verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
+
+            - name: Backup old php.sources file
+              ansible.builtin.command:
+                cmd: >-
+                  mv
+                  /etc/apt/sources.list.d/php.sources
+                  /etc/apt/sources.list.d/.php.sources.{{ php_date_timestamp }}.ansible.save
+              args:
+                creates: "/etc/apt/sources.list.d/.php.sources.{{ php_date_timestamp }}.ansible.save"
+                removes: /etc/apt/sources.list.d/php.sources
+              vars:
+                php_date_timestamp: "{{ ansible_date_time.iso8601_basic_short }}"
+              when: php_sources_contents_prior != php_sources_check.repo | string | community.general.jc('ini')
+
+          when: php_sources_path.stat.exists | bool
+
+        - name: PHP repository sources file present
           ansible.builtin.deb822_repository:
             allow_downgrade_to_insecure: false
             allow_insecure: false
@@ -94,101 +100,64 @@
             components: main
             enabled: true
             name: php
-            signed_by: /etc/apt/keyrings/php.gpg
+            signed_by: /usr/share/keyrings/deb.sury.org-php.gpg
             suites: "{{ ansible_distribution_release }}"
             types: deb
             uris: https://packages.sury.org/php/
-          check_mode: true
-          changed_when: false
-          register: php_sources_check
+          register: php_sources
 
-        - name: Debug proposed php_sources_check.repo
-          ansible.builtin.debug:
-            var: php_sources_check.repo
-            verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
+        - name: Print the changes in the PHP repository sources file  # noqa: no-handler
+          block:
 
-        - name: Backup old php.sources file
-          ansible.builtin.command:
-            cmd: >-
-              mv
-              /etc/apt/sources.list.d/php.sources
-              /etc/apt/sources.list.d/.php.sources.{{ php_date_timestamp }}.ansible.save
-          args:
-            creates: "/etc/apt/sources.list.d/.php.sources.{{ php_date_timestamp }}.ansible.save"
-            removes: /etc/apt/sources.list.d/php.sources
-          vars:
-            php_date_timestamp: "{{ ansible_date_time.iso8601_basic_short }}"
-          when: php_sources_contents_prior != php_sources_check.repo | string | community.general.jc('ini')
+            - name: Debug updated php_sources.repo
+              ansible.builtin.debug:
+                var: php_sources.repo
+                verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
 
-      when: php_sources_path.stat.exists | bool
+            - name: Diff PHP repository sources file update
+              ansible.utils.fact_diff:
+                before: "{{ php_sources_contents_prior | ansible.builtin.to_nice_yaml }}"
+                after: "{{ php_sources.repo | string | community.general.jc('ini') | ansible.builtin.to_nice_yaml }}"
+              when:
+                - ( ansible_check_mode | bool ) or ( ansible_diff_mode | bool )
+                - php_sources_contents_prior is defined
+                - php_sources.repo is defined
 
-    - name: PHP repository sources file present
-      ansible.builtin.deb822_repository:
-        allow_downgrade_to_insecure: false
-        allow_insecure: false
-        allow_weak: false
-        architectures: "{{ ansible_facts.ansible_local.dpkg.arch }}"
-        check_date: true
-        check_valid_until: true
-        components: main
-        enabled: true
-        name: php
-        signed_by: /etc/apt/keyrings/php.gpg
-        suites: "{{ ansible_distribution_release }}"
-        types: deb
-        uris: https://packages.sury.org/php/
-      register: php_sources
+          when: php_sources.changed | bool
 
-    - name: Print the changes in the PHP repository sources file  # noqa: no-handler
-      block:
+        - name: PHP apt preferences present
+          ansible.builtin.template:
+            src: php.pref.j2
+            dest: /etc/apt/preferences.d/php.pref
+            mode: "0644"
+            owner: root
+            group: root
+          environment:
+            DEFAULT_MANAGED_STR: "{{ php_ansible_managed }}"
+          register: php_preferences
 
-        - name: Debug updated php_sources.repo
-          ansible.builtin.debug:
-            var: php_sources.repo
-            verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
+        - name: Update apt cache and autoclean and autoremove
+          block:
 
-        - name: Diff PHP repository sources file update
-          ansible.utils.fact_diff:
-            before: "{{ php_sources_contents_prior | ansible.builtin.to_nice_yaml }}"
-            after: "{{ php_sources.repo | string | community.general.jc('ini') | ansible.builtin.to_nice_yaml }}"
-          when:
-            - ( ansible_check_mode | bool ) or ( ansible_diff_mode | bool )
-            - php_sources_contents_prior is defined
-            - php_sources.repo is defined
+            - name: Update apt cache  # noqa: no-handler
+              ansible.builtin.apt:
+                update_cache: true
+                cache_valid_time: 0
 
-      when: php_sources.changed | bool
+            - name: Apt autoclean and autoremove  # noqa: no-handler
+              ansible.builtin.apt:
+                upgrade: dist
+                autoclean: true
+                autoremove: true
+                update_cache: false
 
-    - name: PHP apt preferences present
-      ansible.builtin.template:
-        src: php.pref.j2
-        dest: /etc/apt/preferences.d/php.pref
-        mode: "0644"
-        owner: root
-        group: root
-      environment:
-        DEFAULT_MANAGED_STR: "{{ php_ansible_managed }}"
-      register: php_preferences
+          when: >-
+            ( php_sources.changed | bool ) or
+            ( php_preferences.changed | bool )
+          tags:
+            - molecule-idempotence-notest
 
-    - name: Update apt cache and autoclean and autoremove
-      block:
-
-        - name: Update apt cache  # noqa: no-handler
-          ansible.builtin.apt:
-            update_cache: true
-            cache_valid_time: 0
-
-        - name: Apt autoclean and autoremove  # noqa: no-handler
-          ansible.builtin.apt:
-            upgrade: dist
-            autoclean: true
-            autoremove: true
-            update_cache: false
-
-      when: >-
-        ( php_sources.changed | bool ) or
-        ( php_preferences.changed | bool )
-      tags:
-        - molecule-idempotence-notest
+      when: php_apt_key_path.stat.exists | bool
 
   when: php_sury | bool
   tags:
@@ -198,34 +167,28 @@
 - name: Sury PHP apt repo absent
   block:
 
-    - name: Files absent
-      ansible.builtin.file:
-        path: "{{ path }}"
-        state: absent
+    - name: Include file absent tasks
+      ansible.builtin.include_tasks: file_absent.yml
       loop:
         - /etc/apt/keyrings/php.gpg
         - /etc/apt/sources.list.d/php.sources
         - /etc/apt/preferences.d/php.pref
       loop_control:
-        loop_var: path
-        label: "{{ path | basename }}"
-      register: php_repo_absent
+        loop_var: php_file_absent
+        label: "{{ php_file_absent | ansible.builtin.basename }}"
 
-    - name: Update apt cache and autoclean and autoremove
-      block:
+    - name: Update apt cache  # noqa: no-handler
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 0
+      tags:
+        - molecule-idempotence-notest
 
-        - name: Update apt cache  # noqa: no-handler
-          ansible.builtin.apt:
-            update_cache: true
-            cache_valid_time: 0
-
-        - name: Apt autoclean and autoremove  # noqa: no-handler
-          ansible.builtin.apt:
-            autoclean: true
-            autoremove: true
-            update_cache: false
-
-      when: php_repo_absent.changed
+    - name: Apt autoclean and autoremove  # noqa: no-handler
+      ansible.builtin.apt:
+        autoclean: true
+        autoremove: true
+        update_cache: false
       tags:
         - molecule-idempotence-notest
 

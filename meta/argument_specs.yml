@@ -206,19 +206,6 @@ argument_specs:
         elements: str
         required: false
         description: A generated list of PHP-FPM versions present.
-      php_gpg_checksum:
-        type: str
-        required: true
-        description: The SHA256 checksum for packages.sury.org/php/apt.gpg.
-      php_gpg_fingerprints:
-        type: list
-        elements: str
-        required: true
-        description: A list GPG fingerprints from packages.sury.org/php/apt.gpg.
-      php_gpg_url:
-        type: str
-        required: true
-        description: The URL of the Sury GPG public key.
       php_mods_ver_absent:
         type: list
         elements: str

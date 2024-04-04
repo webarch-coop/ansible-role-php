@@ -23,6 +23,7 @@ The main entry point for the PHP role.
 | php_conf_ver_absent | a generated list of versions of php configuration to remove if present. | list of 'str' | no |
 | php_conf_ver_present | a generated list of versions of php configuration that should be present. | list of 'str' | no |
 | php_config | Optional PHP configuration. | list of dicts of 'php_config' options | no |
+| php_date_timestamp | Internal variable for a date timestamp for file backups. | str | no |
 | php_debian_bullseye_pkg | A list of Debian Bullseye packages to install. | list of 'str' | no |
 | php_debian_buster_pkg | A list of Debian Buster packages to install. | list of 'str' | no |
 | php_debian_bookworm_pkg | A list of Debian Bookworm packages to install. | list of 'str' | no |
@@ -34,15 +35,14 @@ The main entry point for the PHP role.
 | php_fpm_pools | A generated list of FPM pool names and socket paths. | list of dicts of 'php_fpm_pools' options | no |
 | php_fpm_version | Loop variables for a PHP-FPM version. | str | no |
 | php_fpm_versions_present | A generated list of PHP-FPM versions present. | list of 'str' | no |
-| php_gpg_checksum | The SHA256 checksum for packages.sury.org/php/apt.gpg. | str | yes |
-| php_gpg_fingerprints | A list GPG fingerprints from packages.sury.org/php/apt.gpg. | list of 'str' | yes |
-| php_gpg_url | The URL of the Sury GPG public key. | str | yes |
 | php_mods_ver_absent | A generated list of PHP versions for which module configuration should be absent. | list of 'str' | no |
 | php_mods_ver_present | A generated list of PHP versions for which module configuration should be present. | list of 'str' | no |
 | php_modules | An optional list of PHP versions that require module configuration. | list of dicts of 'php_modules' options | no |
 | php_pkg_absent | A generated list of PHP packages which should be absent. | list of 'str' | no |
 | php_pkg_present | A generated list of PHP packages which should be present. | list of 'str' | no |
 | php_pool_names_not_absent | A generated list of PHP-FPM pool names that are not absent. | list of 'str' | no |
+| php_sources | Internal dictionary for the apt sources file results. | dict | no |
+| php_sources_check | Internal dictionary for the apt sources file results. | dict | no |
 | php_sury | Configure the Sury PHP deb package repo. | bool | no |
 | php_ver | A PHP version loop variable, only used internally by this role. | str | no |
 | php_ver_absent | A generated list of PHP versions which should be absent. | list of 'str' | no |
