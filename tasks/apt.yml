@@ -72,14 +72,55 @@
         path: /etc/apt/sources.list.d/php.sources
       register: php_sources_path
 
-    - name: Read the PHP repository sources file
-      ansible.builtin.include_tasks: sources_file.yml
-      when: php_sources_path.stat.exists | bool
+    - name: Read and backup PHP repository sources file
+      block:
 
-    - name: Set a fact for the prior PHP repository sources file contents
-      ansible.builtin.set_fact:
-        php_sources_contents_prior: "{{ php_sources_contents }}"
-      when: php_sources_contents is defined
+        - name: Read the PHP repository sources file
+          ansible.builtin.include_tasks: sources_file.yml
+
+        - name: Set a fact for the prior PHP repository sources file contents
+          ansible.builtin.set_fact:
+            php_sources_contents_prior: "{{ php_sources_contents }}"
+          when: php_sources_contents is defined
+
+        - name: Check PHP repository sources file present
+          ansible.builtin.deb822_repository:
+            allow_downgrade_to_insecure: false
+            allow_insecure: false
+            allow_weak: false
+            architectures: "{{ ansible_facts.ansible_local.dpkg.arch }}"
+            check_date: true
+            check_valid_until: true
+            components: main
+            enabled: true
+            name: php
+            signed_by: /etc/apt/keyrings/php.gpg
+            suites: "{{ ansible_distribution_release }}"
+            types: deb
+            uris: https://packages.sury.org/php/
+          check_mode: true
+          changed_when: false
+          register: php_sources_check
+
+        - name: Debug proposed php_sources_check.repo
+          ansible.builtin.debug:
+            var: php_sources_check.repo
+            verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
+
+        - name: Backup old php.sources file
+          ansible.builtin.command:
+            cmd: >-
+              mv
+              /etc/apt/sources.list.d/php.sources
+              /etc/apt/sources.list.d/.php.sources.{{ php_date_timestamp }}.ansible.save
+          args:
+            creates: "/etc/apt/sources.list.d/.php.sources.{{ php_date_timestamp }}.ansible.save"
+            removes: /etc/apt/sources.list.d/php.sources
+          vars:
+            php_date_timestamp: "{{ ansible_date_time.iso8601_basic_short }}"
+          when: php_sources_contents_prior != php_sources_check.repo | string | community.general.jc('ini')
+
+      when: php_sources_path.stat.exists | bool
 
     - name: PHP repository sources file present
       ansible.builtin.deb822_repository:
@@ -98,19 +139,24 @@
         uris: https://packages.sury.org/php/
       register: php_sources
 
-    - name: Debug php_sources
-      ansible.builtin.debug:
-        var: php_sources
-        verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+    - name: Print the changes in the PHP repository sources file  # noqa: no-handler
+      block:
 
-    - name: Diff PHP repository sources file update
-      ansible.utils.fact_diff:
-        before: "{{ php_sources_contents_prior }}"
-        after: "{{ php_sources.repo | string | community.general.jc('ini') }}"
-      when:
-        - ( ansible_check_mode | bool ) or ( ansible_diff_mode | bool )
-        - php_sources_contents_prior is defined
-        - php_sources.repo is defined
+        - name: Debug updated php_sources.repo
+          ansible.builtin.debug:
+            var: php_sources.repo
+            verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
+
+        - name: Diff PHP repository sources file update
+          ansible.utils.fact_diff:
+            before: "{{ php_sources_contents_prior | ansible.builtin.to_nice_yaml }}"
+            after: "{{ php_sources.repo | string | community.general.jc('ini') | ansible.builtin.to_nice_yaml }}"
+          when:
+            - ( ansible_check_mode | bool ) or ( ansible_diff_mode | bool )
+            - php_sources_contents_prior is defined
+            - php_sources.repo is defined
+
+      when: php_sources.changed | bool
 
     - name: PHP apt preferences present
       ansible.builtin.template:

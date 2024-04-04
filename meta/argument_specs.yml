@@ -140,6 +140,10 @@ argument_specs:
               - "7.1"
               - "7.0"
               - "5.6"
+      php_date_timestamp:
+        type: str
+        required: false
+        description: Internal variable for a date timestamp for file backups.
       php_debian_bullseye_pkg:
         type: list
         elements: str
@@ -300,6 +304,14 @@ argument_specs:
         elements: str
         required: false
         description: A generated list of PHP-FPM pool names that are not absent.
+      php_sources:
+        type: dict
+        required: false
+        description: Internal dictionary for the apt sources file results.
+      php_sources_check:
+        type: dict
+        required: false
+        description: Internal dictionary for the apt sources file results.
       php_sury:
         type: bool
         required: false
