@@ -31,12 +31,13 @@
         path: /usr/share/keyrings/deb.sury.org-php.gpg
       register: php_apt_key_path
 
-    - name: The https://packages.sury.org/debsuryorg-archive-keyring.deb package is required
+    - name: The GPG key provided by the debsuryorg-archive-keyring.deb package is required
       ansible.builtin.assert:
         that:
           - php_apt_key_path.stat.exists | bool
         quiet: "{% if ansible_check_mode or ansible_verbosity >= 1 %}false{% else %}true{% endif %}"
-        fail_msg: The GPG key provided by debsuryorg-archive-keyring.deb is required to configure the Sury PHP repo.
+        fail_msg: >-
+          The GPG key provided by https://packages.sury.org/debsuryorg-archive-keyring.deb is required to configure the Sury PHP repo.
 
     - name: Configure the Sury apt repo when the GPG public key is present
       block:
