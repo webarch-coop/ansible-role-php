@@ -69,6 +69,7 @@
                 components: main
                 enabled: true
                 name: php
+                pdiffs: true
                 signed_by: /usr/share/keyrings/deb.sury.org-php.gpg
                 suites: "{{ ansible_distribution_release }}"
                 types: deb
@@ -108,6 +109,7 @@
             components: main
             enabled: true
             name: php
+            pdiffs: true
             signed_by: /usr/share/keyrings/deb.sury.org-php.gpg
             suites: "{{ ansible_distribution_release }}"
             types: deb
