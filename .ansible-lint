@@ -13,5 +13,6 @@ skip_list:
   - key-order[task]
   - name[template]
   - package-latest
+var_naming_pattern: "^[php|molecule]_?[a-z0-9_]*$"
 # vim: syntax=yaml
 ...
