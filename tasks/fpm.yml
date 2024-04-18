@@ -16,27 +16,33 @@
         path: "/etc/systemd/system/multi-user.target.wants/php{{ php_fpm_version }}-fpm.service"
       register: php_fpm_system_service
 
-    - name: "Ensure that PHP-FPM service is started for {{ php_fpm_version }}"
-      ansible.builtin.systemd_service:
-        name: "php{{ php_fpm_version }}-fpm.service"
-        enabled: true
-        state: started
-      register: php_fpm_service
-      when: php_fpm_system_service.stat.exists | bool
+    - name: Enable PHP-FPM systemd seervice
+      block:
 
-    - name: Debug php_fpm_service
-      ansible.builtin.debug:
-        var: php_fpm_service
-        verbosity: 2
+        - name: "Ensure that PHP-FPM service is started for {{ php_fpm_version }}"
+          ansible.builtin.systemd_service:
+            name: "php{{ php_fpm_version }}-fpm.service"
+            enabled: true
+            state: started
+          register: php_fpm_service
 
-    - name: Check that PHP FPM is running
-      ansible.builtin.service_facts:
-      register: php_service_facts
-      until: php_service_facts | community.general.json_query(php_service_jpq) == "running"
-      retries: 20
-      delay: 1
-      vars:
-        php_service_jpq: 'ansible_facts.services.["php{{ php_fpm_version }}-fpm.service"]|[0].state'
+        - name: Debug php_fpm_service
+          ansible.builtin.debug:
+            var: php_fpm_service
+            verbosity: 2
+
+        - name: Check that PHP FPM is running
+          ansible.builtin.service_facts:
+          register: php_service_facts
+          until: php_service_facts | community.general.json_query(php_service_jpq) == "running"
+          retries: 20
+          delay: 1
+          vars:
+            php_service_jpq: 'ansible_facts.services.["php{{ php_fpm_version }}-fpm.service"]|[0].state'
+
+      when:
+        - php_fpm_system_service.stat.exists is defined
+        - php_fpm_system_service.stat.exists | bool
 
   tags:
     - php

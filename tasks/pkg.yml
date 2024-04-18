@@ -225,6 +225,8 @@
       loop_control:
         loop_var: php_fpm_version
       when:
+        - php_init is defined
+        - php_init == "systemd"
         - php_fpm_versions_present is defined
         - php_fpm_versions_present != []
 

@@ -154,20 +154,28 @@
           register: php_dismods_result
           failed_when: php_dismods_result.stderr_lines != []
 
-        - name: PHP FPM reloaded
-          ansible.builtin.service:
-            name: "php{{ php_conf_file_version }}-fpm"
-            state: reloaded
-          when: php_sapi == "fpm"
+        - name: PHP-FPM systemd unit reload
+          block:
 
-        - name: Check that PHP FPM is running
-          ansible.builtin.service_facts:
-          register: php_service_facts
-          until: php_service_facts | community.general.json_query(php_service_jpq) == "running"
-          retries: 20
-          delay: 1
-          vars:
-            php_service_jpq: 'ansible_facts.services.["php{{ php_conf_file_version }}-fpm.service"]|[0].state'
+            - name: PHP FPM reloaded
+              ansible.builtin.systemd_service:
+                name: "php{{ php_conf_file_version }}-fpm"
+                state: reloaded
+
+            - name: Check that PHP FPM is running
+              ansible.builtin.service_facts:
+              register: php_service_facts
+              until: php_service_facts | community.general.json_query(php_service_jpq) == "running"
+              retries: 20
+              delay: 1
+              vars:
+                php_service_jpq: 'ansible_facts.services.["php{{ php_conf_file_version }}-fpm.service"]|[0].state'
+
+          when:
+            - php_sapi is defined
+            - php_sapi == "fpm"
+            - php_init is defined
+            - php_init == "systemd"
 
       when:
         - php_dismods is defined
@@ -191,11 +199,28 @@
           register: php_enmods_result
           failed_when: php_enmods_result.stderr_lines != []
 
-        - name: PHP FPM reloaded
-          ansible.builtin.service:
-            name: "php{{ php_conf_file_version }}-fpm"
-            state: reloaded
-          when: php_sapi == "fpm"
+        - name: PHP-FPM systemd unit reload
+          block:
+
+            - name: PHP FPM reloaded
+              ansible.builtin.service:
+                name: "php{{ php_conf_file_version }}-fpm"
+                state: reloaded
+
+            - name: Check that PHP FPM is running
+              ansible.builtin.service_facts:
+              register: php_service_facts
+              until: php_service_facts | community.general.json_query(php_service_jpq) == "running"
+              retries: 20
+              delay: 1
+              vars:
+                php_service_jpq: 'ansible_facts.services.["php{{ php_conf_file_version }}-fpm.service"]|[0].state'
+
+          when:
+            - php_sapi is defined
+            - php_sapi == "fpm"
+            - php_init is defined
+            - php_init == "systemd"
 
       when:
         - php_enmods is defined
