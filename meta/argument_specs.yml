@@ -303,6 +303,10 @@ argument_specs:
         type: bool
         required: false
         description: Configure the Sury PHP deb package repo.
+      php_systemd_service_path:
+        type: str
+        required: false
+        description: Internal variable for the PHP-FPM systemd service file path.
       php_ver:
         type: str
         required: false

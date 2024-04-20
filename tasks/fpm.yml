@@ -11,9 +11,11 @@
 - name: PHP-FPM systemd tasks
   block:
 
-    - name: "Stat /etc/systemd/system/multi-user.target.wants/php{{ php_fpm_version }}-fpm.service"
+    - name: "Stat {{ php_systemd_service_path }}"
       ansible.builtin.stat:
-        path: "/etc/systemd/system/multi-user.target.wants/php{{ php_fpm_version }}-fpm.service"
+        path: "{{ php_systemd_service_path }}"
+      vars:
+        php_systemd_service_path: "/etc/systemd/system/multi-user.target.wants/php{{ php_fpm_version }}-fpm.service"
       register: php_fpm_system_service
 
     - name: Enable PHP-FPM systemd seervice

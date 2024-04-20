@@ -89,6 +89,8 @@
         pkg: "{{ php_pkg_rm }}"
         purge: false
         state: absent
+      environment:
+        DEBIAN_FRONTEND: noninteractive
       register: php_packages_removed_first_run
       when: php_pkg_rm != []
 
@@ -98,13 +100,14 @@
         verbosity: "{% if ansible_check_mode | bool and php_pkg_present != [] %}1{% elif php_pkg_present != [] %}2{% else %}3{% endif %}"
       when: php_packages_removed_first_run.changed | bool
 
-    - name: PHP packages present
+    - name: PHP packages present  # noqa: package-latest
       ansible.builtin.apt:
         pkg: "{{ php_pkg_install }}"
         state: latest
         dpkg_options: force-confmiss
         update_cache: true
       environment:
+        DEBIAN_FRONTEND: noninteractive
         UCF_FORCE_CONFFMISS: "1"
       register: php_packages_installed
       when: php_pkg_install != []
@@ -120,6 +123,8 @@
         pkg: "{{ php_pkg_absent }}"
         purge: false
         state: absent
+      environment:
+        DEBIAN_FRONTEND: noninteractive
       register: php_packages_removed_second_run
       when: php_pkg_absent != []
 
@@ -162,13 +167,14 @@
         ( ( php_packages_removed_first_run.changed is defined ) and ( php_packages_removed_first_run.changed | bool ) ) or
         ( ( php_packages_removed_second_run.changed is defined ) and ( php_packages_removed_second_run.changed | bool ) ) )
 
-    - name: Ensure that all required PHP packages are present
+    - name: Ensure that all required PHP packages are present  # noqa: package-latest
       ansible.builtin.apt:
         pkg: "{{ php_pkg_present }}"
         state: latest
         dpkg_options: force-confmiss
         update_cache: true
       environment:
+        DEBIAN_FRONTEND: noninteractive
         UCF_FORCE_CONFFMISS: "1"
       when: php_pkg_present != []
       register: php_packages_present
