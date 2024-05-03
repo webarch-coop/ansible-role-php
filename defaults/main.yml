@@ -15,6 +15,11 @@ php_config:
     version: "8.3"
     state: present
     files:
+      - name: PHP 8.3 JIT configuration
+        path: /etc/php/8.3/mods-available/opcache.ini
+        state: edited
+        conf_absent:
+          "opcache.jit": "off"
       - name: PHP 8.3 CLI configuration
         path: /etc/php/8.3/cli/php.ini
         state: present
