@@ -44,6 +44,7 @@ The main entry point for the PHP role.
 | php_sources | Internal dictionary for the apt sources file results. | dict | no |
 | php_sources_check | Internal dictionary for the apt sources file results. | dict | no |
 | php_sury | Configure the Sury PHP deb package repo. | bool | no |
+| php_systemd_service_path | Internal variable for the PHP-FPM systemd service file path. | str | no |
 | php_ver | A PHP version loop variable, only used internally by this role. | str | no |
 | php_ver_absent | A generated list of PHP versions which should be absent. | list of 'str' | no |
 | php_ver_absent_regex | A pattern to use as a regular expression to find versions of PHP which should be absent. | str | yes |
@@ -63,7 +64,8 @@ The main entry point for the PHP role.
 
 |Option|Description|Type|Required|
 |---|---|---|---|
-| conf | A optional YAML dictionary representing the sections, variables and values of a PHP configuration file. | dict | no |
+| conf | A optional YAML dictionary representing the sections, variables and values of a PHP configuration file that sould be present. | dict | no |
+| conf_absent | A optional YAML dictionary representing the sections, variables and values of a PHP configuration file that should be absent. | dict | no |
 | name | A optional name for the PHP configuration file. | str | no |
 | path | The path of the PHP configuration file. | str | yes |
 | state | The state of the PHP configuration file. | str | yes |### Options for main > php_fpm_pools
