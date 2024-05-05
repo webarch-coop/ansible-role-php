@@ -8,16 +8,15 @@
 #
 # You should have received a copy of the GNU General Public License along with the Webarchitects PHP Ansible role. If not, see <https://www.gnu.org/licenses/>.
 ---
-- name: PHP configuration file section edited
+- name: PHP configuration file section config absent
   block:
 
-    - name: Debug the existing and proposed PHP configuration file variables
+    - name: Debug the absent PHP configuration file variables
       ansible.builtin.debug:
         msg:
           - "File: {{ php_conf_file }}"
           - "Section: {{ php_conf_section.key }}"
-          - "Existing {{ php_conf_variable_pair.key }}: '{{ php_conf_file_existing_vars | community.general.json_query(php_conf_variable_json_query) }}'"
-          - "Proposed {{ php_conf_variable_pair.key }}: '{{ php_conf_variable_pair.value }};"
+          - "Absent {{ php_conf_variable_pair.key }}"
         verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}0{% else %}1{% endif %}"
       when: php_conf_variable_pair.value != php_conf_file_existing_vars | community.general.json_query(php_conf_variable_json_query)
       vars:
@@ -27,36 +26,12 @@
         loop_var: php_conf_variable_pair
         label: "{{ php_conf_variable_pair.key }}"
 
-    # This is to ensure that variables are written to the same place as existing commented values
-    # No longer necessary due to the modify_inactive_option for community.general.ini_file
-    # - name: Uncomment commented variables in the PHP configuration file that are to be edited
-    #   ansible.builtin.lineinfile:
-    #     path: "{{ php_conf_file }}"
-    #     line: "{{ php_conf_variable_pair.key }} = {{ php_conf_variable_pair.value }}"
-    #     regex: "{{ php_conf_variable_regex }}"
-    #     state: present
-    #     backrefs: true
-    #     mode: "0644"
-    #     owner: root
-    #     group: root
-    #   when: php_conf_variable_pair.value != php_conf_file_existing_vars | community.general.json_query(php_conf_variable_json_query)
-    #   vars:
-    #     php_conf_variable_json_query: '"{{ php_conf_section.key }}"."{{ php_conf_variable_pair.key }}"'
-    #     php_conf_variable_regex: "^[;]{{ php_conf_variable_pair.key }}[ =]"
-    #   loop: "{{ php_conf_section.value | ansible.builtin.dict2items }}"
-    #   loop_control:
-    #     loop_var: php_conf_variable_pair
-    #   register: php_conf_file_comments_edited
-
-    - name: PHP configuration file edited
+    - name: PHP configuration variables absent
       community.general.ini_file:
         path: "{{ php_conf_file }}"
         section: "{{ php_conf_section.key }}"
         option: "{{ php_conf_variable_pair.key }}"
-        value: "{{ php_conf_variable_pair.value }}"
-        state: present
-        modify_inactive_option: true
-        no_extra_spaces: "{{ php_conf_file_no_extra_spaces }}"
+        state: absent
         mode: "0644"
         owner: root
         group: root

@@ -96,7 +96,11 @@ argument_specs:
               conf:
                 type: dict
                 required: false
-                description: A optional YAML dictionary representing the sections, variables and values of a PHP configuration file.
+                description: A optional YAML dictionary representing the sections, variables and values of a PHP configuration file that sould be present.
+              conf_absent:
+                type: dict
+                required: false
+                description: A optional YAML dictionary representing the sections, variables and values of a PHP configuration file that should be absent.
               name:
                 type: str
                 required: false

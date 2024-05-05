@@ -1,11 +1,24 @@
 ; {{ ansible_managed }}
-; {# j2lint: disable=jinja-statements-indentation #}
 
-{% for php_section in php_conf_file_proposed_vars | dict2items %}
+{% if php_conf_file_proposed_sections | bool %}
+{%     for php_section in php_conf_file_proposed_vars | dict2items %}
 [{{ php_section.key }}]
-{% for php_variable_pair in php_section.value | dict2items %}
+{%         for php_variable_pair in php_section.value | dict2items %}
+{%             if php_conf_file_no_extra_spaces | bool %}
+{{ php_variable_pair.key }}={{ php_variable_pair.value }}
+{%             else %}
 {{ php_variable_pair.key }} = {{ php_variable_pair.value }}
-{% endfor %}
-{% endfor %}
+{%             endif %}
+{%         endfor %}
+{%     endfor %}
+{% else %}
+{%     for php_conf_pair in php_conf_file_proposed_vars | ansible.builtin.dict2items %}
+{%         if php_conf_file_no_extra_spaces | bool %}
+{{ php_conf_pair.key }}={{ php_conf_pair.value }}
+{%         else %}
+{{ php_conf_pair.key }} = {{ php_conf_pair.value }}
+{%         endif %}
+{%     endfor %}
+{% endif %}
 
 ; vim: syntax=dosini

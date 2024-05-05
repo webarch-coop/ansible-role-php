@@ -124,6 +124,11 @@ php_config:
     version: "8.2"
     state: present
     files:
+      - name: PHP 8.2 JIT configuration
+        path: /etc/php/8.1/mods-available/opcache.ini
+        state: edited
+        conf_absent:
+          "opcache.jit": "off"
       - name: PHP 8.2 CLI configuration
         path: /etc/php/8.2/cli/php.ini
         state: present
@@ -228,6 +233,11 @@ php_config:
     version: "8.1"
     state: present
     files:
+      - name: PHP 8.1 JIT configuration
+        path: /etc/php/8.1/mods-available/opcache.ini
+        state: edited
+        conf_absent:
+          "opcache.jit": "off"
       - name: PHP 8.1 CLI configuration
         path: /etc/php/8.1/cli/php.ini
         state: present
@@ -332,6 +342,11 @@ php_config:
     version: "8.0"
     state: present
     files:
+      - name: PHP 8.0 JIT configuration
+        path: /etc/php/8.0/mods-available/opcache.ini
+        state: edited
+        conf_absent:
+          "opcache.jit": "off"
       - name: PHP 8.0 CLI configuration
         path: /etc/php/8.0/cli/php.ini
         state: present

@@ -14,6 +14,7 @@
     - name: Set facts for the PHP configuration file
       ansible.builtin.set_fact:
         php_conf_file_backup: "{{ php_conf_file | ansible.builtin.dirname }}/.{{ php_conf_file | ansible.builtin.basename }}.{{ ansible_date_time.iso8601_basic_short }}.bak"
+        php_conf_file_no_extra_spaces: "{%- if (php_conf_file | ansible.builtin.dirname | ansible.builtin.split('/') | last) == 'mods-available' -%}true{%- else -%}false{%- endif -%}"
         php_conf_file_proposed_vars: "{{ php_config | community.general.json_query(php_conf_file_proposed_vars_json_query) }}"
         php_conf_file_sapi: "{{ php_conf_file | ansible.builtin.split(php_file_path_separator) | community.general.json_query('[4]') }}"
         php_conf_file_version: "{{ php_conf_file | ansible.builtin.split(php_file_path_separator) | community.general.json_query('[3]') }}"
@@ -23,6 +24,11 @@
     - name: Debug the PHP configuration file backup path
       ansible.builtin.debug:
         var: php_conf_file_backup
+        verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+
+    - name: Debug the PHP configuration no extra spaces variable
+      ansible.builtin.debug:
+        var: php_conf_file_no_extra_spaces
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
 
     - name: Debug the PHP configuration file PHP SAPI
@@ -40,10 +46,25 @@
         var: php_conf_file_proposed_vars
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
 
+    - name: Set a fact to indicate that the proposed PHP configuration file has sections
+      ansible.builtin.set_fact:
+        php_conf_file_proposed_sections: >-
+          {%- if (php_conf_file_proposed_vars |
+          ansible.builtin.json_query('*[]') |
+          map('ansible.builtin.type_debug') |
+          unique)[0] == "dict"
+          -%}true{%- else -%}false{%- endif -%}
+
+    - name: Debug the proposed PHP configuration file sections variables
+      ansible.builtin.debug:
+        var: php_conf_file_proposed_sections
+        verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+
     - name: Debug the proposed PHP configuration file sections
       ansible.builtin.debug:
         var: php_conf_file_proposed_vars.keys()
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+      when: php_conf_file_proposed_sections | bool
 
     - name: File backup present
       ansible.builtin.copy:
