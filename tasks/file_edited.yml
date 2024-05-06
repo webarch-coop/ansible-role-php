@@ -136,8 +136,13 @@
       ansible.builtin.set_fact:
         php_conf_file_backup: "{{ php_conf_file | ansible.builtin.dirname }}/.{{ php_conf_file | ansible.builtin.basename }}.{{ ansible_date_time.iso8601_basic_short }}.bak"
         php_conf_file_changed: false
-        php_conf_file_sapi: "{{ php_conf_file | ansible.builtin.split(php_file_path_separator) | community.general.json_query('[4]') }}"
+        php_conf_file_sapi: null
         php_conf_file_version: "{{ php_conf_file | ansible.builtin.split(php_file_path_separator) | community.general.json_query('[3]') }}"
+
+    - name: Set fact for the PHP configuration file SAPI
+      ansible.builtin.set_fact:
+        php_conf_file_sapi: "{{ php_conf_file | ansible.builtin.split(php_file_path_separator) | community.general.json_query('[4]') }}"
+      when: ( php_conf_file | ansible.builtin.split(php_file_path_separator) | community.general.json_query('[4]') ) is ansible.builtin.regex(php_sapi_regex)
 
     - name: Debug the PHP configuration file backup path
       ansible.builtin.debug:
@@ -179,8 +184,8 @@
         - php_conf_file_absent_vars is defined
         - php_conf_file_absent_vars | length > 0
         - php_conf_file_absent_vars | ansible.builtin.type_debug == "dict"
-        - not php_conf_file_existing_sections | bool
-        - not php_conf_file_proposed_sections | bool
+        # - not php_conf_file_existing_sections | bool
+        # - not php_conf_file_proposed_sections | bool
 
     - name: Include the PHP configuration file sections config edited tasks
       ansible.builtin.include_tasks: file_sections_edited.yml
@@ -197,8 +202,8 @@
         - php_conf_file_absent_vars is defined
         - php_conf_file_absent_vars | length > 0
         - php_conf_file_absent_vars | ansible.builtin.type_debug == "dict"
-        - php_conf_file_existing_sections | bool
-        - php_conf_file_proposed_sections | bool
+        # - php_conf_file_existing_sections | bool
+        # - php_conf_file_proposed_sections | bool
 
     - name: Ansible managed comment present at the top of the file
       ansible.builtin.lineinfile:

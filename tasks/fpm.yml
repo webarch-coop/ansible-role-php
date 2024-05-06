@@ -11,15 +11,25 @@
 - name: PHP-FPM systemd tasks
   block:
 
-    - name: "Stat {{ php_systemd_service_path }}"
+    - name: "Stat {{ php_systemd_service_symlink_path }}"
       ansible.builtin.stat:
-        path: "{{ php_systemd_service_path }}"
+        path: "{{ php_systemd_service_symlink_path }}"
       vars:
-        php_systemd_service_path: "/etc/systemd/system/multi-user.target.wants/php{{ php_fpm_version }}-fpm.service"
+        php_systemd_service_symlink_path: "/lib/systemd/system/php{{ php_fpm_version }}-fpm.service"
       register: php_fpm_system_service
 
     - name: Enable PHP-FPM systemd seervice
       block:
+
+        - name: "Symlink present for PHP-FPM service for {{ php_fpm_version }}"
+          ansible.builtin.file:
+            state: link
+            src: "/lib/systemd/system/php{{ php_fpm_version }}-fpm.service"
+            dest: "/etc/systemd/system/multi-user.target.wants/php{{ php_fpm_version }}-fpm.service"
+            follow: false
+            mode: "0777"
+            owner: root
+            group: root
 
         - name: "Ensure that PHP-FPM service is started for {{ php_fpm_version }}"
           ansible.builtin.systemd_service:

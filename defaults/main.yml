@@ -947,6 +947,10 @@ php_modules:
   #         - xmlwriter
   #         - xsl
   #         - zip
+php_sapis:
+  - apache2
+  - cli
+  - fpm
 php_sury: true
 php_versions:
   - name: PHP 8.3 packages

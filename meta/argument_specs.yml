@@ -295,6 +295,15 @@ argument_specs:
         elements: str
         required: false
         description: A generated list of PHP-FPM pool names that are not absent.
+      php_sapis:
+        type: list
+        elements: str
+        required: true
+        description: A list of PHP SAPIs.
+      php_sapis_regex:
+        type: str
+        required: true
+        description: A regular expression to match the SAPIs.
       php_sources:
         type: dict
         required: false
