@@ -67,13 +67,13 @@ The `files` dictionary requires a `path` and `state` for each file, the state ca
 - templated
 ```
 
-The `edited` state can only be used for existing files, it enables the [Ansible ini module](https://docs.ansible.com/ansible/latest/collections/community/general/ini_file_module.html) to be used to edit configuration files without the need to template them.
+The `edited` state can only be used for existing files, it enables the [Ansible ini module](https://docs.ansible.com/ansible/latest/collections/community/general/ini_file_module.html) to be used to edit configuration files without the need to template them, using a optional dictionary that is converted into a INI dictionary for the configuration to be present and a `conf_absent` optional dictionary that is converted into a INI dictionary for the configuration to be absent.
 
 The `present` state will result in existing files being edited and not existing files to be templated.
 
-The `templated` state can be used to generate new configuration files.
+The `templated` state can be used to generate new configuration files and to remove configuration through only specifing the configuration to be present.
 
-File configuration is defined using a `conf` dictionary.
+File configuration is defined using a `conf` dictionary for `edited` and `templated` states and `conf_absent` for `edited` states.
 
 An example `php_config` item:
 

@@ -54,21 +54,16 @@
           map('ansible.builtin.type_debug') |
           unique)[0] == "dict"
           -%}true{%- else -%}false{%- endif -%}
-      when: php_conf_file_proposed_vars | length > 0
 
     - name: Debug the proposed PHP configuration file sections variables
       ansible.builtin.debug:
         var: php_conf_file_proposed_sections
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
-      when: php_conf_file_proposed_sections is defined
 
     - name: Debug the proposed PHP configuration file sections
       ansible.builtin.debug:
         var: php_conf_file_proposed_vars.keys()
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
-      when:
-        - php_conf_file_proposed_sections is defined
-        - php_conf_file_proposed_sections | bool
 
     - name: File backup present
       ansible.builtin.copy:
