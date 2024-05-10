@@ -300,7 +300,7 @@ argument_specs:
         elements: str
         required: true
         description: A list of PHP SAPIs.
-      php_sapis_regex:
+      php_sapi_regex:
         type: str
         required: true
         description: A regular expression to match the SAPIs.

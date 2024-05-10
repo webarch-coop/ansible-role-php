@@ -41,6 +41,8 @@ The main entry point for the PHP role.
 | php_pkg_absent | A generated list of PHP packages which should be absent. | list of 'str' | no |
 | php_pkg_present | A generated list of PHP packages which should be present. | list of 'str' | no |
 | php_pool_names_not_absent | A generated list of PHP-FPM pool names that are not absent. | list of 'str' | no |
+| php_sapis | A list of PHP SAPIs. | list of 'str' | yes |
+| php_sapi_regex | A regular expression to match the SAPIs. | str | yes |
 | php_sources | Internal dictionary for the apt sources file results. | dict | no |
 | php_sources_check | Internal dictionary for the apt sources file results. | dict | no |
 | php_sury | Configure the Sury PHP deb package repo. | bool | no |
