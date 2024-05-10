@@ -16,7 +16,7 @@
         path: "{{ php_conf_file }}"
       register: php_conf_file_b64encoded
 
-    - name: Set a fact for the existing PHP configuration file variables
+    - name: Set a fact for the existing PHP configuration file variables and the extra spaces veriable
       ansible.builtin.set_fact:
         php_conf_file_existing_vars: "{{ php_conf_file_b64encoded['content'] | ansible.builtin.b64decode | community.general.jc('ini') }}"
         php_conf_file_no_extra_spaces: "{%- if (php_conf_file | ansible.builtin.dirname | ansible.builtin.split('/') | last) == 'mods-available' -%}true{%- else -%}false{%- endif -%}"
@@ -102,7 +102,15 @@
         - name: Set a fact to indicate that the proposed PHP configuration file has sections
           ansible.builtin.set_fact:
             php_conf_file_proposed_sections: >-
-              {%- if (php_conf_file_proposed_vars |
+              {%- if (php_conf_file_proposed_vars is defined) and
+              (php_conf_file_proposed_vars | length > 0) and
+              (php_conf_file_proposed_vars |
+              ansible.builtin.json_query('*[]') |
+              map('ansible.builtin.type_debug') |
+              unique)[0] == "dict"
+              -%}true{%- elif (php_conf_file_absent_vars is defined) and
+              (php_conf_file_absent_vars | length > 0) and
+              (php_conf_file_absent_vars |
               ansible.builtin.json_query('*[]') |
               map('ansible.builtin.type_debug') |
               unique)[0] == "dict"
@@ -130,7 +138,9 @@
               {{ php_conf_file_proposed_sections }}
           when: php_conf_file_existing_vars | length > 0
 
-      when: php_conf_file_proposed_vars | length > 0
+      when: >-
+        ( php_conf_file_proposed_vars | length > 0 ) or
+        ( php_conf_file_absent_vars | length > 0 )
 
     - name: Set facts for the PHP configuration file
       ansible.builtin.set_fact:
@@ -169,12 +179,38 @@
         group: root
       changed_when: false
 
+    - name: Debug php_conf_file_proposed_vars
+      ansible.builtin.debug:
+        var: php_conf_file_proposed_vars
+        verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+      when: php_conf_file_proposed_vars is defined
+
+    - name: Debug php_conf_file_absent_vars
+      ansible.builtin.debug:
+        var: php_conf_file_absent_vars
+        verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+      when: php_conf_file_absent_vars is defined
+
+    - name: Debug php_conf_file_existing_sections
+      ansible.builtin.debug:
+        var: php_conf_file_existing_sections
+        verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+      when: php_conf_file_existing_sections is defined
+
+    - name: Debug php_conf_file_proposed_sections
+      ansible.builtin.debug:
+        var: php_conf_file_proposed_sections
+        verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+      when: php_conf_file_proposed_sections is defined
+
     - name: Include the tasks to edit the section-less PHP configuration file
       ansible.builtin.include_tasks: file_edited_present.yml
       when:
         - php_conf_file_proposed_vars is defined
         - php_conf_file_proposed_vars | length > 0
         - php_conf_file_proposed_vars | ansible.builtin.type_debug == "dict"
+        - php_conf_file_existing_sections is defined
+        - php_conf_file_proposed_sections is defined
         - not php_conf_file_existing_sections | bool
         - not php_conf_file_proposed_sections | bool
 
@@ -184,8 +220,10 @@
         - php_conf_file_absent_vars is defined
         - php_conf_file_absent_vars | length > 0
         - php_conf_file_absent_vars | ansible.builtin.type_debug == "dict"
-        # - not php_conf_file_existing_sections | bool
-        # - not php_conf_file_proposed_sections | bool
+        - php_conf_file_existing_sections is defined
+        - php_conf_file_proposed_sections is defined
+        - not php_conf_file_existing_sections | bool
+        - not php_conf_file_proposed_sections | bool
 
     - name: Include the PHP configuration file sections config edited tasks
       ansible.builtin.include_tasks: file_sections_edited.yml
@@ -193,6 +231,8 @@
         - php_conf_file_proposed_vars is defined
         - php_conf_file_proposed_vars | length > 0
         - php_conf_file_proposed_vars | ansible.builtin.type_debug == "dict"
+        - php_conf_file_existing_sections is defined
+        - php_conf_file_proposed_sections is defined
         - php_conf_file_existing_sections | bool
         - php_conf_file_proposed_sections | bool
 
@@ -202,8 +242,10 @@
         - php_conf_file_absent_vars is defined
         - php_conf_file_absent_vars | length > 0
         - php_conf_file_absent_vars | ansible.builtin.type_debug == "dict"
-        # - php_conf_file_existing_sections | bool
-        # - php_conf_file_proposed_sections | bool
+        - php_conf_file_existing_sections is defined
+        - php_conf_file_proposed_sections is defined
+        - php_conf_file_existing_sections | bool
+        - php_conf_file_proposed_sections | bool
 
     - name: Ansible managed comment present at the top of the file
       ansible.builtin.lineinfile:

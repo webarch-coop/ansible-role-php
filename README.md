@@ -23,6 +23,8 @@ This role supports having all the PHP settings in Ansible, to read existing conf
 cat /etc/php/8.2/fpm/php.ini | jc --ini -p | yq -o=yaml -P
 ```
 
+This role can be used to remove config from CONF / INI files using `conf_absent` with `php_config` however it is probably better to template files with the congif required when there are variables to remove.
+
 ## Role variables
 
 See the [defaults/main.yml](defaults/main.yml) file for the default variables, the [vars/main.yml](vars/main.yml) file for the preset variables and the [meta/argument_specs.yml](meta/argument_specs.yml) file for the variable specification.

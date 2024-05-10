@@ -11,6 +11,16 @@
 - name: PHP configuration file section config absent
   block:
 
+    - name: Debug php_conf_section.value
+      ansible.builtin.debug:
+        var: php_conf_section.value
+        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}0{% else %}1{% endif %}"
+
+    - name: Debug php_conf_section.value | ansible.builtin.type_debug
+      ansible.builtin.debug:
+        var: php_conf_section.value | ansible.builtin.type_debug
+        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}0{% else %}1{% endif %}"
+
     - name: Debug the absent PHP configuration file variables
       ansible.builtin.debug:
         msg:
