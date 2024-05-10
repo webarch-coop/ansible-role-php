@@ -21,7 +21,7 @@ phphostvars: "{{ dict(phpvarnames | list | zip(q('vars', *phpvarnames))) }}"
 
 php_file_path_separator: '/'
 
-php_sapis_regex: "^{{ php_sapis | join('|') }}$"
+php_sapi_regex: "^{{ php_sapis | join('|') }}$"
 
 # PHP versions absent
 # cat defaults/main.yml | yq -o=json | jp "php_versions[?state=='absent'].version"
