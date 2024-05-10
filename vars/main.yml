@@ -15,13 +15,18 @@ php_ansible_managed: Ansible managed
 php_fpm_pools: []
 php_pool_names_not_absent: []
 
+php_file_path_separator: '/'
+
+php_sapis:
+  - apache2
+  - cli
+  - fpm
+
+php_sapi_regex: "^{{ php_sapis | join('|') }}$"
+
 # https://docs.ansible.com/ansible/latest/playbook_guide/complex_data_manipulation.html
 phpvarnames: "{{ q('varnames', '^php_') | sort }}"
 phphostvars: "{{ dict(phpvarnames | list | zip(q('vars', *phpvarnames))) }}"
-
-php_file_path_separator: '/'
-
-php_sapi_regex: "^{{ php_sapis | join('|') }}$"
 
 # PHP versions absent
 # cat defaults/main.yml | yq -o=json | jp "php_versions[?state=='absent'].version"
@@ -42,8 +47,9 @@ php_pkg_absent: "{{ php_versions | community.general.json_query('[?state==`prese
 # cat defaults/main.yml | yq -o=json | jp "php_versions[?state=='present'].pkg_present[]" | sort -u
 php_pkg_present: "{{ php_versions | community.general.json_query('[?state==`present`].pkg_present[]') | ansible.builtin.unique | sort }}"
 
-# The php_ver is ued as an internal loop variable
+# The php_ver is used as an internal loop variable, it is set to null here for ansible-lint
 php_ver: null
+
 # PHP config file paths
 php_conf_file_paths_jmespath_query: "[?version=='{{ php_ver }}'].files[].path"
 
