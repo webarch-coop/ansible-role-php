@@ -227,6 +227,16 @@
         - php_fpm_packages_present is defined
         - php_fpm_packages_present != []
 
+    - name: Debug php_init
+      ansible.builtin.debug:
+        var: php_init
+        verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+
+    - name: Debug php_fpm_versions_present
+      ansible.builtin.debug:
+        var: php_fpm_versions_present
+        verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+
     - name: Include systemd tasks for each version of PHP-FPM present
       ansible.builtin.include_tasks: fpm.yml
       loop: "{{ php_fpm_versions_present }}"

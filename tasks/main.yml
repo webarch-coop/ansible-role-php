@@ -43,6 +43,7 @@
       tags:
         - php_cfg
         - php_conf
+        - php_pkg
 
     - name: Include the init system check tasks
       ansible.builtin.include_tasks: check_init.yml
