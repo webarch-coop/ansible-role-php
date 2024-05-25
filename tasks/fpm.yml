@@ -44,11 +44,11 @@
             var: php_fpm_service
             verbosity: 2
 
-        - name: Reload systemd
+        - name: Reload systemd  # noqa: no-changed-when
           ansible.builtin.systemd:
             daemon_reload: true
           when: >-
-            ( php_fpm_service_symlink.stanges | bool ) or
+            ( php_fpm_service_symlink.changed | bool ) or
             ( php_fpm_service.changed | bool )
 
         - name: Check that PHP FPM is running
