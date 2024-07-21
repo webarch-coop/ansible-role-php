@@ -34,7 +34,7 @@ stages:
   - bookworm
   # - trixie
 bookworm:
-  image: registry.git.coop/webarch/containers/images/bookworm:20240605
+  image: registry.git.coop/webarch/containers/images/bookworm:20240721
   stage: bookworm
   script:
     - pre-commit install
@@ -42,7 +42,7 @@ bookworm:
     - molecule test --all
 # No Trixie Sury repo yet
 # trixie:
-#   image: registry.git.coop/webarch/containers/images/trixie:20240605
+#   image: registry.git.coop/webarch/containers/images/trixie:20240721
 #   stage: trixie
 #   script:
 #     - molecule test
