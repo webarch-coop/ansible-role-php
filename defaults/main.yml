@@ -978,7 +978,7 @@ php_versions:
       - php8.4-soap
       - php8.4-uploadprogress
       - php8.4-xml
-      - php8.4-xmlrpc
+      # - php8.4-xmlrpc
       - php8.4-xsl
       - php8.4-zip
       - php-pear
