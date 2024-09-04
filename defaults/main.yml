@@ -965,7 +965,7 @@ php_versions:
       - php8.4-gd
       - php8.4-gmp
       - php8.4-fpm
-      - php8.4-imagick
+      # - php8.4-imagick
       # - php8.4-imap
       - php8.4-intl
       - php8.4-ldap
