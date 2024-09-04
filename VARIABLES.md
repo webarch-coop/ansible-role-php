@@ -119,6 +119,7 @@ The main entry point for the PHP role.
 
 |Choice|
 |---|
+| 8.4 |
 | 8.3 |
 | 8.2 |
 | 8.1 |
@@ -155,6 +156,7 @@ The main entry point for the PHP role.
 
 |Choice|
 |---|
+| 8.4 |
 | 8.3 |
 | 8.2 |
 | 8.1 |
@@ -177,6 +179,7 @@ The main entry point for the PHP role.
 
 |Choice|
 |---|
+| 8.4 |
 | 8.3 |
 | 8.2 |
 | 8.1 |
