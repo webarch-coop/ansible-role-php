@@ -118,7 +118,7 @@
         molecule_php_required:
           state: present
           versions:
-            '8.2':
+            "8.2":
               sapis:
                 cli:
                   modules:
