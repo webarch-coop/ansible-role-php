@@ -124,7 +124,7 @@ php_config:
     state: present
     files:
       - name: PHP 8.2 JIT configuration
-        path: /etc/php/8.1/mods-available/opcache.ini
+        path: /etc/php/8.2/mods-available/opcache.ini
         state: edited
         conf_absent:
           "opcache.jit": "off"
@@ -184,7 +184,6 @@ php_config:
             "mysqli.allow_local_infile": "Off"
           opcache:
             "opcache.enable": "1"
-            "opcache.enable_cli": "1"
             "opcache.interned_strings_buffer": "64"
             "opcache.jit": "Off"
             "opcache.jit_buffer_size": "0"
@@ -195,10 +194,39 @@ php_config:
             "opcache.validate_permission": "1"
             "opcache.validate_root": "1"
             "opcache.validate_timestamps": "1"
-          Pdo_mysql:
-            "pdo_mysql.default_socket": "/run/mysqld/mysqld.sock"
           PHP:
-            "max_input_vars": 100000
+            allow_url_include: "Off"
+            default_socket_timeout: "600"
+            disable_functions: "chgrp,chown,dl,pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_get_handler,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,pcntl_async_signals,pcntl_unshare,posix_kill,posix_mkfifo,posix_setpgid,posix_setsid,posix_setuid"
+            max_file_uploads: "60"
+            max_execution_time: "600"
+            max_input_nesting_level: "512"
+            max_input_time: "600"
+            max_input_vars: "100000"
+            memory_limit: "512M"
+            output_buffering: "4096"
+            post_max_size: "512M"
+            short_open_tag: "Off"
+            upload_max_filesize: "512M"
+          Session:
+            "session.save_path": "${TMPDIR}"
+      - name: PHP 8.2 FPM www pool configuration
+        path: /etc/php/8.2/fpm/pool.d/www.conf
+        state: absent
+      - name: PHP 8.2 FPM www82 pool configuration
+        path: /etc/php/8.2/fpm/pool.d/www82.conf
+        state: present
+        conf:
+          www82:
+            "user": www-data
+            "group": www-data
+            "listen": /run/php/php8.2-fpm.sock
+            "listen.owner": www-data
+            "listen.group": www-data
+            "pm": ondemand
+            "pm.max_children": "4"
+            "pm.process_idle_timeout": 10s
+            "pm.status_path": /fpm82-status
   - name: PHP 8.1 configuration
     version: "8.1"
     state: present
@@ -264,7 +292,6 @@ php_config:
             "mysqli.allow_local_infile": "Off"
           opcache:
             "opcache.enable": "1"
-            "opcache.enable_cli": "1"
             "opcache.interned_strings_buffer": "64"
             "opcache.jit": "Off"
             "opcache.jit_buffer_size": "0"
@@ -275,10 +302,39 @@ php_config:
             "opcache.validate_permission": "1"
             "opcache.validate_root": "1"
             "opcache.validate_timestamps": "1"
-          Pdo_mysql:
-            "pdo_mysql.default_socket": "/run/mysqld/mysqld.sock"
           PHP:
-            "max_input_vars": 100000
+            allow_url_include: "Off"
+            default_socket_timeout: "600"
+            disable_functions: "chgrp,chown,dl,pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_get_handler,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,pcntl_async_signals,pcntl_unshare,posix_kill,posix_mkfifo,posix_setpgid,posix_setsid,posix_setuid"
+            max_file_uploads: "60"
+            max_execution_time: "600"
+            max_input_nesting_level: "512"
+            max_input_time: "600"
+            max_input_vars: "100000"
+            memory_limit: "512M"
+            output_buffering: "4096"
+            post_max_size: "512M"
+            short_open_tag: "Off"
+            upload_max_filesize: "512M"
+          Session:
+            "session.save_path": "${TMPDIR}"
+      - name: PHP 8.1 FPM www pool configuration
+        path: /etc/php/8.1/fpm/pool.d/www.conf
+        state: absent
+      - name: PHP 8.1 FPM www81 pool configuration
+        path: /etc/php/8.1/fpm/pool.d/www81.conf
+        state: present
+        conf:
+          www81:
+            "user": www-data
+            "group": www-data
+            "listen": /run/php/php8.1-fpm.sock
+            "listen.owner": www-data
+            "listen.group": www-data
+            "pm": ondemand
+            "pm.max_children": "4"
+            "pm.process_idle_timeout": 10s
+            "pm.status_path": /fpm81-status
   - name: PHP 8.0 configuration
     version: "8.0"
     state: present
