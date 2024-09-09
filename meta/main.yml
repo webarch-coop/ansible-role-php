@@ -12,7 +12,7 @@ galaxy_info:
   role_name: php
   author: Chris Croome
   namespace: chriscroome
-  description: Ansible role for installing and configuring PHP on Debian Bookworm, Bullseye and Buster
+  description: Ansible role for installing and configuring PHP on Debian.
   company: Webarchitects Co-operative
   license: GNU General Public License v3.0 (GPLv3)
   min_ansible_version: "2.14.3"
@@ -21,7 +21,6 @@ galaxy_info:
       versions:
         - bookworm
         - bullseye
-        - buster
   galaxy_tags:
     - debian
     - php
