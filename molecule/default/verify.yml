@@ -730,7 +730,7 @@
       ansible.builtin.include_role:
         name: php
         tasks_from: checks.yml
-      vars:  # noqa var-naming[no-role-prefix]
+      vars:  # noqa: var-naming[no-role-prefix]
         php_fpm_pool_check_fail: true
 
     - name: Check the runing services

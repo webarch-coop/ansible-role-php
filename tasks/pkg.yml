@@ -94,7 +94,7 @@
       register: php_packages_removed_first_run
       when: php_pkg_rm != []
 
-    - name: Debug PHP packages absent result  # noqa no-handler
+    - name: Debug PHP packages absent result  # noqa: no-handler
       ansible.builtin.debug:
         var: php_packages_removed_first_run.stdout_lines
         verbosity: "{% if ansible_check_mode | bool and php_pkg_present != [] %}1{% elif php_pkg_present != [] %}2{% else %}3{% endif %}"
@@ -112,7 +112,7 @@
       register: php_packages_installed
       when: php_pkg_install != []
 
-    - name: Debug PHP packages present result  # noqa no-handler
+    - name: Debug PHP packages present result  # noqa: no-handler
       ansible.builtin.debug:
         var: php_packages_installed.stdout_lines
         verbosity: "{% if ansible_check_mode | bool and php_pkg_present != [] %}1{% elif php_pkg_present != [] %}2{% else %}3{% endif %}"
@@ -128,7 +128,7 @@
       register: php_packages_removed_second_run
       when: php_pkg_absent != []
 
-    - name: Debug PHP packages absent result  # noqa no-handler
+    - name: Debug PHP packages absent result  # noqa: no-handler
       ansible.builtin.debug:
         var: php_packages_removed_second_run.stdout_lines
         verbosity: "{% if ansible_check_mode | bool and php_pkg_present != [] %}1{% elif php_pkg_present != [] %}2{% else %}3{% endif %}"
@@ -153,7 +153,7 @@
       tags:
         - molecule-idempotence-notest
 
-    - name: Debug dist upgrade result  # noqa no-handler
+    - name: Debug dist upgrade result  # noqa: no-handler
       ansible.builtin.debug:
         var: php_dist_upgrade.stdout_lines
         verbosity: "{% if ansible_check_mode | bool and php_pkg_present != [] %}1{% elif php_pkg_present != [] %}2{% else %}3{% endif %}"
