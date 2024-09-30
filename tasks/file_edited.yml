@@ -144,7 +144,7 @@
 
     - name: Set facts for the PHP configuration file
       ansible.builtin.set_fact:
-        php_conf_file_backup: "{{ php_conf_file | ansible.builtin.dirname }}/.{{ php_conf_file | ansible.builtin.basename }}.{{ ansible_date_time.iso8601_basic_short }}.bak"
+        php_conf_file_backup: "{{ php_conf_file | ansible.builtin.dirname }}/.{{ php_conf_file | ansible.builtin.basename }}.{{ ansible_facts.date_time.iso8601_basic_short }}.bak"
         php_conf_file_changed: false
         php_conf_file_sapi: null
         php_conf_file_version: "{{ php_conf_file | ansible.builtin.split(php_file_path_separator) | community.general.json_query('[3]') }}"

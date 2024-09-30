@@ -31,7 +31,7 @@
         removes: "{{ php_file_absent }}"
         creates: "{{ php_file_backup }}"
       vars:
-        php_file_backup: "{{ php_file_absent | ansible.builtin.dirname }}/.{{ php_file_absent | ansible.builtin.basename }}.{{ ansible_date_time.iso8601_basic_short }}.ansible.save"
+        php_file_backup: "{{ php_file_absent | ansible.builtin.dirname }}/.{{ php_file_absent | ansible.builtin.basename }}.{{ ansible_facts.date_time.iso8601_basic_short }}.ansible.save"
       register: php_file_path_absent
       when: php_file_absent_path.stat.exists | bool
 

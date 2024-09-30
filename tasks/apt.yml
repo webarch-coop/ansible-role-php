@@ -71,7 +71,7 @@
                 name: php
                 pdiffs: true
                 signed_by: /usr/share/keyrings/deb.sury.org-php.gpg
-                suites: "{{ ansible_distribution_release }}"
+                suites: "{{ ansible_facts.distribution_release }}"
                 types: deb
                 uris: https://packages.sury.org/php/
               check_mode: true
@@ -93,7 +93,7 @@
                 creates: "/etc/apt/sources.list.d/.php.sources.{{ php_date_timestamp }}.ansible.save"
                 removes: /etc/apt/sources.list.d/php.sources
               vars:
-                php_date_timestamp: "{{ ansible_date_time.iso8601_basic_short }}"
+                php_date_timestamp: "{{ ansible_facts.date_time.iso8601_basic_short }}"
               when: php_sources_contents_prior != php_sources_check.repo | string | community.general.jc('ini')
 
           when: php_sources_path.stat.exists | bool
@@ -111,7 +111,7 @@
             name: php
             pdiffs: true
             signed_by: /usr/share/keyrings/deb.sury.org-php.gpg
-            suites: "{{ ansible_distribution_release }}"
+            suites: "{{ ansible_facts.distribution_release }}"
             types: deb
             uris: https://packages.sury.org/php/
           register: php_sources

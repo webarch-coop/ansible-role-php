@@ -1,20 +1,20 @@
 # {{ ansible_managed }}
 
-{% if ansible_distribution_release == "bookworm" %}
+{% if ansible_facts.distribution_release == "bookworm" %}
 {%     for pkg in php_debian_bookworm_pkg %}
 Package: {{ pkg }}
 Pin: origin packages.sury.org
 Pin-Priority: 500
 
 {%     endfor %}
-{% elif ansible_distribution_release == "bullseye" %}
+{% elif ansible_facts.distribution_release == "bullseye" %}
 {%     for pkg in php_debian_bullseye_pkg %}
 Package: {{ pkg }}
 Pin: origin packages.sury.org
 Pin-Priority: 500
 
 {%     endfor %}
-{% elif ansible_distribution_release == "buster" %}
+{% elif ansible_facts.distribution_release == "buster" %}
 {%     for pkg in php_debian_buster_pkg %}
 Package: {{ pkg }}
 Pin: origin packages.sury.org

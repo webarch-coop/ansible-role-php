@@ -99,10 +99,10 @@
     - name: Check that the distro is Debian Bookworm, Bullseye or Buster
       ansible.builtin.assert:
         that:
-          - ansible_distribution_release is defined
-          - ansible_distribution_release is regex("^bullseye|bookworm|buster$")
+          - ansible_facts.distribution_release is defined
+          - ansible_facts.distribution_release is regex("^bullseye|bookworm|buster$")
         quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
-        fail_msg: "The Linux distro {{ ansible_distribution }} {{ ansible_distribution_release }} is not supported by this role"
+        fail_msg: "The Linux distro {{ ansible_facts.distribution }} {{ ansible_facts.distribution_release }} is not supported by this role"
 
     - name: Debug PHP versions and config due to be present and absent
       ansible.builtin.debug:
