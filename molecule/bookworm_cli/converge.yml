@@ -35,9 +35,9 @@
         var: ansible_facts
         verbosity: 2
 
-    - name: Debug ansible_version
+    - name: Debug ansible_version.full
       ansible.builtin.debug:
-        var: ansible_version
+        var: ansible_version.full
 
     - name: Include php role as root
       ansible.builtin.include_role:

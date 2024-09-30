@@ -30,6 +30,15 @@
       ansible.builtin.debug:
         var: ansible_facts.user_dir
 
+    - name: Debug ansible_facts
+      ansible.builtin.debug:
+        var: ansible_facts
+        verbosity: 2
+
+    - name: Debug ansible_version.full
+      ansible.builtin.debug:
+        var: ansible_version.full
+
     - name: Include php role as root
       ansible.builtin.include_role:
         name: php
