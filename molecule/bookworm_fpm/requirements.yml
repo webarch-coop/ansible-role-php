@@ -10,11 +10,6 @@
 ---
 - name: apt
   src: https://git.coop/webarch/apt.git
-  version: 4.5.0  # apt
+  version: 4.6.0  # apt
   scm: git
-
-# - name: systemd
-#   src: https://git.coop/webarch/systemd.git
-#   version: 2.2.0  # systemd
-#   scm: git
 ...
