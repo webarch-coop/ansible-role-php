@@ -12,6 +12,7 @@ variables:
   ANSIBLE_CALLBACK_RESULT_FORMAT: "yaml"
   ANSIBLE_DIFF_ALWAYS: "1"
   ANSIBLE_DISPLAY_SKIPPED_HOSTS: "0"
+  ANSIBLE_ERROR_ON_UNDEFINED_VARS: "1"
   ANSIBLE_FORCE_COLOR: "1"
   ANSIBLE_INJECT_FACT_VARS: "0"
   ANSIBLE_REMOTE_TMP: "/tmp"
@@ -35,7 +36,7 @@ stages:
   - bookworm
   # - trixie
 bookworm:
-  image: registry.git.coop/webarch/containers/images/bookworm:20240911
+  image: registry.git.coop/webarch/containers/images/bookworm:20241008
   stage: bookworm
   script:
     - pre-commit install
@@ -43,7 +44,7 @@ bookworm:
     - molecule test --all
 # No Trixie Sury repo yet
 # trixie:
-#   image: registry.git.coop/webarch/containers/images/trixie:20240911
+#   image: registry.git.coop/webarch/containers/images/trixie:20241008
 #   stage: trixie
 #   script:
 #     - molecule test
