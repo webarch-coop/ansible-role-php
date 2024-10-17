@@ -27,8 +27,4 @@ provisioner:
     D: true
 verifier:
   name: ansible
-  config_options:
-    # host_vars:
-    #   instance:
-    #     ansible_user: ansible
 ...
