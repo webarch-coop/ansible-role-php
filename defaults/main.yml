@@ -78,7 +78,7 @@ php_config:
             "opcache.enable": "1"
             "opcache.interned_strings_buffer": "64"
             # "opcache.jit": "tracing"
-            # "opcache.jit_buffer_size": "256"
+            # "opcache.jit_buffer_size": "40961" # minimum size is 40961 bytes
             "opcache.jit": "0"
             "opcache.jit_buffer_size": "0"
             "opcache.max_accelerated_files": "100000"
@@ -188,7 +188,7 @@ php_config:
             "opcache.enable": "1"
             "opcache.interned_strings_buffer": "64"
             # "opcache.jit": "tracing"
-            # "opcache.jit_buffer_size": "256"
+            # "opcache.jit_buffer_size": "40961" # minimum size is 40961 bytes
             "opcache.jit": "0"
             "opcache.jit_buffer_size": "0"
             "opcache.max_accelerated_files": "100000"
@@ -298,7 +298,7 @@ php_config:
             "opcache.enable": "1"
             "opcache.interned_strings_buffer": "64"
             # "opcache.jit": "tracing"
-            # "opcache.jit_buffer_size": "256"
+            # "opcache.jit_buffer_size": "40961" # minimum size is 40961 bytes
             "opcache.jit": "0"
             "opcache.jit_buffer_size": "0"
             "opcache.max_accelerated_files": "100000"
@@ -408,7 +408,7 @@ php_config:
             "opcache.enable": "1"
             "opcache.interned_strings_buffer": "64"
             # "opcache.jit": "tracing"
-            # "opcache.jit_buffer_size": "256"
+            # "opcache.jit_buffer_size": "40961" # minimum size is 40961 bytes
             "opcache.jit": "0"
             "opcache.jit_buffer_size": "0"
             "opcache.max_accelerated_files": "100000"

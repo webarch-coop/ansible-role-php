@@ -170,6 +170,28 @@
         fail_msg: "Non unique PHP-FPM pool names:{% for php_pool_name in php_pool_names_not_absent %} {{ php_pool_name }}{% endfor %}, please run the role once with --extra-vars='php_fpm_pool_check_fail=false' to fix this"
       when: php_fpm_pool_check_fail | bool
 
+    - name: Debug php_conf_opcache_jit_buffer_sizes_jmespath_query
+      ansible.builtin.debug:
+        var: php_conf_opcache_jit_buffer_sizes_jmespath_query
+        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
+
+    - name: Debug php_conf_opcache_jit_buffer_sizes
+      ansible.builtin.debug:
+        var: php_conf_opcache_jit_buffer_sizes
+        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
+
+    # https://github.com/composer/composer/issues/12153#issuecomment-2419452358
+    - name: Check that the opcache.jit_buffer_size is set to 0 or is >= 40961
+      ansible.builtin.assert:
+        that:
+          - php_conf_opcache_jit_buffer_size is ansible.builtin.regex('^[0-9]{1,20}$')
+          - ( php_conf_opcache_jit_buffer_size == "0" ) or ( php_conf_opcache_jit_buffer_size >= "40961" )
+        quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
+      loop: "{{ php_conf_opcache_jit_buffer_sizes }}"
+      loop_control:
+        loop_var: php_conf_opcache_jit_buffer_size
+      when: php_conf_opcache_jit_buffer_sizes != []
+
     # TODO sapis are required when php_modules are set to be present
 
   tags:

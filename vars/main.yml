@@ -96,6 +96,12 @@ php_conf_pool_files_not_absent: "{{ php_config | community.general.json_query('s
 # cat defaults/main.yml | yq -o=json | jp "php_config[?state=='present'].files[]|[?state!='absent']"
 php_conf_not_absent: "{{ php_config | community.general.json_query('[?state==`present`].files[]|[?state!=`absent`]') }}"
 
+# PHP opcache jit buffer sizes
+# cat defaults/main.yml | yq -o=json | \
+# jp "php_config[?state=='present'].files[]|[?state!='absent'].conf.opcache.[\"opcache.jit_buffer_size\"]|[]"
+php_conf_opcache_jit_buffer_sizes_jmespath_query: '[?state==`present`].files[]|[?state!=`absent`].conf.opcache.["opcache.jit_buffer_size"]|[]'
+php_conf_opcache_jit_buffer_sizes: "{{ php_config | community.general.json_query(php_conf_opcache_jit_buffer_sizes_jmespath_query) }}"
+
 # PHP modules configuration absent
 # cat defaults/main.yml | yq -o=json | jp "sort(php_modules[?state=='absent'].version)"
 php_mods_ver_absent: "{{ php_modules | community.general.json_query('sort([?state==`absent`].version)') }}"

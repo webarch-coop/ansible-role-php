@@ -66,6 +66,23 @@ argument_specs:
         elements: str
         required: false
         description: A generated list of php configuration that is not absent.
+      php_conf_opcache_jit_buffer_sizes:
+        type: list
+        elements: str
+        required: false
+        description: A generated list of the opcache.jit_buffer_sizes.
+      php_conf_opcache_jit_buffer_sizes_jmespath_query:
+        type: str
+        required: true
+        description: A JMESPath query for the opcache.jit_buffer_sizes.
+#       php_conf_opcache_jit_buffer_sizes_jmespath_query1:
+#         type: str
+#         required: true
+#         description: A JMESPath query for the opcache.jit_buffer_sizes.
+#       php_conf_opcache_jit_buffer_sizes_jmespath_query2:
+#         type: str
+#         required: true
+#         description: A JMESPath query for the opcache.jit_buffer_sizes.
       php_conf_pool_files_not_absent:
         type: list
         elements: str
