@@ -19,7 +19,7 @@ php_config:
         path: /etc/php/8.3/mods-available/opcache.ini
         state: edited
         conf_absent:
-          "opcache.jit": "off"
+          "opcache.jit": "0"
       - name: PHP 8.3 CLI configuration
         path: /etc/php/8.3/cli/php.ini
         state: present
@@ -37,22 +37,20 @@ php_config:
             "apc.ttl": "0"
             "apc.use_request_time": "0"
           "CLI Server":
-            "cli_server.color": "on"
+            "cli_server.color": "1"
           MySQLi:
-            "mysqli.allow_local_infile": "Off"
-            "mysqli.allow_persistent": "On"
+            "mysqli.allow_local_infile": "0"
+            "mysqli.allow_persistent": "1"
             "mysqli.default_port": '3306'
             "mysqli.max_links": "-1"
             "mysqli.max_persistent": "-1"
-            "mysqli.reconnect": "Off"
+            "mysqli.reconnect": "0"
             "mysqli.default_socket": "/run/mysqld/mysqld.sock"
           opcache:
             "opcache.enable": "1"
             "opcache.enable_cli": "1"
             "opcache.interned_strings_buffer": "64"
-            # "opcache.jit": "tracing"
-            # "opcache.jit_buffer_size": "256"
-            "opcache.jit": "Off"
+            "opcache.jit": "0"
             "opcache.jit_buffer_size": "0"
             "opcache.max_accelerated_files": "100000"
             "opcache.memory_consumption": "1024"
@@ -75,13 +73,13 @@ php_config:
           Date:
             "date.timezone": "Europe/London"
           MySQLi:
-            "mysqli.allow_local_infile": "Off"
+            "mysqli.allow_local_infile": "0"
           opcache:
             "opcache.enable": "1"
             "opcache.interned_strings_buffer": "64"
             # "opcache.jit": "tracing"
             # "opcache.jit_buffer_size": "256"
-            "opcache.jit": "Off"
+            "opcache.jit": "0"
             "opcache.jit_buffer_size": "0"
             "opcache.max_accelerated_files": "100000"
             "opcache.memory_consumption": "1024"
@@ -91,7 +89,7 @@ php_config:
             "opcache.validate_root": "1"
             "opcache.validate_timestamps": "1"
           PHP:
-            allow_url_include: "Off"
+            allow_url_include: "0"
             default_socket_timeout: "600"
             disable_functions: "chgrp,chown,dl,pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_get_handler,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,pcntl_async_signals,pcntl_unshare,posix_kill,posix_mkfifo,posix_setpgid,posix_setsid,posix_setuid"
             max_file_uploads: "60"
@@ -102,7 +100,7 @@ php_config:
             memory_limit: "512M"
             output_buffering: "4096"
             post_max_size: "512M"
-            short_open_tag: "Off"
+            short_open_tag: "0"
             upload_max_filesize: "512M"
           Session:
             "session.save_path": "${TMPDIR}"
@@ -131,7 +129,7 @@ php_config:
         path: /etc/php/8.2/mods-available/opcache.ini
         state: edited
         conf_absent:
-          "opcache.jit": "off"
+          "opcache.jit": "0"
       - name: PHP 8.2 CLI configuration
         path: /etc/php/8.2/cli/php.ini
         state: present
@@ -149,22 +147,20 @@ php_config:
             "apc.ttl": "0"
             "apc.use_request_time": "0"
           "CLI Server":
-            "cli_server.color": "on"
+            "cli_server.color": "1"
           MySQLi:
-            "mysqli.allow_local_infile": "Off"
-            "mysqli.allow_persistent": "On"
+            "mysqli.allow_local_infile": "0"
+            "mysqli.allow_persistent": "1"
             "mysqli.default_port": '3306'
             "mysqli.max_links": "-1"
             "mysqli.max_persistent": "-1"
-            "mysqli.reconnect": "Off"
+            "mysqli.reconnect": "0"
             "mysqli.default_socket": "/run/mysqld/mysqld.sock"
           opcache:
             "opcache.enable": "1"
             "opcache.enable_cli": "1"
             "opcache.interned_strings_buffer": "64"
-            # "opcache.jit": "tracing"
-            # "opcache.jit_buffer_size": "256"
-            "opcache.jit": "Off"
+            "opcache.jit": "0"
             "opcache.jit_buffer_size": "0"
             "opcache.max_accelerated_files": "100000"
             "opcache.memory_consumption": "1024"
@@ -187,13 +183,13 @@ php_config:
           Date:
             "date.timezone": "Europe/London"
           MySQLi:
-            "mysqli.allow_local_infile": "Off"
+            "mysqli.allow_local_infile": "0"
           opcache:
             "opcache.enable": "1"
             "opcache.interned_strings_buffer": "64"
             # "opcache.jit": "tracing"
             # "opcache.jit_buffer_size": "256"
-            "opcache.jit": "Off"
+            "opcache.jit": "0"
             "opcache.jit_buffer_size": "0"
             "opcache.max_accelerated_files": "100000"
             "opcache.memory_consumption": "1024"
@@ -203,7 +199,7 @@ php_config:
             "opcache.validate_root": "1"
             "opcache.validate_timestamps": "1"
           PHP:
-            allow_url_include: "Off"
+            allow_url_include: "0"
             default_socket_timeout: "600"
             disable_functions: "chgrp,chown,dl,pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_get_handler,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,pcntl_async_signals,pcntl_unshare,posix_kill,posix_mkfifo,posix_setpgid,posix_setsid,posix_setuid"
             max_file_uploads: "60"
@@ -214,7 +210,7 @@ php_config:
             memory_limit: "512M"
             output_buffering: "4096"
             post_max_size: "512M"
-            short_open_tag: "Off"
+            short_open_tag: "0"
             upload_max_filesize: "512M"
           Session:
             "session.save_path": "${TMPDIR}"
@@ -243,7 +239,7 @@ php_config:
         path: /etc/php/8.1/mods-available/opcache.ini
         state: edited
         conf_absent:
-          "opcache.jit": "off"
+          "opcache.jit": "0"
       - name: PHP 8.1 CLI configuration
         path: /etc/php/8.1/cli/php.ini
         state: present
@@ -261,22 +257,20 @@ php_config:
             "apc.ttl": "0"
             "apc.use_request_time": "0"
           "CLI Server":
-            "cli_server.color": "on"
+            "cli_server.color": "1"
           MySQLi:
-            "mysqli.allow_local_infile": "Off"
-            "mysqli.allow_persistent": "On"
+            "mysqli.allow_local_infile": "0"
+            "mysqli.allow_persistent": "1"
             "mysqli.default_port": '3306'
             "mysqli.max_links": "-1"
             "mysqli.max_persistent": "-1"
-            "mysqli.reconnect": "Off"
+            "mysqli.reconnect": "0"
             "mysqli.default_socket": "/run/mysqld/mysqld.sock"
           opcache:
             "opcache.enable": "1"
             "opcache.enable_cli": "1"
             "opcache.interned_strings_buffer": "64"
-            # "opcache.jit": "tracing"
-            # "opcache.jit_buffer_size": "256"
-            "opcache.jit": "Off"
+            "opcache.jit": "0"
             "opcache.jit_buffer_size": "0"
             "opcache.max_accelerated_files": "100000"
             "opcache.memory_consumption": "1024"
@@ -299,13 +293,13 @@ php_config:
           Date:
             "date.timezone": "Europe/London"
           MySQLi:
-            "mysqli.allow_local_infile": "Off"
+            "mysqli.allow_local_infile": "0"
           opcache:
             "opcache.enable": "1"
             "opcache.interned_strings_buffer": "64"
             # "opcache.jit": "tracing"
             # "opcache.jit_buffer_size": "256"
-            "opcache.jit": "Off"
+            "opcache.jit": "0"
             "opcache.jit_buffer_size": "0"
             "opcache.max_accelerated_files": "100000"
             "opcache.memory_consumption": "1024"
@@ -315,7 +309,7 @@ php_config:
             "opcache.validate_root": "1"
             "opcache.validate_timestamps": "1"
           PHP:
-            allow_url_include: "Off"
+            allow_url_include: "0"
             default_socket_timeout: "600"
             disable_functions: "chgrp,chown,dl,pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_get_handler,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,pcntl_async_signals,pcntl_unshare,posix_kill,posix_mkfifo,posix_setpgid,posix_setsid,posix_setuid"
             max_file_uploads: "60"
@@ -326,7 +320,7 @@ php_config:
             memory_limit: "512M"
             output_buffering: "4096"
             post_max_size: "512M"
-            short_open_tag: "Off"
+            short_open_tag: "0"
             upload_max_filesize: "512M"
           Session:
             "session.save_path": "${TMPDIR}"
@@ -355,7 +349,7 @@ php_config:
         path: /etc/php/8.0/mods-available/opcache.ini
         state: edited
         conf_absent:
-          "opcache.jit": "off"
+          "opcache.jit": "0"
       - name: PHP 8.0 CLI configuration
         path: /etc/php/8.0/cli/php.ini
         state: present
@@ -373,22 +367,20 @@ php_config:
             "apc.ttl": "0"
             "apc.use_request_time": "0"
           "CLI Server":
-            "cli_server.color": "on"
+            "cli_server.color": "1"
           MySQLi:
-            "mysqli.allow_local_infile": "Off"
-            "mysqli.allow_persistent": "On"
+            "mysqli.allow_local_infile": "0"
+            "mysqli.allow_persistent": "1"
             "mysqli.default_port": '3306'
             "mysqli.max_links": "-1"
             "mysqli.max_persistent": "-1"
-            "mysqli.reconnect": "Off"
+            "mysqli.reconnect": "0"
             "mysqli.default_socket": "/run/mysqld/mysqld.sock"
           opcache:
             "opcache.enable": "1"
             "opcache.enable_cli": "1"
             "opcache.interned_strings_buffer": "64"
-            # "opcache.jit": "tracing"
-            # "opcache.jit_buffer_size": "256"
-            "opcache.jit": "Off"
+            "opcache.jit": "0"
             "opcache.jit_buffer_size": "0"
             "opcache.max_accelerated_files": "100000"
             "opcache.memory_consumption": "1024"
@@ -411,13 +403,13 @@ php_config:
           Date:
             "date.timezone": "Europe/London"
           MySQLi:
-            "mysqli.allow_local_infile": "Off"
+            "mysqli.allow_local_infile": "0"
           opcache:
             "opcache.enable": "1"
             "opcache.interned_strings_buffer": "64"
             # "opcache.jit": "tracing"
             # "opcache.jit_buffer_size": "256"
-            "opcache.jit": "Off"
+            "opcache.jit": "0"
             "opcache.jit_buffer_size": "0"
             "opcache.max_accelerated_files": "100000"
             "opcache.memory_consumption": "1024"
@@ -427,7 +419,7 @@ php_config:
             "opcache.validate_root": "1"
             "opcache.validate_timestamps": "1"
           PHP:
-            allow_url_include: "Off"
+            allow_url_include: "0"
             default_socket_timeout: "600"
             disable_functions: "chgrp,chown,dl,pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_get_handler,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,pcntl_async_signals,pcntl_unshare,posix_kill,posix_mkfifo,posix_setpgid,posix_setsid,posix_setuid"
             max_file_uploads: "60"
@@ -438,7 +430,7 @@ php_config:
             memory_limit: "512M"
             output_buffering: "4096"
             post_max_size: "512M"
-            short_open_tag: "Off"
+            short_open_tag: "0"
             upload_max_filesize: "512M"
           Session:
             "session.save_path": "${TMPDIR}"
@@ -480,14 +472,14 @@ php_config:
             "apc.ttl": "0"
             "apc.use_request_time": "0"
           "CLI Server":
-            "cli_server.color": "on"
+            "cli_server.color": "1"
           MySQLi:
-            "mysqli.allow_local_infile": "Off"
-            "mysqli.allow_persistent": "On"
+            "mysqli.allow_local_infile": "0"
+            "mysqli.allow_persistent": "1"
             "mysqli.default_port": '3306'
             "mysqli.max_links": "-1"
             "mysqli.max_persistent": "-1"
-            "mysqli.reconnect": "Off"
+            "mysqli.reconnect": "0"
             "mysqli.default_socket": "/run/mysqld/mysqld.sock"
           opcache:
             "opcache.enable": "1"
@@ -514,7 +506,7 @@ php_config:
           Date:
             "date.timezone": "Europe/London"
           MySQLi:
-            "mysqli.allow_local_infile": "Off"
+            "mysqli.allow_local_infile": "0"
           opcache:
             "opcache.enable": "1"
             "opcache.interned_strings_buffer": "64"
@@ -526,7 +518,7 @@ php_config:
             "opcache.validate_root": "1"
             "opcache.validate_timestamps": "1"
           PHP:
-            allow_url_include: "Off"
+            allow_url_include: "0"
             default_socket_timeout: "600"
             disable_functions: "chgrp,chown,dl,pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_get_handler,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,pcntl_async_signals,pcntl_unshare,posix_kill,posix_mkfifo,posix_setpgid,posix_setsid,posix_setuid"
             max_file_uploads: "60"
@@ -537,7 +529,7 @@ php_config:
             memory_limit: "512M"
             output_buffering: "4096"
             post_max_size: "512M"
-            short_open_tag: "Off"
+            short_open_tag: "0"
             upload_max_filesize: "512M"
           Session:
             "session.save_path": "${TMPDIR}"
@@ -579,14 +571,14 @@ php_config:
   #           "apc.ttl": "0"
   #           "apc.use_request_time": "0"
   #         "CLI Server":
-  #           "cli_server.color": "on"
+  #           "cli_server.color": "1"
   #         MySQLi:
-  #           "mysqli.allow_local_infile": "Off"
-  #           "mysqli.allow_persistent": "On"
+  #           "mysqli.allow_local_infile": "0"
+  #           "mysqli.allow_persistent": "1"
   #           "mysqli.default_port": '3306'
   #           "mysqli.max_links": "-1"
   #           "mysqli.max_persistent": "-1"
-  #           "mysqli.reconnect": "Off"
+  #           "mysqli.reconnect": "0"
   #           "mysqli.default_socket": "/run/mysqld/mysqld.sock"
   #         Pdo_mysql:
   #           "pdo_mysql.default_socket": "/run/mysqld/mysqld.sock"
@@ -602,7 +594,7 @@ php_config:
   #         Date:
   #           "date.timezone": "Europe/London"
   #         MySQLi:
-  #           "mysqli.allow_local_infile": "Off"
+  #           "mysqli.allow_local_infile": "0"
   #         opcache:
   #           "opcache.enable": "1"
   #           "opcache.interned_strings_buffer": "64"
@@ -614,7 +606,7 @@ php_config:
   #           "opcache.validate_root": "1"
   #           "opcache.validate_timestamps": "1"
   #         PHP:
-  #           allow_url_include: "Off"
+  #           allow_url_include: "0"
   #           default_socket_timeout: "600"
   #           disable_functions: "chgrp,chown,dl,pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_get_handler,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,pcntl_async_signals,pcntl_unshare,posix_kill,posix_mkfifo,posix_setpgid,posix_setsid,posix_setuid"
   #           max_file_uploads: "60"
@@ -625,7 +617,7 @@ php_config:
   #           memory_limit: "512M"
   #           output_buffering: "4096"
   #           post_max_size: "512M"
-  #           short_open_tag: "Off"
+  #           short_open_tag: "0"
   #           upload_max_filesize: "512M"
   #         Session:
   #           "session.save_path": "${TMPDIR}"
