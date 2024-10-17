@@ -181,11 +181,14 @@
         verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
 
     # https://github.com/composer/composer/issues/12153#issuecomment-2419452358
-    - name: Check that the opcache.jit_buffer_size is set to 0 or is >= 40961
+    - name: Check that the opcache.jit_buffer_size is set to 0 or >= 40961 or >= 1K or >= 1M or >= 1G
       ansible.builtin.assert:
         that:
-          - php_conf_opcache_jit_buffer_size is ansible.builtin.regex('^[0-9]{1,20}$')
-          - ( php_conf_opcache_jit_buffer_size == "0" ) or ( php_conf_opcache_jit_buffer_size >= "40961" )
+          - php_conf_opcache_jit_buffer_size is ansible.builtin.regex('^[0-9]{1,20}[G|K|M]?$')
+          - >-
+            ( php_conf_opcache_jit_buffer_size == "0" ) or
+            ( ( php_conf_opcache_jit_buffer_size is ansible.builtin.regex('^[0-9]{1,20}$') ) and ( php_conf_opcache_jit_buffer_size | int >= 40961 ) ) or
+            ( php_conf_opcache_jit_buffer_size is ansible.builtin.regex('^[1-9][0-9]{0,20}[G|K|M]$') )
         quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
       loop: "{{ php_conf_opcache_jit_buffer_sizes }}"
       loop_control:
