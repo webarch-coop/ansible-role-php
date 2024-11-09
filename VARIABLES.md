@@ -19,6 +19,8 @@ The main entry point for the PHP role.
 | php_conf_files_not_absent | A generated list of php configuration files that are not absent. | list of 'str' | no |
 | php_conf_files_templated | A generated list of php configuration files to template. | list of 'str' | no |
 | php_conf_not_absent | A generated list of php configuration that is not absent. | list of 'str' | no |
+| php_conf_opcache_jit_buffer_sizes | A generated list of the opcache.jit_buffer_sizes. | list of 'str' | no |
+| php_conf_opcache_jit_buffer_sizes_jmespath_query | A JMESPath query for the opcache.jit_buffer_sizes. | str | yes |
 | php_conf_pool_files_not_absent | A generated list of php pool files that are not absent. | list of 'str' | no |
 | php_conf_ver_absent | a generated list of versions of php configuration to remove if present. | list of 'str' | no |
 | php_conf_ver_present | a generated list of versions of php configuration that should be present. | list of 'str' | no |
