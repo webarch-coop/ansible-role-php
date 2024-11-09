@@ -60,7 +60,7 @@
 
         - name: "{{ php_task_name }}"
           ansible.builtin.set_fact:
-            php_rescue_packages_present: "{{ ansible_local.dpkg.installed | select('regex', php_inst_regex) | sort }}"
+            php_rescue_packages_present: "{{ ansible_facts.ansible_local.dpkg.installed | select('regex', php_inst_regex) | sort }}"
           vars:
             php_inst_regex: "^php{{ php_version.version }}"
             php_task_name: "Set a fact for the installed PHP {{ php_version.version }} packages"

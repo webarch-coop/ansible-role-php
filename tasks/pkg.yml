@@ -19,7 +19,7 @@
 
     - name: Set a fact for installed PHP packages that are to be removed
       ansible.builtin.set_fact:
-        php_pkg_remove: "{{ ansible_local.dpkg.installed | ansible.builtin.intersect(php_pkg_absent) | default([]) }}"
+        php_pkg_remove: "{{ ansible_facts.ansible_local.dpkg.installed | ansible.builtin.intersect(php_pkg_absent) | default([]) }}"
 
     - name: Debug installed PHP packages that are to be removed
       ansible.builtin.debug:
@@ -41,7 +41,7 @@
 
     - name: Set a fact for PHP packages that should be removed due to their version
       ansible.builtin.set_fact:
-        php_ver_pkg_remove: "{{ php_ver_pkg_remove + ansible_local.dpkg.installed | select('regex', php_regex) }}"
+        php_ver_pkg_remove: "{{ php_ver_pkg_remove + ansible_facts.ansible_local.dpkg.installed | select('regex', php_regex) }}"
       loop: "{{ php_ver_absent_regex }}"
       loop_control:
         loop_var: php_regex
@@ -70,7 +70,7 @@
 
     - name: Debug PHP packages installed
       ansible.builtin.debug:
-        var: ansible_local.dpkg.installed
+        var: ansible_facts.ansible_local.dpkg.installed
         verbosity: "{% if ansible_check_mode | bool and php_pkg_present != [] %}1{% elif php_pkg_present != [] %}2{% else %}3{% endif %}"
       when: php_pkg_present is defined
 
@@ -218,7 +218,7 @@
     - name: Check that all PHP-FPM packages present are installed
       ansible.builtin.assert:
         that:
-          - php_fpm_package in ansible_local.dpkg.installed
+          - php_fpm_package in ansible_facts.ansible_local.dpkg.installed
         quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
       loop: "{{ php_fpm_packages_present }}"
       loop_control:
