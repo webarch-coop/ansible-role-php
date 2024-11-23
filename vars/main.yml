@@ -115,7 +115,6 @@ php_mods_ver_present: "{{ php_modules | community.general.json_query('sort([?sta
 # For example delete the lines and run:
 # bash ./sury-packages.sh >> main.yml
 
-
 # Debian bookworm packages
 php_debian_bookworm_pkg:
   - debsuryorg-archive-keyring
@@ -725,8 +724,10 @@ php_debian_bookworm_pkg:
   - php8.0-oauth
   - php8.0-odbc
   - php8.0-opcache
+  - php8.0-opentelemetry
   - php8.0-pcov
   - php8.0-pgsql
+  - php8.0-phalcon
   - php8.0-phalcon5
   - php8.0-phpdbg
   - php8.0-pinba
@@ -811,8 +812,10 @@ php_debian_bookworm_pkg:
   - php8.1-oauth
   - php8.1-odbc
   - php8.1-opcache
+  - php8.1-opentelemetry
   - php8.1-pcov
   - php8.1-pgsql
+  - php8.1-phalcon
   - php8.1-phalcon5
   - php8.1-phpdbg
   - php8.1-pinba
@@ -897,8 +900,10 @@ php_debian_bookworm_pkg:
   - php8.2-oauth
   - php8.2-odbc
   - php8.2-opcache
+  - php8.2-opentelemetry
   - php8.2-pcov
   - php8.2-pgsql
+  - php8.2-phalcon
   - php8.2-phalcon5
   - php8.2-phpdbg
   - php8.2-pinba
@@ -982,8 +987,10 @@ php_debian_bookworm_pkg:
   - php8.3-oauth
   - php8.3-odbc
   - php8.3-opcache
+  - php8.3-opentelemetry
   - php8.3-pcov
   - php8.3-pgsql
+  - php8.3-phalcon
   - php8.3-phalcon5
   - php8.3-phpdbg
   - php8.3-pinba
@@ -1041,6 +1048,7 @@ php_debian_bookworm_pkg:
   - php8.4-odbc
   - php8.4-opcache
   - php8.4-pgsql
+  - php8.4-phalcon
   - php8.4-phpdbg
   - php8.4-readline
   - php8.4-snmp
@@ -1099,9 +1107,11 @@ php_debian_bookworm_pkg:
   - php-mysqlnd-ms
   - php-oauth
   - php-odbc
+  - php-opentelemetry
   - php-pcov
   - php-pear
   - php-pgsql
+  - php-phalcon
   - php-phalcon4
   - php-phalcon5
   - php-phpdbg
@@ -1779,8 +1789,10 @@ php_debian_bullseye_pkg:
   - php8.0-oauth
   - php8.0-odbc
   - php8.0-opcache
+  - php8.0-opentelemetry
   - php8.0-pcov
   - php8.0-pgsql
+  - php8.0-phalcon
   - php8.0-phalcon5
   - php8.0-phpdbg
   - php8.0-pinba
@@ -1865,8 +1877,10 @@ php_debian_bullseye_pkg:
   - php8.1-oauth
   - php8.1-odbc
   - php8.1-opcache
+  - php8.1-opentelemetry
   - php8.1-pcov
   - php8.1-pgsql
+  - php8.1-phalcon
   - php8.1-phalcon5
   - php8.1-phpdbg
   - php8.1-pinba
@@ -1951,8 +1965,10 @@ php_debian_bullseye_pkg:
   - php8.2-oauth
   - php8.2-odbc
   - php8.2-opcache
+  - php8.2-opentelemetry
   - php8.2-pcov
   - php8.2-pgsql
+  - php8.2-phalcon
   - php8.2-phalcon5
   - php8.2-phpdbg
   - php8.2-pinba
@@ -2036,8 +2052,10 @@ php_debian_bullseye_pkg:
   - php8.3-oauth
   - php8.3-odbc
   - php8.3-opcache
+  - php8.3-opentelemetry
   - php8.3-pcov
   - php8.3-pgsql
+  - php8.3-phalcon
   - php8.3-phalcon5
   - php8.3-phpdbg
   - php8.3-pinba
@@ -2087,14 +2105,18 @@ php_debian_bullseye_pkg:
   - php8.4-fpm
   - php8.4-gd
   - php8.4-gmp
+  - php8.4-imagick
   - php8.4-interbase
   - php8.4-intl
   - php8.4-ldap
   - php8.4-mbstring
+  - php8.4-msgpack
   - php8.4-mysql
   - php8.4-odbc
   - php8.4-opcache
+  - php8.4-opentelemetry
   - php8.4-pgsql
+  - php8.4-phalcon
   - php8.4-phpdbg
   - php8.4-readline
   - php8.4-snmp
@@ -2153,9 +2175,11 @@ php_debian_bullseye_pkg:
   - php-mysqlnd-ms
   - php-oauth
   - php-odbc
+  - php-opentelemetry
   - php-pcov
   - php-pear
   - php-pgsql
+  - php-phalcon
   - php-phalcon3
   - php-phalcon4
   - php-phalcon5
