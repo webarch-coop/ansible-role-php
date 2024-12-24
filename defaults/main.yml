@@ -11,6 +11,116 @@
 php: false
 php_check_legacy_variables: true
 php_config:
+  - name: PHP 8.4 configuration
+    version: "8.4"
+    state: present
+    files:
+      - name: PHP 8.4 JIT configuration
+        path: /etc/php/8.4/mods-available/opcache.ini
+        state: edited
+        conf_absent:
+          "opcache.jit": "0"
+      - name: PHP 8.4 CLI configuration
+        path: /etc/php/8.4/cli/php.ini
+        state: present
+        conf:
+          apc:
+            "apc.coredump_unmap": "0"
+            "apc.enable_cli": "1"
+            "apc.enabled": "1"
+            "apc.entries_hint": "4096"
+            "apc.gc_ttl": "3600"
+            "apc.serializer": "php"
+            "apc.shm_segments": "1"
+            "apc.shm_size": "32M"
+            "apc.slam_defense": "1"
+            "apc.ttl": "0"
+            "apc.use_request_time": "0"
+          "CLI Server":
+            "cli_server.color": "1"
+          MySQLi:
+            "mysqli.allow_local_infile": "0"
+            "mysqli.allow_persistent": "1"
+            "mysqli.default_port": '3306'
+            "mysqli.max_links": "-1"
+            "mysqli.max_persistent": "-1"
+            "mysqli.reconnect": "0"
+            "mysqli.default_socket": "/run/mysqld/mysqld.sock"
+          opcache:
+            "opcache.enable": "1"
+            "opcache.enable_cli": "1"
+            "opcache.interned_strings_buffer": "64"
+            "opcache.jit": "0"
+            "opcache.jit_buffer_size": "0"
+            "opcache.max_accelerated_files": "100000"
+            "opcache.memory_consumption": "1024"
+            "opcache.revalidate_freq": "2"
+            "opcache.use_cwd": "1"
+            "opcache.validate_permission": "1"
+            "opcache.validate_root": "1"
+            "opcache.validate_timestamps": "1"
+          Pdo_mysql:
+            "pdo_mysql.default_socket": "/run/mysqld/mysqld.sock"
+          PHP:
+            "max_input_vars": 100000
+      - name: PHP 8.4 FPM configuration
+        path: /etc/php/8.4/fpm/php.ini
+        state: edited
+        conf:
+          apc:
+            "apc.enabled": "1"
+            "apc.shm_size": "32M"
+          Date:
+            "date.timezone": "Europe/London"
+          MySQLi:
+            "mysqli.allow_local_infile": "0"
+          opcache:
+            "opcache.enable": "1"
+            "opcache.interned_strings_buffer": "64"
+            # "opcache.jit": "tracing"
+            # "opcache.jit_buffer_size": "40961" # minimum size is 40961 bytes
+            "opcache.jit": "0"
+            "opcache.jit_buffer_size": "0"
+            "opcache.max_accelerated_files": "100000"
+            "opcache.memory_consumption": "1024"
+            "opcache.revalidate_freq": "2"
+            "opcache.use_cwd": "1"
+            "opcache.validate_permission": "1"
+            "opcache.validate_root": "1"
+            "opcache.validate_timestamps": "1"
+          PHP:
+            allow_url_include: "0"
+            default_socket_timeout: "600"
+            disable_functions: "chgrp,chown,dl,pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_get_handler,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,pcntl_async_signals,pcntl_unshare,posix_kill,posix_mkfifo,posix_setpgid,posix_setsid,posix_setuid"
+            max_file_uploads: "60"
+            max_execution_time: "600"
+            max_input_nesting_level: "512"
+            max_input_time: "600"
+            max_input_vars: "100000"
+            memory_limit: "512M"
+            output_buffering: "4096"
+            post_max_size: "512M"
+            short_open_tag: "0"
+            upload_max_filesize: "512M"
+          Session:
+            "session.save_path": "${TMPDIR}"
+      - name: PHP 8.4 FPM www pool configuration
+        path: /etc/php/8.4/fpm/pool.d/www.conf
+        state: absent
+      - name: PHP 8.4 FPM www84 pool configuration
+        path: /etc/php/8.4/fpm/pool.d/www84.conf
+        state: present
+        conf:
+          www84:
+            "user": www-data
+            "group": www-data
+            "listen": /run/php/php8.4-fpm.sock
+            "listen.owner": www-data
+            "listen.group": www-data
+            "pm": ondemand
+            "pm.max_children": "4"
+            "pm.process_idle_timeout": 10s
+            "pm.status_path": /fpm84-status
   - name: PHP 8.3 configuration
     version: "8.3"
     state: present
@@ -651,6 +761,58 @@ php_config:
   #           memory_limit: "512M"
 php_fpm_pool_check_fail: true
 php_modules:
+  - name: PHP 8.4 modules
+    version: "8.4"
+    state: present
+    sapis:
+      - name: PHP 8.4 CLI modules
+        sapi: cli
+        mods_enabled:
+          - apcu
+          - bcmath
+          - bz2
+          - calendar
+          - ctype
+          - curl
+          - dom
+          - exif
+          - ffi
+          - fileinfo
+          - ftp
+          - gd
+          - gettext
+          - gmp
+          - iconv
+          - imagick
+          - imap
+          - intl
+          - ldap
+          - mbstring
+          - mysqli
+          - mysqlnd
+          - opcache
+          - pdo
+          - pdo_mysql
+          - pdo_sqlite
+          - phar
+          - posix
+          - readline
+          - shmop
+          - simplexml
+          - soap
+          - sockets
+          - sqlite3
+          - sysvmsg
+          - sysvsem
+          - sysvshm
+          - tokenizer
+          - uploadprogress
+          - xml
+          - xmlreader
+          - xmlrpc
+          - xmlwriter
+          - xsl
+          - zip
   - name: PHP 8.3 modules
     version: "8.3"
     state: present
@@ -966,37 +1128,37 @@ php_sury: true
 php_versions:
   - name: PHP 8.4 packages
     version: "8.4"
-    state: absent
-    # pkg_absent:
-    #   - libapache2-mod-php8.4
-    #   - php8.4-phpdbg
-    # pkg_present:
-    #   # - php8.4-apcu
-    #   - php8.4-bcmath
-    #   - php8.4-bz2
-    #   - php8.4-cli
-    #   - php8.4-common
-    #   - php8.4-curl
-    #   - php8.4-gd
-    #   - php8.4-gmp
-    #   - php8.4-fpm
-    #   # - php8.4-imagick
-    #   # - php8.4-imap
-    #   - php8.4-intl
-    #   - php8.4-ldap
-    #   - php8.4-mbstring
-    #   - php8.4-mysql
-    #   - php8.4-opcache
-    #   - php8.4-readline
-    #   # - php8.4-redis
-    #   - php8.4-sqlite3
-    #   - php8.4-soap
-    #   # - php8.4-uploadprogress
-    #   - php8.4-xml
-    #   # - php8.4-xmlrpc
-    #   - php8.4-xsl
-    #   - php8.4-zip
-    #   - php-pear
+    state: present
+    pkg_absent:
+      - libapache2-mod-php8.4
+      - php8.4-phpdbg
+    pkg_present:
+      - php8.4-apcu
+      - php8.4-bcmath
+      - php8.4-bz2
+      - php8.4-cli
+      - php8.4-common
+      - php8.4-curl
+      - php8.4-gd
+      - php8.4-gmp
+      - php8.4-fpm
+      - php8.4-imagick
+      - php8.4-imap
+      - php8.4-intl
+      - php8.4-ldap
+      - php8.4-mbstring
+      - php8.4-mysql
+      - php8.4-opcache
+      - php8.4-readline
+      # - php8.4-redis
+      - php8.4-sqlite3
+      - php8.4-soap
+      - php8.4-uploadprogress
+      - php8.4-xml
+      - php8.4-xmlrpc
+      - php8.4-xsl
+      - php8.4-zip
+      - php-pear
   - name: PHP 8.3 packages
     version: "8.3"
     state: present
