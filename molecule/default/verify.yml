@@ -621,6 +621,7 @@
               sapis:
                 cli:
                   modules:
+                    - apcu
                     - bcmath
                     - bz2
                     - calendar
@@ -635,6 +636,8 @@
                     - gettext
                     - gmp
                     - iconv
+                    - imagick
+                    - imap
                     - intl
                     - ldap
                     - mbstring
@@ -656,14 +659,17 @@
                     - sysvsem
                     - sysvshm
                     - tokenizer
+                    - uploadprogress
                     - xml
                     - xmlreader
+                    - xmlrpc
                     - xmlwriter
                     - xsl
                     - zip
                   state: present
                 fpm:
                   modules:
+                    - apcu
                     - bcmath
                     - bz2
                     - calendar
@@ -678,6 +684,8 @@
                     - gettext
                     - gmp
                     - iconv
+                    - imagick
+                    - imap
                     - intl
                     - ldap
                     - mbstring
@@ -699,8 +707,10 @@
                     - sysvsem
                     - sysvshm
                     - tokenizer
+                    - uploadprogress
                     - xml
                     - xmlreader
+                    - xmlrpc
                     - xmlwriter
                     - xsl
                     - zip
