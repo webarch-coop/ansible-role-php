@@ -1091,6 +1091,7 @@ php_debian_bookworm_pkg:
   - php8.4-smbclient
   - php8.4-snmp
   - php8.4-soap
+  - php8.4-solr
   - php8.4-sqlite3
   - php8.4-ssh2
   - php8.4-stomp
@@ -2208,6 +2209,7 @@ php_debian_bullseye_pkg:
   - php8.4-smbclient
   - php8.4-snmp
   - php8.4-soap
+  - php8.4-solr
   - php8.4-sqlite3
   - php8.4-ssh2
   - php8.4-stomp
