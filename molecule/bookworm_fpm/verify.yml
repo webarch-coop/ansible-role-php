@@ -151,6 +151,7 @@
                     - phar
                     - posix
                     - readline
+                    - redis
                     - shmop
                     - simplexml
                     - soap
@@ -199,6 +200,7 @@
                     - phar
                     - posix
                     - readline
+                    - redis
                     - shmop
                     - simplexml
                     - soap
