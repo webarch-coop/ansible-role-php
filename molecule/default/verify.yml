@@ -138,6 +138,7 @@
                     - gettext
                     - gmp
                     - iconv
+                    - igbinary
                     - imagick
                     - imap
                     - intl
@@ -189,6 +190,7 @@
                     - gettext
                     - gmp
                     - iconv
+                    - igbinary
                     - imagick
                     - imap
                     - intl
@@ -242,6 +244,7 @@
                     - gettext
                     - gmp
                     - iconv
+                    - igbinary
                     - imagick
                     - imap
                     - intl
@@ -291,6 +294,7 @@
                     - gettext
                     - gmp
                     - iconv
+                    - igbinary
                     - imagick
                     - imap
                     - intl
@@ -343,6 +347,7 @@
                     - gettext
                     - gmp
                     - iconv
+                    - igbinary
                     - imagick
                     - imap
                     - intl
@@ -392,6 +397,7 @@
                     - gettext
                     - gmp
                     - iconv
+                    - igbinary
                     - imagick
                     - imap
                     - intl
@@ -444,6 +450,7 @@
                     - gettext
                     - gmp
                     - iconv
+                    - igbinary
                     - imagick
                     - imap
                     - intl
@@ -493,6 +500,7 @@
                     - gettext
                     - gmp
                     - iconv
+                    - igbinary
                     - imagick
                     - imap
                     - intl
@@ -545,6 +553,7 @@
                     - gettext
                     - gmp
                     - iconv
+                    - igbinary
                     - imagick
                     - imap
                     - intl
@@ -594,6 +603,7 @@
                     - gettext
                     - gmp
                     - iconv
+                    - igbinary
                     - imagick
                     - imap
                     - intl
@@ -646,6 +656,7 @@
                     - gettext
                     - gmp
                     - iconv
+                    - igbinary
                     - imagick
                     - imap
                     - intl
@@ -695,6 +706,7 @@
                     - gettext
                     - gmp
                     - iconv
+                    - igbinary
                     - imagick
                     - imap
                     - intl

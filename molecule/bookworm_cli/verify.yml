@@ -137,6 +137,7 @@
                     - gettext
                     - gmp
                     - iconv
+                    - igbinary
                     - imagick
                     - imap
                     - intl

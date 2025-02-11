@@ -783,6 +783,7 @@ php_modules:
           - gettext
           - gmp
           - iconv
+          - igbinary
           - imagick
           - imap
           - intl
@@ -835,6 +836,7 @@ php_modules:
           - gettext
           - gmp
           - iconv
+          - igbinary
           - imagick
           - imap
           - intl
@@ -887,6 +889,7 @@ php_modules:
           - gettext
           - gmp
           - iconv
+          - igbinary
           - imagick
           - imap
           - intl
@@ -939,6 +942,7 @@ php_modules:
           - gettext
           - gmp
           - iconv
+          - igbinary
           - imagick
           - imap
           - intl
@@ -991,6 +995,7 @@ php_modules:
           - gettext
           - gmp
           - iconv
+          - igbinary
           - imagick
           - imap
           - intl
@@ -1043,6 +1048,7 @@ php_modules:
           - gettext
           - gmp
           - iconv
+          - igbinary
           - imagick
           - imap
           - intl
@@ -1094,6 +1100,7 @@ php_modules:
   #         - gettext
   #         - gmp
   #         - iconv
+  #         - igbinary
   #         - imagick
   #         - imap
   #         - intl
