@@ -47,28 +47,30 @@
     - name: Fail when there are duplicated PHP-FPM pool names
       ansible.builtin.fail:
         msg: >-
-          PHP-FPM pool names need to be unique, these names are dumplicated
+          PHP-FPM pool names need to be unique, these names are duplicated
           {{ php_fpm_pool_names | community.general.counter | ansible.builtin.dict2items | selectattr('value', '>', 1) |
           map(attribute='key') | join(', ') }}. You can use this role to remove the duplicates by running with
           --extra-vars "php_fpm_pool_check_fail=false".
       vars:
-        php_fpm_pool_names: "{{ php_fpm_pools | community.general.json_query('[].pools[].name') }}"
+        php_fpm_pool_names: "{{ php_fpm_pools | community.general.json_query('[].pools[].name') | sort }}"
       when:
         - php_fpm_pools is defined
         - php_fpm_pool_check_fail | bool
-        - php_fpm_pool_names | length != php_fpm_pool_names | unique | length
+        - php_fpm_pool_names | sort | length != php_fpm_pool_names | sort | unique | length
 
-    - name: Check that all the PHP-FPM pool names are unique and warn when there are duplicates
+    - name: Warn when there are duplicated PHP-FPM pool names
       ansible.builtin.debug:
-        msg:
-          - "PHP-FPM pool names need to be unique, these names are dumplicated{% for php_fpm_pool_name in php_fpm_pool_names %} {{ php_fpm_pool_name }}{% endfor %}"
-          - "Set php_fpm_pool_check_fail to true for this host to fail with this check"
+        msg: >-
+          PHP-FPM pool names need to be unique, these names are duplicated
+          {{ php_fpm_pool_names | community.general.counter | ansible.builtin.dict2items | selectattr('value', '>', 1) |
+          map(attribute='key') | join(', ') }}. You can use this role to remove the duplicates by running with
+          --extra-vars "php_fpm_pool_check_fail=false".
       vars:
-        php_fpm_pool_names: "{{ php_fpm_pools | community.general.json_query('[].pools[].name') }}"
+        php_fpm_pool_names: "{{ php_fpm_pools | community.general.json_query('[].pools[].name') | sort }}"
       when:
-        - php_fpm_pool_names | length != php_fpm_pool_names | unique | length
         - php_fpm_pools is defined
         - not php_fpm_pool_check_fail | bool
+        - php_fpm_pool_names | sort | length != php_fpm_pool_names | sort | unique | length
 
   tags:
     - php
