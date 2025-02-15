@@ -547,7 +547,7 @@ php_config:
       - name: PHP 8.0 FPM www pool configuration
         path: /etc/php/8.0/fpm/pool.d/www.conf
         state: absent
-      - name: PHP 8.0 FPM www81 pool configuration
+      - name: PHP 8.0 FPM www80 pool configuration
         path: /etc/php/8.0/fpm/pool.d/www80.conf
         state: present
         conf:
