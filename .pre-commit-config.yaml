@@ -42,7 +42,7 @@ repos:
         language: python
         additional_dependencies:
           # https://pypi.org/project/ansible/
-          - ansible==11.2.0
+          - ansible==11.3.0
          # https://github.com/kellyjonbrazil/jc/releases
           - jc==1.25.4
           # https://github.com/jmespath/jmespath.py/tags
