@@ -27,9 +27,9 @@
         state: absent
 
     # This key has been updated from /usr/share/keyrings/deb.sury.org-php.gpg
-    - name: Stat the debsuryorg-archive-keyring.deb GPG key
+    - name: Stat /usr/share/keyrings/debsuryorg-archive-keyring.gpg
       ansible.builtin.stat:
-        path: /usr/share/keyrings/deb.sury.org-archive-keyring.gpg
+        path: /usr/share/keyrings/debsuryorg-archive-keyring.gpg
       register: php_apt_key_path
 
     - name: The GPG key provided by the debsuryorg-archive-keyring.deb package is required
@@ -39,6 +39,7 @@
         quiet: "{% if ansible_check_mode or ansible_verbosity >= 1 %}false{% else %}true{% endif %}"
         fail_msg: >-
           The GPG key provided by https://packages.sury.org/debsuryorg-archive-keyring.deb is required to configure the Sury PHP repo.
+          It should be present at /usr/share/keyrings/debsuryorg-archive-keyring.gpg
 
     - name: Configure the Sury apt repo when the GPG public key is present
       block:
@@ -71,7 +72,7 @@
                 enabled: true
                 name: php
                 pdiffs: true
-                signed_by: /usr/share/keyrings/deb.sury.org-archive-keyring.gpg
+                signed_by: /usr/share/keyrings/debsuryorg-archive-keyring.gpg
                 suites: "{{ ansible_facts.distribution_release }}"
                 types: deb
                 uris: https://packages.sury.org/php/
@@ -111,7 +112,7 @@
             enabled: true
             name: php
             pdiffs: true
-            signed_by: /usr/share/keyrings/deb.sury.org-archive-keyring.gpg
+            signed_by: /usr/share/keyrings/debsuryorg-archive-keyring.gpg
             suites: "{{ ansible_facts.distribution_release }}"
             types: deb
             uris: https://packages.sury.org/php/
