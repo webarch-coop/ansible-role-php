@@ -26,9 +26,10 @@
         path: /etc/apt/keyrings/php.gpg
         state: absent
 
+    # This key has been updated from /usr/share/keyrings/deb.sury.org-php.gpg
     - name: Stat the debsuryorg-archive-keyring.deb GPG key
       ansible.builtin.stat:
-        path: /usr/share/keyrings/deb.sury.org-php.gpg
+        path: /usr/share/keyrings/deb.sury.org-archive-keyring.gpg
       register: php_apt_key_path
 
     - name: The GPG key provided by the debsuryorg-archive-keyring.deb package is required
@@ -70,7 +71,7 @@
                 enabled: true
                 name: php
                 pdiffs: true
-                signed_by: /usr/share/keyrings/deb.sury.org-php.gpg
+                signed_by: /usr/share/keyrings/deb.sury.org-archive-keyring.gpg
                 suites: "{{ ansible_facts.distribution_release }}"
                 types: deb
                 uris: https://packages.sury.org/php/
@@ -110,7 +111,7 @@
             enabled: true
             name: php
             pdiffs: true
-            signed_by: /usr/share/keyrings/deb.sury.org-php.gpg
+            signed_by: /usr/share/keyrings/deb.sury.org-archive-keyring.gpg
             suites: "{{ ansible_facts.distribution_release }}"
             types: deb
             uris: https://packages.sury.org/php/
