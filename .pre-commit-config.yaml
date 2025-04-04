@@ -17,7 +17,7 @@ repos:
         name: YAML Lint
   # https://github.com/aristanetworks/j2lint/releases
   - repo: https://github.com/aristanetworks/j2lint.git
-    rev: v1.1.0
+    rev: v1.2.0
     hooks:
       - id: j2lint
         name: Jinja2-Linter
@@ -35,14 +35,14 @@ repos:
           - VARIABLES.md
   # https://github.com/ansible/ansible-lint/releases
   - repo: https://github.com/ansible/ansible-lint.git
-    rev: v25.1.3
+    rev: v25.2.1
     hooks:
       - id: ansible-lint
         name: Ansible Lint
         language: python
         additional_dependencies:
           # https://pypi.org/project/ansible/
-          - ansible==11.3.0
+          - ansible==11.4.0
          # https://github.com/kellyjonbrazil/jc/releases
           - jc==1.25.4
           # https://github.com/jmespath/jmespath.py/tags
