@@ -46,13 +46,11 @@ bookworm:
     - pre-commit install
     - pre-commit run --all-files
     - molecule test --all
-# No Trixie Sury repo yet?
-# https://github.com/oerdnj/deb.sury.org/issues/2308#issuecomment-2905300989
 trixie:
   image: registry.git.coop/webarch/containers/images/trixie:20250527
   stage: trixie
   script:
     - pre-commit install
     - pre-commit run --all-files
-    - molecule test
+    - molecule test --all
 ...
