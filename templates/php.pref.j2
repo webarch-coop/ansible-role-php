@@ -21,5 +21,12 @@ Pin: origin packages.sury.org
 Pin-Priority: 500
 
 {%     endfor %}
+{% elif ansible_facts.distribution_release == "trixie" %}
+{%     for pkg in php_debian_trixie_pkg %}
+Package: {{ pkg }}
+Pin: origin packages.sury.org
+Pin-Priority: 500
+
+{%     endfor %}
 {% endif %}
 # vim: ft=debsources{# vim: syntax=jinja2 #}

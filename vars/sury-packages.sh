@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Ansible managed
 
-# Copyright 2019-2024 Chris Croome
+# Copyright 2019-2025 Chris Croome
 #
 # This file is part of the Webarchitects PHP Ansible role.
 #
@@ -13,7 +13,7 @@
 
 set -euo pipefail
 
-debian_distros=(bookworm bullseye)
+debian_distros=(bookworm bullseye trixie)
 
 for distro in "${debian_distros[@]}"; do
   # shellcheck disable=SC2016 disable=SC2086

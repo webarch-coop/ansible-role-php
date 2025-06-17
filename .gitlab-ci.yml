@@ -1,4 +1,4 @@
-# Copyright 2020-2024 Chris Croome
+# Copyright 2019-2025 Chris Croome
 #
 # This file is part of the Webarchitects PHP Ansible role.
 #
@@ -38,7 +38,7 @@ before_script:
   - molecule --version
 stages:
   - bookworm
-  # - trixie
+  - trixie
 bookworm:
   image: registry.git.coop/webarch/containers/images/bookworm:20250527
   stage: bookworm
@@ -46,10 +46,13 @@ bookworm:
     - pre-commit install
     - pre-commit run --all-files
     - molecule test --all
-# No Trixie Sury repo yet
-# trixie:
-#   image: registry.git.coop/webarch/containers/images/trixie:20250527
-#   stage: trixie
-#   script:
-#     - molecule test
+# No Trixie Sury repo yet?
+# https://github.com/oerdnj/deb.sury.org/issues/2308#issuecomment-2905300989
+trixie:
+  image: registry.git.coop/webarch/containers/images/trixie:20250527
+  stage: trixie
+  script:
+    - pre-commit install
+    - pre-commit run --all-files
+    - molecule test
 ...

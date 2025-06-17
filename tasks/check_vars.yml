@@ -96,11 +96,11 @@
         - php_check_legacy_variables is defined
         - php_check_legacy_variables | bool
 
-    - name: Check that the distro is Debian Bookworm, Bullseye or Buster
+    - name: Check that the distro is Debian Bookworm, Bullseye, Buster or Trixie
       ansible.builtin.assert:
         that:
           - ansible_facts.distribution_release is defined
-          - ansible_facts.distribution_release is regex("^bullseye|bookworm|buster$")
+          - ansible_facts.distribution_release is regex("^bullseye|bookworm|buster|trixie$")
         quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
         fail_msg: "The Linux distro {{ ansible_facts.distribution }} {{ ansible_facts.distribution_release }} is not supported by this role"
 
