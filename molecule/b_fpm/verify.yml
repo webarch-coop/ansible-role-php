@@ -364,23 +364,24 @@
 
         - name: Check that PHP-FPM 8.2 is running for Debian Bookworm
           ansible.builtin.service_facts:
-          # register: molecule_php_service_facts
-          # until: molecule_php_service_facts | community.general.json_query('ansible_facts.services.["php8.2-fpm.service"]|[0].state') == "running"
-          until: ansible_facts.services | community.general.json_query('["php8.2-fpm.service"]|[0].state') == "running"
+          vars:
+            molecule_service_jpq: 'ansible_facts.services.["php8.2-fpm.service"]|[0]'
+          register: molecule_service_facts
+          until: (molecule_service_facts | community.general.json_query(molecule_service_jpq)).state == "running"
           retries: 20
           delay: 1
 
       rescue:
 
-        - name: Debug ansible_facts.services
+        - name: Debug molecule_service_facts
           ansible.builtin.debug:
-            var: ansible_facts.services
+            var: molecule_service_facts
 
-        - name: Debug ansible_facts.services | community.general.json_query('["php8.2-fpm.service"]')
+        - name: Debug molecule_service_facts | community.general.json_query('ansible_facts.services.["php8.2-fpm.service"]|[0]')
           ansible.builtin.debug:
-            msg: "{{ ansible_facts.services | community.general.json_query(molecule_phpfpm_jmespath_query) }}"
+            msg: "{{ molecule_service_facts | community.general.json_query(molecule_service_jpq) }}"
           vars:
-            molecule_phpfpm_jmespath_query: '["php8.2-fpm.service"]'
+            molecule_service_jpq: 'ansible_facts.services.["php8.2-fpm.service"]|[0]'
 
         - name: Check that PHP-FPM is running failed
           ansible.builtin.fail:
@@ -392,9 +393,10 @@
 
         - name: Check that PHP-FPM is running for Debian Trixie PHP-FPM 8.4
           ansible.builtin.service_facts:
-          # register: molecule_php_service_facts
-          # until: molecule_php_service_facts | community.general.json_query('ansible_facts.services.["php8.2-fpm.service"]|[0].state') == "running"
-          until: ansible_facts.services | community.general.json_query('["php8.4-fpm.service"]|[0].state') == "running"
+          vars:
+            molecule_service_jpq: 'ansible_facts.services.["php8.4-fpm.service"]|[0]'
+          register: molecule_service_facts
+          until: (molecule_service_facts | community.general.json_query(molecule_service_jpq)).state == "running"
           retries: 20
           delay: 1
 
@@ -404,11 +406,11 @@
           ansible.builtin.debug:
             var: ansible_facts.services
 
-        - name: Debug ansible_facts.services | community.general.json_query('["php8.4-fpm.service"]')
+        - name: Debug molecule_service_facts | community.general.json_query('ansible_facts.services.["php8.4-fpm.service"]|[0]')
           ansible.builtin.debug:
-            msg: "{{ ansible_facts.services | community.general.json_query(molecule_phpfpm_jmespath_query) }}"
+            msg: "{{ molecule_service_facts | community.general.json_query(molecule_service_jpq) }}"
           vars:
-            molecule_phpfpm_jmespath_query: '["php8.4-fpm.service"]'
+            molecule_service_jpq: 'ansible_facts.services.["php8.4-fpm.service"]|[0]'
 
         - name: Check that PHP-FPM is running failed
           ansible.builtin.fail:
