@@ -359,8 +359,17 @@
       vars:  # noqa: var-naming[no-role-prefix]
         php_fpm_pool_check_fail: true
 
-    - name: Check that PHP-FPM is running
+    - name: Check that PHP-FPM is running for Debian Bookworm PHP-FPM 8.2
       ansible.builtin.service_facts:
+      when: ansible_facts.distribution_release == "bookworm"
+      register: molecule_php_service_facts
+      until: molecule_php_service_facts | community.general.json_query('ansible_facts.services.["php8.2-fpm.service"]|[0].state') == "running"
+      retries: 20
+      delay: 1
+
+    - name: Check that PHP-FPM is running for Debian Trixie PHP-FPM 8.4
+      ansible.builtin.service_facts:
+      when: ansible_facts.distribution_release == "trixie"
       register: molecule_php_service_facts
       until: molecule_php_service_facts | community.general.json_query('ansible_facts.services.["php8.2-fpm.service"]|[0].state') == "running"
       retries: 20
