@@ -18,6 +18,10 @@
     ansible_python_interpreter: /usr/bin/python3
   tasks:
 
+    - name: Debug ansible_facts.distribution_release
+      ansible.builtin.debug:
+        var: ansible_facts.distribution_release
+
     - name: Debug ansible_facts.effective_user_id
       ansible.builtin.debug:
         var: ansible_facts.effective_user_id
@@ -39,7 +43,7 @@
       ansible.builtin.debug:
         var: ansible_version.full
 
-    - name: Include php role as root
+    - name: "Include php role as root for Debian {{ ansible_facts.distribution_release }}"
       ansible.builtin.include_role:
         name: php
       vars:  # noqa: var-naming[no-role-prefix]
