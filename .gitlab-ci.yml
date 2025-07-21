@@ -37,21 +37,21 @@ before_script:
   - which molecule
   - molecule --version
 stages:
-  - bookworm
+  # - bookworm
   # https://git.coop/webarch/php/-/issues/13
-  # - trixie
+  - trixie
 bookworm:
-  image: registry.git.coop/webarch/containers/images/bookworm:20250527
-  stage: bookworm
-  script:
-    - pre-commit install
-    - pre-commit run --all-files
-    - molecule test --all
-# trixie:
-#   image: registry.git.coop/webarch/containers/images/trixie:20250527
-#   stage: trixie
+#   image: registry.git.coop/webarch/containers/images/bookworm:20250527
+#   stage: bookworm
 #   script:
 #     - pre-commit install
 #     - pre-commit run --all-files
-#     - Molecule test --all
+#     - molecule test --all
+trixie:
+  image: registry.git.coop/webarch/containers/images/trixie:20250527
+  stage: trixie
+  script:
+    - pre-commit install
+    - pre-commit run --all-files
+    - Molecule test --all
 ...
