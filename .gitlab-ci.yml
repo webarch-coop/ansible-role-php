@@ -40,7 +40,7 @@ stages:
   # - bookworm
   # https://git.coop/webarch/php/-/issues/13
   - trixie
-bookworm:
+# bookworm:
 #   image: registry.git.coop/webarch/containers/images/bookworm:20250527
 #   stage: bookworm
 #   script:
