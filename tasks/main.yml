@@ -8,6 +8,11 @@
 #
 # You should have received a copy of the GNU General Public License along with the Webarchitects PHP Ansible role. If not, see <https://www.gnu.org/licenses/>.
 ---
+# - name: Debug fail
+#   ansible.builtin.fail:
+#   tags:
+#     - php
+
 - name: PHP role skipped
   ansible.builtin.debug:
     msg: "The tasks in the PHP role are not being run since the php variable is not true."

@@ -26,36 +26,36 @@ argument_specs:
         type: bool
         required: false
         description: Check that legacy variables and not defined.
-      php_conf_dirs_absent:
-        type: list
-        elements: str
-        required: false
-        description: A generated list of PHP configuration directories to remove if present.
-      php_conf_dirs_present:
-        type: list
-        elements: str
-        required: false
-        description: A generated list of PHP configuration directories to create if absent.
-      php_conf_files_absent:
-        type: list
-        elements: str
-        required: false
-        description: A generated list of PHP configuration files to remove if present.
-      php_conf_files_edited:
-        type: list
-        elements: str
-        required: false
-        description: A generated list of PHP configuration files to edit if present.
-      php_conf_files_present:
-        type: list
-        elements: str
-        required: false
-        description: A generated list of php configuration files to edit if present or template if absent.
-      php_conf_files_not_absent:
-        type: list
-        elements: str
-        required: false
-        description: A generated list of php configuration files that are not absent.
+      # php_conf_dirs_absent:
+      #   type: list
+      #   elements: str
+      #   required: false
+      #   description: A generated list of PHP configuration directories to remove if present.
+      # php_conf_dirs_present:
+      #   type: list
+      #   elements: str
+      #   required: false
+      #   description: A generated list of PHP configuration directories to create if absent.
+      # php_conf_files_absent:
+      #   type: list
+      #   elements: str
+      #   required: false
+      #   description: A generated list of PHP configuration files to remove if present.
+      # php_conf_files_edited:
+      #   type: list
+      #   elements: str
+      #   required: false
+      #   description: A generated list of PHP configuration files to edit if present.
+      # php_conf_files_present:
+      #   type: list
+      #   elements: str
+      #   required: false
+      #   description: A generated list of php configuration files to edit if present or template if absent.
+      # php_conf_files_not_absent:
+      #   type: list
+      #   elements: str
+      #   required: false
+      #   description: A generated list of php configuration files that are not absent.
       php_conf_files_templated:
         type: list
         elements: str
@@ -75,21 +75,21 @@ argument_specs:
         type: str
         required: true
         description: A JMESPath query for the opcache.jit_buffer_sizes.
-      php_conf_pool_files_not_absent:
-        type: list
-        elements: str
-        required: false
-        description: A generated list of php pool files that are not absent.
-      php_conf_ver_absent:
-        type: list
-        elements: str
-        required: false
-        description: a generated list of versions of php configuration to remove if present.
-      php_conf_ver_present:
-        type: list
-        elements: str
-        required: false
-        description: a generated list of versions of php configuration that should be present.
+      # php_conf_pool_files_not_absent:
+      #   type: list
+      #   elements: str
+      #   required: false
+      #   description: A generated list of php pool files that are not absent.
+      # php_conf_ver_absent:
+      #   type: list
+      #   elements: str
+      #   required: false
+      #   description: a generated list of versions of php configuration to remove if present.
+      # php_conf_ver_present:
+      #   type: list
+      #   elements: str
+      #   required: false
+      #   description: a generated list of versions of php configuration that should be present.
       php_config:
         type: list
         elements: dict
@@ -211,6 +211,18 @@ argument_specs:
             type: str
             required: true
             description: The PHP version.
+            choices:
+              - "8.4"
+              - "8.3"
+              - "8.2"
+              - "8.1"
+              - "8.0"
+              - "7.4"
+              - "7.3"
+              - "7.2"
+              - "7.1"
+              - "7.0"
+              - "5.6"
           pools:
             type: list
             elements: str
@@ -225,16 +237,52 @@ argument_specs:
         elements: str
         required: false
         description: A generated list of PHP-FPM versions present.
+        choices:
+          - "8.4"
+          - "8.3"
+          - "8.2"
+          - "8.1"
+          - "8.0"
+          - "7.4"
+          - "7.3"
+          - "7.2"
+          - "7.1"
+          - "7.0"
+          - "5.6"
       php_mods_ver_absent:
         type: list
         elements: str
         required: false
         description: A generated list of PHP versions for which module configuration should be absent.
-      php_mods_ver_present:
-        type: list
-        elements: str
-        required: false
-        description: A generated list of PHP versions for which module configuration should be present.
+        choices:
+          - "8.4"
+          - "8.3"
+          - "8.2"
+          - "8.1"
+          - "8.0"
+          - "7.4"
+          - "7.3"
+          - "7.2"
+          - "7.1"
+          - "7.0"
+          - "5.6"
+      # php_mods_ver_present:
+      #   type: list
+      #   elements: str
+      #   required: false
+      #   description: A generated list of PHP versions for which module configuration should be present.
+      #   choices:
+      #     - "8.4"
+      #     - "8.3"
+      #     - "8.2"
+      #     - "8.1"
+      #     - "8.0"
+      #     - "7.4"
+      #     - "7.3"
+      #     - "7.2"
+      #     - "7.1"
+      #     - "7.0"
+      #     - "5.6"
       php_modules:
         type: list
         elements: dict
@@ -296,16 +344,16 @@ argument_specs:
               - "7.1"
               - "7.0"
               - "5.6"
-      php_pkg_absent:
-        type: list
-        elements: str
-        required: false
-        description: A generated list of PHP packages which should be absent.
-      php_pkg_present:
-        type: list
-        elements: str
-        required: false
-        description: A generated list of PHP packages which should be present.
+      # php_pkg_absent:
+      #   type: list
+      #   elements: str
+      #   required: false
+      #   description: A generated list of PHP packages which should be absent.
+      # php_pkg_present:
+      #   type: list
+      #   elements: str
+      #   required: false
+      #   description: A generated list of PHP packages which should be present.
       php_pool_names_not_absent:
         type: list
         elements: str
@@ -345,6 +393,18 @@ argument_specs:
         elements: str
         required: false
         description: A generated list of PHP versions which should be absent.
+        choices:
+          - "8.4"
+          - "8.3"
+          - "8.2"
+          - "8.1"
+          - "8.0"
+          - "7.4"
+          - "7.3"
+          - "7.2"
+          - "7.1"
+          - "7.0"
+          - "5.6"
       php_ver_absent_regex:
         type: str
         required: true
@@ -354,11 +414,23 @@ argument_specs:
         elements: str
         required: false
         description: A generated list of PHP packages to remove.
-      php_ver_present:
-        type: list
-        elements: str
-        required: false
-        description: A generated list of PHP versions which should be present.
+      # php_ver_present:
+      #   type: list
+      #   elements: str
+      #   required: false
+      #   description: A generated list of PHP versions which should be present.
+      #   choices:
+      #     - "8.4"
+      #     - "8.3"
+      #     - "8.2"
+      #     - "8.1"
+      #     - "8.0"
+      #     - "7.4"
+      #     - "7.3"
+      #     - "7.2"
+      #     - "7.1"
+      #     - "7.0"
+      #     - "5.6"
       php_verify:
         type: bool
         required: false

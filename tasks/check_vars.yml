@@ -107,40 +107,40 @@
     - name: Debug PHP versions and config due to be present and absent
       ansible.builtin.debug:
         msg:
-          - "PHP pkgs set to be present: {% for php_v in php_ver_present %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %}"
-          - "PHP pkgs set to be absent: {% for php_v in php_ver_absent %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %}"
-          - "PHP conf set to be present: {% for php_v in php_conf_ver_present %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %}"
-          - "PHP conf set to be absent: {% for php_v in php_conf_ver_absent %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %}"
+          - "PHP pkgs set to be present: {{ php_ver_present | join(', ') }}"
+          - "PHP pkgs set to be absent: {{ php_ver_absent | join(', ') }}"
+          - "PHP conf set to be present: {{ php_conf_ver_present | join(', ') }}"
+          - "PHP conf set to be absent: {{ php_conf_ver_absent | join(', ') }}"
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
 
     - name: Check that PHP packages that are set to be present match the config that is set to be present
       ansible.builtin.debug:
-        msg: "Note that PHP pkgs set to be present: {% for php_v in php_ver_present %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %} does not match the PHP cfg set to be present: {% for php_v in php_conf_ver_present %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %}"
+        msg: "Note that PHP pkgs set to be present: {{ php_ver_present | join(', ') }} does not match the PHP cfg set to be present {{ php_conf_ver_present | join(', ') }}"
       when: php_ver_present != php_conf_ver_present
 
     - name: Check that PHP packages that are set to be absent match the config that is set to be absent
       ansible.builtin.debug:
-        msg: "Note that PHP pkgs set to be absent: {% for php_v in php_ver_absent %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %} does not match the PHP cfg set to be absent: {% for php_v in php_conf_ver_absent %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %}"
+        msg: "Note that PHP pkgs set to be absent: {{ php_ver_absent | join(', ') }} does not match the PHP cfg set to be absent: {{ php_conf_ver_absent | join(', ') }}"
       when: php_ver_absent != php_conf_ver_absent
 
     - name: PHP configuration should not be removed when the packages are set to be present
       ansible.builtin.fail:
-        msg: "PHP conf are set to be absent for {% for php_v in php_conf_ver_absent | ansible.builtin.intersect(php_ver_present) %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %} but the pkgs are set to be present."
+        msg: "PHP conf are set to be absent for {{ php_conf_ver_absent | ansible.builtin.intersect(php_ver_present) | join(', ') }} but the pkgs are set to be present."
       when: php_conf_ver_absent | ansible.builtin.intersect(php_ver_present) != []
 
     - name: PHP configuration should not be set when the packages are set to be absent
       ansible.builtin.fail:
-        msg: "PHP conf are set to be present for {% for php_v in php_conf_ver_present | ansible.builtin.intersect(php_ver_absent) %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %} but the pkgs are set to be absent."
+        msg: "PHP conf are set to be present for {{ php_conf_ver_present | ansible.builtin.intersect(php_ver_absent) | join(', ') }} but the pkgs are set to be absent."
       when: php_conf_ver_present | ansible.builtin.intersect(php_ver_absent) != []
 
     - name: PHP modules should not be removed when the packages are set to be present
       ansible.builtin.fail:
-        msg: "PHP modules are set to be absent for {% for php_v in php_mods_ver_absent | ansible.builtin.intersect(php_ver_present) %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %} but the pkgs are set to be present."
+        msg: "PHP modules are set to be absent for {{ php_mods_ver_absent | ansible.builtin.intersect(php_ver_present) | join(', ') }} but the pkgs are set to be present."
       when: php_mods_ver_absent | ansible.builtin.intersect(php_ver_present) != []
 
     - name: PHP modules should not be configured when the packages are set to be absent
       ansible.builtin.fail:
-        msg: "PHP modules are set to be present for {% for php_v in php_mods_ver_present | ansible.builtin.intersect(php_ver_absent) %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %} but the pkgs are set to be absent."
+        msg: "PHP modules are set to be present for {{ php_mods_ver_present | ansible.builtin.intersect(php_ver_absent) | join(', ') }} but the pkgs are set to be absent."
       when: php_mods_ver_present | ansible.builtin.intersect(php_ver_absent) != []
 
     - name: Set a fact for the PHP FPM pool names that are not set to be absent
@@ -167,7 +167,7 @@
         that:
           - php_pool_names_not_absent | list | length == php_pool_names_not_absent | unique | list | length
         quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
-        fail_msg: "Non unique PHP-FPM pool names:{% for php_pool_name in php_pool_names_not_absent %} {{ php_pool_name }}{% endfor %}, please run the role once with --extra-vars='php_fpm_pool_check_fail=false' to fix this"
+        fail_msg: "Non unique PHP-FPM pool names: {{ php_pool_names_not_absent | join(', ') }}, please run the role once with --extra-vars='php_fpm_pool_check_fail=false' to fix this"
       when: php_fpm_pool_check_fail | bool
 
     - name: Debug php_conf_opcache_jit_buffer_sizes_jmespath_query

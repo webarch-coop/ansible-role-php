@@ -29,6 +29,7 @@ The main entry point for the PHP role.
 | php_debian_bullseye_pkg | A list of Debian Bullseye packages to install. | list of 'str' | no |
 | php_debian_buster_pkg | A list of Debian Buster packages to install. | list of 'str' | no |
 | php_debian_bookworm_pkg | A list of Debian Bookworm packages to install. | list of 'str' | no |
+| php_debian_trixie_pkg | A list of Debian Trixie packages to install. | list of 'str' | no |
 | php_conf_file_paths_jmespath_query | A internale JMESPath query string. | str | yes |
 | php_file_path_separator | The file path seperator to use. | str | yes |
 | php_fpm_package | Loop variables for a PHP-FPM package. | str | no |
@@ -139,6 +140,86 @@ The main entry point for the PHP role.
 |---|
 | / |
 
+### Choices for main > php_fpm_pools > name
+
+|Choice|
+|---|
+| 8.4 |
+| 8.3 |
+| 8.2 |
+| 8.1 |
+| 8.0 |
+| 7.4 |
+| 7.3 |
+| 7.2 |
+| 7.1 |
+| 7.0 |
+| 5.6 |
+
+### Choices for main > php_fpm_version
+
+|Choice|
+|---|
+| 8.4 |
+| 8.3 |
+| 8.2 |
+| 8.1 |
+| 8.0 |
+| 7.4 |
+| 7.3 |
+| 7.2 |
+| 7.1 |
+| 7.0 |
+| 5.6 |
+
+### Choices for main > php_fpm_versions_present
+
+|Choice|
+|---|
+| 8.4 |
+| 8.3 |
+| 8.2 |
+| 8.1 |
+| 8.0 |
+| 7.4 |
+| 7.3 |
+| 7.2 |
+| 7.1 |
+| 7.0 |
+| 5.6 |
+
+### Choices for main > php_mods_ver_absent
+
+|Choice|
+|---|
+| 8.4 |
+| 8.3 |
+| 8.2 |
+| 8.1 |
+| 8.0 |
+| 7.4 |
+| 7.3 |
+| 7.2 |
+| 7.1 |
+| 7.0 |
+| 5.6 |
+
+### Choices for main > php_mods_ver_present
+
+|Choice|
+|---|
+| 8.4 |
+| 8.3 |
+| 8.2 |
+| 8.1 |
+| 8.0 |
+| 7.4 |
+| 7.3 |
+| 7.2 |
+| 7.1 |
+| 7.0 |
+| 5.6 |
+
 ### Choices for main > php_modules > sapis > sapi
 
 |Choice|
@@ -155,6 +236,38 @@ The main entry point for the PHP role.
 | present |
 
 ### Choices for main > php_modules > version
+
+|Choice|
+|---|
+| 8.4 |
+| 8.3 |
+| 8.2 |
+| 8.1 |
+| 8.0 |
+| 7.4 |
+| 7.3 |
+| 7.2 |
+| 7.1 |
+| 7.0 |
+| 5.6 |
+
+### Choices for main > php_ver_absent
+
+|Choice|
+|---|
+| 8.4 |
+| 8.3 |
+| 8.2 |
+| 8.1 |
+| 8.0 |
+| 7.4 |
+| 7.3 |
+| 7.2 |
+| 7.1 |
+| 7.0 |
+| 5.6 |
+
+### Choices for main > php_ver_present
 
 |Choice|
 |---|
