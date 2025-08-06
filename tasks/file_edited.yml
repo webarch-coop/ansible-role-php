@@ -70,7 +70,7 @@
     - name: The proposed PHP configuration file variables are empty or a dictionary
       ansible.builtin.assert:
         that:
-          - ( php_conf_file_proposed_vars | length == 0 ) or ( php_conf_file_proposed_vars | ansible.builtin.type_debug == "dict" )
+          - ( php_conf_file_proposed_vars | ansible.builtin.type_debug == "NoneType" ) or ( php_conf_file_proposed_vars | ansible.builtin.type_debug == "dict" )
         quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
         fail_msg: >-
           The php_conf_file_proposed_vars variable should be empty or be a dictionary, neither appears to be the case, it is set to
