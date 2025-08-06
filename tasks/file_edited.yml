@@ -108,13 +108,13 @@
           ansible.builtin.set_fact:
             php_conf_file_proposed_sections: >-
               {%- if (php_conf_file_proposed_vars is defined) and
-              (php_conf_file_proposed_vars | length > 0) and
+              (php_conf_file_proposed_vars | ansible.builtin.type_debug != "NoneType") and
               (php_conf_file_proposed_vars |
               ansible.builtin.json_query('*[]') |
               map('ansible.builtin.type_debug') |
               unique)[0] == "dict"
               -%}true{%- elif (php_conf_file_absent_vars is defined) and
-              (php_conf_file_absent_vars | length > 0) and
+              (php_conf_file_absent_vars | ansible.builtin.type_debug != "NoneType") and
               (php_conf_file_absent_vars |
               ansible.builtin.json_query('*[]') |
               map('ansible.builtin.type_debug') |
