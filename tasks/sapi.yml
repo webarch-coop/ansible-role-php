@@ -141,7 +141,9 @@
         php_task_name: "Set a fact for the PHP {{ php_version.version }} {{ php_sapi }} SAPI mods that require disabling"
       when:
         - php_mods_disable != []
+        - php_mods_disable | ansible.builtin.type_debug != "NoneType"
         - php_mods_enabled != []
+        - php_mods_enabled | ansible.builtin.type_debug != "NoneType"
 
     - name: "{{ php_task_name }}"
       ansible.builtin.set_fact:
@@ -150,13 +152,19 @@
         php_task_name: "Set a fact for the PHP {{ php_version.version }} {{ php_sapi }} SAPI mods that require enabling"
       when:
         - php_mods_disable != []
+        - php_mods_disable | ansible.builtin.type_debug != "NoneType"
         - php_mods_enabled != []
+        - php_mods_enabled | ansible.builtin.type_debug != "NoneType"
 
     - name: Set a fact to indicate that no SAPI mods that require enabling or disabling
       ansible.builtin.set_fact:
         php_dismods: []
         php_enmods: []
-      when: (php_mods_disable == []) or (php_mods_enabled == [])
+      when: >-
+        (php_mods_disable == []) or
+        (php_mods_disable | ansible.builtin.type_debug != "NoneType") or
+        (php_mods_enabled == []) or
+        (php_mods_enabled | ansible.builtin.type_debug != "NoneType")
 
     - name: Run phpdismod
       block:
