@@ -19,7 +19,7 @@
 
     - name: Set a fact for installed PHP packages that are to be removed
       ansible.builtin.set_fact:
-        php_pkg_remove: "{{ ansible_facts.ansible_local.dpkg.installed | ansible.builtin.intersect(php_pkg_absent) | default([]) }}"
+        php_pkg_remove: "{{ ansible_facts.ansible_local.dpkg.installed | ansible.builtin.intersect(php_pkg_absent) | default([]) | sort }}"
 
     - name: Debug installed PHP packages that are to be removed
       ansible.builtin.debug:
@@ -41,7 +41,7 @@
 
     - name: Set a fact for PHP packages that should be removed due to their version
       ansible.builtin.set_fact:
-        php_ver_pkg_remove: "{{ php_ver_pkg_remove + ansible_facts.ansible_local.dpkg.installed | select('regex', php_regex) }}"
+        php_ver_pkg_remove: "{{ php_ver_pkg_remove + ansible_facts.ansible_local.dpkg.installed | select('regex', php_regex) | sort }}"
       loop: "{{ php_ver_absent_regex }}"
       loop_control:
         loop_var: php_regex
@@ -54,7 +54,7 @@
 
     - name: Set a fact for all installed PHP packages that should be removed
       ansible.builtin.set_fact:
-        php_pkg_rm: "{{ php_pkg_remove + php_ver_pkg_remove | ansible.builtin.unique }}"
+        php_pkg_rm: "{{ php_pkg_remove + php_ver_pkg_remove | ansible.builtin.unique | sort }}"
 
     - name: Debug all installed PHP packages to be removed
       ansible.builtin.debug:
@@ -76,7 +76,7 @@
 
     - name: Set a fact for PHP packages that should be installed
       ansible.builtin.set_fact:
-        php_pkg_install: "{{ php_pkg_present | ansible.builtin.difference(ansible_local.dpkg.installed) }}"
+        php_pkg_install: "{{ php_pkg_present | ansible.builtin.difference(ansible_local.dpkg.installed) | sort }}"
 
     - name: Debug PHP packages to install
       ansible.builtin.debug:
