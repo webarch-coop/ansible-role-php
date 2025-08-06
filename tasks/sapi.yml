@@ -117,12 +117,22 @@
       vars:
         php_task_name: "Debug the PHP {{ php_version.version }} {{ php_sapi }} SAPI mods that are disabled"
 
+    - name: Debug php_mods_disabled | ansible.builtin.type_debug
+      ansible.builtin.debug:
+        var: php_mods_disabled | ansible.builtin.type_debug
+        verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+
     - name: "{{ php_task_name }}"
       ansible.builtin.debug:
         var: php_mods_enabled
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
       vars:
         php_task_name: "Debug the PHP {{ php_version.version }} {{ php_sapi }} SAPI mods that are enabled"
+
+    - name: Debug php_mods_enabled | ansible.builtin.type_debug
+      ansible.builtin.debug:
+        var: php_mods_enabled | ansible.builtin.type_debug
+        verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
 
     - name: "{{ php_task_name }}"
       ansible.builtin.set_fact:
