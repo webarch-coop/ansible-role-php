@@ -144,8 +144,8 @@
           when: php_conf_file_existing_vars | length > 0
 
       when: >-
-        ( php_conf_file_proposed_vars | length > 0 ) or
-        ( php_conf_file_absent_vars | length > 0 )
+        ( php_conf_file_proposed_vars | ansible.builtin.type_debug != "NoneType" ) or
+        ( php_conf_file_absent_vars | ansible.builtin.type_debug != "NoneType" )
 
     - name: Set facts for the PHP configuration file
       ansible.builtin.set_fact:
