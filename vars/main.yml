@@ -2413,6 +2413,7 @@ php_debian_trixie_pkg:
   - php5.6-common
   - php5.6-curl
   - php5.6-dba
+  - php5.6-dio
   - php5.6-enchant
   - php5.6-fpm
   - php5.6-gd
@@ -2434,6 +2435,7 @@ php_debian_trixie_pkg:
   - php5.6-mailparse
   - php5.6-mbstring
   - php5.6-mcrypt
+  - php5.6-memcache
   - php5.6-memcached
   - php5.6-mongo
   - php5.6-mongodb
@@ -2460,21 +2462,25 @@ php_debian_trixie_pkg:
   - php5.6-soap
   - php5.6-solr
   - php5.6-sqlite3
+  - php5.6-ssh2
   - php5.6-stomp
   - php5.6-sybase
   - php5.6-tidy
   - php5.6-uploadprogress
+  - php5.6-xcache
   - php5.6-xdebug
   - php5.6-xhprof
   - php5.6-xml
   - php5.6-xmlrpc
   - php5.6-xsl
+  - php5.6-yac
   - php5.6-yaml
   - php5.6-zip
   - php5.6-zmq
   - php7.0
   - php7.0-amqp
   - php7.0-apcu
+  - php7.0-apcu-bc
   - php7.0-bcmath
   - php7.0-bz2
   - php7.0-cgi
@@ -2482,6 +2488,8 @@ php_debian_trixie_pkg:
   - php7.0-common
   - php7.0-curl
   - php7.0-dba
+  - php7.0-decimal
+  - php7.0-dio
   - php7.0-ds
   - php7.0-enchant
   - php7.0-fpm
@@ -2501,6 +2509,7 @@ php_debian_trixie_pkg:
   - php7.0-intl
   - php7.0-json
   - php7.0-ldap
+  - php7.0-lua
   - php7.0-lz4
   - php7.0-mailparse
   - php7.0-mbstring
@@ -2515,6 +2524,7 @@ php_debian_trixie_pkg:
   - php7.0-pgsql
   - php7.0-phalcon3
   - php7.0-phpdbg
+  - php7.0-pinba
   - php7.0-pq
   - php7.0-propro
   - php7.0-protobuf
@@ -2554,6 +2564,7 @@ php_debian_trixie_pkg:
   - php7.1
   - php7.1-amqp
   - php7.1-apcu
+  - php7.1-apcu-bc
   - php7.1-bcmath
   - php7.1-bz2
   - php7.1-cgi
@@ -2561,6 +2572,8 @@ php_debian_trixie_pkg:
   - php7.1-common
   - php7.1-curl
   - php7.1-dba
+  - php7.1-decimal
+  - php7.1-dio
   - php7.1-ds
   - php7.1-enchant
   - php7.1-excimer
@@ -2580,6 +2593,7 @@ php_debian_trixie_pkg:
   - php7.1-intl
   - php7.1-json
   - php7.1-ldap
+  - php7.1-lua
   - php7.1-lz4
   - php7.1-mailparse
   - php7.1-mbstring
@@ -2595,6 +2609,7 @@ php_debian_trixie_pkg:
   - php7.1-pgsql
   - php7.1-phalcon3
   - php7.1-phpdbg
+  - php7.1-pinba
   - php7.1-pq
   - php7.1-propro
   - php7.1-protobuf
@@ -2635,6 +2650,7 @@ php_debian_trixie_pkg:
   - php7.2
   - php7.2-amqp
   - php7.2-apcu
+  - php7.2-apcu-bc
   - php7.2-ast
   - php7.2-bcmath
   - php7.2-bz2
@@ -2643,6 +2659,8 @@ php_debian_trixie_pkg:
   - php7.2-common
   - php7.2-curl
   - php7.2-dba
+  - php7.2-decimal
+  - php7.2-dio
   - php7.2-ds
   - php7.2-enchant
   - php7.2-excimer
@@ -2662,6 +2680,7 @@ php_debian_trixie_pkg:
   - php7.2-intl
   - php7.2-json
   - php7.2-ldap
+  - php7.2-lua
   - php7.2-lz4
   - php7.2-mailparse
   - php7.2-maxminddb
@@ -2679,6 +2698,7 @@ php_debian_trixie_pkg:
   - php7.2-phalcon3
   - php7.2-phalcon4
   - php7.2-phpdbg
+  - php7.2-pinba
   - php7.2-pq
   - php7.2-propro
   - php7.2-protobuf
@@ -2718,6 +2738,7 @@ php_debian_trixie_pkg:
   - php7.3
   - php7.3-amqp
   - php7.3-apcu
+  - php7.3-apcu-bc
   - php7.3-ast
   - php7.3-bcmath
   - php7.3-bz2
@@ -2726,6 +2747,8 @@ php_debian_trixie_pkg:
   - php7.3-common
   - php7.3-curl
   - php7.3-dba
+  - php7.3-decimal
+  - php7.3-dio
   - php7.3-enchant
   - php7.3-excimer
   - php7.3-fpm
@@ -2744,6 +2767,7 @@ php_debian_trixie_pkg:
   - php7.3-intl
   - php7.3-json
   - php7.3-ldap
+  - php7.3-lua
   - php7.3-lz4
   - php7.3-mailparse
   - php7.3-maxminddb
@@ -2761,6 +2785,7 @@ php_debian_trixie_pkg:
   - php7.3-phalcon3
   - php7.3-phalcon4
   - php7.3-phpdbg
+  - php7.3-pinba
   - php7.3-pq
   - php7.3-propro
   - php7.3-protobuf
@@ -2801,6 +2826,7 @@ php_debian_trixie_pkg:
   - php7.4
   - php7.4-amqp
   - php7.4-apcu
+  - php7.4-apcu-bc
   - php7.4-ast
   - php7.4-bcmath
   - php7.4-bz2
@@ -2809,6 +2835,8 @@ php_debian_trixie_pkg:
   - php7.4-common
   - php7.4-curl
   - php7.4-dba
+  - php7.4-decimal
+  - php7.4-dio
   - php7.4-ds
   - php7.4-enchant
   - php7.4-excimer
@@ -2828,6 +2856,7 @@ php_debian_trixie_pkg:
   - php7.4-intl
   - php7.4-json
   - php7.4-ldap
+  - php7.4-lua
   - php7.4-lz4
   - php7.4-mailparse
   - php7.4-maxminddb
@@ -2843,6 +2872,7 @@ php_debian_trixie_pkg:
   - php7.4-pgsql
   - php7.4-phalcon4
   - php7.4-phpdbg
+  - php7.4-pinba
   - php7.4-pq
   - php7.4-propro
   - php7.4-protobuf
@@ -2891,6 +2921,7 @@ php_debian_trixie_pkg:
   - php8.0-common
   - php8.0-curl
   - php8.0-dba
+  - php8.0-decimal
   - php8.0-dio
   - php8.0-ds
   - php8.0-enchant
@@ -2926,6 +2957,7 @@ php_debian_trixie_pkg:
   - php8.0-phalcon
   - php8.0-phalcon5
   - php8.0-phpdbg
+  - php8.0-pinba
   - php8.0-pq
   - php8.0-protobuf
   - php8.0-ps
@@ -2972,6 +3004,7 @@ php_debian_trixie_pkg:
   - php8.1-common
   - php8.1-curl
   - php8.1-dba
+  - php8.1-decimal
   - php8.1-dio
   - php8.1-ds
   - php8.1-enchant
@@ -3008,6 +3041,7 @@ php_debian_trixie_pkg:
   - php8.1-phalcon
   - php8.1-phalcon5
   - php8.1-phpdbg
+  - php8.1-pinba
   - php8.1-pq
   - php8.1-protobuf
   - php8.1-ps
@@ -3055,6 +3089,7 @@ php_debian_trixie_pkg:
   - php8.2-common
   - php8.2-curl
   - php8.2-dba
+  - php8.2-decimal
   - php8.2-dio
   - php8.2-ds
   - php8.2-enchant
@@ -3138,6 +3173,7 @@ php_debian_trixie_pkg:
   - php8.3-common
   - php8.3-curl
   - php8.3-dba
+  - php8.3-decimal
   - php8.3-dio
   - php8.3-ds
   - php8.3-enchant
@@ -3174,6 +3210,7 @@ php_debian_trixie_pkg:
   - php8.3-phalcon
   - php8.3-phalcon5
   - php8.3-phpdbg
+  - php8.3-pinba
   - php8.3-pq
   - php8.3-protobuf
   - php8.3-ps
@@ -3220,6 +3257,7 @@ php_debian_trixie_pkg:
   - php8.4-common
   - php8.4-curl
   - php8.4-dba
+  - php8.4-decimal
   - php8.4-dio
   - php8.4-ds
   - php8.4-enchant
@@ -3292,6 +3330,7 @@ php_debian_trixie_pkg:
   - php8.4-zstd
   - php-amqp
   - php-apcu
+  - php-apcu-bc
   - php-ast
   - php-bcmath
   - php-bz2
@@ -3299,6 +3338,7 @@ php_debian_trixie_pkg:
   - php-cli
   - php-common
   - php-curl
+  - php-decimal
   - php-dio
   - php-ds
   - php-enchant
@@ -3341,6 +3381,7 @@ php_debian_trixie_pkg:
   - php-phalcon4
   - php-phalcon5
   - php-phpdbg
+  - php-pinba
   - php-pq
   - php-protobuf
   - php-ps
@@ -3368,6 +3409,7 @@ php_debian_trixie_pkg:
   - php-uploadprogress
   - php-uuid
   - php-vips
+  - php-xcache
   - php-xdebug
   - php-xhprof
   - php-xlswriter
