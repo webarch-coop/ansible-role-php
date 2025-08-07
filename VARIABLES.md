@@ -11,10 +11,19 @@ The main entry point for the PHP role.
 | php | Run the tasks in this role. | bool | yes |
 | php_ansible_managed | The ansible_managed string. | str | yes |
 | php_check_legacy_variables | Check that legacy variables and not defined. | bool | no |
+| php_conf_dirs_absent | A generated list of PHP configuration directories to remove if present. | list of 'str' | no |
+| php_conf_dirs_present | A generated list of PHP configuration directories to create if absent. | list of 'str' | no |
+| php_conf_files_absent | A generated list of PHP configuration files to remove if present. | list of 'str' | no |
+| php_conf_files_edited | A generated list of PHP configuration files to edit if present. | list of 'str' | no |
+| php_conf_files_present | A generated list of php configuration files to edit if present or template if absent. | list of 'str' | no |
+| php_conf_files_not_absent | A generated list of php configuration files that are not absent. | list of 'str' | no |
 | php_conf_files_templated | A generated list of php configuration files to template. | list of 'str' | no |
 | php_conf_not_absent | A generated list of php configuration that is not absent. | list of 'str' | no |
 | php_conf_opcache_jit_buffer_sizes | A generated list of the opcache.jit_buffer_sizes. | list of 'str' | no |
 | php_conf_opcache_jit_buffer_sizes_jmespath_query | A JMESPath query for the opcache.jit_buffer_sizes. | str | yes |
+| php_conf_pool_files_not_absent | A generated list of php pool files that are not absent. | list of 'str' | no |
+| php_conf_ver_absent | a generated list of versions of php configuration to remove if present. | list of 'str' | no |
+| php_conf_ver_present | a generated list of versions of php configuration that should be present. | list of 'str' | no |
 | php_config | Optional PHP configuration. | list of dicts of 'php_config' options | no |
 | php_date_timestamp | Internal variable for a date timestamp for file backups. | str | no |
 | php_debian_bullseye_pkg | A list of Debian Bullseye packages to install. | list of 'str' | no |
@@ -30,7 +39,10 @@ The main entry point for the PHP role.
 | php_fpm_version | Loop variables for a PHP-FPM version. | str | no |
 | php_fpm_versions_present | A generated list of PHP-FPM versions present. | list of 'str' | no |
 | php_mods_ver_absent | A generated list of PHP versions for which module configuration should be absent. | list of 'str' | no |
+| php_mods_ver_present | A generated list of PHP versions for which module configuration should be present. | list of 'str' | no |
 | php_modules | An optional list of PHP versions that require module configuration. | list of dicts of 'php_modules' options | no |
+| php_pkg_absent | A generated list of PHP packages which should be absent. | list of 'str' | no |
+| php_pkg_present | A generated list of PHP packages which should be present. | list of 'str' | no |
 | php_pool_names_not_absent | A generated list of PHP-FPM pool names that are not absent. | list of 'str' | no |
 | php_sapis | A list of PHP SAPIs. | list of 'str' | yes |
 | php_sapi_regex | A regular expression to match the SAPIs. | str | yes |
@@ -42,6 +54,7 @@ The main entry point for the PHP role.
 | php_ver_absent | A generated list of PHP versions which should be absent. | list of 'str' | no |
 | php_ver_absent_regex | A pattern to use as a regular expression to find versions of PHP which should be absent. | str | yes |
 | php_ver_pkg_remove | A generated list of PHP packages to remove. | list of 'str' | no |
+| php_ver_present | A generated list of PHP versions which should be present. | list of 'str' | no |
 | php_verify | Verify all variables starting with php underscore using the argument spec. | bool | no |
 | php_versions | A list of PHP versions and their packages and state. | list of dicts of 'php_versions' options | no |
 
@@ -175,6 +188,22 @@ The main entry point for the PHP role.
 | 7.0 |
 | 5.6 |
 
+### Choices for main > php_mods_ver_present
+
+|Choice|
+|---|
+| 8.4 |
+| 8.3 |
+| 8.2 |
+| 8.1 |
+| 8.0 |
+| 7.4 |
+| 7.3 |
+| 7.2 |
+| 7.1 |
+| 7.0 |
+| 5.6 |
+
 ### Choices for main > php_modules > sapis > sapi
 
 |Choice|
@@ -207,6 +236,22 @@ The main entry point for the PHP role.
 | 5.6 |
 
 ### Choices for main > php_ver_absent
+
+|Choice|
+|---|
+| 8.4 |
+| 8.3 |
+| 8.2 |
+| 8.1 |
+| 8.0 |
+| 7.4 |
+| 7.3 |
+| 7.2 |
+| 7.1 |
+| 7.0 |
+| 5.6 |
+
+### Choices for main > php_ver_present
 
 |Choice|
 |---|
