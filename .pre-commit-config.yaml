@@ -35,14 +35,14 @@ repos:
           - VARIABLES.md
   # https://github.com/ansible/ansible-lint/releases
   - repo: https://github.com/ansible/ansible-lint.git
-    rev: v25.7.0
+    rev: v25.8.1
     hooks:
       - id: ansible-lint
         name: Ansible Lint
         language: python
         additional_dependencies:
           # https://pypi.org/project/ansible/
-          - ansible==11.8.0
+          - ansible==11.9.0
          # https://github.com/kellyjonbrazil/jc/releases
           - jc==1.25.5
           # https://github.com/jmespath/jmespath.py/tags
