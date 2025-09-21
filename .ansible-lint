@@ -11,6 +11,6 @@
 # https://ansible-lint.readthedocs.io/rules/
 skip_list:
   - key-order[task]
-var_naming_pattern: "^[php|molecule]_?[a-z0-9_]*$"
+var_naming_pattern: "^[ansible|php|molecule]_?[a-z0-9_]*$"
 # vim: syntax=yaml
 ...

@@ -8,9 +8,7 @@
 #
 # You should have received a copy of the GNU General Public License along with the Webarchitects PHP Ansible role. If not, see <https://www.gnu.org/licenses/>.
 ---
-# The ansible_managed string for lineinfile is set here, ensure it matches
-# the values that ansible_managed is set to for idempotency
-php_ansible_managed: Ansible managed
+ansible_managed: Ansible managed
 
 php_fpm_pools: []
 php_pool_names_not_absent: []

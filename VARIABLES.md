@@ -9,7 +9,6 @@ The main entry point for the PHP role.
 |Option|Description|Type|Required|
 |---|---|---|---|
 | php | Run the tasks in this role. | bool | yes |
-| php_ansible_managed | The ansible_managed string. | str | yes |
 | php_check_legacy_variables | Check that legacy variables and not defined. | bool | no |
 | php_conf_dirs_absent | A generated list of PHP configuration directories to remove if present. | list of 'str' | no |
 | php_conf_dirs_present | A generated list of PHP configuration directories to create if absent. | list of 'str' | no |
