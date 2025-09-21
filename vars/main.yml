@@ -28,22 +28,26 @@ phphostvars: "{{ dict(phpvarnames | list | zip(q('vars', *phpvarnames))) }}"
 
 # PHP versions absent
 # cat defaults/main.yml | yq -o=json | jp "sort(php_versions[?state=='absent'].version)"
-php_ver_absent: "{{ php_versions | community.general.json_query('sort([?state==`absent`].version)') }}"
+# php_ver_absent: "{{ php_versions | community.general.json_query('sort([?state==`absent`].version)') }}"
+php_ver_absent: "{{ php_versions | community.general.json_query('[?state==`absent`].version') | sort }}"
 php_ver_absent_regex: "{{ php_versions | community.general.json_query('[?state==`absent`].version') | sort | map('regex_replace', '^', '^php') }}"
 
 php_ver_pkg_remove: []
 
 # PHP versions present
 # cat defaults/main.yml | yq -o=json | jp "sort(php_versions[?state=='present'].version)"
-php_ver_present: "{{ php_versions | community.general.json_query('sort([?state==`present`].version)') }}"
+# php_ver_present: "{{ php_versions | community.general.json_query('sort([?state==`present`].version)') }}"
+php_ver_present: "{{ php_versions | community.general.json_query('[?state==`present`].version') | sort }}"
 
 # PHP packages absent
 # cat defaults/main.yml | yq -o=json | jp "sort(php_versions[?state=='present'].pkg_absent[])"
-php_pkg_absent: "{{ php_versions | community.general.json_query('sort([?state==`present`].pkg_absent[])') | ansible.builtin.unique }}"
+# php_pkg_absent: "{{ php_versions | community.general.json_query('sort([?state==`present`].pkg_absent[])') | ansible.builtin.unique }}"
+php_pkg_absent: "{{ php_versions | community.general.json_query('[?state==`present`].pkg_absent[]') | sort | ansible.builtin.unique }}"
 
 # PHP packages present
 # cat defaults/main.yml | yq -o=json | jp "sort(php_versions[?state=='present'].pkg_present[])"
-php_pkg_present: "{{ php_versions | community.general.json_query('sort([?state==`present`].pkg_present[])') | ansible.builtin.unique }}"
+# php_pkg_present: "{{ php_versions | community.general.json_query('sort([?state==`present`].pkg_present[])') | ansible.builtin.unique }}"
+php_pkg_present: "{{ php_versions | community.general.json_query('[?state==`present`].pkg_present[]') | sort | ansible.builtin.unique }}"
 
 # The php_ver is used as an internal loop variable, it is set to null here for ansible-lint
 php_ver: null
@@ -53,42 +57,52 @@ php_conf_file_paths_jmespath_query: "[?version=='{{ php_ver }}'].files[].path"
 
 # PHP versions configuration absent
 # cat defaults/main.yml | yq -o=json | jp "sort(php_config[?state=='absent'].version)"
-php_conf_ver_absent: "{{ php_config | community.general.json_query('sort([?state==`absent`].version)') }}"
+# php_conf_ver_absent: "{{ php_config | community.general.json_query('sort([?state==`absent`].version)') }}"
+php_conf_ver_absent: "{{ php_config | community.general.json_query('[?state==`absent`].version') | sort }}"
 
 # PHP versions configuration present
 # cat defaults/main.yml | yq -o=json | jp "sort(php_config[?state=='present'].version)"
-php_conf_ver_present: "{{ php_config | community.general.json_query('sort([?state==`present`].version)') }}"
+# php_conf_ver_present: "{{ php_config | community.general.json_query('sort([?state==`present`].version)') }}"
+php_conf_ver_present: "{{ php_config | community.general.json_query('[?state==`present`].version') | sort }}"
 
 # PHP versions configuration directories absent
-php_conf_dirs_absent: "{{ php_config | community.general.json_query('sort([?state==`absent`].version)') | map('regex_replace', '^', '/etc/php/') }}"
+# php_conf_dirs_absent: "{{ php_config | community.general.json_query('sort([?state==`absent`].version)') | map('regex_replace', '^', '/etc/php/') }}"
+php_conf_dirs_absent: "{{ php_config | community.general.json_query('[?state==`absent`].version') | sort | map('regex_replace', '^', '/etc/php/') }}"
 
 # PHP versions configuration directories present
 # cat defaults/main.yml | yq -o=json | jp "sort(php_config[?state=='present'].version)"
-php_conf_dirs_present: "{{ php_config | community.general.json_query('sort([?state==`present`].version)') | map('regex_replace', '^', '/etc/php/') }}"
+# php_conf_dirs_present: "{{ php_config | community.general.json_query('sort([?state==`present`].version)') | map('regex_replace', '^', '/etc/php/') }}"
+php_conf_dirs_present: "{{ php_config | community.general.json_query('[?state==`present`].version') | sort | map('regex_replace', '^', '/etc/php/') }}"
 
 # PHP versions present files absent
 # cat defaults/main.yml | yq -o=json | jp "sort(php_config[?state=='present'].files[]|[?state=='absent'].path)"
-php_conf_files_absent: "{{ php_config | community.general.json_query('sort([?state==`present`].files[]|[?state==`absent`].path)') }}"
+# php_conf_files_absent: "{{ php_config | community.general.json_query('sort([?state==`present`].files[]|[?state==`absent`].path)') }}"
+php_conf_files_absent: "{{ php_config | community.general.json_query('[?state==`present`].files[]|[?state==`absent`].path') | sort }}"
 
 # PHP versions present configuration files edited
 # cat defaults/main.yml | yq -o=json | jp "sort(php_config[?state=='present'].files[]|[?state=='edited'].path)"
-php_conf_files_edited: "{{ php_config | community.general.json_query('sort([?state==`present`].files[]|[?state==`edited`].path)') }}"
+# php_conf_files_edited: "{{ php_config | community.general.json_query('sort([?state==`present`].files[]|[?state==`edited`].path)') }}"
+php_conf_files_edited: "{{ php_config | community.general.json_query('[?state==`present`].files[]|[?state==`edited`].path') | sort }}"
 
 # PHP versions present configuration files present
 # cat defaults/main.yml | yq -o=json | jp "sort(php_config[?state=='present'].files[]|[?state=='present'].path)"
-php_conf_files_present: "{{ php_config | community.general.json_query('sort([?state==`present`].files[]|[?state==`present`].path)') }}"
+# php_conf_files_present: "{{ php_config | community.general.json_query('sort([?state==`present`].files[]|[?state==`present`].path)') }}"
+php_conf_files_present: "{{ php_config | community.general.json_query('[?state==`present`].files[]|[?state==`present`].path') | sort }}"
 
 # PHP versions present configuration files templated
 # cat defaults/main.yml | yq -o=json | jp "sort(php_config[?state=='present'].files[]|[?state=='templated'].path)"
-php_conf_files_templated: "{{ php_config | community.general.json_query('sort([?state==`present`].files[]|[?state==`templated`].path)') }}"
+# php_conf_files_templated: "{{ php_config | community.general.json_query('sort([?state==`present`].files[]|[?state==`templated`].path)') }}"
+php_conf_files_templated: "{{ php_config | community.general.json_query('[?state==`present`].files[]|[?state==`templated`].path') | sort }}"
 
 # PHP versions present configuration files not absent
 # cat defaults/main.yml | yq -o=json | jp "sort(php_config[?state=='present'].files[]|[?state!='absent'].path)"
-php_conf_files_not_absent: "{{ php_config | community.general.json_query('sort([?state==`present`].files[]|[?state!=`absent`].path)') }}"
+# php_conf_files_not_absent: "{{ php_config | community.general.json_query('sort([?state==`present`].files[]|[?state!=`absent`].path)') }}"
+php_conf_files_not_absent: "{{ php_config | community.general.json_query('[?state==`present`].files[]|[?state!=`absent`].path') | sort }}"
 
 # PHP versions present pool configuration files not absent paths
 # cat defaults/main.yml | yq -o=json | jp "sort(php_config[?state=='present'].files[]|[?state!='absent'].path)" | egrep -e '^\[' -e '[\/]etc[\/]php[\/][0-9]{1,2}[.][0-9][\/]fpm[\/]pool.d[\/].*[.]conf' -e '\]$'
-php_conf_pool_files_not_absent: "{{ php_config | community.general.json_query('sort([?state==`present`].files[]|[?state!=`absent`].path)') | select('regex', '^[\/]etc[\/]php[\/][0-9]{1,2}[.][0-9][\/]fpm[\/]pool.d[\/].*[.]conf$') }}"
+# php_conf_pool_files_not_absent: "{{ php_config | community.general.json_query('sort([?state==`present`].files[]|[?state!=`absent`].path)') | select('regex', '^[\/]etc[\/]php[\/][0-9]{1,2}[.][0-9][\/]fpm[\/]pool.d[\/].*[.]conf$') }}"
+php_conf_pool_files_not_absent: "{{ php_config | community.general.json_query('[?state==`present`].files[]|[?state!=`absent`].path') | sort | select('regex', '^[\/]etc[\/]php[\/][0-9]{1,2}[.][0-9][\/]fpm[\/]pool.d[\/].*[.]conf$') }}"
 
 # PHP versions present configuration not absent
 # cat defaults/main.yml | yq -o=json | jp "php_config[?state=='present'].files[]|[?state!='absent']"
@@ -102,11 +116,13 @@ php_conf_opcache_jit_buffer_sizes: "{{ php_config | community.general.json_query
 
 # PHP modules configuration absent
 # cat defaults/main.yml | yq -o=json | jp "sort(php_modules[?state=='absent'].version)"
-php_mods_ver_absent: "{{ php_modules | community.general.json_query('sort([?state==`absent`].version)') }}"
+# php_mods_ver_absent: "{{ php_modules | community.general.json_query('sort([?state==`absent`].version)') }}"
+php_mods_ver_absent: "{{ php_modules | community.general.json_query('[?state==`absent`].version') | sort }}"
 
 # PHP modules configuration present
 # cat defaults/main.yml | yq -o=json | jp "sort(php_modules[?state=='present'].version)"
-php_mods_ver_present: "{{ php_modules | community.general.json_query('sort([?state==`present`].version)') }}"
+# php_mods_ver_present: "{{ php_modules | community.general.json_query('sort([?state==`present`].version)') }}"
+php_mods_ver_present: "{{ php_modules | community.general.json_query('[?state==`present`].version') | sort }}"
 
 # The following lists can be generated using the sury-packages.sh script in this directory.
 # To update them delete everything after this comment and inset the results of the script.
