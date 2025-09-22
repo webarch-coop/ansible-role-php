@@ -146,8 +146,6 @@
     - name: Dist upgrade
       ansible.builtin.apt:
         upgrade: dist
-        autoclean: true
-        autoremove: true
         update_cache: false
       register: php_dist_upgrade
       tags:
