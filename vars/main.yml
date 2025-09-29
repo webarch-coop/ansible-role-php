@@ -2529,6 +2529,7 @@ php_debian_trixie_pkg:
   - php7.0-mbstring
   - php7.0-mcrypt
   - php7.0-memcache
+  - php7.0-memcached
   - php7.0-mongodb
   - php7.0-msgpack
   - php7.0-mysql
@@ -2549,6 +2550,7 @@ php_debian_trixie_pkg:
   - php7.0-rdkafka
   - php7.0-readline
   - php7.0-recode
+  - php7.0-redis
   - php7.0-rrd
   - php7.0-smbclient
   - php7.0-snmp
@@ -2613,6 +2615,7 @@ php_debian_trixie_pkg:
   - php7.1-mbstring
   - php7.1-mcrypt
   - php7.1-memcache
+  - php7.1-memcached
   - php7.1-mongodb
   - php7.1-msgpack
   - php7.1-mysql
@@ -2634,6 +2637,7 @@ php_debian_trixie_pkg:
   - php7.1-rdkafka
   - php7.1-readline
   - php7.1-recode
+  - php7.1-redis
   - php7.1-rrd
   - php7.1-smbclient
   - php7.1-snmp
@@ -2701,6 +2705,7 @@ php_debian_trixie_pkg:
   - php7.2-mbstring
   - php7.2-mcrypt
   - php7.2-memcache
+  - php7.2-memcached
   - php7.2-mongodb
   - php7.2-msgpack
   - php7.2-mysql
@@ -2723,6 +2728,7 @@ php_debian_trixie_pkg:
   - php7.2-rdkafka
   - php7.2-readline
   - php7.2-recode
+  - php7.2-redis
   - php7.2-rrd
   - php7.2-smbclient
   - php7.2-snmp
@@ -2788,6 +2794,7 @@ php_debian_trixie_pkg:
   - php7.3-mbstring
   - php7.3-mcrypt
   - php7.3-memcache
+  - php7.3-memcached
   - php7.3-mongodb
   - php7.3-msgpack
   - php7.3-mysql
@@ -2811,6 +2818,7 @@ php_debian_trixie_pkg:
   - php7.3-rdkafka
   - php7.3-readline
   - php7.3-recode
+  - php7.3-redis
   - php7.3-rrd
   - php7.3-smbclient
   - php7.3-snmp
@@ -2877,6 +2885,7 @@ php_debian_trixie_pkg:
   - php7.4-mbstring
   - php7.4-mcrypt
   - php7.4-memcache
+  - php7.4-memcached
   - php7.4-msgpack
   - php7.4-mysql
   - php7.4-oauth
@@ -2960,6 +2969,7 @@ php_debian_trixie_pkg:
   - php8.0-mbstring
   - php8.0-mcrypt
   - php8.0-memcache
+  - php8.0-memcached
   - php8.0-msgpack
   - php8.0-mysql
   - php8.0-oauth
@@ -3043,6 +3053,7 @@ php_debian_trixie_pkg:
   - php8.1-mbstring
   - php8.1-mcrypt
   - php8.1-memcache
+  - php8.1-memcached
   - php8.1-mongodb
   - php8.1-msgpack
   - php8.1-mysql
@@ -3128,6 +3139,7 @@ php_debian_trixie_pkg:
   - php8.2-mbstring
   - php8.2-mcrypt
   - php8.2-memcache
+  - php8.2-memcached
   - php8.2-mongodb
   - php8.2-msgpack
   - php8.2-mysql
@@ -3212,6 +3224,7 @@ php_debian_trixie_pkg:
   - php8.3-mbstring
   - php8.3-mcrypt
   - php8.3-memcache
+  - php8.3-memcached
   - php8.3-mongodb
   - php8.3-msgpack
   - php8.3-mysql
@@ -3296,6 +3309,7 @@ php_debian_trixie_pkg:
   - php8.4-mbstring
   - php8.4-mcrypt
   - php8.4-memcache
+  - php8.4-memcached
   - php8.4-mongodb
   - php8.4-msgpack
   - php8.4-mysql
@@ -3379,6 +3393,7 @@ php_debian_trixie_pkg:
   - php-mbstring
   - php-mcrypt
   - php-memcache
+  - php-memcached
   - php-mongo
   - php-mongodb
   - php-msgpack
