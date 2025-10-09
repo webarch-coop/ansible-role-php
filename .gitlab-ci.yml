@@ -42,8 +42,6 @@ bookworm:
   image: registry.git.coop/webarch/containers/images/bookworm:20250922
   stage: bookworm
   script:
-    - pre-commit install
-    - pre-commit run --all-files
     - molecule test --all
 trixie:
   image: registry.git.coop/webarch/containers/images/trixie:20250922
