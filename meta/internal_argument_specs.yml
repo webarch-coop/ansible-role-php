@@ -1,0 +1,329 @@
+# Copyright 2019-2025 Chris Croome
+#
+# This file is part of the Webarchitects PHP Ansible role.
+#
+# The Webarchitects PHP Ansible role is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#
+# The Webarchitects PHP Ansible role is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with the Webarchitects PHP Ansible role. If not, see <https://www.gnu.org/licenses/>.
+---
+argument_specs:
+  main:
+    author: Chris Croome
+    description: Ansible role for installing and configuring PHP on Debian.
+    short_description: The main entry point for the PHP role.
+    options:
+      php_apt_clean:
+        type: dict
+        required: false
+        description: Internal dictionary containing the result from running apt clean.
+      php_apt_key_path:
+        type: dict
+        required: false
+        description: Internal dictionary containing the results from statting the Sury GPG keyring file.
+      php_conf_dir_created:
+        type: dict
+        required: false
+        description: Internal dictionary containing the result from looping through the task to create PHP configuration directories.
+      php_conf_dirs_create:
+        type: list
+        required: false
+        description: Internal list of PHP configuration directories to be created.
+      php_conf_dirs_existing:
+        type: list
+        required: false
+        description: Internal list of existing PHP configuration directories.
+      php_conf_dirs_remove:
+        type: list
+        required: false
+        description: Internal list of PHP configuration directories to remove.
+      php_conf_file_absent_vars:
+        type: dict
+        required: false
+        description: Internal dictionary of absent PHP configuration file variables.
+      php_conf_file_b64encoded:
+        type: dict
+        required: false
+        description: Internal dictionary with the results of slurping an existing PHP configuration file.
+      php_conf_file_backup:
+        type: str
+        required: false
+        description: Internal string for the path of a PHP configuration backup file.
+      php_conf_file_changed:
+        type: bool
+        required: false
+        description: Internal boolean to indivate if a PHP configuration file has changed.
+      php_conf_file_edited:
+        type: dict
+        required: false
+        description: Internal dictionary containing the result from looping through PHP configuration file edits.
+      php_conf_file_existing_sections:
+        type: bool
+        required: false
+        description: Internal boolean indicating if an existing PHP configuration file contains sections.
+      php_conf_file_existing_vars:
+        type: dict
+        required: false
+        description: Internal dictionary generated from an existing PHP configuration file configuration.
+      php_conf_file_no_extra_spaces:
+        type: bool
+        required: false
+        description: Internal boolean indicating if a PHP configuration file has extra space or not.
+      php_conf_file_proposed_sections:
+        type: bool
+        required: false
+        description: Internal boolean indicating if a proposed PHP configuration file has sections.
+      php_conf_file_proposed_vars:
+        type: dict
+        required: false
+        description: Internal dictionary of proposed PHP configuration.
+      php_conf_file_sapi:
+        type: str
+        required: false
+        description: Internal string for the SAPI of a PHP configuration file.
+        choices:
+          - apache2
+          - cli
+          - fpm
+      php_conf_file_version:
+        type: str
+        required: false
+        description: Internal string for the PHP version of a PHP configuration file.
+        elements: str
+        choices:
+          - "8.4"
+          - "8.3"
+          - "8.2"
+          - "8.1"
+          - "8.0"
+          - "7.4"
+          - "7.3"
+          - "7.2"
+          - "7.1"
+          - "7.0"
+          - "5.6"
+      php_conf_files_edit:
+        type: list
+        elements: str
+        required: false
+        description: Internal list of PHP configuration files to be edited.
+      php_conf_files_existing:
+        type: list
+        elements: str
+        required: false
+        description: Internal list of existing PHP configuration files.
+      php_conf_files_remove:
+        type: list
+        elements: str
+        required: false
+        description: Internal list of PHP configuration files to remove.
+      php_conf_files_template:
+        type: list
+        elements: str
+        required: false
+        description: Internal list of PHP configuration files to template.
+      php_conf_removed:
+        type: dict
+        required: false
+        description: Internal dictionary with the results of looping through a list of files to remove.
+      php_conf_rm:
+        type: list
+        elements: str
+        required: false
+        description: Internal list of PHP configuration files and directories to remove.
+      php_dismods:
+        type: list
+        elements: str
+        required: false
+        description: Internal list of PHP modules to be disabled.
+      php_dismods_result:
+        type: dict
+        required: false
+        description: Internal dictionary with the results from disabling a PHP module.
+      php_dist_upgrade:
+        type: dict
+        required: false
+        description: Internal dictionary with the results from running apt dist-upgrade.
+      php_enmods:
+        type: list
+        elements: str
+        required: false
+        description: Internal list of PHP modules to be enabled.
+      php_enmods_result:
+        type: dict
+        required: false
+        description: Internal dictionary with the results from enabling a PHP module.
+      php_etc_php_find_dirs:
+        type: dict
+        required: false
+        description: Internal dictionary with the results from finding existing PHP versions directories.
+      php_etc_php_find_files:
+        type: dict
+        required: false
+        description: Internal dictionary with the results from finding existing PHP .conf and .ini configuration files.
+      php_file_absent_path:
+        type: dict
+        required: false
+        description: Internal dictionary with the results from statting the path of a PHP configuration file that should be absent.
+      php_file_path_absent:
+        type: dict
+        required: false
+        description: Internal dictionary with the results from backing up and removing a PHP configuration file that should be absent.
+      php_fpm_pool_file_contents:
+        type: dict
+        required: false
+        description: Internal dictionary with the contents of multiple slurped PHP pool.d configuration files.
+      php_fpm_pool_files:
+        type: dict
+        required: false
+        description: Internal dictionary with the results from finding existing PHP configuration pool.d .conf files.
+      php_fpm_pool_files_b64encoded:
+        type: dict
+        required: false
+        description: Internal dictionary with the base64 encoded contents of multiple slurped PHP pool.d configuration files.
+      php_fpm_pool_files_found:
+        type: dict
+        required: false
+        description: Internal dictionary with the results from finding existing PHP pool.d configuration files.
+      php_fpm_pool_path:
+        type: dict
+        required: false
+        description: Internal dictionary with the results from statting the path of a PHP pool.d configuration directory.
+      php_fpm_service:
+        type: dict
+        required: false
+        description: Internal dictionary with the results from enabling a PHP-FPM service.
+      php_fpm_service_symlink:
+        type: dict
+        required: false
+        description: Internal dictionary with the results from ensuring a PHP-FPM systemd service is present.
+      php_fpm_system_service:
+        type: dict
+        required: false
+        description: Internal dictionary with the results from statting the path of a systemd PHP service file.
+      php_fpm_test:
+        type: dict
+        required: false
+        description: Internal dictionary with the results from running a PHP FPM configtest.
+      php_fpm_version_socket_paths:
+        type: dict
+        required: false
+        description: Internal dictionary of PHP-FPM socket paths.
+        options:
+          name:
+            type: str
+            required: false
+            description: Internal string for the socket PHP version.
+          socket:
+            type: str
+            required: false
+            description: Internal string for the socket path.
+      php_init:
+        type: str
+        required: false
+        description: Internal variable for the system init version.
+        choices:
+          - chroot
+          - systemd
+      php_mods_available:
+        type: list
+        elements: str
+        required: false
+        description: Internal list of PHP mods available.
+      php_mods_disable:
+        type: list
+        elements: str
+        required: false
+        description: Internal list of PHP mods to be disabled.
+      php_mods_disabled:
+        type: list
+        elements: str
+        required: false
+        description: Internal list of PHP mods that are disabled.
+      php_mods_enable:
+        type: list
+        elements: str
+        required: false
+        description: Internal list of PHP mods to be enabled.
+      php_mods_enabled:
+        type: list
+        elements: str
+        required: false
+        description: Internal list of PHP mods enabled.
+      php_mods_existing:
+        type: list
+        elements: str
+        required: false
+        description: Internal list of PHP mods existing.
+      php_packages_installed:
+        type: dict
+        required: false
+        description: Internal dictionary with the results from installing PHP packages.
+      php_packages_present:
+        type: dict
+        required: false
+        description: Internal dictionary with the results from installing PHP packages.
+      php_packages_removed_first_run:
+        type: dict
+        required: false
+        description: Internal dictionary with the results from removing PHP packages.
+      php_packages_removed_second_run:
+        type: dict
+        required: false
+        description: Internal dictionary with the results from removing PHP packages.
+      php_phpquery_mods_available:
+        type: list
+        elements: str
+        required: false
+        description: Internal list of PHP mods available.
+      php_phpquery_sapi:
+        type: dict
+        required: false
+        description: Internal dictionary with the results from checking if the FPM SAPI is available.
+      php_phpquery_sapis_available:
+        type: dict
+        required: false
+        description: Internal dictionary with the results from checking what PHP SAPIs are available.
+      php_phpquery_versions:
+        type: dict
+        required: false
+        description: Internal dictionary with the results from checking what PHP versions are available.
+      php_pkg_install:
+        type: list
+        elements: str
+        required: false
+        description: Internal list of PHP packages to install.
+      php_pkg_remove:
+        type: dict
+        required: false
+        description:
+      php_pkg_rm:
+        type: dict
+        required: false
+        description:
+      php_preferences:
+        type: dict
+        required: false
+        description:
+      php_ps:
+        type: dict
+        required: false
+        description:
+      php_sapis_available:
+        type: dict
+        required: false
+        description:
+      php_service_facts:
+        type: dict
+        required: false
+        description:
+      php_sources_path:
+        type: dict
+        required: false
+        description:
+      php_ver_installed:
+        type: dict
+        required: false
+        description:
+...
