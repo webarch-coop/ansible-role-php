@@ -171,7 +171,7 @@
       vars:
         php_fpm_pool_files:
           name: "{{ php_check_ver }}"
-          pools: "{{ php_fpm_version_socket_paths | ansible.builtin.quote }}"
+          pools: "{{ php_fpm_version_socket_paths }}"
 
     - name: Debug the PHP-FPM socket paths for all PHP versions
       ansible.builtin.debug:
