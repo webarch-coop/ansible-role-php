@@ -111,6 +111,7 @@ argument_specs:
           - "8.2"
           - "8.3"
           - "8.4"
+          - "8.5"
       php_conf_files_edit:
         type: list
         elements: str
@@ -358,4 +359,5 @@ argument_specs:
           - "8.2"
           - "8.3"
           - "8.4"
+          - "8.5"
 ...

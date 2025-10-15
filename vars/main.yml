@@ -145,6 +145,7 @@ php_debian_bookworm_pkg:
   - libapache2-mod-php8.2
   - libapache2-mod-php8.3
   - libapache2-mod-php8.4
+  - libapache2-mod-php8.5
   - libgd3
   - libgd-tools
   - libhashkit2
@@ -170,6 +171,7 @@ php_debian_bookworm_pkg:
   - libphp8.2-embed
   - libphp8.3-embed
   - libphp8.4-embed
+  - libphp8.5-embed
   - libphp-embed
   - pcregrep
   - php
@@ -1143,6 +1145,35 @@ php_debian_bookworm_pkg:
   - php8.4-zip
   - php8.4-zmq
   - php8.4-zstd
+  - php8.5
+  - php8.5-bcmath
+  - php8.5-bz2
+  - php8.5-cgi
+  - php8.5-cli
+  - php8.5-common
+  - php8.5-curl
+  - php8.5-dba
+  - php8.5-enchant
+  - php8.5-fpm
+  - php8.5-gd
+  - php8.5-gmp
+  - php8.5-interbase
+  - php8.5-intl
+  - php8.5-ldap
+  - php8.5-mbstring
+  - php8.5-mysql
+  - php8.5-odbc
+  - php8.5-pgsql
+  - php8.5-phpdbg
+  - php8.5-readline
+  - php8.5-snmp
+  - php8.5-soap
+  - php8.5-sqlite3
+  - php8.5-sybase
+  - php8.5-tidy
+  - php8.5-xml
+  - php8.5-xsl
+  - php8.5-zip
   - php-amqp
   - php-apcu
   - php-apcu-bc
@@ -1258,6 +1289,7 @@ php_debian_bullseye_pkg:
   - libapache2-mod-php8.2
   - libapache2-mod-php8.3
   - libapache2-mod-php8.4
+  - libapache2-mod-php8.5
   - libenchant1c2a
   - libenchant-voikko
   - libgd3
@@ -1289,6 +1321,7 @@ php_debian_bullseye_pkg:
   - libphp8.2-embed
   - libphp8.3-embed
   - libphp8.4-embed
+  - libphp8.5-embed
   - libphp-embed
   - libxml2
   - libxml2-doc
@@ -2275,6 +2308,35 @@ php_debian_bullseye_pkg:
   - php8.4-zip
   - php8.4-zmq
   - php8.4-zstd
+  - php8.5
+  - php8.5-bcmath
+  - php8.5-bz2
+  - php8.5-cgi
+  - php8.5-cli
+  - php8.5-common
+  - php8.5-curl
+  - php8.5-dba
+  - php8.5-enchant
+  - php8.5-fpm
+  - php8.5-gd
+  - php8.5-gmp
+  - php8.5-interbase
+  - php8.5-intl
+  - php8.5-ldap
+  - php8.5-mbstring
+  - php8.5-mysql
+  - php8.5-odbc
+  - php8.5-pgsql
+  - php8.5-phpdbg
+  - php8.5-readline
+  - php8.5-snmp
+  - php8.5-soap
+  - php8.5-sqlite3
+  - php8.5-sybase
+  - php8.5-tidy
+  - php8.5-xml
+  - php8.5-xsl
+  - php8.5-zip
   - php-amqp
   - php-apcu
   - php-apcu-bc
@@ -2391,6 +2453,7 @@ php_debian_trixie_pkg:
   - libapache2-mod-php8.2
   - libapache2-mod-php8.3
   - libapache2-mod-php8.4
+  - libapache2-mod-php8.5
   - libc-client2007e
   - libgd3
   - libgd-tools
@@ -2413,6 +2476,7 @@ php_debian_trixie_pkg:
   - libphp8.2-embed
   - libphp8.3-embed
   - libphp8.4-embed
+  - libphp8.5-embed
   - libphp-embed
   - mlock
   - pcregrep
@@ -3356,6 +3420,35 @@ php_debian_trixie_pkg:
   - php8.4-zip
   - php8.4-zmq
   - php8.4-zstd
+  - php8.5
+  - php8.5-bcmath
+  - php8.5-bz2
+  - php8.5-cgi
+  - php8.5-cli
+  - php8.5-common
+  - php8.5-curl
+  - php8.5-dba
+  - php8.5-enchant
+  - php8.5-fpm
+  - php8.5-gd
+  - php8.5-gmp
+  - php8.5-interbase
+  - php8.5-intl
+  - php8.5-ldap
+  - php8.5-mbstring
+  - php8.5-mysql
+  - php8.5-odbc
+  - php8.5-pgsql
+  - php8.5-phpdbg
+  - php8.5-readline
+  - php8.5-snmp
+  - php8.5-soap
+  - php8.5-sqlite3
+  - php8.5-sybase
+  - php8.5-tidy
+  - php8.5-xml
+  - php8.5-xsl
+  - php8.5-zip
   - php-amqp
   - php-apcu
   - php-apcu-bc

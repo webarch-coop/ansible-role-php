@@ -4,7 +4,7 @@
 
 This Ansible role is designed to install and configure PHP on Debian, by default it installs PHP packaged by Ondřej Surý from [deb.sury.org](https://deb.sury.org/), but it can also be used to install and configure PHP packages from Debian.
 
-This role is tested using `molecule` via [GitLab CI](.gitlab-ci.yml) on Debian Bookworm using [three molecule senarios](molecule/), firstly by installing and configuring the Debian Bookworm PHP CLI Server API (SAPI), secondly installing the Debian Bookworm FPM SAPI and finally installing the Ondřej Surý packages and enabling and starting PHP-FPM pools for PHP 7.4, 8.0, 8.1, 8.2, 8.3 and 8.4.
+This role is tested using `molecule` via [GitLab CI](.gitlab-ci.yml) on Debian Bookworm using [three molecule senarios](molecule/), firstly by installing and configuring the Debian Bookworm PHP CLI Server API (SAPI), secondly installing the Debian Bookworm FPM SAPI and finally installing the Ondřej Surý packages and enabling and starting PHP-FPM pools for PHP 7.4, 8.0, 8.1, 8.2, 8.3, 8.4 and 8.5.
 
 This role enforces unique PHP-FPM pool names across all versions of PHP as this enables better monitoring, by default the `www` pools are renamed to `www82`, `www81` etc.
 
@@ -52,6 +52,7 @@ The optional `php_config` list is used to specify the state of the PHP configura
 Each item in the list requires a `state`, which can be `absent` or `present` and a `version` which must be a string from this list of PHP versions:
 
 ```yaml
+- "8.5"
 - "8.4"
 - "8.3"
 - "8.2"
@@ -113,6 +114,7 @@ The optional `php_modules` list can be used to enable and disable PHP modules us
 Each item in the list requires a `state`, which can be `absent` or `present` and a `version` which must be a string from this list of PHP versions:
 
 ```yaml
+- "8.5"
 - "8.4"
 - "8.3"
 - "8.2"
@@ -156,6 +158,7 @@ The optional `php_verify` variable is `true` by default which results in all var
 The optional `php_versions` list is used to install and remove PHP packages, each item in the list requires a `state`, which can be `absent` or `present` and a `version` which must be a string from this list of PHP versions:
 
 ```yaml
+- "8.5"
 - "8.4"
 - "8.3"
 - "8.2"

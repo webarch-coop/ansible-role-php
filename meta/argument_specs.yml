@@ -139,17 +139,18 @@ argument_specs:
             required: true
             description: The PHP version number.
             choices:
-              - "8.4"
-              - "8.3"
-              - "8.2"
-              - "8.1"
-              - "8.0"
-              - "7.4"
-              - "7.3"
-              - "7.2"
-              - "7.1"
-              - "7.0"
               - "5.6"
+              - "7.0"
+              - "7.1"
+              - "7.2"
+              - "7.3"
+              - "7.4"
+              - "8.0"
+              - "8.1"
+              - "8.2"
+              - "8.3"
+              - "8.4"
+              - "8.5"
       php_date_timestamp:
         type: str
         required: false
@@ -208,17 +209,18 @@ argument_specs:
             required: true
             description: The PHP version.
             choices:
-              - "8.4"
-              - "8.3"
-              - "8.2"
-              - "8.1"
-              - "8.0"
-              - "7.4"
-              - "7.3"
-              - "7.2"
-              - "7.1"
-              - "7.0"
               - "5.6"
+              - "7.0"
+              - "7.1"
+              - "7.2"
+              - "7.3"
+              - "7.4"
+              - "8.0"
+              - "8.1"
+              - "8.2"
+              - "8.3"
+              - "8.4"
+              - "8.5"
           pools:
             type: list
             elements: str
@@ -234,51 +236,54 @@ argument_specs:
         required: false
         description: A generated list of PHP-FPM versions present.
         choices:
-          - "8.4"
-          - "8.3"
-          - "8.2"
-          - "8.1"
-          - "8.0"
-          - "7.4"
-          - "7.3"
-          - "7.2"
-          - "7.1"
-          - "7.0"
           - "5.6"
+          - "7.0"
+          - "7.1"
+          - "7.2"
+          - "7.3"
+          - "7.4"
+          - "8.0"
+          - "8.1"
+          - "8.2"
+          - "8.3"
+          - "8.4"
+          - "8.5"
       php_mods_ver_absent:
         type: list
         elements: str
         required: false
         description: A generated list of PHP versions for which module configuration should be absent.
         choices:
-          - "8.4"
-          - "8.3"
-          - "8.2"
-          - "8.1"
-          - "8.0"
-          - "7.4"
-          - "7.3"
-          - "7.2"
-          - "7.1"
-          - "7.0"
           - "5.6"
+          - "7.0"
+          - "7.1"
+          - "7.2"
+          - "7.3"
+          - "7.4"
+          - "8.0"
+          - "8.1"
+          - "8.2"
+          - "8.3"
+          - "8.4"
+          - "8.5"
       php_mods_ver_present:
         type: list
         elements: str
         required: false
         description: A generated list of PHP versions for which module configuration should be present.
         choices:
-          - "8.4"
-          - "8.3"
-          - "8.2"
-          - "8.1"
-          - "8.0"
-          - "7.4"
-          - "7.3"
-          - "7.2"
-          - "7.1"
-          - "7.0"
           - "5.6"
+          - "7.0"
+          - "7.1"
+          - "7.2"
+          - "7.3"
+          - "7.4"
+          - "8.0"
+          - "8.1"
+          - "8.2"
+          - "8.3"
+          - "8.4"
+          - "8.5"
       php_modules:
         type: list
         elements: dict
@@ -329,17 +334,18 @@ argument_specs:
             required: true
             description: The PHP version number.
             choices:
-              - "8.4"
-              - "8.3"
-              - "8.2"
-              - "8.1"
-              - "8.0"
-              - "7.4"
-              - "7.3"
-              - "7.2"
-              - "7.1"
-              - "7.0"
               - "5.6"
+              - "7.0"
+              - "7.1"
+              - "7.2"
+              - "7.3"
+              - "7.4"
+              - "8.0"
+              - "8.1"
+              - "8.2"
+              - "8.3"
+              - "8.4"
+              - "8.5"
       php_pkg_absent:
         type: list
         elements: str
@@ -390,17 +396,18 @@ argument_specs:
         required: false
         description: A generated list of PHP versions which should be absent.
         choices:
-          - "8.4"
-          - "8.3"
-          - "8.2"
-          - "8.1"
-          - "8.0"
-          - "7.4"
-          - "7.3"
-          - "7.2"
-          - "7.1"
-          - "7.0"
           - "5.6"
+          - "7.0"
+          - "7.1"
+          - "7.2"
+          - "7.3"
+          - "7.4"
+          - "8.0"
+          - "8.1"
+          - "8.2"
+          - "8.3"
+          - "8.4"
+          - "8.5"
       php_ver_absent_regex:
         type: str
         required: true
@@ -416,17 +423,18 @@ argument_specs:
         required: false
         description: A generated list of PHP versions which should be present.
         choices:
-          - "8.4"
-          - "8.3"
-          - "8.2"
-          - "8.1"
-          - "8.0"
-          - "7.4"
-          - "7.3"
-          - "7.2"
-          - "7.1"
-          - "7.0"
           - "5.6"
+          - "7.0"
+          - "7.1"
+          - "7.2"
+          - "7.3"
+          - "7.4"
+          - "8.0"
+          - "8.1"
+          - "8.2"
+          - "8.3"
+          - "8.4"
+          - "8.5"
       php_verify:
         type: bool
         required: false
@@ -463,15 +471,16 @@ argument_specs:
             required: true
             description: The PHP version number.
             choices:
-              - "8.4"
-              - "8.3"
-              - "8.2"
-              - "8.1"
-              - "8.0"
-              - "7.4"
-              - "7.3"
-              - "7.2"
-              - "7.1"
-              - "7.0"
               - "5.6"
+              - "7.0"
+              - "7.1"
+              - "7.2"
+              - "7.3"
+              - "7.4"
+              - "8.0"
+              - "8.1"
+              - "8.2"
+              - "8.3"
+              - "8.4"
+              - "8.5"
 ...
