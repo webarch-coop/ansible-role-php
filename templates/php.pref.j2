@@ -28,5 +28,12 @@ Pin: origin packages.sury.org
 Pin-Priority: 500
 
 {%     endfor %}
+{% elif ansible_facts.distribution_release == "forky" %}
+{%     for pkg in php_debian_forky_pkg %}
+Package: {{ pkg }}
+Pin: origin packages.sury.org
+Pin-Priority: 500
+
+{%     endfor %}
 {% endif %}
 # vim: ft=debsources{# vim: syntax=jinja2 #}

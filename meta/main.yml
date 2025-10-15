@@ -19,9 +19,10 @@ galaxy_info:
   platforms:
     - name: Debian
       versions:
+        # - bullseye
         - bookworm
-        - bullseye
         - trixie
+        # - forky
   galaxy_tags:
     - debian
     - php

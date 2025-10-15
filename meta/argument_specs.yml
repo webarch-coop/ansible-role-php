@@ -175,6 +175,11 @@ argument_specs:
         elements: str
         required: false
         description: A list of Debian Trixie packages to install.
+      php_debian_forky_pkg:
+        type: list
+        elements: str
+        required: false
+        description: A list of Debian Forky packages to install.
       php_conf_file_paths_jmespath_query:
         type: str
         required: true

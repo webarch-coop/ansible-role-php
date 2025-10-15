@@ -13,7 +13,8 @@
 
 set -euo pipefail
 
-debian_distros=(bookworm bullseye trixie)
+# debian_distros=(bullseye bookworm trixie forky)
+debian_distros=(bullseye bookworm trixie)
 
 for distro in "${debian_distros[@]}"; do
   # shellcheck disable=SC2016 disable=SC2086
@@ -24,4 +25,3 @@ for distro in "${debian_distros[@]}"; do
   echo "${packages}"
 done
 echo "..."
-
