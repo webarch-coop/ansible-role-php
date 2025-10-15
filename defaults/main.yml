@@ -1303,7 +1303,7 @@ php_versions:
       - libapache2-mod-php8.5
       - php8.5-phpdbg
     pkg_present:
-      - php8.5-apcu
+      # - php8.5-apcu
       - php8.5-bcmath
       - php8.5-bz2
       - php8.5-cli
