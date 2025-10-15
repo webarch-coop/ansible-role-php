@@ -66,16 +66,31 @@
       tags:
         - debug
 
+    # - name: "Debug the PHP-FPM socket paths for PHP version {{ php_check_ver }}"
+    #   ansible.builtin.debug:
+    #     msg: "{{ php_fpm_pool_file_json | ansible.builtin.from_json }}"
+    #     verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}0{% else %}1{% endif %}"
+    #   vars:
+    #     php_fpm_pool_file_json: |-
+    #       {
+    #         "name": "{{ php_fpm_pool_file_content | string | community.general.jc('ini') | community.general.json_query('keys(@)|[0]') }}",
+    #         "socket": "{{ php_fpm_pool_file_content | string | community.general.jc('ini') | community.general.json_query('*.listen|[0]') }}"
+    #       }
+    #   loop: "{{ php_fpm_pool_file_contents }}"
+    #   loop_control:
+    #     label: "{{ php_fpm_pool_file_content | string | community.general.jc('ini') | json_query('keys(@)|[0]') }}"
+    #     loop_var: php_fpm_pool_file_content
+    #   tags:
+    #     - debug
+
     - name: "Debug the PHP-FPM socket paths for PHP version {{ php_check_ver }}"
       ansible.builtin.debug:
-        msg: "{{ php_fpm_pool_file_json | ansible.builtin.from_json }}"
+        var: php_fpm_pool_file
         verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}0{% else %}1{% endif %}"
       vars:
-        php_fpm_pool_file_json: |-
-          {
-            "name": "{{ php_fpm_pool_file_content | string | community.general.jc('ini') | community.general.json_query('keys(@)|[0]') }}",
-            "socket": "{{ php_fpm_pool_file_content | string | community.general.jc('ini') | community.general.json_query('*.listen|[0]') }}"
-          }
+        php_fpm_pool_file:
+          name: "{{ php_fpm_pool_file_content | string | community.general.jc('ini') | community.general.json_query('keys(@)|[0]') }}"
+          socket: "{{ php_fpm_pool_file_content | string | community.general.jc('ini') | community.general.json_query('*.listen|[0]') }}"
       loop: "{{ php_fpm_pool_file_contents }}"
       loop_control:
         label: "{{ php_fpm_pool_file_content | string | community.general.jc('ini') | json_query('keys(@)|[0]') }}"
@@ -83,15 +98,27 @@
       tags:
         - debug
 
+    # - name: "Set a fact for a list of PHP-FPM socket paths for PHP version {{ php_check_ver }}"
+    #   ansible.builtin.set_fact:
+    #     php_fpm_version_socket_paths: "{{ php_fpm_version_socket_paths + [php_fpm_pool_file_json | ansible.builtin.from_json] }}"
+    #   vars:
+    #     php_fpm_pool_file_json: |-
+    #      {
+    #        "name": "{{ php_fpm_pool_file_content | string | community.general.jc('ini') | community.general.json_query('keys(@)|[0]') }}",
+    #        "socket": "{{ php_fpm_pool_file_content | string | community.general.jc('ini') | community.general.json_query('*.listen|[0]') }}"
+    #      }
+    #   loop: "{{ php_fpm_pool_file_contents }}"
+    #   loop_control:
+    #     label: "{{ php_fpm_pool_file_content | string | community.general.jc('ini') | json_query('keys(@)|[0]') }}"
+    #     loop_var: php_fpm_pool_file_content
+
     - name: "Set a fact for a list of PHP-FPM socket paths for PHP version {{ php_check_ver }}"
       ansible.builtin.set_fact:
-        php_fpm_version_socket_paths: "{{ php_fpm_version_socket_paths + [php_fpm_pool_file_json | ansible.builtin.from_json] }}"
+        php_fpm_version_socket_paths: "{{ php_fpm_version_socket_paths + [php_fpm_pool_file] }}"
       vars:
-        php_fpm_pool_file_json: |-
-         {
-           "name": "{{ php_fpm_pool_file_content | string | community.general.jc('ini') | community.general.json_query('keys(@)|[0]') }}",
-           "socket": "{{ php_fpm_pool_file_content | string | community.general.jc('ini') | community.general.json_query('*.listen|[0]') }}"
-         }
+        php_fpm_pool_file:
+          name: "{{ php_fpm_pool_file_content | string | community.general.jc('ini') | community.general.json_query('keys(@)|[0]') }}"
+          socket: "{{ php_fpm_pool_file_content | string | community.general.jc('ini') | community.general.json_query('*.listen|[0]') }}"
       loop: "{{ php_fpm_pool_file_contents }}"
       loop_control:
         label: "{{ php_fpm_pool_file_content | string | community.general.jc('ini') | json_query('keys(@)|[0]') }}"
@@ -104,28 +131,47 @@
       tags:
         - debug
 
+    # - name: Debug the PHP-FPM socket paths for all PHP versions
+    #   ansible.builtin.debug:
+    #     msg: "{{ php_fpm_pools + [php_fpm_pool_files_json] }}"
+    #     verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}0{% else %}1{% endif %}"
+    #   vars:
+    #     php_fpm_pool_files_json: |-
+    #      {
+    #        "name": "{{ php_check_ver }}",
+    #        "pools": {{ php_fpm_version_socket_paths | ansible.builtin.quote }}
+    #      }
+    #   tags:
+    #     - debug
+
     - name: Debug the PHP-FPM socket paths for all PHP versions
       ansible.builtin.debug:
-        msg: "{{ php_fpm_pools + [php_fpm_pool_files_json] }}"
+        msg: "{{ php_fpm_pools + [php_fpm_pool_files] }}"
         verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}0{% else %}1{% endif %}"
       vars:
-        php_fpm_pool_files_json: |-
-         {
-           "name": "{{ php_check_ver }}",
-           "pools": {{ php_fpm_version_socket_paths | ansible.builtin.quote }}
-         }
+        php_fpm_pool_files:
+          name: "{{ php_check_ver }}"
+          pools: "{{ php_fpm_version_socket_paths }}"
       tags:
         - debug
 
+    # - name: Set a fact the PHP-FPM socket paths for all PHP versions
+    #   ansible.builtin.set_fact:
+    #     php_fpm_pools: "{{ php_fpm_pools + [php_fpm_pool_files_json] }}"
+    #   vars:
+    #     php_fpm_pool_files_json: |-
+    #      {
+    #        "name": "{{ php_check_ver }}",
+    #        "pools": {{ php_fpm_version_socket_paths | ansible.builtin.quote }}
+    #      }
+
     - name: Set a fact the PHP-FPM socket paths for all PHP versions
       ansible.builtin.set_fact:
-        php_fpm_pools: "{{ php_fpm_pools + [php_fpm_pool_files_json] }}"
+        php_fpm_pools: "{{ php_fpm_pools + [php_fpm_pool_files] }}"
       vars:
-        php_fpm_pool_files_json: |-
-         {
-           "name": "{{ php_check_ver }}",
-           "pools": {{ php_fpm_version_socket_paths | ansible.builtin.quote }}
-         }
+        php_fpm_pool_files:
+          name: "{{ php_check_ver }}"
+          pools: "{{ php_fpm_version_socket_paths | ansible.builtin.quote }}"
 
     - name: Debug the PHP-FPM socket paths for all PHP versions
       ansible.builtin.debug:
