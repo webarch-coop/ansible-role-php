@@ -69,7 +69,7 @@
     - name: "Debug the PHP-FPM socket paths for PHP version {{ php_check_ver }}"
       ansible.builtin.debug:
         var: php_fpm_pool_file_json
-        verbosity: 3
+        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}0{% else %}1{% endif %}"
       vars:
         php_fpm_pool_file_json: |-
           {
@@ -80,7 +80,6 @@
       loop_control:
         label: "{{ php_fpm_pool_file_content | string | community.general.jc('ini') | json_query('keys(@)|[0]') }}"
         loop_var: php_fpm_pool_file_content
-        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}0{% else %}1{% endif %}"
       tags:
         - debug
 
