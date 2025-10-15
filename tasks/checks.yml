@@ -19,12 +19,12 @@
 
     - name: Set a fact for the PHP versions installed
       ansible.builtin.set_fact:
-        php_ver_installed: "{{ php_phpquery_versions.stdout_lines | sort }}"
+        php_ver_installed: "{{ php_phpquery_versions.stdout_lines | sort | list }}"
 
     - name: Debug PHP versions that are installed
       ansible.builtin.debug:
         var: php_ver_installed
-        verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}0{% else %}1{% endif %}"
 
     - name: Include PHP FPM pool checks for each version of PHP present
       ansible.builtin.include_tasks: fpm_pool_check.yml

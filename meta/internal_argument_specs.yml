@@ -22,6 +22,14 @@ argument_specs:
         type: dict
         required: false
         description: Internal dictionary containing the results from statting the Sury GPG keyring file.
+      php_argument_spec:
+        type: dict
+        required: false
+        description: Internal variable for the argument spec.
+      php_combined_argument_spec:
+        type: dict
+        required: false
+        desciption: Internal variable for the combined argument spec.
       php_conf_dir_created:
         type: dict
         required: false
@@ -92,17 +100,17 @@ argument_specs:
         description: Internal string for the PHP version of a PHP configuration file.
         elements: str
         choices:
-          - "8.4"
-          - "8.3"
-          - "8.2"
-          - "8.1"
-          - "8.0"
-          - "7.4"
-          - "7.3"
-          - "7.2"
-          - "7.1"
-          - "7.0"
           - "5.6"
+          - "7.0"
+          - "7.1"
+          - "7.2"
+          - "7.3"
+          - "7.4"
+          - "8.0"
+          - "8.1"
+          - "8.2"
+          - "8.3"
+          - "8.4"
       php_conf_files_edit:
         type: list
         elements: str
@@ -226,6 +234,10 @@ argument_specs:
         choices:
           - chroot
           - systemd
+      php_internal_argument_spec:
+        type: dict
+        required: false
+        description: Internal variable for the internal argument spec.
       php_mods_available:
         type: list
         elements: str
@@ -334,16 +346,16 @@ argument_specs:
         elements: str
         required: false
         description:
-        choices: Internal list of PHP versions installed.
-          - "8.4"
-          - "8.3"
-          - "8.2"
-          - "8.1"
-          - "8.0"
-          - "7.4"
-          - "7.3"
-          - "7.2"
-          - "7.1"
-          - "7.0"
+        choices:
           - "5.6"
+          - "7.0"
+          - "7.1"
+          - "7.2"
+          - "7.3"
+          - "7.4"
+          - "8.0"
+          - "8.1"
+          - "8.2"
+          - "8.3"
+          - "8.4"
 ...
