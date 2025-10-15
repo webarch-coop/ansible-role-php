@@ -15,11 +15,15 @@
       ansible.builtin.debug:
         var: php_version
         verbosity: "{% if ansible_check_mode | bool %}2{% else %}3{% endif %}"
+      tags:
+        - debug
 
     - name: Debug the PHP version
       ansible.builtin.debug:
         var: php_version.version
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+      tags:
+        - debug
 
     - name: "Get the PHP mods available for {{ php_version.version }}"
       ansible.builtin.command: "phpquery -v {{ php_version.version }} -M"
@@ -35,6 +39,8 @@
       ansible.builtin.debug:
         var: php_mods_available
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+      tags:
+        - debug
 
     - name: "Get the PHP SAPIs available for {{ php_version.version }}"
       ansible.builtin.command: "phpquery -v {{ php_version.version }} -S"
@@ -50,11 +56,15 @@
       ansible.builtin.debug:
         var: php_sapis_available
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+      tags:
+        - debug
 
     - name: "Debug the sapis specified for PHP {{ php_version.version }}"
       ansible.builtin.debug:
         msg: "{{ php_version | community.general.json_query('sapis[].sapi') }}"
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+      tags:
+        - debug
 
     - name: "Loop throught the SAPIs for PHP version {{ php_version.version }}"
       ansible.builtin.include_tasks: sapi.yml

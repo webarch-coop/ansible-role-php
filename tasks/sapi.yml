@@ -25,6 +25,8 @@
       vars:
         php_task_name: "Debug the PHP {{ php_version.version }} {{ php_sapi }} SAPI mods that should be disabled"
       when: php_mods_disable is defined
+      tags:
+        - debug
 
     - name: "{{ php_task_name }}"
       ansible.builtin.set_fact:
@@ -39,6 +41,8 @@
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
       vars:
         php_task_name: "Debug the PHP {{ php_version.version }} {{ php_sapi }} SAPI mods that should be enabled"
+      tags:
+        - debug
 
     - name: Run check that mods to be enabled are available in a block so debugging details can be printed with failures
       block:
@@ -102,6 +106,8 @@
       ansible.builtin.debug:
         var: php_mods_existing.stdout_lines
         verbosity: "{% if ansible_check_mode | bool %}2{% else %}3{% endif %}"
+      tags:
+        - debug
 
     - name: "{{ php_task_name }}"
       ansible.builtin.set_fact:
@@ -116,11 +122,15 @@
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
       vars:
         php_task_name: "Debug the PHP {{ php_version.version }} {{ php_sapi }} SAPI mods that are disabled"
+      tags:
+        - debug
 
     - name: Debug php_mods_disabled | ansible.builtin.type_debug
       ansible.builtin.debug:
         var: php_mods_disabled | ansible.builtin.type_debug
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+      tags:
+        - debug
 
     - name: "{{ php_task_name }}"
       ansible.builtin.debug:
@@ -128,11 +138,15 @@
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
       vars:
         php_task_name: "Debug the PHP {{ php_version.version }} {{ php_sapi }} SAPI mods that are enabled"
+      tags:
+        - debug
 
     - name: Debug php_mods_enabled | ansible.builtin.type_debug
       ansible.builtin.debug:
         var: php_mods_enabled | ansible.builtin.type_debug
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+      tags:
+        - debug
 
     - name: "{{ php_task_name }}"
       ansible.builtin.set_fact:
@@ -175,6 +189,8 @@
             verbosity: "{% if ansible_check_mode | bool %}0{% else %}1{% endif %}"
           vars:
             php_task_name: "Debug the PHP {{ php_version.version }} {{ php_sapi }} SAPI mods to be modified using phpdismod"
+          tags:
+            - debug
 
         - name: "{{ php_task_name }}"
           ansible.builtin.command: "phpdismod -v '{{ php_version.version }}' -s '{{ php_sapi }}'{% for php_dismod in php_dismods %} {{ php_dismod }}{% endfor %}"
@@ -220,6 +236,8 @@
             verbosity: "{% if ansible_check_mode | bool %}0{% else %}1{% endif %}"
           vars:
             php_task_name: "Debug the PHP {{ php_version.version }} {{ php_sapi }} SAPI mods that are to be modified using phpenmod"
+          tags:
+            - debug
 
         - name: "{{ php_task_name }}"
           ansible.builtin.command: "phpenmod -v '{{ php_version.version }}' -s '{{ php_sapi }}'{% for php_enmod in php_enmods %} {{ php_enmod }}{% endfor %}"

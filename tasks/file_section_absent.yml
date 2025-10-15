@@ -15,11 +15,15 @@
       ansible.builtin.debug:
         var: php_conf_section.value
         verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}0{% else %}1{% endif %}"
+      tags:
+        - debug
 
     - name: Debug php_conf_section.value | ansible.builtin.type_debug
       ansible.builtin.debug:
-        var: php_conf_section.value | ansible.builtin.type_debug
+        msg: "{{ php_conf_section.value | ansible.builtin.type_debug }}"
         verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}0{% else %}1{% endif %}"
+      tags:
+        - debug
 
     - name: Debug the absent PHP configuration file variables
       ansible.builtin.debug:
@@ -35,6 +39,8 @@
       loop_control:
         loop_var: php_conf_variable_pair
         label: "{{ php_conf_variable_pair.key }}"
+      tags:
+        - debug
 
     - name: PHP configuration variables absent
       community.general.ini_file:

@@ -112,6 +112,8 @@
           - "PHP conf set to be present: {{ php_conf_ver_present | join(', ') }}"
           - "PHP conf set to be absent: {{ php_conf_ver_absent | join(', ') }}"
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+      tags:
+        - debug
 
     - name: Check that PHP packages that are set to be present match the config that is set to be present
       ansible.builtin.debug:
@@ -146,8 +148,6 @@
     - name: Set a fact for the PHP FPM pool names that are not set to be absent
       ansible.builtin.set_fact:
         php_pool_names_not_absent: "{{ php_pool_names_not_absent + (php_conf_file.conf.keys() | list) }}"
-      # ansible.builtin.debug:
-      #   var: php_conf_file.conf.keys()
       when:
         - php_conf_not_absent is defined
         - php_conf_not_absent != []
@@ -161,6 +161,9 @@
     - name: Debug php_pool_names_not_absent
       ansible.builtin.debug:
         var: php_pool_names_not_absent
+        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}0{% else %}1{% endif %}"
+      tags:
+        - debug
 
     - name: PHP-FPM pools that are set to be present should be unique accross all versions of PHP
       ansible.builtin.assert:
@@ -174,11 +177,15 @@
       ansible.builtin.debug:
         var: php_conf_opcache_jit_buffer_sizes_jmespath_query
         verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
+      tags:
+        - debug
 
     - name: Debug php_conf_opcache_jit_buffer_sizes
       ansible.builtin.debug:
         var: php_conf_opcache_jit_buffer_sizes
         verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
+      tags:
+        - debug
 
     # https://github.com/composer/composer/issues/12153#issuecomment-2419452358
     - name: Check that the opcache.jit_buffer_size is set to 0 or >= 40961 or >= 1K or >= 1M or >= 1G

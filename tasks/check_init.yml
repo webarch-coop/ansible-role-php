@@ -33,6 +33,8 @@
       ansible.builtin.debug:
         var: php_init
         verbosity: "{% if ansible_check_mode | bool %}0{% else %}1{% endif %}"
+      tags:
+        - debug
 
   tags:
     - php

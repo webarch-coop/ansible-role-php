@@ -42,7 +42,9 @@
         - name: Debug php_fpm_service
           ansible.builtin.debug:
             var: php_fpm_service
-            verbosity: 2
+            verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
+          tags:
+            - debug
 
         - name: Reload systemd  # noqa: no-changed-when
           ansible.builtin.systemd:

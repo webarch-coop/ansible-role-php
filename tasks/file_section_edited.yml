@@ -26,6 +26,8 @@
       loop_control:
         loop_var: php_conf_variable_pair
         label: "{{ php_conf_variable_pair.key }}"
+      tags:
+        - debug
 
     - name: PHP configuration file edited
       community.general.ini_file:

@@ -70,6 +70,7 @@
         var: php_ver_present
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
       tags:
+        - debug
         - php_pkg
 
     - name: Include PHP package tasks
@@ -92,6 +93,8 @@
           ansible.builtin.debug:
             var: php_conf_ver_present
             verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+          tags:
+            - debug
 
         - name: PHP versions that are not installed cannot be configured unless in check mode
           ansible.builtin.fail:
@@ -120,6 +123,8 @@
           ansible.builtin.debug:
             var: php_mods_ver_present
             verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+          tags:
+            - debug
 
         - name: PHP versions that are not installed cannot have modules configured unless in check mode
           ansible.builtin.fail:

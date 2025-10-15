@@ -22,6 +22,8 @@
       ansible.builtin.debug:
         var: php_etc_php_find_dirs
         verbosity: "{% if ansible_check_mode | bool %}2{% else %}3{% endif %}"
+      tags:
+        - debug
 
     - name: Set a fact for the existing PHP version directories
       ansible.builtin.set_fact:
@@ -31,11 +33,15 @@
       ansible.builtin.debug:
         var: php_conf_dirs_existing
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+      tags:
+        - debug
 
     - name: Debug PHP version configuration directories which should be absent
       ansible.builtin.debug:
         var: php_conf_dirs_absent
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+      tags:
+        - debug
 
     - name: Set a fact for existing PHP version configuration directories which should be absent
       ansible.builtin.set_fact:
@@ -45,6 +51,8 @@
       ansible.builtin.debug:
         var: php_conf_dirs_remove
         verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}0{% else %}1{% endif %}"
+      tags:
+        - debug
 
     - name: Find the existing PHP configuration files
       ansible.builtin.find:
@@ -60,6 +68,8 @@
       ansible.builtin.debug:
         var: php_etc_php_find_files
         verbosity: "{% if ansible_check_mode | bool %}2{% else %}3{% endif %}"
+      tags:
+        - debug
 
     - name: Set a fact for the existing PHP configuration files
       ansible.builtin.set_fact:
@@ -69,11 +79,15 @@
       ansible.builtin.debug:
         var: php_conf_files_existing
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+      tags:
+        - debug
 
     - name: Debug PHP configuration files set to be edited
       ansible.builtin.debug:
         var: php_conf_files_edited
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+      tags:
+        - debug
 
     - name: All files that are set to be edited need to already exist
       ansible.builtin.debug:
@@ -120,6 +134,8 @@
       ansible.builtin.debug:
         var: php_conf_files_absent
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+      tags:
+        - debug
 
     - name: Set a fact for existing PHP configuration files that should be absent
       ansible.builtin.set_fact:
@@ -129,6 +145,8 @@
       ansible.builtin.debug:
         var: php_conf_files_remove
         verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}0{% else %}1{% endif %}"
+      tags:
+        - debug
 
     - name: Set a fact for existing PHP configuration files and directories to be deleted
       ansible.builtin.set_fact:
@@ -138,6 +156,8 @@
       ansible.builtin.debug:
         var: php_conf_rm
         verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}0{% else %}1{% endif %}"
+      tags:
+        - debug
 
     - name: PHP configuration paths absent
       ansible.builtin.file:
@@ -156,6 +176,8 @@
       ansible.builtin.debug:
         var: php_conf_dirs_present
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+      tags:
+        - debug
 
     - name: Set a fact for PHP configuration directories that need to be created
       ansible.builtin.set_fact:
@@ -165,6 +187,8 @@
       ansible.builtin.debug:
         var: php_conf_dirs_create
         verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}0{% else %}1{% endif %}"
+      tags:
+        - debug
 
     - name: PHP configuration directories present
       ansible.builtin.file:
@@ -186,11 +210,15 @@
       ansible.builtin.debug:
         var: php_conf_files_present
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+      tags:
+        - debug
 
     - name: Debug PHP configuration files set to be templated
       ansible.builtin.debug:
         var: php_conf_files_templated
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+      tags:
+        - debug
 
     - name: Set a fact for all PHP configuration files that should be templated
       ansible.builtin.set_fact:
@@ -200,6 +228,8 @@
       ansible.builtin.debug:
         var: php_conf_files_template
         verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}0{% else %}1{% endif %}"
+      tags:
+        - debug
 
     - name: Include PHP configuration file templated tasks
       ansible.builtin.include_tasks: file_templated.yml
@@ -219,6 +249,8 @@
       ansible.builtin.debug:
         var: php_conf_files_edit
         verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}0{% else %}1{% endif %}"
+      tags:
+        - debug
 
     - name: Include PHP configuration file edited tasks
       ansible.builtin.include_tasks: file_edited.yml

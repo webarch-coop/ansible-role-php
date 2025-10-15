@@ -25,11 +25,15 @@
       ansible.builtin.debug:
         var: php_conf_file_existing_vars
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+      tags:
+        - debug
 
     - name: Debug the PHP configuration no extra spaces variable
       ansible.builtin.debug:
         var: php_conf_file_no_extra_spaces
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+      tags:
+        - debug
 
     - name: Set a fact for the existing PHP configuration file sections
       block:
@@ -47,12 +51,16 @@
           ansible.builtin.debug:
             var: php_conf_file_existing_sections
             verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+          tags:
+            - debug
 
         - name: Debug the existing PHP configuration file sections
           ansible.builtin.debug:
             var: php_conf_file_existing_vars.keys()
             verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
           when: php_conf_file_existing_sections | bool
+          tags:
+            - debug
 
       when: php_conf_file_existing_vars | length > 0
 
@@ -66,6 +74,8 @@
       ansible.builtin.debug:
         var: php_conf_file_proposed_vars
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+      tags:
+        - debug
 
     - name: The proposed PHP configuration file variables are empty or a dictionary
       ansible.builtin.assert:
@@ -86,11 +96,15 @@
       ansible.builtin.debug:
         var: php_conf_file_absent_vars
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+      tags:
+        - debug
 
     - name: Debug the absent PHP configuration file variable type
       ansible.builtin.debug:
         var: php_conf_file_absent_vars | ansible.builtin.type_debug
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+      tags:
+        - debug
 
     - name: The absent PHP configuration file variables are empty or a dictionary
       ansible.builtin.assert:
@@ -129,12 +143,16 @@
           ansible.builtin.debug:
             var: php_conf_file_proposed_sections
             verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+          tags:
+            - debug
 
         - name: Debug the proposed PHP configuration file sections
           ansible.builtin.debug:
             var: php_conf_file_proposed_vars.keys()
             verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
           when: php_conf_file_proposed_sections | bool
+          tags:
+            - debug
 
         - name: When the existing files has sections and proposed config also has sections
           ansible.builtin.assert:
@@ -167,16 +185,22 @@
       ansible.builtin.debug:
         var: php_conf_file_backup
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+      tags:
+        - debug
 
     - name: Debug the PHP configuration file PHP SAPI
       ansible.builtin.debug:
         var: php_conf_file_sapi
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+      tags:
+        - debug
 
     - name: Debug the PHP configuration file PHP version
       ansible.builtin.debug:
         var: php_conf_file_version
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+      tags:
+        - debug
 
     - name: File backup present
       ansible.builtin.copy:
@@ -193,24 +217,32 @@
         var: php_conf_file_proposed_vars
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
       when: php_conf_file_proposed_vars is defined
+      tags:
+        - debug
 
     - name: Debug php_conf_file_absent_vars
       ansible.builtin.debug:
         var: php_conf_file_absent_vars
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
       when: php_conf_file_absent_vars is defined
+      tags:
+        - debug
 
     - name: Debug php_conf_file_existing_sections
       ansible.builtin.debug:
         var: php_conf_file_existing_sections
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
       when: php_conf_file_existing_sections is defined
+      tags:
+        - debug
 
     - name: Debug php_conf_file_proposed_sections
       ansible.builtin.debug:
         var: php_conf_file_proposed_sections
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
       when: php_conf_file_proposed_sections is defined
+      tags:
+        - debug
 
     - name: Include the tasks to edit the section-less PHP configuration file
       ansible.builtin.include_tasks: file_edited_present.yml

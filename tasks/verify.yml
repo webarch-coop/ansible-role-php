@@ -11,20 +11,55 @@
 - name: Verify PHP variables
   block:
 
-    - name: Debug the hostvars variable names that start with php_
+    - name: Debug phpvarnames
       ansible.builtin.debug:
         var: phpvarnames
-        verbosity: "{% if ansible_check_mode | bool %}3{% else %}4{% endif %}"
+        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
+      tags:
+        - debug
 
-    - name: Debug the hostvars variable names that start with php_
+    - name: Debug phphostvars
       ansible.builtin.debug:
         var: phphostvars
-        verbosity: "{% if ansible_check_mode | bool %}3{% else %}4{% endif %}"
+        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
+      tags:
+        - debug
+
+    - name: Debug lookup meta/argument_specs.yml
+      ansible.builtin.debug:
+        msg: "{{ lookup('ansible.builtin.file', 'meta/argument_specs.yml', errors='strict') }}"
+        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
+      tags:
+        - debug
+
+    - name: Debug lookup meta/argument_specs.yml type
+      ansible.builtin.debug:
+        msg: "{{ lookup('ansible.builtin.file', 'meta/argument_specs.yml', errors='strict') | ansible.builtin.type_debug }}"
+        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
+      tags:
+        - debug
+
+    - name: Debug lookup meta/internal_argument_specs.yml
+      ansible.builtin.debug:
+        msg: "{{ lookup('ansible.builtin.file', 'meta/internal_argument_specs.yml', errors='strict') }}"
+        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
+      tags:
+        - debug
+
+    - name: Debug lookup meta/internal_argument_specs.yml type
+      ansible.builtin.debug:
+        msg: "{{ lookup('ansible.builtin.file', 'meta/internal_argument_specs.yml', errors='strict') | ansible.builtin.type_debug }}"
+        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
+      tags:
+        - debug
 
     - name: Set a fact for the argument spec and internal argument spec
       ansible.builtin.set_fact:
-        php_argument_spec: "{{ (lookup('ansible.builtin.file', 'meta/argument_specs.yml') | from_yaml) }}"
-        php_internal_argument_spec: "{{ (lookup('ansible.builtin.file', 'meta/internal_argument_specs.yml') | from_yaml) }}"
+        php_argument_spec: "{{ php_argument_spec_lookup | ansible.builtin.from_yaml }}"
+        php_internal_argument_spec: "{{ php_internal_argument_spec_lookup | ansible.builtin.from_yaml }}"
+      vars:
+        php_argument_spec_lookup: "{{ lookup('ansible.builtin.file', 'meta/argument_specs.yml', errors='strict') }}"
+        php_internal_argument_spec_lookup: "{{ lookup('ansible.builtin.file', 'meta/internal_argument_specs.yml', errors='strict') }}"
 
     - name: Set a fact for the combined argument spec and internal argument spec
       ansible.builtin.set_fact:
