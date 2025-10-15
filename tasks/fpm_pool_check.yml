@@ -106,7 +106,7 @@
 
     - name: Debug the PHP-FPM socket paths for all PHP versions
       ansible.builtin.debug:
-        msg: "{{ php_fpm_pools + [php_fpm_pool_files_json | ansible.builtin.from_json] }}"
+        msg: "{{ php_fpm_pools + [php_fpm_pool_files_json] }}"
         verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}0{% else %}1{% endif %}"
       vars:
         php_fpm_pool_files_json: |-
@@ -119,7 +119,7 @@
 
     - name: Set a fact the PHP-FPM socket paths for all PHP versions
       ansible.builtin.set_fact:
-        php_fpm_pools: "{{ php_fpm_pools + [php_fpm_pool_files_json | ansible.builtin.from_json] }}"
+        php_fpm_pools: "{{ php_fpm_pools + [php_fpm_pool_files_json] }}"
       vars:
         php_fpm_pool_files_json: |-
          {
