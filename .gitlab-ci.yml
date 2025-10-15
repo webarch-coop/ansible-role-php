@@ -36,18 +36,18 @@ before_script:
   - molecule --version
   - ansible-galaxy collection list --format=json | yq -o=yaml -P
 stages:
-  - bookworm
   - trixie
-bookworm:
-  image: registry.git.coop/webarch/containers/images/bookworm:20251009
-  stage: bookworm
-  script:
-    - molecule test --all
+  - bookworm
 trixie:
   image: registry.git.coop/webarch/containers/images/trixie:20251009
   stage: trixie
   script:
     - pre-commit install
     - pre-commit run --all-files
+    - molecule test --all
+bookworm:
+  image: registry.git.coop/webarch/containers/images/bookworm:20251009
+  stage: bookworm
+  script:
     - molecule test --all
 ...

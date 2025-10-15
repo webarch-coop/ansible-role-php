@@ -295,25 +295,32 @@ argument_specs:
         required: false
         description: Internal list of PHP packages to install.
       php_pkg_remove:
-        type: dict
+        type: list
+        elements: str
         required: false
-        description:
+        description: Internal list of PHP packages to remove.
       php_pkg_rm:
-        type: dict
+        type: list
+        elements: str
         required: false
-        description:
+        description: Internal list of PHP packages to remove.
       php_preferences:
         type: dict
         required: false
-        description:
+        description: Internal dictionary with the results from templating PHP apt preferences.
       php_ps:
         type: dict
         required: false
-        description:
+        description: Internal dictionary with the results from runing ps.
       php_sapis_available:
-        type: dict
+        type: list
+        elements: str
         required: false
-        description:
+        description: Internal string for the PHP SAPIs available.
+        choices:
+          - apache2
+          - cli
+          - fpm
       php_service_facts:
         type: dict
         required: false
@@ -321,9 +328,22 @@ argument_specs:
       php_sources_path:
         type: dict
         required: false
-        description:
+        description: Internal dictionary with the results from gathering systemd service facts.
       php_ver_installed:
-        type: dict
+        type: list
+        elements: str
         required: false
         description:
+        choices: Internal list of PHP versions installed.
+          - "8.4"
+          - "8.3"
+          - "8.2"
+          - "8.1"
+          - "8.0"
+          - "7.4"
+          - "7.3"
+          - "7.2"
+          - "7.1"
+          - "7.0"
+          - "5.6"
 ...
