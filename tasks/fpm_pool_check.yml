@@ -112,7 +112,7 @@
         php_fpm_pool_files_json: |-
          {
            "name": "{{ php_check_ver }}",
-           "pools": {{ php_fpm_version_socket_paths }}
+           "pools": {{ php_fpm_version_socket_paths | ansible.builtin.from_json }}
          }
       tags:
         - debug
@@ -124,7 +124,7 @@
         php_fpm_pool_files_json: |-
          {
            "name": "{{ php_check_ver }}",
-           "pools": {{ php_fpm_version_socket_paths }}
+           "pools": {{ php_fpm_version_socket_paths | ansible.builtin.from_json }}
          }
 
     - name: Debug the PHP-FPM socket paths for all PHP versions
