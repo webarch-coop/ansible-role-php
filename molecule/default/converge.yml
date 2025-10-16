@@ -49,4 +49,9 @@
       vars:  # noqa: var-naming[no-role-prefix]
         php: true
         php_fpm_pool_check_fail: false
+
+    - name: Include argument spec checks
+      ansible.builtin.include_role:
+        name: php
+        tasks_from: verify.yml
 ...

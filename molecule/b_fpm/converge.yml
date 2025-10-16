@@ -412,4 +412,9 @@
               - php8.4-xsl
               - php8.4-zip
               - php-pear
+
+    - name: Include argument spec checks
+      ansible.builtin.include_role:
+        name: php
+        tasks_from: verify.yml
 ...
