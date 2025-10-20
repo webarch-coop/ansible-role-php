@@ -73,30 +73,6 @@
       tags:
         - debug
 
-    - name: Debug php_fpm_pool_file_contents
-      ansible.builtin.debug:
-        var: php_fpm_pool_file_contents
-        # verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
-      when: php_fpm_pool_file_contents is defined
-      tags:
-        - debug
-
-    - name: Debug php_fpm_pool_files
-      ansible.builtin.debug:
-        var: php_fpm_pool_files
-        # verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
-      when: php_fpm_pool_files is defined
-      tags:
-        - debug
-
-    - name: Debug php_fpm_version_socket_paths
-      ansible.builtin.debug:
-        var: php_fpm_version_socket_paths
-        # verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
-      when: php_fpm_version_socket_paths is defined
-      tags:
-        - debug
-
     - name: Check php_ variables using the combined argument spec
       ansible.builtin.validate_argument_spec:
         argument_spec: "{{ php_combined_argument_spec['argument_specs']['main']['options'] }}"

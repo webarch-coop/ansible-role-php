@@ -179,13 +179,15 @@ argument_specs:
         required: false
         description: Internal dictionary with the results from backing up and removing a PHP configuration file that should be absent.
       php_fpm_pool_file_contents:
-        type: dict
+        type: list
+        elements: str
         required: false
-        description: Internal dictionary with the contents of multiple slurped PHP pool.d configuration files.
+        description: Internal list of the contents of multiple slurped PHP pool.d configuration files.
       php_fpm_pool_files:
-        type: dict
+        type: list
+        elements: str
         required: false
-        description: Internal dictionary with the results from finding existing PHP configuration pool.d .conf files.
+        description: Internal list of existing PHP configuration pool.d .conf files.
       php_fpm_pool_files_b64encoded:
         type: dict
         required: false
