@@ -65,27 +65,35 @@
       ansible.builtin.set_fact:
         php_combined_argument_spec: "{{ php_argument_spec | ansible.builtin.combine(php_internal_argument_spec, recursive=true) }}"
 
-    - name: Debug php_mods_existing
+    - name: Debug php_fpm_pools
       ansible.builtin.debug:
-        var: php_mods_existing
+        var: php_fpm_pools
         # verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
-      when: php_mods_existing is defined
+      when: php_fpm_pools is defined
       tags:
         - debug
 
-    - name: Debug php_phpquery_mods_available
+    - name: Debug php_fpm_pool_file_contents
       ansible.builtin.debug:
-        var: php_phpquery_mods_available
+        var: php_fpm_pool_file_contents
         # verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
-      when: php_phpquery_mods_available is defined
+      when: php_fpm_pool_file_contents is defined
       tags:
         - debug
 
-    - name: Debug php_conf_file_version
+    - name: Debug php_fpm_pool_files
       ansible.builtin.debug:
-        var: php_conf_file_version
+        var: php_fpm_pool_files
         # verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
-      when: php_conf_file_version is defined
+      when: php_fpm_pool_files is defined
+      tags:
+        - debug
+
+    - name: Debug php_fpm_version_socket_paths
+      ansible.builtin.debug:
+        var: php_fpm_version_socket_paths
+        # verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
+      when: php_fpm_version_socket_paths is defined
       tags:
         - debug
 
