@@ -68,7 +68,7 @@
     - name: Debug php_mods_existing
       ansible.builtin.debug:
         var: php_mods_existing
-        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
+        # verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
       when: php_mods_existing is defined
       tags:
         - debug
@@ -76,7 +76,7 @@
     - name: Debug php_phpquery_mods_available
       ansible.builtin.debug:
         var: php_phpquery_mods_available
-        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
+        # verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
       when: php_phpquery_mods_available is defined
       tags:
         - debug
@@ -84,7 +84,7 @@
     - name: Debug php_conf_file_version
       ansible.builtin.debug:
         var: php_conf_file_version
-        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
+        # verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
       when: php_conf_file_version is defined
       tags:
         - debug

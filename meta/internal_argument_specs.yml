@@ -98,7 +98,6 @@ argument_specs:
         type: str
         required: false
         description: Internal string for the PHP version of a PHP configuration file.
-        elements: str
         choices:
           - "5.6"
           - "7.0"
