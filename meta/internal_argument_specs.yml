@@ -264,10 +264,9 @@ argument_specs:
         required: false
         description: Internal list of PHP mods enabled.
       php_mods_existing:
-        type: list
-        elements: str
+        type: dict
         required: false
-        description: Internal list of PHP mods existing.
+        description: Internal dictionary for the result from running phpquery to check the existing mods enabled for a specific PHP SAPI.
       php_packages_installed:
         type: dict
         required: false
@@ -285,10 +284,9 @@ argument_specs:
         required: false
         description: Internal dictionary with the results from removing PHP packages.
       php_phpquery_mods_available:
-        type: list
-        elements: str
+        type: dict
         required: false
-        description: Internal list of PHP mods available.
+        description: Internal dictionary for the result from running phpquery to get the mods available for a specific PHP version.
       php_phpquery_sapi:
         type: dict
         required: false
