@@ -170,7 +170,7 @@
         that:
           - php_pool_names_not_absent | list | length == php_pool_names_not_absent | unique | list | length
         quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
-        fail_msg: "Non unique PHP-FPM pool names: {{ php_pool_names_not_absent | join(', ') }}, please run the role once with --extra-vars='php_fpm_pool_check_fail=false' to fix this"
+        fail_msg: "Non unique PHP-FPM pool names: {{ php_pool_names_not_absent | join(', ') }}, please ensure that there are no duplicates in the proposed PHP-FPM pool names, these must be unique. Set php_fpm_pool_check_fail to false to skip this check causing a failure."
       when: php_fpm_pool_check_fail | bool
 
     - name: Debug php_conf_opcache_jit_buffer_sizes_jmespath_query
