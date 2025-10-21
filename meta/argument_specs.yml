@@ -160,11 +160,6 @@ argument_specs:
         elements: str
         required: false
         description: A list of Debian Bullseye packages to install.
-      php_debian_buster_pkg:
-        type: list
-        elements: str
-        required: false
-        description: A list of Debian Buster packages to install.
       php_debian_bookworm_pkg:
         type: list
         elements: str
