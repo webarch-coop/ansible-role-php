@@ -32,7 +32,6 @@ repos:
         args:
           - scan
           - README.md
-          - VARIABLES.md
   # https://github.com/ansible/ansible-lint/releases
   - repo: https://github.com/ansible/ansible-lint.git
     rev: v25.9.2

@@ -203,34 +203,6 @@ argument_specs:
         type: bool
         required: true
         description: Fail when duplicated PHP-FPM pool names are found.
-      php_fpm_pools:
-        type: list
-        elements: dict
-        required: false
-        description: A generated list of FPM pool names and socket paths.
-        options:
-          name:
-            type: str
-            required: true
-            description: The PHP version.
-            choices:
-              - "5.6"
-              - "7.0"
-              - "7.1"
-              - "7.2"
-              - "7.3"
-              - "7.4"
-              - "8.0"
-              - "8.1"
-              - "8.2"
-              - "8.3"
-              - "8.4"
-              - "8.5"
-          pools:
-            type: list
-            elements: str
-            required: false
-            description: A list of PHP-FPM pool socket paths for the PHP version.
       php_fpm_version:
         type: str
         required: false
@@ -366,6 +338,14 @@ argument_specs:
         elements: str
         required: false
         description: A generated list of PHP-FPM pool names that are not absent.
+      php_quote_end_regex:
+        type: str
+        required: true
+        description: A regular expression to match a double quote at the end of a string.
+      php_quote_start_regex:
+        type: str
+        required: true
+        description: A regular expression to match a double quote at the start of a string.
       php_sapis:
         type: list
         elements: str

@@ -35,7 +35,7 @@ ansible-playbook all.yml -t php_cfg -l example.org --extra-vars "php_fpm_pool_ch
 
 See the [defaults/main.yml](defaults/main.yml) file for the default variables, the [vars/main.yml](vars/main.yml) file for the preset variables and the [meta/argument_specs.yml](meta/argument_specs.yml) file for the variable specification.
 
-This role has two required boolean variables, [php](#php) and [php_fpm_pool_check_fail](#php_fpm_pool_check_fail), two optional boolean variables, [php_check_legacy_variables](#php_check_legacy_variables), [php_sury](#php_sury) and [php_verify](#php_verify) and three optional lists, [php_config](#php_config), [php_modules](#php_modules) and [php_versions](#php_versions), the [VARIABLES.md](VARIABLES.md) file contains documentation generated from the [meta/argument_specs.yml](meta/argument_specs.yml) for all the variables including the internal ones.
+This role has two required boolean variables, [php](#php) and [php_fpm_pool_check_fail](#php_fpm_pool_check_fail), two optional boolean variables, [php_check_legacy_variables](#php_check_legacy_variables), [php_sury](#php_sury) and [php_verify](#php_verify) and three optional lists, [php_config](#php_config), [php_modules](#php_modules) and [php_versions](#php_versions), see the [meta/argument_specs.yml](meta/argument_specs.yml) for all the variables.
 
 ### php
 

@@ -65,14 +65,6 @@
       ansible.builtin.set_fact:
         php_combined_argument_spec: "{{ php_argument_spec | ansible.builtin.combine(php_internal_argument_spec, recursive=true) }}"
 
-    - name: Debug php_fpm_pools
-      ansible.builtin.debug:
-        var: php_fpm_pools
-        # verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
-      when: php_fpm_pools is defined
-      tags:
-        - debug
-
     - name: Check php_ variables using the combined argument spec
       ansible.builtin.validate_argument_spec:
         argument_spec: "{{ php_combined_argument_spec['argument_specs']['main']['options'] }}"

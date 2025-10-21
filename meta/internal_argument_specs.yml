@@ -178,11 +178,30 @@ argument_specs:
         type: dict
         required: false
         description: Internal dictionary with the results from backing up and removing a PHP configuration file that should be absent.
+      php_fpm_pool_dirs_found:
+        type: dict
+        required: false
+        description: Internal dictionary with the results from statting PHP-FPM pool.d directories.
+      php_fpm_pool_dirs:
+        type: list
+        elements: str
+        required: false
+        description: Internal list of PHP-FPM pool.d directories.
       php_fpm_pool_file_contents:
         type: list
         elements: str
         required: false
         description: Internal list of the contents of multiple slurped PHP pool.d configuration files.
+      php_fpm_pool_file_pool_names:
+        type: list
+        elements: str
+        required: false
+        description: Internal list of the PHP-FPM pool names taken from the existing pool.d configuration files.
+      php_fpm_pool_file_socket_paths:
+        type: list
+        elements: str
+        required: false
+        description: Internal list of the PHP-FPM socket paths taken from the existing pool.d configuration files.
       php_fpm_pool_files:
         type: list
         elements: str
@@ -200,43 +219,6 @@ argument_specs:
         type: dict
         required: false
         description: Internal dictionary with the results from statting the path of a PHP pool.d configuration directory.
-      php_fpm_pools:
-        type: list
-        elements: dict
-        required: false
-        description: Internal list of PHP versions and the pool names and socket paths for each version.
-        options:
-          name:
-            type: str
-            required: true
-            description: PHP version.
-            choices:
-              - "5.6"
-              - "7.0"
-              - "7.1"
-              - "7.2"
-              - "7.3"
-              - "7.4"
-              - "8.0"
-              - "8.1"
-              - "8.2"
-              - "8.3"
-              - "8.4"
-              - "8.5"
-          pools:
-            type: list
-            elements: dict
-            required: false
-            description: List of PHP-FPM pool names and socket paths.
-            options:
-              name:
-                type: str
-                required: true
-                description: PHP-FPM pool name.
-              socket:
-                type: str
-                required: true
-                description: PHP-FPM socket path.
       php_fpm_service:
         type: dict
         required: false

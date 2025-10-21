@@ -10,7 +10,6 @@
 ---
 ansible_managed: Ansible managed
 
-php_fpm_pools: []
 php_pool_names_not_absent: []
 
 php_file_path_separator: '/'
@@ -20,6 +19,8 @@ php_sapis:
   - cli
   - fpm
 
+php_quote_end_regex: '"$'
+php_quote_start_regex: '^"'
 php_sapi_regex: "^{{ php_sapis | join('|') }}$"
 
 # https://docs.ansible.com/ansible/latest/playbook_guide/complex_data_manipulation.html
