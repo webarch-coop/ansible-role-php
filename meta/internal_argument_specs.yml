@@ -361,6 +361,18 @@ argument_specs:
         type: dict
         required: false
         description:
+      php_sources_contents:
+        type: dict
+        required: false
+        description: Internal dictionary of the contents of the php.sources file.
+      php_sources_contents_b64encoded:
+        type: dict
+        required: false
+        description: Internal dictionary of the base64 encoded contents of the php.sources file.
+      php_sources_contents_prior:
+        type: dict
+        required: false
+        description: Internal dictionary of the contents of the php.sources file.
       php_sources_path:
         type: dict
         required: false
