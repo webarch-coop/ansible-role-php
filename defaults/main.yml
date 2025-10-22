@@ -17,9 +17,11 @@ php_config:
   #   files:
   #     - name: PHP 8.5 JIT configuration
   #       path: /etc/php/8.5/mods-available/opcache.ini
-  #       state: edited
-  #       conf_absent:
-  #         "opcache.jit": "0"
+  #       state: templated
+  #       # conf_absent:
+  #       #   "opcache.jit": "0"
+  #       conf:
+  #         "zend_extension": "opcache.so"
   #     - name: PHP 8.5 CLI configuration
   #       path: /etc/php/8.5/cli/php.ini
   #       state: present
@@ -127,9 +129,11 @@ php_config:
     files:
       - name: PHP 8.4 JIT configuration
         path: /etc/php/8.4/mods-available/opcache.ini
-        state: edited
-        conf_absent:
-          "opcache.jit": "0"
+        state: templated
+        # conf_absent:
+        #   "opcache.jit": "0"
+        conf:
+          "zend_extension": "opcache.so"
       - name: PHP 8.4 CLI configuration
         path: /etc/php/8.4/cli/php.ini
         state: present
@@ -237,9 +241,11 @@ php_config:
     files:
       - name: PHP 8.3 JIT configuration
         path: /etc/php/8.3/mods-available/opcache.ini
-        state: edited
-        conf_absent:
-          "opcache.jit": "0"
+        state: templated
+        # conf_absent:
+        #   "opcache.jit": "0"
+        conf:
+          "zend_extension": "opcache.so"
       - name: PHP 8.3 CLI configuration
         path: /etc/php/8.3/cli/php.ini
         state: present
@@ -347,9 +353,11 @@ php_config:
     files:
       - name: PHP 8.2 JIT configuration
         path: /etc/php/8.2/mods-available/opcache.ini
-        state: edited
-        conf_absent:
-          "opcache.jit": "0"
+        state: templated
+        # conf_absent:
+        #   "opcache.jit": "0"
+        conf:
+          "zend_extension": "opcache.so"
       - name: PHP 8.2 CLI configuration
         path: /etc/php/8.2/cli/php.ini
         state: present
@@ -457,9 +465,11 @@ php_config:
     files:
       - name: PHP 8.1 JIT configuration
         path: /etc/php/8.1/mods-available/opcache.ini
-        state: edited
-        conf_absent:
-          "opcache.jit": "0"
+        state: templated
+        # conf_absent:
+        #   "opcache.jit": "0"
+        conf:
+          "zend_extension": "opcache.so"
       - name: PHP 8.1 CLI configuration
         path: /etc/php/8.1/cli/php.ini
         state: present
@@ -567,9 +577,11 @@ php_config:
     files:
       - name: PHP 8.0 JIT configuration
         path: /etc/php/8.0/mods-available/opcache.ini
-        state: edited
-        conf_absent:
-          "opcache.jit": "0"
+        state: templated
+        # conf_absent:
+        #   "opcache.jit": "0"
+        conf:
+          "zend_extension": "opcache.so"
       - name: PHP 8.0 CLI configuration
         path: /etc/php/8.0/cli/php.ini
         state: present
