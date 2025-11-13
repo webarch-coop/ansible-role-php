@@ -123,18 +123,7 @@
 
     - name: Set a fact for a list of PHP-FPM pool names
       ansible.builtin.set_fact:
-        php_fpm_pool_file_pool_names: "{{ php_fpm_pool_file_pool_dicts.keys() | sort }}"
-      vars:
-        php_fpm_pool_file_pool_dicts: "{{ php_fpm_pool_file_contents | community.general.json_query('[]') }}"
-
-    - name: Debug php_fpm_pool_file_pool_names
-      ansible.builtin.debug:
-        var: php_fpm_pool_file_pool_names
-        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}0{% else %}1{% endif %}"
-
-    - name: Set a fact for a list of PHP-FPM pool names
-      ansible.builtin.set_fact:
-        php_fpm_pool_file_pool_names: "{{ php_fpm_pool_file_contents | community.general.json_query('[].keys(@)[]') | sort }}"
+        php_fpm_pool_file_pool_names: "{{ php_fpm_pool_file_contents | list | community.general.json_query('[].keys(@)[]') | sort }}"
 
     - name: Debug php_fpm_pool_file_pool_names
       ansible.builtin.debug:
