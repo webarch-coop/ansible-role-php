@@ -121,6 +121,20 @@
         loop_var: php_ver_chk
         label: "{{ php_ver_chk }}"
 
+    - name: Debug php_conf_files_edited
+      ansible.builtin.debug:
+        var: php_conf_files_edited
+        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}0{% else %}1{% endif %}"
+      tags:
+        - debug
+
+    - name: Debug php_conf_files_existing
+      ansible.builtin.debug:
+        var: php_conf_files_existing
+        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}0{% else %}1{% endif %}"
+      tags:
+        - debug
+
     - name: Ensure that all files that are set to be edited already exist
       ansible.builtin.assert:
         that:

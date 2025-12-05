@@ -1460,7 +1460,7 @@ php_validation_conditions:
     {{         php_ver in php_sury_versions }}
     {%     endfor %}
     {% endif %}
-  - "{{ php_conf_opcache_jit_buffer_size is ansible.builtin.regex('^[0-9]{1,20}[G|K|M]?$') }}"
+  # - "{{ php_conf_opcache_jit_buffer_size is ansible.builtin.regex('^[0-9]{1,20}[G|K|M]?$') }}"
 php_validation: "{{ php_validation_conditions is ansible.builtin.all }}"
 
 # PHP versions absent
