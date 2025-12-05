@@ -23,6 +23,11 @@
 - name: PHP
   block:
 
+    - name: Include debugging
+      ansible.builtin.include_tasks: debug.yml
+      tags:
+        - debug
+
     - name: Include PHP verify variables tasks
       ansible.builtin.include_tasks: verify.yml
       when:

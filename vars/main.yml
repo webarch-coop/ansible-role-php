@@ -781,7 +781,7 @@ php_default_config:
             "pm.max_children": "4"
             "pm.process_idle_timeout": 10s
             "pm.status_path": /fpm74-status
-php_combined_config: "{{ php_default_config | ansible.builtin.combine(php_config) }}"
+php_combined_config: "{{ php_default_config | community.general.lists_mergeby(php_config, 'version') }}"
 
 # The php_default_modules here is combined with the php_modules to produce php_combined_modules
 php_default_modules:
@@ -1156,7 +1156,7 @@ php_default_modules:
           - xmlwriter
           - xsl
           - zip
-php_combined_modules: "{{ php_default_modules | ansible.builtin.combine(php_modules) }}"
+php_combined_modules: "{{ php_default_modules | community.general.lists_mergeby(php_modules, 'version') }}"
 
 # The php_default_versions here is combined with the php_versions to produce php_combined_versions
 php_default_versions:
@@ -1402,7 +1402,7 @@ php_default_versions:
   - name: PHP 5.6 packages
     version: "5.6"
     state: absent
-php_combined_versions: "{{ php_default_versions | ansible.builtin.combine(php_versions) }}"
+php_combined_versions: "{{ php_default_versions | community.general.lists_mergeby(php_versions, 'version') }}"
 
 php_sury_versions:
   - "5.6"
@@ -1435,17 +1435,28 @@ php_sapi_regex: "^{{ php_sapis | join('|') }}$"
 phpvarnames: "{{ q('varnames', '^php_') | sort }}"
 phphostvars: "{{ dict(phpvarnames | list | zip(q('vars', *phpvarnames))) }}"
 
+php_true: true
+php_false: false
+
 # https://forum.ansible.com/t/validating-inventory-against-argument-specs/10748/10
 php_validation_conditions:
   - >-
-    {% if (php_mods_ver_absent is defined) and (php_mods_ver_absent | ansible.builtin.type_debug == "list") and (php_mods_ver_absent != []) %}
+    {# if (php_mods_ver_absent is defined) and (php_mods_ver_absent == []) #}
+    {% if php_mods_ver_absent == [] %}
+    {{   php_true }}
+    {# elif (php_mods_ver_absent is defined) and (php_mods_ver_absent != []) #}
+    {% elif php_mods_ver_absent != [] %}
     {%     for php_ver in php_mods_ver_absent %}
     {{         php_ver in php_sury_versions }}
     {%     endfor %}
     {% endif %}
   - >-
-    {% if (php_mods_ver_present is defined) and (php_mods_ver_present | ansible.builtin.type_debug == "list") and (php_mods_ver_present != []) %}
-    {%     for php_ver in php_mods_ver_presentphp_mods_ver_present %}
+    {# if (php_mods_ver_present is defined) and (php_mods_ver_present == []) #}
+    {% if php_mods_ver_present == [] %}
+    {{   php_true }}
+    {# elif (php_mods_ver_present is defined) and (php_mods_ver_present != []) #}
+    {% elif php_mods_ver_present != [] %}
+    {%     for php_ver in php_mods_ver_present %}
     {{         php_ver in php_sury_versions }}
     {%     endfor %}
     {% endif %}

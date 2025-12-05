@@ -11,48 +11,6 @@
 - name: Verify PHP variables
   block:
 
-    - name: Debug phpvarnames
-      ansible.builtin.debug:
-        var: phpvarnames
-        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
-      tags:
-        - debug
-
-    - name: Debug phphostvars
-      ansible.builtin.debug:
-        var: phphostvars
-        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
-      tags:
-        - debug
-
-    - name: Debug lookup meta/argument_specs.yml
-      ansible.builtin.debug:
-        msg: "{{ lookup('ansible.builtin.file', 'meta/argument_specs.yml', errors='strict') }}"
-        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
-      tags:
-        - debug
-
-    - name: Debug lookup meta/argument_specs.yml type
-      ansible.builtin.debug:
-        msg: "{{ lookup('ansible.builtin.file', 'meta/argument_specs.yml', errors='strict') | ansible.builtin.type_debug }}"
-        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
-      tags:
-        - debug
-
-    - name: Debug lookup meta/internal_argument_specs.yml
-      ansible.builtin.debug:
-        msg: "{{ lookup('ansible.builtin.file', 'meta/internal_argument_specs.yml', errors='strict') }}"
-        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
-      tags:
-        - debug
-
-    - name: Debug lookup meta/internal_argument_specs.yml type
-      ansible.builtin.debug:
-        msg: "{{ lookup('ansible.builtin.file', 'meta/internal_argument_specs.yml', errors='strict') | ansible.builtin.type_debug }}"
-        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
-      tags:
-        - debug
-
     - name: Set a fact for the argument spec and internal argument spec
       ansible.builtin.set_fact:
         php_argument_spec: "{{ php_argument_spec_lookup | ansible.builtin.from_yaml }}"

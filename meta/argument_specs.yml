@@ -178,7 +178,13 @@ argument_specs:
       php_conf_file_paths_jmespath_query:
         type: str
         required: true
-        description: A internale JMESPath query string.
+        description: A internal JMESPath query string.
+      php_false:
+        type: bool
+        required: true
+        description: Internal variable that returns false.
+        choices:
+          - false
       php_file_path_separator:
         type: str
         required: true
@@ -384,6 +390,12 @@ argument_specs:
         type: str
         required: false
         description: Internal variable for the PHP-FPM systemd service file path.
+      php_true:
+        type: bool
+        required: true
+        description: Internal variable that returns true.
+        choices:
+          - true
       php_ver:
         type: str
         required: false

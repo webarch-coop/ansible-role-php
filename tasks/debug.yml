@@ -1,0 +1,71 @@
+# Copyright 2019-2025 Chris Croome
+#
+# This file is part of the Webarchitects PHP Ansible role.
+#
+# The Webarchitects PHP Ansible role is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#
+# The Webarchitects PHP Ansible role is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with the Webarchitects PHP Ansible role. If not, see <https://www.gnu.org/licenses/>.
+---
+- name: Debugging
+  block:
+
+    - name: Debug php_mods_ver_absent
+      ansible.builtin.debug:
+        var: php_mods_ver_absent
+        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
+
+    - name: Debug php_mods_ver_present
+      ansible.builtin.debug:
+        var: php_mods_ver_present
+        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
+
+    - name: Debug php_combined_config
+      ansible.builtin.debug:
+        var: php_combined_config
+        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
+
+    - name: Debug php_combined_modules
+      ansible.builtin.debug:
+        var: php_combined_modules
+        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
+
+    - name: Debug php_combined_versions
+      ansible.builtin.debug:
+        var: php_combined_modules
+        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
+
+    - name: Debug phpvarnames
+      ansible.builtin.debug:
+        var: phpvarnames
+        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
+
+    - name: Debug phphostvars
+      ansible.builtin.debug:
+        var: phphostvars
+        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
+
+    - name: Debug lookup meta/argument_specs.yml
+      ansible.builtin.debug:
+        msg: "{{ lookup('ansible.builtin.file', 'meta/argument_specs.yml', errors='strict') }}"
+        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
+
+    - name: Debug lookup meta/argument_specs.yml type
+      ansible.builtin.debug:
+        msg: "{{ lookup('ansible.builtin.file', 'meta/argument_specs.yml', errors='strict') | ansible.builtin.type_debug }}"
+        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
+
+    - name: Debug lookup meta/internal_argument_specs.yml
+      ansible.builtin.debug:
+        msg: "{{ lookup('ansible.builtin.file', 'meta/internal_argument_specs.yml', errors='strict') }}"
+        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
+
+    - name: Debug lookup meta/internal_argument_specs.yml type
+      ansible.builtin.debug:
+        msg: "{{ lookup('ansible.builtin.file', 'meta/internal_argument_specs.yml', errors='strict') | ansible.builtin.type_debug }}"
+        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
+
+  tags:
+    - debug
+...
