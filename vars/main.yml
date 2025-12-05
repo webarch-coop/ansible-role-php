@@ -1438,13 +1438,13 @@ phphostvars: "{{ dict(phpvarnames | list | zip(q('vars', *phpvarnames))) }}"
 # https://forum.ansible.com/t/validating-inventory-against-argument-specs/10748/10
 php_validation_conditions:
   - >-
-    {% if (php_mods_ver_absent) is defined and (php_mods_ver_absent != []) %}
+    {% if (php_mods_ver_absent is defined) and (php_mods_ver_absent | ansible.builtin.type_debug == "list") and (php_mods_ver_absent != []) %}
     {%     for php_ver in php_mods_ver_absent %}
     {{         php_ver in php_sury_versions }}
     {%     endfor %}
     {% endif %}
   - >-
-    {% if (php_mods_ver_present) is defined and (php_mods_ver_present != []) %}
+    {% if (php_mods_ver_present is defined) and (php_mods_ver_present | ansible.builtin.type_debug == "list") and (php_mods_ver_present != []) %}
     {%     for php_ver in php_mods_ver_presentphp_mods_ver_present %}
     {{         php_ver in php_sury_versions }}
     {%     endfor %}
