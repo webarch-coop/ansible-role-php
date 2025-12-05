@@ -47,6 +47,8 @@ The optional `php_check_legacy_variables` variable is `true` by default, this re
 
 ### php_config
 
+The `php_config` is combined with the `php_default_config` from [vars/main.yml](vars/main.yml) to produce the `php_combined_config` and this is use by the role for PHP configuration.
+
 The optional `php_config` list is used to specify the state of the PHP configuration, it enables the editing, generating and removal of PHP `.conf` and `.ini` files.
 
 Each item in the list requires a `state`, which can be `absent` or `present` and a `version` which must be a string from this list of PHP versions:
@@ -109,6 +111,8 @@ The compulsory `php_fpm_pool_check_fail` variable defaults to `true`, set it to 
 
 ### php_modules
 
+The `php_modules` is combined with the `php_default_modules` from [vars/main.yml](vars/main.yml) to produce the `php_combined_modules` and this is use by the role for PHP module configuration.
+
 The optional `php_modules` list can be used to enable and disable PHP modules using `phpmyquery`, which adds and removes symlinks in the `apache2/conf.d`, `cli/conf.d` and `fpm/conf.d` directories which point to `.ini` files in the `mods-available` directory for each version of PHP.
 
 Each item in the list requires a `state`, which can be `absent` or `present` and a `version` which must be a string from this list of PHP versions:
@@ -154,6 +158,8 @@ The optional `php_sury` variable is `true` by default which results in the [Debi
 The optional `php_verify` variable is `true` by default which results in all variables that start with `php_` being checked using the [meta/argument_specs.yml](meta/argument_specs.yml), this is a stricter check than Ansible uses by default as non-defined variables, such as `php_foo` cause the verification to fail.
 
 ### php_versions
+
+The `php_versions` is combined with the `php_default_versions` from [vars/main.yml](vars/main.yml) to produce the `php_combined_versions` and this is use by the role for PHP package configuration.
 
 The optional `php_versions` list is used to install and remove PHP packages, each item in the list requires a `state`, which can be `absent` or `present` and a `version` which must be a string from this list of PHP versions:
 

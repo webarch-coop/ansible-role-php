@@ -15,7 +15,7 @@
       ansible.builtin.set_fact:
         php_conf_file_backup: "{{ php_conf_file | ansible.builtin.dirname }}/.{{ php_conf_file | ansible.builtin.basename }}.{{ ansible_facts.date_time.iso8601_basic_short }}.bak"
         php_conf_file_no_extra_spaces: "{%- if (php_conf_file | ansible.builtin.dirname | ansible.builtin.split('/') | last) == 'mods-available' -%}true{%- else -%}false{%- endif -%}"
-        php_conf_file_proposed_vars: "{{ php_config | community.general.json_query(php_conf_file_proposed_vars_json_query) }}"
+        php_conf_file_proposed_vars: "{{ php_combined_config | community.general.json_query(php_conf_file_proposed_vars_json_query) }}"
         php_conf_file_sapi: null
         php_conf_file_version: "{{ php_conf_file | ansible.builtin.split(php_file_path_separator) | community.general.json_query('[3]') }}"
       vars:

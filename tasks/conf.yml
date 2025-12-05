@@ -103,7 +103,7 @@
       ansible.builtin.debug:
         msg:
           - "PHP version: {{ php_ver_dbg }}"
-          - "PHP file path versions: {{ php_config | community.general.json_query(php_conf_file_paths_jmespath_query) | map('regex_replace', '^[/]etc[/]php[/]') | map('regex_replace', '[/].*$') | unique }}"
+          - "PHP file path versions: {{ php_combined_config | community.general.json_query(php_conf_file_paths_jmespath_query) | map('regex_replace', '^[/]etc[/]php[/]') | map('regex_replace', '[/].*$') | unique }}"
         verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
       vars:
         php_conf_file_paths_jmespath_query: "[?version=='{{ php_ver }}'].files[].path"
@@ -115,7 +115,7 @@
     - name: Include PHP conf file path checks
       ansible.builtin.include_tasks: conf_path_check.yml
       vars:
-        php_conf_file_paths: "{{ php_config | community.general.json_query(php_conf_file_paths_jmespath_query) }}"
+        php_conf_file_paths: "{{ php_combined_config | community.general.json_query(php_conf_file_paths_jmespath_query) }}"
       loop: "{{ php_conf_ver_present }}"
       loop_control:
         loop_var: php_ver_chk

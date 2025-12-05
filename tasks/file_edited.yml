@@ -66,7 +66,7 @@
 
     - name: Set a fact for the proposed PHP configuration file variables
       ansible.builtin.set_fact:
-        php_conf_file_proposed_vars: "{{ php_config | community.general.json_query(php_conf_file_proposed_vars_json_query) }}"
+        php_conf_file_proposed_vars: "{{ php_combined_config | community.general.json_query(php_conf_file_proposed_vars_json_query) }}"
       vars:
         php_conf_file_proposed_vars_json_query: "[?state=='present'].files[]|[?path=='{{ php_conf_file }}'].conf|[0]"
 
@@ -92,7 +92,7 @@
 
     - name: Set a fact for the absent PHP configuration file variables
       ansible.builtin.set_fact:
-        php_conf_file_absent_vars: "{{ php_config | community.general.json_query(php_conf_file_absent_vars_json_query) }}"
+        php_conf_file_absent_vars: "{{ php_combined_config | community.general.json_query(php_conf_file_absent_vars_json_query) }}"
       vars:
         php_conf_file_absent_vars_json_query: "[?state=='present'].files[]|[?path=='{{ php_conf_file }}'].conf_absent|[0]"
 
