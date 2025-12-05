@@ -1537,13 +1537,13 @@ php_conf_opcache_jit_buffer_sizes: "{{ php_combined_config | community.general.j
 # cat vars/main.yml | yq -o=json | jp "sort(php_modules[?state=='absent'].version)"
 # php_mods_ver_absent: "{{ php_combined_modules | community.general.json_query('[?state==`absent`].version') | sort }}"
 # php_mods_ver_absent: "{{ php_combined_modules | community.general.json_query('sort([?state==`absent`].version)') }}"
-php_mods_ver_absent: "{{ php_combined_modules | community.general.json_query('[?state==`absent`].version') }}"
+php_mods_ver_absent: "{{ php_combined_modules | community.general.json_query('[?state==`absent`].version') | ansible.builtin.default([]) }}"
 
 # PHP modules configuration present
 # cat vars/main.yml | yq -o=json | jp "sort(php_modules[?state=='present'].version)"
 # php_mods_ver_present: "{{ php_combined_modules | community.general.json_query('[?state==`present`].version') | sort }}"
 # php_mods_ver_present: "{{ php_combined_modules | community.general.json_query('sort([?state==`present`].version)') }}"
-php_mods_ver_present: "{{ php_combined_modules | community.general.json_query('[?state==`present`].version') }}"
+php_mods_ver_present: "{{ php_combined_modules | community.general.json_query('[?state==`present`].version') | ansible.builtin.default([]) }}"
 
 # The following lists can be generated using the sury-packages.sh script in this directory.
 # To update them delete everything after this comment and inset the results of the script.
