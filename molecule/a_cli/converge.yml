@@ -53,15 +53,12 @@
           - name: PHP 8.5 configuration
             version: "8.5"
             state: absent
-            files: []
           - name: PHP 8.4 configuration
             version: "8.4"
             state: absent
-            files: []
           - name: PHP 8.3 configuration
             version: "8.3"
             state: absent
-            files: []
           - name: PHP 8.2 configuration
             version: "8.2"
             state: present
@@ -97,28 +94,22 @@
           - name: PHP 8.1 configuration
             version: "8.1"
             state: absent
-            files: []
           - name: PHP 8.0 configuration
             version: "8.0"
             state: absent
-            files: []
           - name: PHP 7.4 configuration
             version: "7.4"
             state: absent
-            files: []
         php_modules:
           - name: PHP 8.5 modules
             version: "8.5"
             state: absent
-            sapis: []
           - name: PHP 8.4 modules
             version: "8.4"
             state: absent
-            sapis: []
           - name: PHP 8.3 modules
             version: "8.3"
             state: absent
-            sapis: []
           - name: PHP 8.2 modules
             version: "8.2"
             state: present
@@ -176,32 +167,23 @@
           - name: PHP 8.1 modules
             version: "8.1"
             state: absent
-            sapis: []
           - name: PHP 8.0 modules
             version: "8.0"
             state: absent
-            sapis: []
           - name: PHP 7.4 modules
             version: "7.4"
             state: absent
-            sapis: []
         php_sury: false
         php_versions:
           - name: PHP 8.5 packages
             version: "8.5"
             state: absent
-            pkg_absent: []
-            pkg_present: []
           - name: PHP 8.4 packages
             version: "8.4"
             state: absent
-            pkg_absent: []
-            pkg_present: []
           - name: PHP 8.3 packages
             version: "8.3"
             state: absent
-            pkg_absent: []
-            pkg_present: []
           - name: PHP 8.2 packages
             version: "8.2"
             state: present
@@ -238,18 +220,12 @@
           - name: PHP 8.1 packages
             version: "8.1"
             state: absent
-            pkg_absent: []
-            pkg_present: []
           - name: PHP 8.0 packages
             version: "8.0"
             state: absent
-            pkg_absent: []
-            pkg_present: []
           - name: PHP 7.4 packages
             version: "7.4"
             state: absent
-            pkg_absent: []
-            pkg_present: []
 
     - name: Include php role as root for Debian Trixie
       ansible.builtin.include_role:

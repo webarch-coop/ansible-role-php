@@ -83,7 +83,6 @@ argument_specs:
             required: true
             description: The PHP version number.
             choices:
-              - None
               - "5.6"
               - "7.0"
               - "7.1"
@@ -146,7 +145,6 @@ argument_specs:
             required: true
             description: The PHP version number.
             choices:
-              - None
               - "5.6"
               - "7.0"
               - "7.1"
@@ -191,7 +189,6 @@ argument_specs:
             required: true
             description: The PHP version number.
             choices:
-              - None
               - "5.6"
               - "7.0"
               - "7.1"
@@ -274,7 +271,6 @@ argument_specs:
         required: false
         description: Internal string for the PHP version of a PHP configuration file.
         choices:
-          - None
           - "5.6"
           - "7.0"
           - "7.1"
@@ -369,7 +365,6 @@ argument_specs:
             required: true
             description: The PHP version number.
             choices:
-              - None
               - "5.6"
               - "7.0"
               - "7.1"
@@ -432,7 +427,6 @@ argument_specs:
             required: true
             description: The PHP version number.
             choices:
-              - None
               - "5.6"
               - "7.0"
               - "7.1"
@@ -477,7 +471,6 @@ argument_specs:
             required: true
             description: The PHP version number.
             choices:
-              - None
               - "5.6"
               - "7.0"
               - "7.1"
@@ -732,7 +725,6 @@ argument_specs:
         required: false
         description:
         choices:
-          - None
           - "5.6"
           - "7.0"
           - "7.1"
