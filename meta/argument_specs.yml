@@ -225,37 +225,37 @@ argument_specs:
         elements: str
         required: false
         description: A generated list of PHP versions for which module configuration should be absent.
-        choices:
-          - "5.6"
-          - "7.0"
-          - "7.1"
-          - "7.2"
-          - "7.3"
-          - "7.4"
-          - "8.0"
-          - "8.1"
-          - "8.2"
-          - "8.3"
-          - "8.4"
-          - "8.5"
+        # choices:
+        #   - "5.6"
+        #   - "7.0"
+        #   - "7.1"
+        #   - "7.2"
+        #   - "7.3"
+        #   - "7.4"
+        #   - "8.0"
+        #   - "8.1"
+        #   - "8.2"
+        #   - "8.3"
+        #   - "8.4"
+        #   - "8.5"
       php_mods_ver_present:
         type: list
         elements: str
         required: false
         description: A generated list of PHP versions for which module configuration should be present.
-        choices:
-          - "5.6"
-          - "7.0"
-          - "7.1"
-          - "7.2"
-          - "7.3"
-          - "7.4"
-          - "8.0"
-          - "8.1"
-          - "8.2"
-          - "8.3"
-          - "8.4"
-          - "8.5"
+        # choices:
+        #   - "5.6"
+        #   - "7.0"
+        #   - "7.1"
+        #   - "7.2"
+        #   - "7.3"
+        #   - "7.4"
+        #   - "8.0"
+        #   - "8.1"
+        #   - "8.2"
+        #   - "8.3"
+        #   - "8.4"
+        #   - "8.5"
       php_modules:
         type: list
         elements: dict
@@ -362,6 +362,24 @@ argument_specs:
         type: bool
         required: false
         description: Configure the Sury PHP deb package repo.
+      php_sury_versions:
+        type: list
+        elements: str
+        required: true
+        description: A list of all PHP versions available from the DEB.SURY.ORG APT Repository.
+        choices:
+          - "5.6"
+          - "7.0"
+          - "7.1"
+          - "7.2"
+          - "7.3"
+          - "7.4"
+          - "8.0"
+          - "8.1"
+          - "8.2"
+          - "8.3"
+          - "8.4"
+          - "8.5"
       php_systemd_service_path:
         type: str
         required: false
@@ -415,6 +433,12 @@ argument_specs:
           - "8.3"
           - "8.4"
           - "8.5"
+      php_validation:
+        type: bool
+        required: true
+        choices:
+          - true
+        description: Validate role variable conditions.
       php_verify:
         type: bool
         required: false

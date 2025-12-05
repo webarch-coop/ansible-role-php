@@ -1404,6 +1404,20 @@ php_default_versions:
     state: absent
 php_combined_versions: "{{ php_default_versions | ansible.builtin.combine(php_versions) }}"
 
+php_sury_versions:
+  - "5.6"
+  - "7.0"
+  - "7.1"
+  - "7.2"
+  - "7.3"
+  - "7.4"
+  - "8.0"
+  - "8.1"
+  - "8.2"
+  - "8.3"
+  - "8.4"
+  - "8.5"
+
 php_pool_names_not_absent: []
 
 php_file_path_separator: '/'
@@ -1420,6 +1434,22 @@ php_sapi_regex: "^{{ php_sapis | join('|') }}$"
 # https://docs.ansible.com/ansible/latest/playbook_guide/complex_data_manipulation.html
 phpvarnames: "{{ q('varnames', '^php_') | sort }}"
 phphostvars: "{{ dict(phpvarnames | list | zip(q('vars', *phpvarnames))) }}"
+
+# https://forum.ansible.com/t/validating-inventory-against-argument-specs/10748/10
+php_validation_conditions:
+  - >-
+    {% if (php_mods_ver_absent) is defined and (php_mods_ver_absent != []) %}
+    {%     for php_ver in php_mods_ver_absent %}
+    {{         php_ver in php_sury_versions }}
+    {%     endfor %}
+    {% endif %}
+  - >-
+    {% if (php_mods_ver_present) is defined and (php_mods_ver_present != []) %}
+    {%     for php_ver in php_mods_ver_presentphp_mods_ver_present %}
+    {{         php_ver in php_sury_versions }}
+    {%     endfor %}
+    {% endif %}
+php_validation: "{{ php_validation_conditions is ansible.builtin.all }}"
 
 # PHP versions absent
 # cat vars/main.yml | yq -o=json | jp "sort(php_versions[?state=='absent'].version)"
