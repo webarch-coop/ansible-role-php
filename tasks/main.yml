@@ -101,6 +101,13 @@
           tags:
             - debug
 
+        - name: Debug PHP versions that are installed
+          ansible.builtin.debug:
+            var: php_conf_ver_installed
+            verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+          tags:
+            - debug
+
         - name: PHP versions that are not installed cannot be configured unless in check mode
           ansible.builtin.fail:
             msg: "PHP versions {% for php_v in php_conf_ver_present | difference(php_ver_installed) %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %} cannot be configured when they are not present."
