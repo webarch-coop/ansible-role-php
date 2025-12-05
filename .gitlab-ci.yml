@@ -21,7 +21,7 @@ variables:
   ANSIBLE_ROLES_PATH: "${CI_PROJECT_DIR}/..:~/.ansible/roles:/usr/share/ansible/roles:/etc/ansible/roles"
   ANSIBLE_SHELL_ALLOW_WORLD_READABLE_TEMP: "1"
   DEBIAN_FRONTEND: "noninteractive"
-  MOLECULE_VERBOSITY: "0"
+  MOLECULE_VERBOSITY: "3"
   PRE_COMMIT_COLOR: always
   PY_COLORS: "1"
 before_script:
