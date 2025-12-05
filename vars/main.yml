@@ -1418,7 +1418,8 @@ php_quote_start_regex: '^"'
 php_sapi_regex: "^{{ php_sapis | join('|') }}$"
 
 # https://docs.ansible.com/ansible/latest/playbook_guide/complex_data_manipulation.html
-phpvarnames: "{{ q('varnames', '^php_') | sort }}"
+# phpvarnames: "{{ q('varnames', '^php_') | sort }}"
+phpvarnames: "{{ q('varnames', '^php_') }}"
 phphostvars: "{{ dict(phpvarnames | list | zip(q('vars', *phpvarnames))) }}"
 
 # PHP versions absent

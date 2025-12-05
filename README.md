@@ -87,10 +87,22 @@ The `templated` state can be used to generate new configuration files and to rem
 
 File configuration is defined using a `conf` dictionary for `edited` and `templated` states and `conf_absent` for `edited` states.
 
-An example `php_config` item:
+An example `php_config` dictionary, these settings will be combined with the `php_default_config`:
 
 ```yaml
 php_config:
+  - name: PHP 8.5 configuration
+    version: "8.5"
+    state: absent
+    files: []
+  - name: PHP 8.4 configuration
+    version: "8.4"
+    state: absent
+    files: []
+  - name: PHP 8.3 configuration
+    version: "8.3"
+    state: absent
+    files: []
   - name: PHP 8.3 configuration
     version: "8.3"
     state: present
@@ -103,6 +115,20 @@ php_config:
             "apc.enabled": "1"
           Date:
             "date.timezone": "Europe/London"
+          opcache:
+            "opcache.memory_consumption": "2048"
+  - name: PHP 8.1 configuration
+    version: "8.1"
+    state: absent
+    files: []
+  - name: PHP 8.0 configuration
+    version: "8.0"
+    state: absent
+    files: []
+  - name: PHP 7.4 configuration
+    version: "7.4"
+    state: absent
+    files: []
 ```
 
 ### php_fpm_pool_check_fail
@@ -134,10 +160,18 @@ Each item in the list requires a `state`, which can be `absent` or `present` and
 
 Plus a lists of `sapis`, each item of which requires an `sapi`, which can be one of `apache2`, `cli` or `fpm` and an optional `mods_enabled` and `mods_disabled` list.
 
-For example:
+An example `php_modules` dictionary, these settings will be combined with the `php_default_modules`:
 
 ```yaml
 php_modules:
+  - name: PHP 8.5 modules
+    version: "8.5"
+    state: absent
+    sapis: []
+  - name: PHP 8.4 modules
+    version: "8.4"
+    state: absent
+    sapis: []
   - name: PHP 8.3 modules
   ⦙ version: "8.3"
   ⦙ state: present
@@ -147,6 +181,18 @@ php_modules:
   ⦙ ⦙ ⦙ mods_enabled:
   ⦙ ⦙ ⦙ ⦙ - apcu
   ⦙ ⦙ ⦙ ⦙ - mysqli
+  - name: PHP 8.1 modules
+    version: "8.1"
+    state: absent
+    sapis: []
+  - name: PHP 8.0 modules
+    version: "8.0"
+    state: absent
+    sapis: []
+  - name: PHP 7.4 modules
+    version: "7.4"
+    state: absent
+    sapis: []
 ```
 
 ### php_sury
@@ -180,10 +226,20 @@ The optional `php_versions` list is used to install and remove PHP packages, eac
 
 Two optional lists, `pkg_absent` and `pkg_present` are used to list `.deb` packages that are to be installed or removed.
 
-An example `php_versions` item:
+An example `php_version` dictionary, these settings will be combined with the `php_default_versions`:
 
 ```yaml
 php_versions:
+  - name: PHP 8.5 packages
+    version: "8.5"
+    state: absent
+    pkg_absent: []
+    pkg_present: []
+  - name: PHP 8.4 packages
+    version: "8.4"
+    state: absent
+    pkg_absent: []
+    pkg_present: []
   - name: PHP 8.3 packages
     version: "8.3"
     state: present
@@ -191,6 +247,26 @@ php_versions:
       - libapache2-mod-php8.3
     pkg_present:
       - php8.3-apcu
+  - name: PHP 8.2 packages
+    version: "8.2"
+    state: absent
+    pkg_absent: []
+    pkg_present: []
+  - name: PHP 8.1 packages
+    version: "8.1"
+    state: absent
+    pkg_absent: []
+    pkg_present: []
+  - name: PHP 8.0 packages
+    version: "8.0"
+    state: absent
+    pkg_absent: []
+    pkg_present: []
+  - name: PHP 7.4 packages
+    version: "7.4"
+    state: absent
+    pkg_absent: []
+    pkg_present: []
 ```
 
 ## Help
