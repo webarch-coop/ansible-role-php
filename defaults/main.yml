@@ -11,6 +11,7 @@
 php: false
 php_check_legacy_variables: true
 php_config: []
+php_fpm_pool_check_fail: true
 php_modules: []
 php_verify: true
 php_versions: []
