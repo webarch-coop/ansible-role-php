@@ -14,6 +14,7 @@ The safe way to run this role is incrementally using `--diff -C` to diff and che
 
 * Run with the `php_apt` tag to update the apt repo configuration, this supports check mode.
 * Run with the `php_pkg` tag to update the packages, this doesn't support check mode.
+* Run with the `php_mods` tags to updates SAPI mods enabled and mods disabled.
 * Run with the `php_cfg` tag to update the PHP configuration, this supports check mode.
 * Run with the `php` tag to update everything.
 

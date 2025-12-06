@@ -12,10 +12,25 @@
   block:
 
     - name: "{{ php_task_name }}"
+      ansible.builtin.debug:
+        msg: >-
+             {%- if php_combined_modules | community.general.json_query(php_jpq) | ansible.builtin.type_debug == "list" -%}
+             {{-     php_combined_modules | community.general.json_query(php_jpq) | sort -}}
+             {%- else -%}
+             {{-     php_combined_modules | community.general.json_query(php_jpq) -}}
+             {%- endif -%}
+        verbosity: "{% if ansible_check_mode | bool %}0{% else %}1{% endif %}"
+      vars:
+        php_task_name: "Debug the PHP {{ php_version.version }} {{ php_sapi }} SAPI mods that should be disabled"
+        php_jpq: "[?version=='{{ php_version.version }}']|[0].sapis[?sapi=='{{ php_sapi }}'].mods_disabled|[0]"
+      tags:
+        - debug
+
+    - name: "{{ php_task_name }}"
       ansible.builtin.set_fact:
         # php_mods_disable: "{{ php_combined_modules | community.general.json_query(php_jpq) }}"
         php_mods_disable: >-
-                          {%- if php_combined_modules | community.general.json_query(php_jpq) != [] -%}
+                          {%- if php_combined_modules | community.general.json_query(php_jpq) | ansible.builtin.type_debug == "list" -%}
                           {{-     php_combined_modules | community.general.json_query(php_jpq) | sort -}}
                           {%- else -%}
                           {{-     php_combined_modules | community.general.json_query(php_jpq) -}}
@@ -35,10 +50,25 @@
         - debug
 
     - name: "{{ php_task_name }}"
+      ansible.builtin.debug:
+        msg: >-
+             {%- if php_combined_modules | community.general.json_query(php_jpq) | ansible.builtin.type_debug == "list" -%}
+             {{-     php_combined_modules | community.general.json_query(php_jpq) | sort -}}
+             {%- else -%}
+             {{-     php_combined_modules | community.general.json_query(php_jpq) -}}
+             {%- endif -%}
+        verbosity: "{% if ansible_check_mode | bool %}0{% else %}1{% endif %}"
+      vars:
+        php_task_name: "Debug the PHP {{ php_version.version }} {{ php_sapi }} SAPI mods that should be enabled"
+        php_jpq: "sort([?version=='{{ php_version.version }}']|[0].sapis[?sapi=='{{ php_sapi }}'].mods_enabled|[0])"
+      tags:
+        - debug
+
+    - name: "{{ php_task_name }}"
       ansible.builtin.set_fact:
         # php_mods_enable: "{{ php_combined_modules | community.general.json_query(php_jpq) }}"
         php_mods_enable: >-
-                         {%- if php_combined_modules | community.general.json_query(php_jpq) != [] -%}
+                         {%- if php_combined_modules | community.general.json_query(php_jpq) | ansible.builtin.type_debug == "list" -%}
                          {{-     php_combined_modules | community.general.json_query(php_jpq) | sort -}}
                          {%- else -%}
                          {{-     php_combined_modules | community.general.json_query(php_jpq) -}}
