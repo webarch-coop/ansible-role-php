@@ -11,16 +11,6 @@
 - name: Debugging
   block:
 
-    - name: Debug php_mods_ver_absent
-      ansible.builtin.debug:
-        var: php_mods_ver_absent
-        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
-
-    - name: Debug php_mods_ver_present
-      ansible.builtin.debug:
-        var: php_mods_ver_present
-        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
-
     - name: Debug php_combined_config
       ansible.builtin.debug:
         var: php_combined_config
@@ -33,7 +23,20 @@
 
     - name: Debug php_combined_versions
       ansible.builtin.debug:
-        var: php_combined_modules
+        var: php_combined_versions
+        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
+
+    # - name: Debug fail
+    #   ansible.builtin.fail:
+
+    - name: Debug php_mods_ver_absent
+      ansible.builtin.debug:
+        var: php_mods_ver_absent
+        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
+
+    - name: Debug php_mods_ver_present
+      ansible.builtin.debug:
+        var: php_mods_ver_present
         verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
 
     - name: Debug phpvarnames
