@@ -193,9 +193,9 @@
         that:
           - php_conf_opcache_jit_buffer_size is ansible.builtin.regex('^[0-9]{1,20}[G|K|M]?$')
           - >-
-            ( php_conf_opcache_jit_buffer_size == "0" ) or
-            ( ( php_conf_opcache_jit_buffer_size is ansible.builtin.regex('^[0-9]{1,20}$') ) and ( php_conf_opcache_jit_buffer_size | int >= 40961 ) ) or
-            ( php_conf_opcache_jit_buffer_size is ansible.builtin.regex('^[1-9][0-9]{0,20}[G|K|M]$') )
+            (php_conf_opcache_jit_buffer_size == "0") or
+            ((php_conf_opcache_jit_buffer_size is ansible.builtin.regex('^[0-9]{1,20}$')) and (php_conf_opcache_jit_buffer_size | int >= 40961)) or
+            (php_conf_opcache_jit_buffer_size is ansible.builtin.regex('^[1-9][0-9]{0,20}[G|K|M]$'))
         quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
       loop: "{{ php_conf_opcache_jit_buffer_sizes }}"
       loop_control:

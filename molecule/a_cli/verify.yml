@@ -91,7 +91,7 @@
                   for s in ${SAPI}; do
                     MODULES=$(/usr/sbin/phpquery -v ${v} -s ${s} -M | sort)
                     echo sapis[${s}]=$(
-                      jo state=present modules=$(jo -a ${MODULES} )
+                      jo state=present modules=$(jo -a ${MODULES})
                     )
                   done
                 )

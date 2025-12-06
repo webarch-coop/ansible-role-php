@@ -24,7 +24,7 @@
     - name: Set fact for the PHP configuration file SAPI
       ansible.builtin.set_fact:
         php_conf_file_sapi: "{{ php_conf_file | ansible.builtin.split(php_file_path_separator) | community.general.json_query('[4]') }}"
-      when: ( php_conf_file | ansible.builtin.split(php_file_path_separator) | community.general.json_query('[4]') ) is ansible.builtin.regex(php_sapi_regex)
+      when: (php_conf_file | ansible.builtin.split(php_file_path_separator) | community.general.json_query('[4]')) is ansible.builtin.regex(php_sapi_regex)
 
     - name: Debug the PHP configuration file backup path
       ansible.builtin.debug:
@@ -116,8 +116,8 @@
               changed_when: false
               register: php_fpm_test
               failed_when: >-
-                ( php_fpm_test.rc != 0 ) or
-                ( "Failed" in php_fpm_test.stderr )
+                (php_fpm_test.rc != 0) or
+                ("Failed" in php_fpm_test.stderr)
 
           rescue:
 

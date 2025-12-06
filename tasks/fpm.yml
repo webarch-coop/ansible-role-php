@@ -50,8 +50,8 @@
           ansible.builtin.systemd:
             daemon_reload: true
           when: >-
-            ( php_fpm_service_symlink.changed | bool ) or
-            ( php_fpm_service.changed | bool )
+            (php_fpm_service_symlink.changed | bool) or
+            (php_fpm_service.changed | bool)
 
         - name: Check that PHP FPM is running
           ansible.builtin.service_facts:

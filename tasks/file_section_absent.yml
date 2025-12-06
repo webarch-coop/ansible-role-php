@@ -63,7 +63,7 @@
     - name: Set a fact to indicate that the file has changed  # noqa: no-handler
       ansible.builtin.set_fact:
         php_conf_file_changed: true
-      # when: (php_conf_file_comments_edited.changed ) or ( php_conf_file_edited.changed | bool )
+      # when: (php_conf_file_comments_edited.changed) or (php_conf_file_edited.changed | bool)
       when: php_conf_file_edited.changed | bool
 
   tags:

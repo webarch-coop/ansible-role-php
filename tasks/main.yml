@@ -41,10 +41,10 @@
         name: apt
         tasks_from: local_facts.yml
       when: >-
-        ( ansible_facts.ansible_local.dpkg.arch is not defined ) or
-        ( ansible_facts.ansible_local.dpkg.installed is not defined ) or
-        ( ansible_facts.ansible_local.gpg.version is not defined ) or
-        ( ansible_facts.ansible_local.bash.path is not defined )
+        (ansible_facts.ansible_local.dpkg.arch is not defined) or
+        (ansible_facts.ansible_local.dpkg.installed is not defined) or
+        (ansible_facts.ansible_local.gpg.version is not defined) or
+        (ansible_facts.ansible_local.bash.path is not defined)
       tags:
         - php_apt
 
@@ -118,12 +118,12 @@
         - name: Include PHP configuration tasks when versions are present or when running in check mode
           ansible.builtin.include_tasks: conf.yml
           when: >-
-            ( ansible_check_mode | bool ) or
-            ( php_conf_ver_present | difference(php_ver_installed) == [] )
+            (ansible_check_mode | bool) or
+            (php_conf_ver_present | difference(php_ver_installed) == [])
 
       when:
-        - ( php_combined_config is defined )
-        - ( php_conf_ver_present != [] ) or ( php_conf_ver_absent != [] )
+        - (php_combined_config is defined)
+        - (php_conf_ver_present != []) or (php_conf_ver_absent != [])
       tags:
         - php_cfg
         - php_conf
@@ -158,13 +158,13 @@
           loop_control:
             loop_var: php_version
             label: "{{ php_version.version }}"
-          when: >-
-            ( ansible_check_mode | bool ) or
-            ( php_mods_ver_present | difference(php_ver_installed) == [] )
+          when:
+            - php_version.state == "present"
+            - (ansible_check_mode | bool) or (php_mods_ver_present | difference(php_ver_installed) == [])
 
       when:
-        - ( php_combined_modules is defined )
-        - ( php_mods_ver_present != [] ) or ( php_mods_ver_absent != [] )
+        - (php_combined_modules is defined)
+        - (php_mods_ver_present != []) or (php_mods_ver_absent != [])
       tags:
         - php_mods
 
