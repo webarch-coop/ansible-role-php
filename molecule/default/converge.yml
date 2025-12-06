@@ -48,19 +48,21 @@
         name: php
         tasks_from: verify.yml
 
-    - name: "Include php role apt tasks for Debian {{ ansible_facts.distribution_release }}"
+    - name: "Include php role using deb.sury.org apt repository apt tasks for Debian {{ ansible_facts.distribution_release }}"
       ansible.builtin.include_role:
         name: php
-      vars:  # noqa: var-naming
-        php: true
         tasks_from: apt.yml
+      vars:  # noqa: var-naming[no-role-prefix]
+        php: true
+        php_sury: true
 
-    - name: "Include php role for Debian {{ ansible_facts.distribution_release }}"
+    - name: "Include php role using deb.sury.org apt packages for Debian {{ ansible_facts.distribution_release }}"
       ansible.builtin.include_role:
         name: php
-      vars:  # noqa: var-naming
+      vars:  # noqa: var-naming[no-role-prefix]
         php: true
         php_fpm_pool_check_fail: false
+        php_sury: true
 
     - name: "Include PHP role argument spec checks for Debian {{ ansible_facts.distribution_release }}"
       ansible.builtin.include_role:

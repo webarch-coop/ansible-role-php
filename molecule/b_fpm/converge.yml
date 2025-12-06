@@ -43,23 +43,24 @@
       ansible.builtin.debug:
         var: ansible_version.full
 
-    - name: Include PHP role argument spec checks
+    - name: "Include PHP role argument spec checks for Debian {{ ansible_facts.distribution_release }}"
       ansible.builtin.include_role:
         name: php
         tasks_from: verify.yml
 
-    - name: Include php role apt tasks
+    - name: "Include php role apt tasks for Debian {{ ansible_facts.distribution_release }}"
       ansible.builtin.include_role:
         name: php
-      vars:  # noqa: var-naming
-        php: true
         tasks_from: apt.yml
+      vars:  # noqa: var-naming[no-role-prefix]
+        php: true
+        php_sury: false
 
     - name: Include php role as root for Debian bookworm
       ansible.builtin.include_role:
         name: php
       when: ansible_facts.distribution_release == "bookworm"
-      vars:  # noqa: var-naming
+      vars:  # noqa: var-naming[no-role-prefix]
         php: true
         php_sury: false
         php_fpm_pool_check_fail: true
@@ -298,7 +299,7 @@
       ansible.builtin.include_role:
         name: php
       when: ansible_facts.distribution_release == "trixie"
-      vars:  # noqa: var-naming
+      vars:  # noqa: var-naming[no-role-prefix]
         php: true
         php_sury: false
         php_fpm_pool_check_fail: true
