@@ -791,7 +791,13 @@ php_default_config:
   - name: PHP 5.6 configuration
     version: "5.6"
     state: absent
-php_combined_config: "{{ php_default_config | community.general.lists_mergeby(php_config, 'version') }}"
+# php_combined_config: "{{ php_default_config | community.general.lists_mergeby(php_config, 'version') }}"
+php_combined_config: >-
+                     {%- if php_config is not defined -%}
+                     {{-     php_default_config -}}
+                     {%- else -%}
+                     {{-     php_default_config | community.general.lists_mergeby(php_config, 'version') -}}
+                     {%- endif -%}
 
 # The php_default_modules here is combined with the php_modules to produce php_combined_modules
 php_default_modules:
