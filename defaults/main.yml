@@ -10,9 +10,9 @@
 ---
 php: false
 php_check_legacy_variables: true
-php_config: []
+# php_config: "{{ php_default_config }}"
 php_fpm_pool_check_fail: true
-php_modules: []
+# php_modules: "{{ php_default_modules }}"
 php_verify: true
-php_versions: []
+# php_versions: "{{ php_combined_versions }}"
 ...

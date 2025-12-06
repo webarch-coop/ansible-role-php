@@ -16,11 +16,6 @@ php_default_config:
     version: "8.5"
     state: present
     files:
-      - name: PHP 8.5 JIT configuration
-        path: /etc/php/8.5/mods-available/opcache.ini
-        state: templated
-        conf:
-          "zend_extension": "opcache.so"
       - name: PHP 8.5 CLI configuration
         path: /etc/php/8.5/cli/php.ini
         state: present
@@ -48,8 +43,8 @@ php_default_config:
             "mysqli.reconnect": "0"
             "mysqli.default_socket": "/run/mysqld/mysqld.sock"
           opcache:
-            "opcache.enable": "1"
-            "opcache.enable_cli": "1"
+            # "opcache.enable": "1"
+            # "opcache.enable_cli": "1"
             "opcache.interned_strings_buffer": "64"
             "opcache.jit": "0"
             "opcache.jit_buffer_size": "0"
@@ -76,7 +71,7 @@ php_default_config:
           MySQLi:
             "mysqli.allow_local_infile": "0"
           opcache:
-            "opcache.enable": "1"
+            # "opcache.enable": "1"
             "opcache.interned_strings_buffer": "64"
             # "opcache.jit": "tracing"
             # "opcache.jit_buffer_size": "40961" # minimum size is 40961 bytes
@@ -815,7 +810,8 @@ php_default_modules:
           - mbstring
           - mysqli
           - mysqlnd
-          - opcache
+          # Enabled by default https://wiki.php.net/rfc/make_opcache_required
+          # - opcache
           - pdo
           - pdo_mysql
           - pdo_sqlite
@@ -1156,7 +1152,13 @@ php_default_modules:
           - xmlwriter
           - xsl
           - zip
-php_combined_modules: "{{ php_default_modules | community.general.lists_mergeby(php_modules, 'version') }}"
+# php_combined_modules: "{{ php_default_modules | community.general.lists_mergeby(php_modules, 'version') }}"
+php_combined_modules: >-
+                      {%- if php_modules is not defined -%}
+                      {{-     php_default_modules -}}
+                      {%- else -%}
+                      {{-     php_default_modules | community.general.lists_mergeby(php_modules, 'version') -}}
+                      {%- endif -%}
 
 # The php_default_versions here is combined with the php_versions to produce php_combined_versions
 php_default_versions:
@@ -1402,7 +1404,26 @@ php_default_versions:
   - name: PHP 5.6 packages
     version: "5.6"
     state: absent
-php_combined_versions: "{{ php_default_versions | community.general.lists_mergeby(php_versions, 'version') }}"
+# php_combined_versions: |-
+#                        {%- if php_versions is not defined -%}
+#                        {{-     php_default_versions -}}
+#                        {%- else -%}
+#                        {{-     php_default_versions | community.general.lists_mergeby(php_versions, 'version') -}}
+#                        {%- endif -%}
+# php_combined_versions: "{%- if php_versions is not defined -%}{{- php_default_versions -}}{%- else -%}{{- php_default_versions | community.general.lists_mergeby(php_versions, 'version') -}}{%- endif -%}"
+# php_combined_versions: "{%- if php_versions is defined -%}{{- php_default_versions | community.general.lists_mergeby(php_versions, 'version') -}}{{- php_default_versions -}}{%- else -%}{{- php_default_versions  -}}{%- endif -%}"
+# php_combined_versions: |-
+#                        {%- if php_versions is not defined -%}
+#                        {{-     php_default_versions -}}
+#                        {%- elif php_versions != php_default_versions -%}
+#                        {{-     php_default_versions | community.general.lists_mergeby(php_versions, 'version') -}}
+#                        {%- endif -%}
+php_combined_versions: >-
+                       {%- if php_versions is not defined -%}
+                       {{-     php_default_versions -}}
+                       {%- else -%}
+                       {{-     php_default_versions | community.general.lists_mergeby(php_versions, 'version') -}}
+                       {%- endif -%}
 
 php_sury_versions:
   - "5.6"
@@ -1461,6 +1482,12 @@ php_validation_conditions:
     {%     endfor %}
     {% endif %}
   # - "{{ php_conf_opcache_jit_buffer_size is ansible.builtin.regex('^[0-9]{1,20}[G|K|M]?$') }}"
+  # - >-
+  #   {% if (php_conf_opcache_jit_buffer_sizes is defined) and (php_conf_opcache_jit_buffer_sizes != []) }}
+  #   {%     for php_conf_opcache_jit_buffer_size in php_conf_opcache_jit_buffer_sizes %}
+  #   {{          php_conf_opcache_jit_buffer_size is ansible.builtin.regex('^[0-9]{1,20}[G|K|M]?$') }}
+  #   {%     endfor %}
+  #   {% endif %}
 php_validation: "{{ php_validation_conditions is ansible.builtin.all }}"
 
 # PHP versions absent
@@ -1468,33 +1495,46 @@ php_validation: "{{ php_validation_conditions is ansible.builtin.all }}"
 # php_ver_absent: "{{ php_versions | community.general.json_query('sort([?state==`absent`].version)') }}"
 # php_ver_absent: "{{ php_versions | community.general.json_query('[?state==`absent`].version') | sort }}"
 # php_ver_absent: "{{ php_versions | community.general.json_query('sort([?state==`absent`].version)') }}"
-php_ver_absent: "{{ php_versions | community.general.json_query('[?state==`absent`].version') }}"
+# php_ver_absent: "{{ php_versions | community.general.json_query('[?state==`absent`].version') }}"
+php_ver_absent: "{{ php_combined_versions | community.general.json_query('sort([?state==`absent`].version)') }}"
 # php_ver_absent_regex: "{{ php_versions | community.general.json_query('[?state==`absent`].version') | sort | map('regex_replace', '^', '^php') }}"
 # php_ver_absent_regex: "{{ php_versions | community.general.json_query('sort([?state==`absent`].version)') | map('regex_replace', '^', '^php') }}"
-php_ver_absent_regex: "{{ php_versions | community.general.json_query('[?state==`absent`].version') | map('regex_replace', '^', '^php') }}"
+# php_ver_absent_regex: "{{ php_versions | community.general.json_query('[?state==`absent`].version') | map('regex_replace', '^', '^php') }}"
+php_ver_absent_regex: "{{ php_combined_versions | community.general.json_query('sort([?state==`absent`].version)') | map('regex_replace', '^', '^php') }}"
 
 php_ver_pkg_remove: []
 
 # PHP versions present
-# cat vars/main.yml | yq -o=json | jp "sort(php_versions[?state=='present'].version)"
+# cat vars/main.yml | yq -o=json | jp "sort(php_default_versions[?state=='present'].version)"
 # php_ver_present: "{{ php_versions | community.general.json_query('sort([?state==`present`].version)') }}"
 # php_ver_present: "{{ php_versions | community.general.json_query('[?state==`present`].version') | sort }}"
 # php_ver_present: "{{ php_versions | community.general.json_query('sort([?state==`present`].version)') }}"
-php_ver_present: "{{ php_versions | community.general.json_query('[?state==`present`].version') }}"
+# php_ver_present: "{{ php_versions | community.general.json_query('[?state==`present`].version') }}"
+# php_ver_present: >-
+#                  {% if php_versions is not defined %}
+#                  php_versions is not defined
+#                  {% elif php_versions == [] %}
+#                  php_versions == []
+#                  {% else %}
+#                  {{     php_versions | community.general.json_query('[?state==`present`].version') }}
+#                  {% endif %}
+php_ver_present: "{{ php_combined_versions | community.general.json_query('sort([?state==`present`].version)') }}"
 
 # PHP packages absent
 # cat vars/main.yml | yq -o=json | jp "sort(php_versions[?state=='present'].pkg_absent[])"
 # php_pkg_absent: "{{ php_versions | community.general.json_query('sort([?state==`present`].pkg_absent[])') | ansible.builtin.unique }}"
 # php_pkg_absent: "{{ php_versions | community.general.json_query('[?state==`present`].pkg_absent[]') | sort | ansible.builtin.unique }}"
 # php_pkg_absent: "{{ php_versions | community.general.json_query('sort([?state==`present`].pkg_absent[])') | ansible.builtin.unique }}"
-php_pkg_absent: "{{ php_versions | community.general.json_query('[?state==`present`].pkg_absent[]') | ansible.builtin.unique }}"
+# php_pkg_absent: "{{ php_versions | community.general.json_query('[?state==`present`].pkg_absent[]') | ansible.builtin.unique }}"
+php_pkg_absent: "{{ php_combined_versions | community.general.json_query('sort([?state==`present`].pkg_absent[])') | ansible.builtin.unique }}"
 
 # PHP packages present
 # cat vars/main.yml | yq -o=json | jp "sort(php_versions[?state=='present'].pkg_present[])"
 # php_pkg_present: "{{ php_versions | community.general.json_query('sort([?state==`present`].pkg_present[])') | ansible.builtin.unique }}"
 # php_pkg_present: "{{ php_versions | community.general.json_query('[?state==`present`].pkg_present[]') | sort | ansible.builtin.unique }}"
 # php_pkg_present: "{{ php_versions | community.general.json_query('sort([?state==`present`].pkg_present[])') | ansible.builtin.unique }}"
-php_pkg_present: "{{ php_versions | community.general.json_query('[?state==`present`].pkg_present[]') | ansible.builtin.unique }}"
+# php_pkg_present: "{{ php_versions | community.general.json_query('[?state==`present`].pkg_present[]') | ansible.builtin.unique }}"
+php_pkg_present: "{{ php_combined_versions | community.general.json_query('sort([?state==`present`].pkg_present[])') | ansible.builtin.unique }}"
 
 # The php_ver is used as an internal loop variable, it is set to null here for ansible-lint
 php_ver: null
@@ -1505,61 +1545,61 @@ php_conf_file_paths_jmespath_query: "[?version=='{{ php_ver }}'].files[].path"
 # PHP versions configuration absent
 # cat vars/main.yml | yq -o=json | jp "sort(php_default_config[?state=='absent'].version)"
 # php_conf_ver_absent: "{{ php_combined_config | community.general.json_query('[?state==`absent`].version') | sort }}"
-# php_conf_ver_absent: "{{ php_combined_config | community.general.json_query('sort([?state==`absent`].version)') }}"
-php_conf_ver_absent: "{{ php_combined_config | community.general.json_query('[?state==`absent`].version') }}"
+# php_conf_ver_absent: "{{ php_combined_config | community.general.json_query('[?state==`absent`].version') }}"
+php_conf_ver_absent: "{{ php_combined_config | community.general.json_query('sort([?state==`absent`].version)') }}"
 
 # PHP versions configuration present
 # cat vars/main.yml | yq -o=json | jp "sort(php_config[?state=='present'].version)"
 # php_conf_ver_present: "{{ php_combined_config | community.general.json_query('[?state==`present`].version') | sort }}"
-# php_conf_ver_present: "{{ php_combined_config | community.general.json_query('sort([?state==`present`].version)') }}"
-php_conf_ver_present: "{{ php_combined_config | community.general.json_query('[?state==`present`].version') }}"
+# php_conf_ver_present: "{{ php_combined_config | community.general.json_query('[?state==`present`].version') }}"
+php_conf_ver_present: "{{ php_combined_config | community.general.json_query('sort([?state==`present`].version)') }}"
 
 # PHP versions configuration directories absent
 # php_conf_dirs_absent: "{{ php_combined_config | community.general.json_query('[?state==`absent`].version') | sort | map('regex_replace', '^', '/etc/php/') }}"
-# php_conf_dirs_absent: "{{ php_combined_config | community.general.json_query('sort([?state==`absent`].version)') | map('regex_replace', '^', '/etc/php/') }}"
-php_conf_dirs_absent: "{{ php_combined_config | community.general.json_query('[?state==`absent`].version') | map('regex_replace', '^', '/etc/php/') }}"
+# php_conf_dirs_absent: "{{ php_combined_config | community.general.json_query('[?state==`absent`].version') | map('regex_replace', '^', '/etc/php/') }}"
+php_conf_dirs_absent: "{{ php_combined_config | community.general.json_query('sort([?state==`absent`].version)') | map('regex_replace', '^', '/etc/php/') }}"
 
 # PHP versions configuration directories present
 # cat vars/main.yml | yq -o=json | jp "sort(php_config[?state=='present'].version)"
 # php_conf_dirs_present: "{{ php_combined_config | community.general.json_query('[?state==`present`].version') | sort | map('regex_replace', '^', '/etc/php/') }}"
-# php_conf_dirs_present: "{{ php_combined_config | community.general.json_query('sort([?state==`present`].version)') | map('regex_replace', '^', '/etc/php/') }}"
-php_conf_dirs_present: "{{ php_combined_config | community.general.json_query('[?state==`present`].version') | map('regex_replace', '^', '/etc/php/') }}"
+# php_conf_dirs_present: "{{ php_combined_config | community.general.json_query('[?state==`present`].version') | map('regex_replace', '^', '/etc/php/') }}"
+php_conf_dirs_present: "{{ php_combined_config | community.general.json_query('sort([?state==`present`].version)') | map('regex_replace', '^', '/etc/php/') }}"
 
 # PHP versions present files absent
 # cat vars/main.yml | yq -o=json | jp "sort(php_config[?state=='present'].files[]|[?state=='absent'].path)"
 # php_conf_files_absent: "{{ php_combined_config | community.general.json_query('[?state==`present`].files[]|[?state==`absent`].path') | sort }}"
-# php_conf_files_absent: "{{ php_combined_config | community.general.json_query('sort([?state==`present`].files[]|[?state==`absent`].path)') }}"
-php_conf_files_absent: "{{ php_combined_config | community.general.json_query('[?state==`present`].files[]|[?state==`absent`].path') }}"
+# php_conf_files_absent: "{{ php_combined_config | community.general.json_query('[?state==`present`].files[]|[?state==`absent`].path') }}"
+php_conf_files_absent: "{{ php_combined_config | community.general.json_query('sort([?state==`present`].files[]|[?state==`absent`].path)') }}"
 
 # PHP versions present configuration files edited
 # cat vars/main.yml | yq -o=json | jp "sort(php_config[?state=='present'].files[]|[?state=='edited'].path)"
 # php_conf_files_edited: "{{ php_combined_config | community.general.json_query('[?state==`present`].files[]|[?state==`edited`].path') | sort }}"
-# php_conf_files_edited: "{{ php_combined_config | community.general.json_query('sort([?state==`present`].files[]|[?state==`edited`].path)') }}"
-php_conf_files_edited: "{{ php_combined_config | community.general.json_query('[?state==`present`].files[]|[?state==`edited`].path') }}"
+# php_conf_files_edited: "{{ php_combined_config | community.general.json_query('[?state==`present`].files[]|[?state==`edited`].path') }}"
+php_conf_files_edited: "{{ php_combined_config | community.general.json_query('sort([?state==`present`].files[]|[?state==`edited`].path)') }}"
 
 # PHP versions present configuration files present
 # cat vars/main.yml | yq -o=json | jp "sort(php_config[?state=='present'].files[]|[?state=='present'].path)"
 # php_conf_files_present: "{{ php_combined_config | community.general.json_query('[?state==`present`].files[]|[?state==`present`].path') | sort }}"
-# php_conf_files_present: "{{ php_combined_config | community.general.json_query('sort([?state==`present`].files[]|[?state==`present`].path)') }}"
-php_conf_files_present: "{{ php_combined_config | community.general.json_query('[?state==`present`].files[]|[?state==`present`].path') }}"
+# php_conf_files_present: "{{ php_combined_config | community.general.json_query('[?state==`present`].files[]|[?state==`present`].path') }}"
+php_conf_files_present: "{{ php_combined_config | community.general.json_query('sort([?state==`present`].files[]|[?state==`present`].path)') }}"
 
 # PHP versions present configuration files templated
 # cat vars/main.yml | yq -o=json | jp "sort(php_config[?state=='present'].files[]|[?state=='templated'].path)"
 # php_conf_files_templated: "{{ php_combined_config | community.general.json_query('[?state==`present`].files[]|[?state==`templated`].path') | sort }}"
-# php_conf_files_templated: "{{ php_combined_config | community.general.json_query('sort([?state==`present`].files[]|[?state==`templated`].path)') }}"
-php_conf_files_templated: "{{ php_combined_config | community.general.json_query('[?state==`present`].files[]|[?state==`templated`].path') }}"
+# php_conf_files_templated: "{{ php_combined_config | community.general.json_query('[?state==`present`].files[]|[?state==`templated`].path') }}"
+php_conf_files_templated: "{{ php_combined_config | community.general.json_query('sort([?state==`present`].files[]|[?state==`templated`].path)') }}"
 
 # PHP versions present configuration files not absent
 # cat vars/main.yml | yq -o=json | jp "sort(php_config[?state=='present'].files[]|[?state!='absent'].path)"
 # php_conf_files_not_absent: "{{ php_combined_config | community.general.json_query('[?state==`present`].files[]|[?state!=`absent`].path') | sort }}"
-# php_conf_files_not_absent: "{{ php_combined_config | community.general.json_query('sort([?state==`present`].files[]|[?state!=`absent`].path)') }}"
-php_conf_files_not_absent: "{{ php_combined_config | community.general.json_query('[?state==`present`].files[]|[?state!=`absent`].path') }}"
+# php_conf_files_not_absent: "{{ php_combined_config | community.general.json_query('[?state==`present`].files[]|[?state!=`absent`].path') }}"
+php_conf_files_not_absent: "{{ php_combined_config | community.general.json_query('sort([?state==`present`].files[]|[?state!=`absent`].path)') }}"
 
 # PHP versions present pool configuration files not absent paths
 # cat vars/main.yml | yq -o=json | jp "sort(php_config[?state=='present'].files[]|[?state!='absent'].path)" | egrep -e '^\[' -e '[\/]etc[\/]php[\/][0-9]{1,2}[.][0-9][\/]fpm[\/]pool.d[\/].*[.]conf' -e '\]$'
 # php_conf_pool_files_not_absent: "{{ php_combined_config | community.general.json_query('[?state==`present`].files[]|[?state!=`absent`].path') | sort | select('regex', '^[\/]etc[\/]php[\/][0-9]{1,2}[.][0-9][\/]fpm[\/]pool.d[\/].*[.]conf$') }}"
 # php_conf_pool_files_not_absent: "{{ php_combined_config | community.general.json_query('sort([?state==`present`].files[]|[?state!=`absent`].path)') | select('regex', '^[\/]etc[\/]php[\/][0-9]{1,2}[.][0-9][\/]fpm[\/]pool.d[\/].*[.]conf$') }}"
-php_conf_pool_files_not_absent: "{{ php_combined_config | community.general.json_query('[?state==`present`].files[]|[?state!=`absent`].path') | select('regex', '^[\/]etc[\/]php[\/][0-9]{1,2}[.][0-9][\/]fpm[\/]pool.d[\/].*[.]conf$') }}"
+php_conf_pool_files_not_absent: "{{ php_combined_config | community.general.json_query('sort([?state==`present`].files[]|[?state!=`absent`].path)') | select('regex', '^[\/]etc[\/]php[\/][0-9]{1,2}[.][0-9][\/]fpm[\/]pool.d[\/].*[.]conf$') }}"
 
 # PHP versions present configuration not absent
 # cat vars/main.yml | yq -o=json | jp "php_config[?state=='present'].files[]|[?state!='absent']"
@@ -1579,13 +1619,13 @@ php_conf_opcache_jit_buffer_sizes: "{{ php_combined_config | community.general.j
 # cat vars/main.yml | yq -o=json | jp "sort(php_modules[?state=='absent'].version)"
 # php_mods_ver_absent: "{{ php_combined_modules | community.general.json_query('[?state==`absent`].version') | sort }}"
 # php_mods_ver_absent: "{{ php_combined_modules | community.general.json_query('sort([?state==`absent`].version)') }}"
-php_mods_ver_absent: "{{ php_combined_modules | community.general.json_query('[?state==`absent`].version') | ansible.builtin.default([]) }}"
+php_mods_ver_absent: "{{ php_combined_modules | community.general.json_query('sort([?state==`absent`].version)') | ansible.builtin.default([]) }}"
 
 # PHP modules configuration present
 # cat vars/main.yml | yq -o=json | jp "sort(php_modules[?state=='present'].version)"
 # php_mods_ver_present: "{{ php_combined_modules | community.general.json_query('[?state==`present`].version') | sort }}"
 # php_mods_ver_present: "{{ php_combined_modules | community.general.json_query('sort([?state==`present`].version)') }}"
-php_mods_ver_present: "{{ php_combined_modules | community.general.json_query('[?state==`present`].version') | ansible.builtin.default([]) }}"
+php_mods_ver_present: "{{ php_combined_modules | community.general.json_query('sort([?state==`present`].version)') | ansible.builtin.default([]) }}"
 
 # The following lists can be generated using the sury-packages.sh script in this directory.
 # To update them delete everything after this comment and inset the results of the script.

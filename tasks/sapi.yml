@@ -13,7 +13,7 @@
 
     - name: "{{ php_task_name }}"
       ansible.builtin.set_fact:
-        php_mods_disable: "{{ php_modules | community.general.json_query(php_jpq) }}"
+        php_mods_disable: "{{ php_combined_modules | community.general.json_query(php_jpq) }}"
       vars:
         php_task_name: "Set a fact for the PHP {{ php_version.version }} {{ php_sapi }} SAPI mods that should be disabled"
         php_jpq: "[?version=='{{ php_version.version }}']|[0].sapis[?sapi=='{{ php_sapi }}'].mods_disabled|[0]"
@@ -30,7 +30,7 @@
 
     - name: "{{ php_task_name }}"
       ansible.builtin.set_fact:
-        php_mods_enable: "{{ php_modules | community.general.json_query(php_jpq) }}"
+        php_mods_enable: "{{ php_combined_modules | community.general.json_query(php_jpq) }}"
       vars:
         php_task_name: "Set a fact for the PHP {{ php_version.version }} {{ php_sapi }} SAPI mods that should be enabled"
         php_jpq: "[?version=='{{ php_version.version }}']|[0].sapis[?sapi=='{{ php_sapi }}'].mods_enabled|[0]"
