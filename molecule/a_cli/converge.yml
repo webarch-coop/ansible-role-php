@@ -43,11 +43,23 @@
       ansible.builtin.debug:
         var: ansible_version.full
 
-    - name: Include php role as root for Debian Bookworm
+    - name: Include PHP role argument spec checks
+      ansible.builtin.include_role:
+        name: php
+        tasks_from: verify.yml
+
+    - name: Include php role apt tasks
+      ansible.builtin.include_role:
+        name: php
+      vars:  # noqa: var-naming
+        php: true
+        tasks_from: apt.yml
+
+    - name: Include php role for Debian bookworm
       ansible.builtin.include_role:
         name: php
       when: ansible_facts.distribution_release == "bookworm"
-      vars:  # noqa: var-naming[no-role-prefix]
+      vars:  # noqa: var-naming
         php: true
         php_config:
           - name: PHP 8.5 configuration
@@ -227,11 +239,11 @@
             version: "7.4"
             state: absent
 
-    - name: Include php role as root for Debian Trixie
+    - name: Include php role for Debian trixie
       ansible.builtin.include_role:
         name: php
       when: ansible_facts.distribution_release == "trixie"
-      vars:  # noqa: var-naming[no-role-prefix]
+      vars:  # noqa: var-naming
         php: true
         php_config:
           - name: PHP 8.5 configuration

@@ -43,14 +43,26 @@
       ansible.builtin.debug:
         var: ansible_version.full
 
-    - name: "Include php role as root for Debian {{ ansible_facts.distribution_release }}"
+    - name: "Include PHP role argument spec checks for Debian {{ ansible_facts.distribution_release }}"
       ansible.builtin.include_role:
         name: php
-      vars:  # noqa: var-naming[no-role-prefix]
+        tasks_from: verify.yml
+
+    - name: "Include php role apt tasks for Debian {{ ansible_facts.distribution_release }}"
+      ansible.builtin.include_role:
+        name: php
+      vars:  # noqa: var-naming
+        php: true
+        tasks_from: apt.yml
+
+    - name: "Include php role for Debian {{ ansible_facts.distribution_release }}"
+      ansible.builtin.include_role:
+        name: php
+      vars:  # noqa: var-naming
         php: true
         php_fpm_pool_check_fail: false
 
-    - name: Include argument spec checks
+    - name: "Include PHP role argument spec checks for Debian {{ ansible_facts.distribution_release }}"
       ansible.builtin.include_role:
         name: php
         tasks_from: verify.yml
