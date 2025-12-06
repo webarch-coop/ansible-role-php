@@ -11,7 +11,14 @@
 - name: PHP packages configured
   block:
 
-    - name: Update apt cache  # noqa: no-handler
+    - name: Update apt cache when not in check mode # noqa: no-handler
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 0
+      check_mode: true
+      changed_when: false
+
+    - name: Update apt cache in check mode # noqa: no-handler
       ansible.builtin.apt:
         update_cache: true
         cache_valid_time: 0
