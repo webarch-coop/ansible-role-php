@@ -138,7 +138,7 @@
                                  set -e -o pipefail
                                  apt-cache policy | grep -e '[ ]http' | sort
           args:
-            executable: "{{ ansible_facts.ansible.local.bash.path }}"
+            executable: "{{ ansible_facts.ansible_local.bash.path }}"
           check_mode: false
           changed_when: false
           register: php_apt_cache_policy
