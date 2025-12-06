@@ -22,6 +22,10 @@ argument_specs:
         type: dict
         required: false
         description: Internal dictionary containing the results from statting the Sury GPG keyring file.
+      php_apt_cache_search_php:
+        type: dict
+        required: false
+        description: Internal dictionary containing the results from running apt-cache search php --names-only.
       php_argument_spec:
         type: dict
         required: false
