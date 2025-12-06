@@ -234,6 +234,9 @@
       vars:  # noqa: var-naming[no-role-prefix]
         php: true
         php_config:
+          - name: PHP 8.5 configuration
+            version: "8.5"
+            state: absent
           - name: PHP 8.4 configuration
             version: "8.4"
             state: present
@@ -266,7 +269,25 @@
                     "mysqli.default_socket": "/run/mysqld/mysqld.sock"
                   Pdo_mysql:
                     "pdo_mysql.default_socket": "/run/mysqld/mysqld.sock"
+          - name: PHP 8.3 configuration
+            version: "8.3"
+            state: absent
+          - name: PHP 8.2 configuration
+            version: "8.2"
+            state: absent
+          - name: PHP 8.1 configuration
+            version: "8.1"
+            state: absent
+          - name: PHP 8.0 configuration
+            version: "8.0"
+            state: absent
+          - name: PHP 7.4 configuration
+            version: "7.4"
+            state: absent
         php_modules:
+          - name: PHP 8.5 modules
+            version: "8.5"
+            state: absent
           - name: PHP 8.4 modules
             version: "8.4"
             state: present
@@ -321,8 +342,26 @@
                   - xmlwriter
                   - xsl
                   - zip
+          - name: PHP 8.3 modules
+            version: "8.3"
+            state: absent
+          - name: PHP 8.2 modules
+            version: "8.2"
+            state: absent
+          - name: PHP 8.1 modules
+            version: "8.1"
+            state: absent
+          - name: PHP 8.0 modules
+            version: "8.0"
+            state: absent
+          - name: PHP 7.4 modules
+            version: "7.4"
+            state: absent
         php_sury: false
         php_versions:
+          - name: PHP 8.5 packages
+            version: "8.5"
+            state: absent
           - name: PHP 8.4 packages
             version: "8.4"
             state: present
@@ -356,6 +395,21 @@
               - php8.4-xsl
               - php8.4-zip
               - php-pear
+          - name: PHP 8.3 packages
+            version: "8.3"
+            state: absent
+          - name: PHP 8.2 packages
+            version: "8.2"
+            state: absent
+          - name: PHP 8.1 packages
+            version: "8.1"
+            state: absent
+          - name: PHP 8.0 packages
+            version: "8.0"
+            state: absent
+          - name: PHP 7.4 packages
+            version: "7.4"
+            state: absent
 
     - name: Include argument spec checks
       ansible.builtin.include_role:
