@@ -776,6 +776,21 @@ php_default_config:
             "pm.max_children": "4"
             "pm.process_idle_timeout": 10s
             "pm.status_path": /fpm74-status
+  - name: PHP 7.3 configuration
+    version: "7.3"
+    state: absent
+  - name: PHP 7.2 configuration
+    version: "7.2"
+    state: absent
+  - name: PHP 7.1 configuration
+    version: "7.1"
+    state: absent
+  - name: PHP 7.0 configuration
+    version: "7.0"
+    state: absent
+  - name: PHP 5.6 configuration
+    version: "5.6"
+    state: absent
 php_combined_config: "{{ php_default_config | community.general.lists_mergeby(php_config, 'version') }}"
 
 # The php_default_modules here is combined with the php_modules to produce php_combined_modules
@@ -1152,6 +1167,21 @@ php_default_modules:
           - xmlwriter
           - xsl
           - zip
+  - name: PHP 7.3 modules
+    version: "7.3"
+    state: absent
+  - name: PHP 7.2 modules
+    version: "7.2"
+    state: absent
+  - name: PHP 7.1 modules
+    version: "7.1"
+    state: absent
+  - name: PHP 7.0 modules
+    version: "7.0"
+    state: absent
+  - name: PHP 5.6 modules
+    version: "5.6"
+    state: absent
 # php_combined_modules: "{{ php_default_modules | community.general.lists_mergeby(php_modules, 'version') }}"
 php_combined_modules: >-
                       {%- if php_modules is not defined -%}
@@ -1397,6 +1427,12 @@ php_default_versions:
       - php-pear
   - name: PHP 7.3 packages
     version: "7.3"
+    state: absent
+  - name: PHP 7.2 packages
+    version: "7.2"
+    state: absent
+  - name: PHP 7.1 packages
+    version: "7.1"
     state: absent
   - name: PHP 7.0 packages
     version: "7.0"
