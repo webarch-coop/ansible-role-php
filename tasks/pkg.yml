@@ -11,6 +11,37 @@
 - name: PHP packages configured
   block:
 
+    - name: Update apt cache  # noqa: no-handler
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 0
+      check_mode: false
+      changed_when: false
+
+    - name: Get a list of php packages available
+      ansible.builtin.command: apt-cache search php --names-only
+      check_mode: false
+      register: php_apt_cache_search_php
+      changed_when: false
+
+    - name: Debug results of apt-cache search php --names-only
+      ansible.builtin.debug:
+        var: php_apt_cache_search_php.stdout_lines
+        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
+      tags:
+        - debug
+
+    - name: Set a fact for the php* packages available
+      ansible.builtin.set_fact:
+        php_pkg_available: "{{ php_apt_cache_search_php.stdout_lines | map('ansible.builtin.regex_replace', '[ ].*') | select('ansible.builtin.regex', 'php', 'fullmatch') | sort }}"
+
+    - name: Debug php_pkg_available
+      ansible.builtin.debug:
+        var: php_pkg_available
+        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}0{% else %}1{% endif %}"
+      tags:
+        - debug
+
     - name: Debug PHP packages names listed as absent
       ansible.builtin.debug:
         var: php_pkg_absent
@@ -81,6 +112,17 @@
       when: php_pkg_present is defined
       tags:
         - debug
+
+    - name: All packages that are to be installed should be available
+      ansible.builtin.assert:
+        that:
+          - php_pkg_present | ansible.builtin.difference(php_pkg_available) == []
+        quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
+        fail_msg: >-
+                  Packages that are to be installed must be available, {{ php_pkg_present | ansible.builtin.difference(php_pkg_available) | join(', ') }}
+      when:
+        - php_pkg_present is defined
+        - php_pkg_present != []
 
     - name: Debug PHP packages installed
       ansible.builtin.debug:

@@ -67,7 +67,7 @@
     - name: Debug existing PHP configuration files
       ansible.builtin.debug:
         var: php_etc_php_find_files
-        verbosity: "{% if ansible_check_mode | bool %}2{% else %}3{% endif %}"
+        verbosity: "{% if ansible_check_mode | bool %}3{% else %}4{% endif %}"
       tags:
         - debug
 

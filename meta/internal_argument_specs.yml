@@ -667,6 +667,11 @@ argument_specs:
         type: dict
         required: false
         description: Internal dictionary with the results from checking what PHP versions are available.
+      php_pkg_available:
+        type: list
+        elements: str
+        required: false
+        description: Internal list of PHP packages available.
       php_pkg_install:
         type: list
         elements: str
