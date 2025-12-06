@@ -14,6 +14,10 @@ argument_specs:
     description: Ansible role for installing and configuring PHP on Debian.
     short_description: The main entry point for the PHP role.
     options:
+      php_apt_cache_policy:
+        type: dict
+        required: false
+        description: Internal dictionary containing the result from running apt-cache policy
       php_apt_clean:
         type: dict
         required: false

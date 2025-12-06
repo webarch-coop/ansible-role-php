@@ -120,13 +120,36 @@
       tags:
         - debug
 
-    - name: All packages that are to be installed should be available
-      ansible.builtin.assert:
-        that:
-          - php_pkg_present | ansible.builtin.difference(php_pkg_available) == []
-        quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
-        fail_msg: >-
-                  Packages that are to be installed must be available, {{ php_pkg_present | ansible.builtin.difference(php_pkg_available) | join(', ') }}
+    - name: Assert in a block to enabling debugging on failure
+      block:
+
+        - name: All packages that are to be installed should be available
+          ansible.builtin.assert:
+            that:
+              - php_pkg_present | ansible.builtin.difference(php_pkg_available) == []
+            quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
+            fail_msg: >-
+                      Packages that are to be installed must be available, {{ php_pkg_present | ansible.builtin.difference(php_pkg_available) | join(', ') }}
+
+      rescue:
+
+        - name: Run apt-cache policy to get enabled repos
+          ansible.builtin.shell: |-
+                                 set -e -o pipefail
+                                 apt-cache policy | grep -e '[ ]http' | sort
+          args:
+            executable: "{{ ansible_facts.ansible.local.bash.path }}"
+          check_mode: false
+          changed_when: false
+          register: php_apt_cache_policy
+
+        - name: Debug php_apt_cache_policy.stdout_lines
+          ansible.builtin.debug:
+            var: php_apt_cache_policy.stdout_lines
+
+        - name: Fail
+          ansible.builtin.fail:
+
       when:
         - php_pkg_present is defined
         - php_pkg_present != []
