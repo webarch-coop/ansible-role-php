@@ -103,11 +103,11 @@ php_default_config:
       - name: PHP 8.5 FPM www pool configuration
         path: /etc/php/8.5/fpm/pool.d/www.conf
         state: absent
-      - name: PHP 8.5 FPM www84 pool configuration
-        path: /etc/php/8.5/fpm/pool.d/www84.conf
+      - name: PHP 8.5 FPM www85 pool configuration
+        path: /etc/php/8.5/fpm/pool.d/www85.conf
         state: present
         conf:
-          www84:
+          www85:
             "user": www-data
             "group": www-data
             "listen": /run/php/php8.5-fpm.sock
@@ -1524,12 +1524,6 @@ php_validation_conditions:
     {%     endfor %}
     {% endif %}
   # - "{{ php_conf_opcache_jit_buffer_size is ansible.builtin.regex('^[0-9]{1,20}[G|K|M]?$') }}"
-  # - >-
-  #   {% if (php_conf_opcache_jit_buffer_sizes is defined) and (php_conf_opcache_jit_buffer_sizes != []) }}
-  #   {%     for php_conf_opcache_jit_buffer_size in php_conf_opcache_jit_buffer_sizes %}
-  #   {{          php_conf_opcache_jit_buffer_size is ansible.builtin.regex('^[0-9]{1,20}[G|K|M]?$') }}
-  #   {%     endfor %}
-  #   {% endif %}
 php_validation: "{{ php_validation_conditions is ansible.builtin.all }}"
 
 # PHP versions absent
