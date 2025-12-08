@@ -11,10 +11,29 @@
 - name: Debugging
   block:
 
+    - name: Debug php_opcache_config
+      ansible.builtin.debug:
+        var: php_opcache_config
+
+    - name: Debug php_default_config
+      ansible.builtin.debug:
+        var: php_default_config
+
+    - name: Debug php_config
+      ansible.builtin.debug:
+        var: php_config
+
+    - name: Debug php_default_config | community.general.lists_mergeby(php_config, 'version')
+      ansible.builtin.debug:
+        var: php_default_config | community.general.lists_mergeby(php_config, 'version')
+
     - name: Debug php_combined_config
       ansible.builtin.debug:
         var: php_combined_config
-        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
+        # verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
+
+    - name: Debug fail
+      ansible.builtin.fail:
 
     - name: Debug php_combined_modules
       ansible.builtin.debug:

@@ -792,8 +792,14 @@ php_default_config:
     version: "5.6"
     state: absent
 # php_combined_config: "{{ php_default_config | community.general.lists_mergeby(php_config, 'version') }}"
+# php_combined_config: >-
+#                      {%- if php_config is not defined -%}
+#                      {{-     php_default_config -}}
+#                      {%- else -%}
+#                      {{-     php_default_config | community.general.lists_mergeby(php_config, 'version') -}}
+#                      {%- endif -%}
 php_combined_config: >-
-                     {%- if php_config is not defined -%}
+                     {%- if (php_config is not defined) or (php_config == []) -%}
                      {{-     php_default_config -}}
                      {%- else -%}
                      {{-     php_default_config | community.general.lists_mergeby(php_config, 'version') -}}
@@ -1525,6 +1531,10 @@ php_validation_conditions:
     {% endif %}
   # - "{{ php_conf_opcache_jit_buffer_size is ansible.builtin.regex('^[0-9]{1,20}[G|K|M]?$') }}"
 php_validation: "{{ php_validation_conditions is ansible.builtin.all }}"
+
+# Testing
+# php_opcache_config: "{{ php_combined_config | community.general.json_query('[?state==`present`].files[]|[?state==`present`].conf.opache') }}"
+php_opcache_config: "{{ php_combined_config | community.general.json_query('[?state==`present`].files[]') }}"
 
 # PHP versions absent
 # cat vars/main.yml | yq -o=json | jp "sort(php_versions[?state=='absent'].version)"

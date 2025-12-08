@@ -643,6 +643,10 @@ argument_specs:
         type: dict
         required: false
         description: Internal dictionary for the result from running phpquery to check the existing mods enabled for a specific PHP SAPI.
+      php_opcache_config:
+        type: list
+        required: false
+        description: Internal list of OPCache config.
       php_packages_installed:
         type: dict
         required: false
