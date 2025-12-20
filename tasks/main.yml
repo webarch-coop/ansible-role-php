@@ -149,6 +149,27 @@
       tags:
         - php_mods
 
+    - name: PHP configuration symlinks present after PHP modules have been configured
+      ansible.builtin.file:
+        state: link
+        src: "{{ php_conf_symlink.src }}"
+        dest: "{{ php_conf_symlink.path }}"
+        follow: false
+        mode: "0777"
+        owner: root
+        group: root
+      loop: "{{ php_conf_symlinks }}"
+      loop_control:
+        loop_var: php_conf_symlink
+        label: "{{ php_conf_symlink.path | ansible.builtin.basename }}"
+      register: php_conf_symlinks_present
+      when:
+        - php_conf_symlinks is defined
+        - php_conf_symlinks != []
+      tags:
+        - php_cfg
+        - php_conf
+
   when: php | bool
   tags:
     - php
