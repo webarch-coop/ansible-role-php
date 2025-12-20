@@ -1,9 +1,11 @@
 ; {{ ansible_managed }}
 {% if php_conf_file_comments is defined %}
-{%     if php_conf_file_comments | ansible.builtin.type_debug == list %}
-{%         for php_conf_file_comment in php_conf_file_comments %}
+{%     if php_conf_file_comments | ansible.builtin.type_debug == "list" %}
+{%         if php_conf_file_comments != [] %}
+{%             for php_conf_file_comment in php_conf_file_comments %}
 ; {{ php_conf_file_comment }}
-{%         endfor %}
+{%             endfor %}
+{%         endif %}
 {%     endif %}
 {% endif %}
 {% if php_conf_file_proposed_sections | bool %}
