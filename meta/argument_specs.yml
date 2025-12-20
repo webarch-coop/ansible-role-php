@@ -213,7 +213,7 @@ argument_specs:
       php_conf_file_paths_jmespath_query:
         type: str
         required: true
-        description: A internale JMESPath query string.
+        description: A internal JMESPath query string.
       php_file_path_separator:
         type: str
         required: true
