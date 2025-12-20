@@ -210,7 +210,9 @@
       loop: "{{ php_conf_symlinks }}"
       loop_control:
         loop_var: php_conf_symlink
-      when: php_conf_symlinks != []
+      when:
+        - php_conf_symlinks is defined
+        - php_conf_symlinks != []
 
 
     # TODO sapis are required when php_modules are set to be present

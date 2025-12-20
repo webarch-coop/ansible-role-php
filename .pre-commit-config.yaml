@@ -34,14 +34,14 @@ repos:
           - README.md
   # https://github.com/ansible/ansible-lint/releases
   - repo: https://github.com/ansible/ansible-lint.git
-    rev: v25.9.2
+    rev: v25.12.1
     hooks:
       - id: ansible-lint
         name: Ansible Lint
         language: python
         additional_dependencies:
           # https://pypi.org/project/ansible/
-          - ansible==12.1.0
+          - ansible==13.1.0
          # https://github.com/kellyjonbrazil/jc/releases
           - jc==1.25.6
           # https://github.com/jmespath/jmespath.py/tags
