@@ -41,10 +41,9 @@ php_sapi_regex: "^{{ php_sapis | join('|') }}$"
 phpvarnames: "{{ q('varnames', '^php_') | sort }}"
 phphostvars: "{{ dict(phpvarnames | list | zip(q('vars', *phpvarnames))) }}"
 
-php_true: true
-php_false: false
-
 # https://forum.ansible.com/t/validating-inventory-against-argument-specs/10748/10
+php_false: false
+php_true: true
 php_validation_conditions:
   - >-
     {# if (php_mods_ver_absent is defined) and (php_mods_ver_absent == []) #}
