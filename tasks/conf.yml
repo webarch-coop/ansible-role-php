@@ -82,6 +82,34 @@
       tags:
         - debug
 
+    - name: Find the existing PHP configuration symlinks
+      ansible.builtin.find:
+        paths: /etc/php
+        file_type: link
+        recurse: true
+        patterns:
+          - '*.conf'
+          - '*.ini'
+      register: php_etc_php_find_symlinks
+
+    - name: Debug existing PHP configuration symlinks
+      ansible.builtin.debug:
+        var: php_etc_php_find_symlinks
+        verbosity: "{% if ansible_check_mode | bool %}2{% else %}3{% endif %}"
+      tags:
+        - debug
+
+    - name: Set a fact for the existing PHP configuration symlinks
+      ansible.builtin.set_fact:
+        php_conf_symlinks_existing: "{{ php_etc_php_find_symlinks | community.general.json_query('files[].path') }}"
+
+    - name: Debug existing PHP configuration symlinks
+      ansible.builtin.debug:
+        var: php_conf_symlinks_existing
+        verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+      tags:
+        - debug
+
     - name: Debug PHP configuration files set to be edited
       ansible.builtin.debug:
         var: php_conf_files_edited
@@ -261,6 +289,24 @@
       when:
         - php_conf_files_edit is defined
         - php_conf_files_edit != []
+
+    - name: PHP configuration symlinks present
+      ansible.builtin.file:
+        state: link
+        src: "{{ php_conf_symlink.src }}"
+        dest: "{{ php_conf_symlink.path }}"
+        follow: false
+        mode: "0777"
+        owner: root
+        group: root
+      loop: "{{ php_conf_symlinks }}"
+      loop_control:
+        loop_var: php_conf_symlink
+        label: "{{ php_conf_symlink.path | ansible.builtin.basename }}"
+      register: php_conf_symlinks_present
+      when:
+        - php_conf_symlinks is defined
+        - php_conf_symlinks != []
 
   tags:
     - php

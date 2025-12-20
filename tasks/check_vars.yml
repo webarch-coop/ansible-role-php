@@ -202,6 +202,17 @@
         loop_var: php_conf_opcache_jit_buffer_size
       when: php_conf_opcache_jit_buffer_sizes != []
 
+    - name: Check that the symlink source is defined and conf is not when the state is set to be a symlink
+      ansible.builtin.assert:
+        that:
+          - php_conf_symlink.conf is not defined
+          - php_conf_symlink.src is defined
+      loop: "{{ php_conf_symlinks }}"
+      loop_control:
+        loop_var: php_conf_symlink
+      when: php_conf_symlinks != []
+
+
     # TODO sapis are required when php_modules are set to be present
 
   tags:

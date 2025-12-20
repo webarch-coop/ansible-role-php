@@ -141,6 +141,11 @@ argument_specs:
         elements: str
         required: false
         description: Internal list of PHP configuration files and directories to remove.
+      php_conf_symlinks_existing:
+        type: list
+        elements: str
+        required: false
+        description: Internal list of existing PHP configuration symlinks.
       php_dismods:
         type: list
         elements: str
@@ -171,6 +176,10 @@ argument_specs:
         type: dict
         required: false
         description: Internal dictionary with the results from finding existing PHP .conf and .ini configuration files.
+      php_etc_php_find_symlinks:
+        type: dict
+        required: false
+        description: Internal dictionary with the results from finding existing PHP symlinks.
       php_file_absent_path:
         type: dict
         required: false

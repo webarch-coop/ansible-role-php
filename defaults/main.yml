@@ -22,6 +22,20 @@ php_config:
   #       #   "opcache.jit": "0"
   #       conf:
   #         "zend_extension": "opcache.so"
+  #     - name: PHP 8.5 FPM opcache symlink
+  #       path: /etc/php/8.5/fpm/conf.d/10-opcache.ini
+  #       src: /etc/php/8.5/mods-available/opcache.ini
+  #       state: symlink
+  #     - name: PHP 8.5 FPM opcache duplicate symlink absent
+  #       path: /etc/php/8.5/fpm/conf.d/20-opcache.ini
+  #       state: absent
+  #     - name: PHP 8.5 CLI opcache symlink
+  #       path: /etc/php/8.5/cli/conf.d/10-opcache.ini
+  #       src: /etc/php/8.5/mods-available/opcache.ini
+  #       state: symlink
+  #     - name: PHP 8.5 CLI opcache duplicate symlink absent
+  #       path: /etc/php/8.5/cli/conf.d/20-opcache.ini
+  #       state: absent
   #     - name: PHP 8.5 CLI configuration
   #       path: /etc/php/8.5/cli/php.ini
   #       state: present
@@ -134,6 +148,20 @@ php_config:
         #   "opcache.jit": "0"
         conf:
           "zend_extension": "opcache.so"
+      - name: PHP 8.4 FPM opcache symlink
+        path: /etc/php/8.4/fpm/conf.d/10-opcache.ini
+        src: /etc/php/8.4/mods-available/opcache.ini
+        state: symlink
+      - name: PHP 8.4 FPM opcache duplicate symlink absent
+        path: /etc/php/8.4/fpm/conf.d/20-opcache.ini
+        state: absent
+      - name: PHP 8.4 CLI opcache symlink
+        path: /etc/php/8.4/cli/conf.d/10-opcache.ini
+        src: /etc/php/8.4/mods-available/opcache.ini
+        state: symlink
+      - name: PHP 8.4 CLI opcache duplicate symlink absent
+        path: /etc/php/8.4/cli/conf.d/20-opcache.ini
+        state: absent
       - name: PHP 8.4 CLI configuration
         path: /etc/php/8.4/cli/php.ini
         state: present
@@ -246,6 +274,20 @@ php_config:
         #   "opcache.jit": "0"
         conf:
           "zend_extension": "opcache.so"
+      - name: PHP 8.3 FPM opcache symlink
+        path: /etc/php/8.3/fpm/conf.d/10-opcache.ini
+        src: /etc/php/8.3/mods-available/opcache.ini
+        state: symlink
+      - name: PHP 8.3 FPM opcache duplicate symlink absent
+        path: /etc/php/8.3/fpm/conf.d/20-opcache.ini
+        state: absent
+      - name: PHP 8.3 CLI opcache symlink
+        path: /etc/php/8.3/cli/conf.d/10-opcache.ini
+        src: /etc/php/8.3/mods-available/opcache.ini
+        state: symlink
+      - name: PHP 8.3 CLI opcache duplicate symlink absent
+        path: /etc/php/8.3/cli/conf.d/20-opcache.ini
+        state: absent
       - name: PHP 8.3 CLI configuration
         path: /etc/php/8.3/cli/php.ini
         state: present
@@ -358,6 +400,20 @@ php_config:
         #   "opcache.jit": "0"
         conf:
           "zend_extension": "opcache.so"
+      - name: PHP 8.2 FPM opcache symlink
+        path: /etc/php/8.2/fpm/conf.d/10-opcache.ini
+        src: /etc/php/8.2/mods-available/opcache.ini
+        state: symlink
+      - name: PHP 8.2 FPM opcache duplicate symlink absent
+        path: /etc/php/8.2/fpm/conf.d/20-opcache.ini
+        state: absent
+      - name: PHP 8.2 CLI opcache symlink
+        path: /etc/php/8.2/cli/conf.d/10-opcache.ini
+        src: /etc/php/8.2/mods-available/opcache.ini
+        state: symlink
+      - name: PHP 8.2 CLI opcache duplicate symlink absent
+        path: /etc/php/8.2/cli/conf.d/20-opcache.ini
+        state: absent
       - name: PHP 8.2 CLI configuration
         path: /etc/php/8.2/cli/php.ini
         state: present
@@ -470,6 +526,20 @@ php_config:
         #   "opcache.jit": "0"
         conf:
           "zend_extension": "opcache.so"
+      - name: PHP 8.1 FPM opcache symlink
+        path: /etc/php/8.1/fpm/conf.d/10-opcache.ini
+        src: /etc/php/8.1/mods-available/opcache.ini
+        state: symlink
+      - name: PHP 8.1 FPM opcache duplicate symlink absent
+        path: /etc/php/8.1/fpm/conf.d/20-opcache.ini
+        state: absent
+      - name: PHP 8.1 CLI opcache symlink
+        path: /etc/php/8.1/cli/conf.d/10-opcache.ini
+        src: /etc/php/8.1/mods-available/opcache.ini
+        state: symlink
+      - name: PHP 8.1 CLI opcache duplicate symlink absent
+        path: /etc/php/8.1/cli/conf.d/20-opcache.ini
+        state: absent
       - name: PHP 8.1 CLI configuration
         path: /etc/php/8.1/cli/php.ini
         state: present
@@ -582,6 +652,20 @@ php_config:
         #   "opcache.jit": "0"
         conf:
           "zend_extension": "opcache.so"
+      - name: PHP 8.0 FPM opcache symlink
+        path: /etc/php/8.0/fpm/conf.d/10-opcache.ini
+        src: /etc/php/8.0/mods-available/opcache.ini
+        state: symlink
+      - name: PHP 8.0 FPM opcache duplicate symlink absent
+        path: /etc/php/8.0/fpm/conf.d/20-opcache.ini
+        state: absent
+      - name: PHP 8.0 CLI opcache symlink
+        path: /etc/php/8.0/cli/conf.d/10-opcache.ini
+        src: /etc/php/8.0/mods-available/opcache.ini
+        state: symlink
+      - name: PHP 8.0 CLI opcache duplicate symlink absent
+        path: /etc/php/8.0/cli/conf.d/20-opcache.ini
+        state: absent
       - name: PHP 8.0 CLI configuration
         path: /etc/php/8.0/cli/php.ini
         state: present

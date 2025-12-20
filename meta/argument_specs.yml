@@ -80,12 +80,42 @@ argument_specs:
         type: list
         elements: str
         required: false
-        description: a generated list of versions of php configuration to remove if present.
+        description: A generated list of versions of php configuration to remove if present.
       php_conf_ver_present:
         type: list
         elements: str
         required: false
-        description: a generated list of versions of php configuration that should be present.
+        description: A generated list of versions of php configuration that should be present.
+      php_conf_symlinks:
+        type: list
+        elements: dict
+        required: false
+        description: A generated list of php configuration symlinks.
+        options:
+          files:
+            type: list
+            elements: dict
+            required: false
+            description: A optional list of PHP symlink paths and their sources.
+            options:
+              name:
+                type: str
+                required: false
+                description: A optional name for the PHP configuration symlink.
+              path:
+                type: str
+                required: true
+                description: The path of the PHP configuration symlink.
+              src:
+                type: str
+                required: true
+                description: The path of the file that the symlink should point to.
+              state:
+                type: str
+                required: true
+                description: The state of the PHP file should be a symlink.
+                choices:
+                  - symlink
       php_config:
         type: list
         elements: dict
@@ -114,6 +144,10 @@ argument_specs:
                 type: str
                 required: true
                 description: The path of the PHP configuration file.
+              src:
+                type: str
+                required: false
+                description: The path of the file that the symlink should point to.
               state:
                 type: str
                 required: true
@@ -122,6 +156,7 @@ argument_specs:
                   - absent
                   - edited
                   - present
+                  - symlink
                   - templated
           name:
             type: str

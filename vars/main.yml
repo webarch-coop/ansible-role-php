@@ -90,6 +90,10 @@ php_conf_files_edited: "{{ php_config | community.general.json_query('[?state==`
 # php_conf_files_present: "{{ php_config | community.general.json_query('sort([?state==`present`].files[]|[?state==`present`].path)') }}"
 php_conf_files_present: "{{ php_config | community.general.json_query('[?state==`present`].files[]|[?state==`present`].path') | sort }}"
 
+# PHP config symlinks
+# cat defaults/main.yml | yq -o=json | jp "php_config[?state=='present'].files[]|[?state=='symlink']"
+php_conf_symlinks: "{{ php_config | community.general.json_query('php_config[?state==`present`].files[]|[?state==`symlink`]') }}"
+
 # PHP versions present configuration files templated
 # cat defaults/main.yml | yq -o=json | jp "sort(php_config[?state=='present'].files[]|[?state=='templated'].path)"
 # php_conf_files_templated: "{{ php_config | community.general.json_query('sort([?state==`present`].files[]|[?state==`templated`].path)') }}"
