@@ -207,6 +207,7 @@
         that:
           - php_conf_symlink.conf is not defined
           - php_conf_symlink.src is defined
+        quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
       loop: "{{ php_conf_symlinks }}"
       loop_control:
         loop_var: php_conf_symlink
@@ -214,6 +215,14 @@
         - php_conf_symlinks is defined
         - php_conf_symlinks != []
 
+    - name: Check that comments are only defined when conf files are set to be templated
+      ansible.builtin.assert:
+        that:
+          - php_conf_files_present_not_templated_comments == []
+        quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
+        fail_msg: "PHP configuration file comments are only supported for templated files."
+      vars:
+        php_conf_files_present_not_templated_comments: "{{ php_config | community.general.json_query('?state=='present'].files[]|[?state!='templated'].comments') }}"
 
     # TODO sapis are required when php_modules are set to be present
 

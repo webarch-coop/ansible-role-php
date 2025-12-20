@@ -146,6 +146,10 @@ argument_specs:
         elements: str
         required: false
         description: Internal list of existing PHP configuration symlinks.
+      php_conf_symlinks_present:
+        type: dict
+        required: false
+        description: Internal dictionary with the results from using the ansible.builtin.file module to ensure that PHP config symlinks are present.
       php_dismods:
         type: list
         elements: str
