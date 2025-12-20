@@ -1,5 +1,9 @@
 ; {{ ansible_managed }}
-
+{% if php_conf_file_comments is defined and php_conf_file_comments != [] %}
+{%     for php_conf_file_comment in php_conf_file_comments %}
+; {{ php_conf_file_comment }}
+{%     endfor %}
+{% endif %}
 {% if php_conf_file_proposed_sections | bool %}
 {%     for php_section in php_conf_file_proposed_vars | dict2items %}
 [{{ php_section.key }}]
@@ -20,5 +24,4 @@
 {%         endif %}
 {%     endfor %}
 {% endif %}
-
 ; vim: syntax=dosini

@@ -92,30 +92,29 @@ argument_specs:
         required: false
         description: A generated list of php configuration symlinks.
         options:
-          files:
+          comments:
             type: list
-            elements: dict
+            elements: str
             required: false
-            description: A optional list of PHP symlink paths and their sources.
-            options:
-              name:
-                type: str
-                required: false
-                description: A optional name for the PHP configuration symlink.
-              path:
-                type: str
-                required: true
-                description: The path of the PHP configuration symlink.
-              src:
-                type: str
-                required: true
-                description: The path of the file that the symlink should point to.
-              state:
-                type: str
-                required: true
-                description: The state of the PHP file should be a symlink.
-                choices:
-                  - symlink
+            description: A list of commented lines to be included at the top of the PHP configuration file.
+          name:
+            type: str
+            required: false
+            description: A optional name for the PHP configuration symlink.
+          path:
+            type: str
+            required: true
+            description: The path of the PHP configuration symlink.
+          src:
+            type: str
+            required: true
+            description: The path of the file that the symlink should point to.
+          state:
+            type: str
+            required: true
+            description: The state of the PHP file should be a symlink.
+            choices:
+              - symlink
       php_config:
         type: list
         elements: dict
@@ -128,6 +127,11 @@ argument_specs:
             required: false
             description: A optional list of PHP file paths and their configuration.
             options:
+              comments:
+                type: list
+                elements: str
+                required: false
+                description: A list of commented lines to be included at the top of the PHP configuration file.
               conf:
                 type: dict
                 required: false
