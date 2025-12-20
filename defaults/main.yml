@@ -1015,7 +1015,6 @@ php_modules:
           - mbstring
           - mysqli
           - mysqlnd
-          - opcache
           - pdo
           - pdo_mysql
           - pdo_sqlite
