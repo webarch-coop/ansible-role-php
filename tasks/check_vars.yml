@@ -222,7 +222,7 @@
         quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
         fail_msg: "PHP configuration file comments are only supported for templated files."
       vars:
-        php_conf_files_present_not_templated_comments: "{{ php_config | community.general.json_query('?state=='present'].files[]|[?state!='templated'].comments') }}"
+        php_conf_files_present_not_templated_comments: "{{ php_config | community.general.json_query('?state==`present`].files[]|[?state!=`templated`].comments') }}"
 
     # TODO sapis are required when php_modules are set to be present
 
