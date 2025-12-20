@@ -43,7 +43,7 @@
       ansible.builtin.debug:
         var: ansible_version.full
 
-    - name: Include php role as root for Debian Bookworm
+    - name: Include php role for Debian Bookworm PHP-FPM configuration
       ansible.builtin.include_role:
         name: php
       when: ansible_facts.distribution_release == "bookworm"
@@ -252,7 +252,7 @@
               - php8.2-zip
               - php-pear
 
-    - name: Include php role as root for Debian Trixie
+    - name: Include php role for Debian Trixie PHP-FPM configuration
       ansible.builtin.include_role:
         name: php
       when: ansible_facts.distribution_release == "trixie"

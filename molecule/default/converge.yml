@@ -43,10 +43,11 @@
       ansible.builtin.debug:
         var: ansible_version.full
 
-    - name: "Include php role as root for Debian {{ ansible_facts.distribution_release }}"
+    - name: "{{ molecule_task_name }}"
       ansible.builtin.include_role:
         name: php
       vars:  # noqa: var-naming[no-role-prefix]
+        molecule_task_name: "Include php role for Debian {{ ansible_facts.distribution_release }} with Sury apt packages"
         php: true
         php_fpm_pool_check_fail: false
 

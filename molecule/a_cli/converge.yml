@@ -43,7 +43,7 @@
       ansible.builtin.debug:
         var: ansible_version.full
 
-    - name: Include php role as root for Debian Bookworm
+    - name: Include php for Debian Bookworm CLI configuration
       ansible.builtin.include_role:
         name: php
       when: ansible_facts.distribution_release == "bookworm"
@@ -197,7 +197,7 @@
               - php8.2-zip
               - php-pear
 
-    - name: Include php role as root for Debian Trixie
+    - name: Include php role for Debian Trixie CLI configuration
       ansible.builtin.include_role:
         name: php
       when: ansible_facts.distribution_release == "trixie"
@@ -218,13 +218,6 @@
                 #   "opcache.jit": "0"
                 conf:
                   "zend_extension": "opcache.so"
-              - name: PHP 8.4 FPM opcache symlink
-                path: /etc/php/8.4/fpm/conf.d/10-opcache.ini
-                src: /etc/php/8.4/mods-available/opcache.ini
-                state: symlink
-              - name: PHP 8.4 FPM opcache duplicate symlink absent
-                path: /etc/php/8.4/fpm/conf.d/20-opcache.ini
-                state: absent
               - name: PHP 8.4 CLI opcache symlink
                 path: /etc/php/8.4/cli/conf.d/10-opcache.ini
                 src: /etc/php/8.4/mods-available/opcache.ini
