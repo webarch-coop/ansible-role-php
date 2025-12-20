@@ -1,8 +1,10 @@
 ; {{ ansible_managed }}
-{% if php_conf_file_comments is defined and php_conf_file_comments != [] %}
-{%     for php_conf_file_comment in php_conf_file_comments %}
+{% if php_conf_file_comments is defined %}
+{%     if php_conf_file_comments | ansible.builtin.type_debug == list %}
+{%         for php_conf_file_comment in php_conf_file_comments %}
 ; {{ php_conf_file_comment }}
-{%     endfor %}
+{%         endfor %}
+{%     endif %}
 {% endif %}
 {% if php_conf_file_proposed_sections | bool %}
 {%     for php_section in php_conf_file_proposed_vars | dict2items %}
@@ -24,4 +26,4 @@
 {%         endif %}
 {%     endfor %}
 {% endif %}
-; vim: syntax=dosini
+; vim: syntax=dosini{# vim: syntax=jinja2 #}

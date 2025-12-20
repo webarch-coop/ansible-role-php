@@ -24,6 +24,8 @@ php_sury_versions:
   - "8.4"
   - "8.5"
 
+php_empty_list: []
+
 php_pool_names_not_absent: []
 
 php_file_path_separator: '/'

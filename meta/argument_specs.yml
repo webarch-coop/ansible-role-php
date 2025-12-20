@@ -190,6 +190,10 @@ argument_specs:
               - "8.3"
               - "8.4"
               - "8.5"
+      php_conf_file_paths_jmespath_query:
+        type: str
+        required: true
+        description: A internal JMESPath query string.
       php_date_timestamp:
         type: str
         required: false
@@ -214,10 +218,10 @@ argument_specs:
         elements: str
         required: false
         description: A list of Debian Forky packages to install.
-      php_conf_file_paths_jmespath_query:
-        type: str
+      php_empty_list:
+        type: list
         required: true
-        description: A internal JMESPath query string.
+        description: A empty list.
       php_false:
         type: bool
         required: true
