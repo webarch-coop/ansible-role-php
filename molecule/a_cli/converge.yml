@@ -54,6 +54,30 @@
             version: "8.2"
             state: present
             files:
+              - name: PHP 8.2 JIT configuration
+                path: /etc/php/8.2/mods-available/opcache.ini
+                state: templated
+                comments:
+                  - "configuration for php opcache module"
+                  - "priority=10"
+                # conf_absent:
+                #   "opcache.jit": "0"
+                conf:
+                  "zend_extension": "opcache.so"
+              - name: PHP 8.2 FPM opcache symlink
+                path: /etc/php/8.2/fpm/conf.d/10-opcache.ini
+                src: /etc/php/8.2/mods-available/opcache.ini
+                state: symlink
+              - name: PHP 8.2 FPM opcache duplicate symlink absent
+                path: /etc/php/8.2/fpm/conf.d/20-opcache.ini
+                state: absent
+              - name: PHP 8.2 CLI opcache symlink
+                path: /etc/php/8.2/cli/conf.d/10-opcache.ini
+                src: /etc/php/8.2/mods-available/opcache.ini
+                state: symlink
+              - name: PHP 8.2 CLI opcache duplicate symlink absent
+                path: /etc/php/8.2/cli/conf.d/20-opcache.ini
+                state: absent
               - name: PHP 8.2 CLI configuration
                 path: /etc/php/8.2/cli/php.ini
                 state: present
@@ -184,6 +208,30 @@
             version: "8.4"
             state: present
             files:
+              - name: PHP 8.4 JIT configuration
+                path: /etc/php/8.4/mods-available/opcache.ini
+                state: templated
+                comments:
+                  - "configuration for php opcache module"
+                  - "priority=10"
+                # conf_absent:
+                #   "opcache.jit": "0"
+                conf:
+                  "zend_extension": "opcache.so"
+              - name: PHP 8.4 FPM opcache symlink
+                path: /etc/php/8.4/fpm/conf.d/10-opcache.ini
+                src: /etc/php/8.4/mods-available/opcache.ini
+                state: symlink
+              - name: PHP 8.4 FPM opcache duplicate symlink absent
+                path: /etc/php/8.4/fpm/conf.d/20-opcache.ini
+                state: absent
+              - name: PHP 8.4 CLI opcache symlink
+                path: /etc/php/8.4/cli/conf.d/10-opcache.ini
+                src: /etc/php/8.4/mods-available/opcache.ini
+                state: symlink
+              - name: PHP 8.4 CLI opcache duplicate symlink absent
+                path: /etc/php/8.4/cli/conf.d/20-opcache.ini
+                state: absent
               - name: PHP 8.4 CLI configuration
                 path: /etc/php/8.4/cli/php.ini
                 state: present
