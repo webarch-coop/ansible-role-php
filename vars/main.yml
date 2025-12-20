@@ -41,6 +41,34 @@ php_sapi_regex: "^{{ php_sapis | join('|') }}$"
 phpvarnames: "{{ q('varnames', '^php_') | sort }}"
 phphostvars: "{{ dict(phpvarnames | list | zip(q('vars', *phpvarnames))) }}"
 
+php_true: true
+php_false: false
+
+# https://forum.ansible.com/t/validating-inventory-against-argument-specs/10748/10
+php_validation_conditions:
+  - >-
+    {# if (php_mods_ver_absent is defined) and (php_mods_ver_absent == []) #}
+    {% if php_mods_ver_absent == [] %}
+    {{   php_true }}
+    {# elif (php_mods_ver_absent is defined) and (php_mods_ver_absent != []) #}
+    {% elif php_mods_ver_absent != [] %}
+    {%     for php_ver in php_mods_ver_absent %}
+    {{         php_ver in php_sury_versions }}
+    {%     endfor %}
+    {% endif %}
+  - >-
+    {# if (php_mods_ver_present is defined) and (php_mods_ver_present == []) #}
+    {% if php_mods_ver_present == [] %}
+    {{   php_true }}
+    {# elif (php_mods_ver_present is defined) and (php_mods_ver_present != []) #}
+    {% elif php_mods_ver_present != [] %}
+    {%     for php_ver in php_mods_ver_present %}
+    {{         php_ver in php_sury_versions }}
+    {%     endfor %}
+    {% endif %}
+  # - "{{ php_conf_opcache_jit_buffer_size is ansible.builtin.regex('^[0-9]{1,20}[G|K|M]?$') }}"
+php_validation: "{{ php_validation_conditions is ansible.builtin.all }}"
+
 # PHP versions absent
 # cat defaults/main.yml | yq -o=json | jp "sort(php_versions[?state=='absent'].version)"
 # php_ver_absent: "{{ php_versions | community.general.json_query('sort([?state==`absent`].version)') }}"
