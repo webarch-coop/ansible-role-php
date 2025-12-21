@@ -96,13 +96,23 @@
         - php_check_legacy_variables is defined
         - php_check_legacy_variables | bool
 
-    - name: Check that the distro is Debian Bullseye, Bookworm or Trixie
+    - name: Check that the distro is Debian Bullseye, Bookworm or Trixie for Sury PHP packages
       ansible.builtin.assert:
         that:
           - ansible_facts.distribution_release is defined
           - ansible_facts.distribution_release is regex("^bullseye|bookworm|trixie$")
         quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
         fail_msg: "The Linux distro {{ ansible_facts.distribution }} {{ ansible_facts.distribution_release }} is not supported by this role"
+      when: php_sury | bool
+
+    - name: Check that the distro is Debian Bullseye, Bookworm, Trixie or Forky for Debian PHP packages
+      ansible.builtin.assert:
+        that:
+          - ansible_facts.distribution_release is defined
+          - ansible_facts.distribution_release is regex("^bullseye|bookworm|trixie|forky$")
+        quiet: "{% if ansible_verbosity == 0 %}true{% else %}false{% endif %}"
+        fail_msg: "The Linux distro {{ ansible_facts.distribution }} {{ ansible_facts.distribution_release }} is not supported by this role"
+      when: not php_sury | bool
 
     - name: Debug PHP versions and config due to be present and absent
       ansible.builtin.debug:

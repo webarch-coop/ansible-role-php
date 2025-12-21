@@ -126,11 +126,11 @@ php_config:
       - name: PHP 8.5 FPM www pool configuration
         path: /etc/php/8.5/fpm/pool.d/www.conf
         state: absent
-      - name: PHP 8.5 FPM www84 pool configuration
+      - name: PHP 8.5 FPM www85 pool configuration
         path: /etc/php/8.5/fpm/pool.d/www85.conf
         state: present
         conf:
-          www84:
+          www85:
             "user": www-data
             "group": www-data
             "listen": /run/php/php8.5-fpm.sock
@@ -139,7 +139,7 @@ php_config:
             "pm": ondemand
             "pm.max_children": "4"
             "pm.process_idle_timeout": 10s
-            "pm.status_path": /fpm84-status
+            "pm.status_path": /fpm85-status
   - name: PHP 8.4 configuration
     version: "8.4"
     state: present
