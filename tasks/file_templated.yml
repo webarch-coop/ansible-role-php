@@ -71,14 +71,14 @@
     - name: Debug the proposed PHP configuration file comments
       ansible.builtin.debug:
         var: php_conf_file_comments
-        # verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+        verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
       tags:
         - debug
 
     - name: Debug the proposed PHP configuration file comments variable type
       ansible.builtin.debug:
         msg: "{{ php_conf_file_comments | ansible.builtin.type_debug }}"
-        # verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+        verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
       tags:
         - debug
 

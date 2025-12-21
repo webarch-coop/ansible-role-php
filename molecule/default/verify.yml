@@ -740,6 +740,107 @@
                     - zip
                   state: present
               state: present
+            "8.5":
+              sapis:
+                cli:
+                  modules:
+                    - apcu
+                    - bcmath
+                    - bz2
+                    - calendar
+                    - ctype
+                    - curl
+                    - dom
+                    - exif
+                    - ffi
+                    - fileinfo
+                    - ftp
+                    - gd
+                    - gettext
+                    - gmp
+                    - iconv
+                    - igbinary
+                    - imagick
+                    - imap
+                    - intl
+                    - ldap
+                    - mbstring
+                    - mysqli
+                    - mysqlnd
+                    - pdo
+                    - pdo_mysql
+                    - pdo_sqlite
+                    - phar
+                    - posix
+                    - readline
+                    - redis
+                    - shmop
+                    - simplexml
+                    - soap
+                    - sockets
+                    - sqlite3
+                    - sysvmsg
+                    - sysvsem
+                    - sysvshm
+                    - tokenizer
+                    - uploadprogress
+                    - xml
+                    - xmlreader
+                    - xmlrpc
+                    - xmlwriter
+                    - xsl
+                    - zip
+                  state: present
+                fpm:
+                  modules:
+                    - apcu
+                    - bcmath
+                    - bz2
+                    - calendar
+                    - ctype
+                    - curl
+                    - dom
+                    - exif
+                    - ffi
+                    - fileinfo
+                    - ftp
+                    - gd
+                    - gettext
+                    - gmp
+                    - iconv
+                    - igbinary
+                    - imagick
+                    - imap
+                    - intl
+                    - ldap
+                    - mbstring
+                    - mysqli
+                    - mysqlnd
+                    - pdo
+                    - pdo_mysql
+                    - pdo_sqlite
+                    - phar
+                    - posix
+                    - readline
+                    - redis
+                    - shmop
+                    - simplexml
+                    - soap
+                    - sockets
+                    - sqlite3
+                    - sysvmsg
+                    - sysvsem
+                    - sysvshm
+                    - tokenizer
+                    - uploadprogress
+                    - xml
+                    - xmlreader
+                    - xmlrpc
+                    - xmlwriter
+                    - xsl
+                    - zip
+                  state: present
+              state: present
 
     - name: Check the PHP configuratioon present
       block:
@@ -785,6 +886,7 @@
         - "8.2"
         - "8.3"
         - "8.4"
+        - "8.5"
       loop_control:
         loop_var: molecule_php_fpm_ver
 ...
