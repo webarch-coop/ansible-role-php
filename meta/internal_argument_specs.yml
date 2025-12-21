@@ -14,6 +14,10 @@ argument_specs:
     description: Ansible role for installing and configuring PHP on Debian.
     short_description: The main entry point for the PHP role.
     options:
+      php_apt_cache_policy:
+        type: dict
+        required: false
+        description: Internal dictionary containing the result from running apt-cache policy.
       php_apt_clean:
         type: dict
         required: false
@@ -22,6 +26,10 @@ argument_specs:
         type: dict
         required: false
         description: Internal dictionary containing the results from statting the Sury GPG keyring file.
+      php_apt_cache_search_php:
+        type: dict
+        required: false
+        description: Internal dictionary containing the results from running apt-cache search php --names-only.
       php_argument_spec:
         type: dict
         required: false
@@ -343,6 +351,11 @@ argument_specs:
         type: dict
         required: false
         description: Internal dictionary with the results from checking what PHP versions are available.
+      php_pkg_available:
+        type: list
+        elements: str
+        required: false
+        description: Internal list of PHP packages available.
       php_pkg_install:
         type: list
         elements: str

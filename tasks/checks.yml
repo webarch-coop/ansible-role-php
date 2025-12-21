@@ -92,9 +92,25 @@
       loop_control:
         loop_var: php_fpm_pool_file
 
-    - name: Decode the base64 encoded pool.d files
-      ansible.builtin.set_fact:
-        php_fpm_pool_file_contents: "{{ php_fpm_pool_files_b64encoded | json_query('results[].content') | map('ansible.builtin.b64decode') | map('community.general.from_ini') }}"
+    - name: Decode the base64 encoded pool.d files in a blocm to catch failures
+      block:
+
+        - name: Decode the base64 encoded pool.d files
+          ansible.builtin.set_fact:
+            php_fpm_pool_file_contents: "{{ php_fpm_pool_files_b64encoded | json_query('results[].content') | map('ansible.builtin.b64decode') | map('community.general.from_ini') }}"
+
+      rescue:
+
+        - name: Debug the type of the base64 encoded pool.d files
+          ansible.builtin.debug:
+            msg: "{{ php_fpm_pool_files_b64encoded | json_query('results[].content') | map('ansible.builtin.b64decode') | map('ansible.builtin.type_debug') }}"
+
+        - name: Debug the content of the base64 encoded pool.d files
+          ansible.builtin.debug:
+            msg: "{{ php_fpm_pool_files_b64encoded | json_query('results[].content') | map('ansible.builtin.b64decode') }}"
+
+        - name: Fail as decoding the base64 encoded pool.d files failed
+          ansible.builtin.fail:
 
     - name: Debug the slurped pool.d file contents
       ansible.builtin.debug:
@@ -103,14 +119,31 @@
       tags:
         - debug
 
-    - name: Set a fact for a list of PHP-FPM socket paths and pool names
+    - name: Debug the slurped pool.d file contents type
+      ansible.builtin.debug:
+        msg: "{{ php_fpm_pool_file_contents | ansible.builtin.type_debug }}"
+        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
+      tags:
+        - debug
+
+    - name: Set a fact for a list of PHP-FPM socket paths
       ansible.builtin.set_fact:
         php_fpm_pool_file_socket_paths: "{{ php_fpm_pool_file_contents | community.general.json_query('[*].[*][][][].listen') | map('ansible.builtin.regex_replace', php_quote_start_regex) | map('ansible.builtin.regex_replace', php_quote_end_regex) | sort }}"
-        php_fpm_pool_file_pool_names: "{{ php_fpm_pool_file_contents | community.general.json_query('[].keys(@)[]') | sort }}"
 
     - name: Debug php_fpm_pool_file_socket_paths
       ansible.builtin.debug:
         var: php_fpm_pool_file_socket_paths
+        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}0{% else %}1{% endif %}"
+      tags:
+        - debug
+
+    - name: Set a fact for a list of PHP-FPM pool names
+      ansible.builtin.set_fact:
+        php_fpm_pool_file_pool_names: "{{ php_fpm_pool_file_contents | list | community.general.json_query('[].keys(@)[]') | sort }}"
+
+    - name: Debug php_fpm_pool_file_pool_names
+      ansible.builtin.debug:
+        var: php_fpm_pool_file_pool_names
         verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}0{% else %}1{% endif %}"
       tags:
         - debug

@@ -14,6 +14,7 @@ The safe way to run this role is incrementally using `--diff -C` to diff and che
 
 * Run with the `php_apt` tag to update the apt repo configuration, this supports check mode.
 * Run with the `php_pkg` tag to update the packages, this doesn't support check mode.
+* Run with the `php_mods` tags to updates SAPI mods enabled and mods disabled.
 * Run with the `php_cfg` tag to update the PHP configuration, this supports check mode.
 * Run with the `php` tag to update everything.
 
@@ -66,15 +67,26 @@ Each item in the list requires a `state`, which can be `absent` or `present` and
 - "5.6"
 ```
 
-Optional item variables are `name` and `files`, which is used to define the PHP version configuration state.
+Optional item variables are `comments`, `name` and `files`, which is used to define the PHP version configuration state.
 
-The `files` dictionary requires a `path` and `state` for each file, the state can be one of four options:
+Comments are required for `/etc/php/*/mods-available/*.ini` files for the symlink name in `/etc/php/*/*/conf.d/*.ini`, for example `/etc/php/8.5/mods-available/opcache.ini` has the following comments:
+
+```yaml
+comments:
+  - "configuration for php opcache module"
+  - "priority=10"
+```
+
+The `priority=10` causes the symlink in `/etc/php/8.5/fpm/conf.d/` to be prefixed with `10-` &mdash; [without this comment `20-` symlinks are created](https://codeberg.org/oerdnj/deb.sury.org/issues/54).
+
+The `files` dictionary requires a `path` and `state` for each file, the state can be one of fve options:
 
 ```yaml
 - absent
 - edited
 - present
 - templated
+- symlink
 ```
 
 The `edited` state can only be used for existing files, it enables the [Ansible ini module](https://docs.ansible.com/ansible/latest/collections/community/general/ini_file_module.html) to be used to edit configuration files without the need to template them, using a optional dictionary that is converted into a INI dictionary for the configuration to be present and a `conf_absent` optional dictionary that is converted into a INI dictionary for the configuration to be absent.

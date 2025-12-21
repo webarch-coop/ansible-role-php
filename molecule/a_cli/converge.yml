@@ -64,13 +64,6 @@
                 #   "opcache.jit": "0"
                 conf:
                   "zend_extension": "opcache.so"
-              - name: PHP 8.2 FPM opcache symlink
-                path: /etc/php/8.2/fpm/conf.d/10-opcache.ini
-                src: /etc/php/8.2/mods-available/opcache.ini
-                state: symlink
-              - name: PHP 8.2 FPM opcache duplicate symlink absent
-                path: /etc/php/8.2/fpm/conf.d/20-opcache.ini
-                state: absent
               - name: PHP 8.2 CLI opcache symlink
                 path: /etc/php/8.2/cli/conf.d/10-opcache.ini
                 src: /etc/php/8.2/mods-available/opcache.ini
