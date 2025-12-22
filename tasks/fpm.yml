@@ -11,6 +11,19 @@
 - name: PHP-FPM systemd tasks
   block:
 
+    - name: "Stat /usr/sbin/php-fpm{{ php_fpm_version }}"
+      ansible.builtin.stat:
+        path: "/usr/sbin/php-fpm{{ php_fpm_version }}"
+      register: php_fpm_binary
+
+    - name: "Check the PHP-FPM configuration for {{ php_fpm_version }}"
+      ansible.builtin.command: "/usr/sbin/php-fpm{{ php_fpm_version }} -t"
+      check_mode: false
+      changed_when: false
+      register: php_fpm_t
+      failed_when: (php_fpm_t.stderr_lines | length > 1) or ("test is successful" not in php_fpm_t.stderr_lines[-1])
+      when: php_fpm_binary.stat.exists | bool
+
     - name: "Stat {{ php_systemd_service_symlink_path }}"
       ansible.builtin.stat:
         path: "{{ php_systemd_service_symlink_path }}"

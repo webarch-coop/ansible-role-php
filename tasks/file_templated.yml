@@ -137,8 +137,10 @@
               changed_when: false
               register: php_fpm_test
               failed_when: >-
-                ( php_fpm_test.rc != 0 ) or
-                ( "Failed" in php_fpm_test.stderr )
+                (php_fpm_test.rc != 0) or
+                ("Failed" in php_fpm_test.stderr) or
+                ("test is successful" not in php_fpm_test.stderr_lines[-1]) or
+                (php_fpm_test.stderr_lines | length > 1)
 
           rescue:
 

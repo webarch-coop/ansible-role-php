@@ -92,7 +92,7 @@
       loop_control:
         loop_var: php_fpm_pool_file
 
-    - name: Decode the base64 encoded pool.d files in a blocm to catch failures
+    - name: Decode the base64 encoded pool.d files in a block to catch failures
       block:
 
         - name: Decode the base64 encoded pool.d files

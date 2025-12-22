@@ -145,15 +145,6 @@ argument_specs:
         elements: str
         required: false
         description: Internal list of PHP configuration files to template.
-      php_conf_removed:
-        type: dict
-        required: false
-        description: Internal dictionary with the results of looping through a list of files to remove.
-      php_conf_rm:
-        type: list
-        elements: str
-        required: false
-        description: Internal list of PHP configuration files and directories to remove.
       php_conf_symlinks_existing:
         type: list
         elements: str
@@ -209,6 +200,10 @@ argument_specs:
         type: dict
         required: false
         description: Internal dictionary with the results from templating a PHP configuration file.
+      php_fpm_binary:
+        type: dict
+        required: false
+        description: Internal dictionary with the results from statting a PHP-FPM binary.
       php_fpm_pool_dirs_found:
         type: dict
         required: false
@@ -258,6 +253,11 @@ argument_specs:
         type: dict
         required: false
         description: Internal dictionary with the results from ensuring a PHP-FPM systemd service is present.
+      php_conf_symlinks_remove:
+        type: list
+        elements: str
+        required: false
+        description: Internal list of PHP symlinks to remove.
       php_fpm_system_service:
         type: dict
         required: false
@@ -335,6 +335,15 @@ argument_specs:
         type: dict
         required: false
         description: Internal dictionary with the results from removing PHP packages.
+      php_path_removed:
+        type: dict
+        required: false
+        description: Internal dictionary with the results of looping through a list of files to remove.
+      php_path_rm:
+        type: list
+        elements: str
+        required: false
+        description: Internal list of PHP configuration files, directories and symlinks to remove.
       php_phpquery_mods_available:
         type: dict
         required: false

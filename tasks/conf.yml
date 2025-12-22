@@ -161,7 +161,7 @@
     - name: Debug PHP configuration files which should be absent
       ansible.builtin.debug:
         var: php_conf_files_absent
-        verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+        # verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
       tags:
         - debug
 
@@ -176,13 +176,24 @@
       tags:
         - debug
 
-    - name: Set a fact for existing PHP configuration files and directories to be deleted
+    - name: Set a fact for existing PHP symlinks that should be absent
       ansible.builtin.set_fact:
-        php_conf_rm: "{{ php_conf_dirs_remove + php_conf_files_remove }}"
+        php_conf_symlinks_remove: "{{ php_conf_symlinks_existing | ansible.builtin.intersect(php_conf_files_absent) }}"
 
-    - name: Debug PHP configuration paths to be deleted
+    - name: Debug existing PHP symlinks to be deleted
       ansible.builtin.debug:
-        var: php_conf_rm
+        var: php_conf_symlinks_remove
+        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}0{% else %}1{% endif %}"
+      tags:
+        - debug
+
+    - name: Set a fact for existing PHP configuration files, directories and symlinks to be deleted
+      ansible.builtin.set_fact:
+        php_path_rm: "{{ php_conf_dirs_remove + php_conf_files_remove + php_conf_symlinks_remove }}"
+
+    - name: Debug PHP paths to be deleted
+      ansible.builtin.debug:
+        var: php_path_rm
         verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}0{% else %}1{% endif %}"
       tags:
         - debug
@@ -191,14 +202,22 @@
       ansible.builtin.file:
         path: "{{ php_rm }}"
         state: absent
-      loop: "{{ php_conf_rm }}"
+      loop: "{{ php_path_rm }}"
       loop_control:
         loop_var: php_rm
         label: "{{ php_rm | ansible.builtin.basename }}"
-      register: php_conf_removed
+      register: php_path_removed
       when:
-        - php_conf_rm is defined
-        - php_conf_rm != []
+        - php_path_rm is defined
+        - php_path_rm != []
+
+    - name: Debug PHP paths deleted results
+      ansible.builtin.debug:
+        var: php_path_removed.results
+        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
+      when: php_path_removed.results is defined
+      tags:
+        - debug
 
     - name: Debug PHP configuration directories which should be present
       ansible.builtin.debug:
