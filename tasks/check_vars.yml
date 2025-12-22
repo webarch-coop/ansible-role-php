@@ -150,9 +150,9 @@
         msg: "PHP modules are set to be absent for {{ php_mods_ver_absent | ansible.builtin.intersect(php_ver_present) | join(', ') }} but the pkgs are set to be present."
       when: php_mods_ver_absent | ansible.builtin.intersect(php_ver_present) != []
 
-    - name: PHP modules should not be configured when the packages are set to be absent
-      ansible.builtin.fail:
-        msg: "PHP modules are set to be present for {{ php_mods_ver_present | ansible.builtin.intersect(php_ver_absent) | join(', ') }} but the pkgs are set to be absent."
+    - name: PHP modules will not be configured when the packages are set to be absent
+      ansible.builtin.debug:
+        msg: "PHP modules are set to be present for {{ php_mods_ver_present | ansible.builtin.intersect(php_ver_absent) | join(', ') }} but the pkgs are set to be absent, so the modules for these versions will not be configured."
       when: php_mods_ver_present | ansible.builtin.intersect(php_ver_absent) != []
 
     - name: Set a fact for the PHP FPM pool names that are not set to be absent
@@ -221,6 +221,7 @@
       loop: "{{ php_conf_symlinks }}"
       loop_control:
         loop_var: php_conf_symlink
+        label: "{{ php_conf_symlink.path }}"
       when:
         - php_conf_symlinks is defined
         - php_conf_symlinks != []

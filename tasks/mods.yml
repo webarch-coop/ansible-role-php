@@ -55,23 +55,25 @@
     - name: "Debug the sapis available for PHP {{ php_version.version }}"
       ansible.builtin.debug:
         var: php_sapis_available
-        verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+        verbosity: "{% if ansible_check_mode | bool %}0{% else %}1{% endif %}"
       tags:
         - debug
 
     - name: "Debug the sapis specified for PHP {{ php_version.version }}"
       ansible.builtin.debug:
         msg: "{{ php_version | community.general.json_query('sapis[].sapi') }}"
-        verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+        verbosity: "{% if ansible_check_mode | bool %}0{% else %}1{% endif %}"
       tags:
         - debug
 
-    - name: "Loop throught the SAPIs for PHP version {{ php_version.version }}"
-      ansible.builtin.include_tasks: sapi.yml
-      loop: "{{ php_version | community.general.json_query('sapis[].sapi') }}"
-      loop_control:
-        loop_var: php_sapi
-      when: php_sapi in php_sapis_available
+    - name: "Include the tasks for the SAPI's for PHP version {{ php_version.version }}"
+      ansible.builtin.include_tasks: sapis.yml
+      when:
+        - php_version | community.general.json_query('sapis[].sapi') | ansible.builtin.type_debug == "list"
+        - php_version | community.general.json_query('sapis[].sapi') != []
+        - php_sapis_available is defined
+        - php_sapis_available | ansible.builtin.type_debug == "list"
+        - php_sapis_available != []
 
   tags:
     - php_cfg

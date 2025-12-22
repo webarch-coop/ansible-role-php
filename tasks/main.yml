@@ -103,11 +103,10 @@
             - not ansible_check_mode | bool
             - php_conf_ver_present | difference(php_ver_installed) != []
 
-        - name: Include PHP configuration tasks when versions are present or when running in check mode
+        - name: Include PHP configuration tasks
           ansible.builtin.include_tasks: conf.yml
-          when: >-
-            ( ansible_check_mode | bool ) or
-            ( php_conf_ver_present | difference(php_ver_installed) == [] )
+          when:
+            - (ansible_check_mode | bool) or (php_conf_ver_present | difference(php_ver_installed) == [])
 
       when:
         - ( php_config is defined )
@@ -133,15 +132,15 @@
             - not ansible_check_mode | bool
             - php_mods_ver_present | difference(php_ver_installed) != []
 
-        - name: Include PHP modules configuration tasks
+        - name: Include PHP modules configuration tasks for present PHP versions
           ansible.builtin.include_tasks: mods.yml
           loop: "{{ php_modules }}"
           loop_control:
             loop_var: php_version
             label: "{{ php_version.version }}"
-          when: >-
-            ( ansible_check_mode | bool ) or
-            ( php_mods_ver_present | difference(php_ver_installed) == [] )
+          when:
+            - (ansible_check_mode | bool) or (php_mods_ver_present | difference(php_ver_installed) == [])
+            - php_version.version in php_ver_present
 
       when:
         - ( php_modules is defined )

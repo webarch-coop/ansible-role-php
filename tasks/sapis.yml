@@ -1,0 +1,26 @@
+# Copyright 2019-2025 Chris Croome
+#
+# This file is part of the Webarchitects PHP Ansible role.
+#
+# The Webarchitects PHP Ansible role is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#
+# The Webarchitects PHP Ansible role is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with the Webarchitects PHP Ansible role. If not, see <https://www.gnu.org/licenses/>.
+---
+- name: PHP SAPI tasks
+  block:
+
+    - name: "Loop through the SAPIs for PHP version {{ php_version.version }}"
+      ansible.builtin.include_tasks: sapi.yml
+      loop: "{{ php_version | community.general.json_query('sapis[].sapi') }}"
+      loop_control:
+        loop_var: php_sapi
+      when:
+        - php_sapi in php_sapis_available
+
+  tags:
+    - php_cfg
+    - php_conf
+    - php_mods
+...

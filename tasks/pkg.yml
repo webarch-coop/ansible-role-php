@@ -45,7 +45,7 @@
     - name: Debug php_pkg_available
       ansible.builtin.debug:
         var: php_pkg_available
-        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}0{% else %}1{% endif %}"
+        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
       tags:
         - debug
 

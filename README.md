@@ -50,6 +50,8 @@ The optional `php_check_legacy_variables` variable is `true` by default, this re
 
 The optional `php_config` list is used to specify the state of the PHP configuration, it enables the editing, generating and removal of PHP `.conf` and `.ini` files.
 
+**NOTE:** The PHP versions that are not set to be `present` don't need the PHP configuration to be set to `absent`.
+
 Each item in the list requires a `state`, which can be `absent` or `present` and a `version` which must be a string from this list of PHP versions:
 
 ```yaml
@@ -122,6 +124,8 @@ The compulsory `php_fpm_pool_check_fail` variable defaults to `true`, set it to 
 ### php_modules
 
 The optional `php_modules` list can be used to enable and disable PHP modules using `phpmyquery`, which adds and removes symlinks in the `apache2/conf.d`, `cli/conf.d` and `fpm/conf.d` directories which point to `.ini` files in the `mods-available` directory for each version of PHP.
+
+**NOTE:** The PHP versions that are not set to be `present` don't need the PHP modules to be set to `absent`.
 
 Each item in the list requires a `state`, which can be `absent` or `present` and a `version` which must be a string from this list of PHP versions:
 
