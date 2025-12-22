@@ -125,11 +125,10 @@
           tags:
             - debug
 
-        - name: PHP versions that are not installed cannot have modules configured unless in check mode
-          ansible.builtin.fail:
-            msg: "PHP versions {% for php_v in php_mods_ver_present | difference(php_ver_installed) %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %} cannot be configured when they are not present."
+        - name: PHP versions that are not installed won't have modules configured
+          ansible.builtin.debug:
+            msg: "PHP versions {% for php_v in php_mods_ver_present | difference(php_ver_installed) %}{{ php_v }}{{ ', ' if not loop.last }}{% endfor %} will not be configured as they are not present."
           when:
-            - not ansible_check_mode | bool
             - php_mods_ver_present | difference(php_ver_installed) != []
 
         - name: Include PHP modules configuration tasks for present PHP versions
