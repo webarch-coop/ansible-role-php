@@ -82,6 +82,7 @@ php_config:
             "mysqli.allow_local_infile": "0"
           opcache:
             "opcache.enable": "1"
+            "opcache.file_update_protection": "2"
             "opcache.interned_strings_buffer": "64"
             # "opcache.jit": "tracing"
             # "opcache.jit_buffer_size": "40961" # minimum size is 40961 bytes
@@ -211,6 +212,7 @@ php_config:
             "mysqli.allow_local_infile": "0"
           opcache:
             "opcache.enable": "1"
+            "opcache.file_update_protection": "2"
             "opcache.interned_strings_buffer": "64"
             # "opcache.jit": "tracing"
             # "opcache.jit_buffer_size": "40961" # minimum size is 40961 bytes
@@ -340,6 +342,7 @@ php_config:
             "mysqli.allow_local_infile": "0"
           opcache:
             "opcache.enable": "1"
+            "opcache.file_update_protection": "2"
             "opcache.interned_strings_buffer": "64"
             # "opcache.jit": "tracing"
             # "opcache.jit_buffer_size": "40961" # minimum size is 40961 bytes
@@ -469,6 +472,7 @@ php_config:
             "mysqli.allow_local_infile": "0"
           opcache:
             "opcache.enable": "1"
+            "opcache.file_update_protection": "2"
             "opcache.interned_strings_buffer": "64"
             # "opcache.jit": "tracing"
             # "opcache.jit_buffer_size": "40961" # minimum size is 40961 bytes
@@ -598,6 +602,7 @@ php_config:
             "mysqli.allow_local_infile": "0"
           opcache:
             "opcache.enable": "1"
+            "opcache.file_update_protection": "2"
             "opcache.interned_strings_buffer": "64"
             # "opcache.jit": "tracing"
             # "opcache.jit_buffer_size": "40961" # minimum size is 40961 bytes
@@ -727,6 +732,7 @@ php_config:
             "mysqli.allow_local_infile": "0"
           opcache:
             "opcache.enable": "1"
+            "opcache.file_update_protection": "2"
             "opcache.interned_strings_buffer": "64"
             # "opcache.jit": "tracing"
             # "opcache.jit_buffer_size": "40961" # minimum size is 40961 bytes
@@ -830,6 +836,7 @@ php_config:
             "mysqli.allow_local_infile": "0"
           opcache:
             "opcache.enable": "1"
+            "opcache.file_update_protection": "2"
             "opcache.interned_strings_buffer": "64"
             "opcache.max_accelerated_files": "100000"
             "opcache.memory_consumption": "1024"
@@ -918,6 +925,7 @@ php_config:
   #           "mysqli.allow_local_infile": "0"
   #         opcache:
   #           "opcache.enable": "1"
+  #           "opcache.file_update_protection": "2"
   #           "opcache.interned_strings_buffer": "64"
   #           "opcache.max_accelerated_files": "100000"
   #           "opcache.memory_consumption": "1024"
