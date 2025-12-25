@@ -75,6 +75,10 @@ argument_specs:
         elements: str
         required: false
         description: Internal list of comments for templated PHP conf files.
+      php_conf_file_contents:
+        type: dict
+        required: false
+        description: Internal dictionary of PHP cnfiguration file contents.
       php_conf_file_edited:
         type: dict
         required: false

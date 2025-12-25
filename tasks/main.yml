@@ -23,6 +23,18 @@
 - name: PHP
   block:
 
+    - name: Gather distribution facts
+      ansible.builtin.setup:
+        gather_subset:
+          - distribution
+      when: ansible_facts.distribution_release is not defined
+      tags:
+        - php_apt
+        - php_cfg
+        - php_conf
+        - php_mods
+        - php_pkg
+
     - name: Include PHP verify variables tasks
       ansible.builtin.include_tasks: verify.yml
       when:
