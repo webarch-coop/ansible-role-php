@@ -54,15 +54,15 @@
             version: "8.2"
             state: present
             files:
-              - name: PHP 8.2 JIT configuration
+              - name: PHP 8.2 opcache configuration
                 path: /etc/php/8.2/mods-available/opcache.ini
-                # state: templated
-                # comments:
-                #   - "configuration for php opcache module"
-                #   - "priority=10"
-                state: present
-                conf_absent:
-                  "opcache.jit": "0"
+                # state: present
+                # conf_absent:
+                #   "opcache.jit": "0"
+                state: templated
+                comments:
+                  - "configuration for php opcache module"
+                  - "priority=10"
                 conf:
                   "zend_extension": "opcache.so"
               - name: PHP 8.2 CLI opcache symlink
@@ -219,7 +219,7 @@
             version: "8.4"
             state: present
             files:
-              - name: PHP 8.4 JIT configuration
+              - name: PHP 8.4 opcache configuration
                 path: /etc/php/8.4/mods-available/opcache.ini
                 # state: templated
                 # comments:
