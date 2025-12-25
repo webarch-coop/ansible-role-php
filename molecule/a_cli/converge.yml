@@ -56,12 +56,13 @@
             files:
               - name: PHP 8.2 JIT configuration
                 path: /etc/php/8.2/mods-available/opcache.ini
-                state: templated
-                comments:
-                  - "configuration for php opcache module"
-                  - "priority=10"
-                # conf_absent:
-                #   "opcache.jit": "0"
+                # state: templated
+                # comments:
+                #   - "configuration for php opcache module"
+                #   - "priority=10"
+                state: present
+                conf_absent:
+                  "opcache.jit": "0"
                 conf:
                   "zend_extension": "opcache.so"
               - name: PHP 8.2 CLI opcache symlink
@@ -74,6 +75,10 @@
               - name: PHP 8.2 CLI configuration
                 path: /etc/php/8.2/cli/php.ini
                 state: present
+                conf_absent:
+                  "mail function":
+                    SMTP: "localhost"
+                    smtp_port: "25"
                 conf:
                   apc:
                     "apc.coredump_unmap": "0"
@@ -216,12 +221,13 @@
             files:
               - name: PHP 8.4 JIT configuration
                 path: /etc/php/8.4/mods-available/opcache.ini
-                state: templated
-                comments:
-                  - "configuration for php opcache module"
-                  - "priority=10"
-                # conf_absent:
-                #   "opcache.jit": "0"
+                # state: templated
+                # comments:
+                #   - "configuration for php opcache module"
+                #   - "priority=10"
+                state: present
+                conf_absent:
+                  "opcache.jit": "0"
                 conf:
                   "zend_extension": "opcache.so"
               - name: PHP 8.4 CLI opcache symlink
@@ -234,6 +240,10 @@
               - name: PHP 8.4 CLI configuration
                 path: /etc/php/8.4/cli/php.ini
                 state: present
+                conf_absent:
+                  "mail function":
+                    SMTP: "localhost"
+                    smtp_port: "25"
                 conf:
                   apc:
                     "apc.coredump_unmap": "0"
