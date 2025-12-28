@@ -11,6 +11,13 @@
 - name: PHP configuration file section config absent
   block:
 
+    - name: Debug php_conf_section.key
+      ansible.builtin.debug:
+        var: php_conf_section.key
+        # verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}0{% else %}1{% endif %}"
+      tags:
+        - debug
+
     - name: Debug php_conf_section.value
       ansible.builtin.debug:
         var: php_conf_section.value
@@ -56,22 +63,24 @@
     - name: "Decode the base64 encoded version of {{ php_conf_file }}"
       ansible.builtin.set_fact:
         php_conf_file_contents: "{{ php_conf_file_b64encoded['content'] | ansible.builtin.b64decode | community.general.jc('ini') }}"
-        # php_conf_file_contents_section: "{{ php_conf_file_b64encoded['content'] | ansible.builtin.b64decode | community.general.jc('ini') | ansible.builtin.json_query(php_conf_section.key) }}"
-        php_conf_file_contents_section: "{{ php_conf_file_b64encoded['content'] | ansible.builtin.b64decode | community.general.jc('ini') | ansible.builtin.json_query(php_conf_section_key) }}"
-      vars:
-        php_conf_section_key: '["php_conf_section.key"]'
 
     - name: Debug php_conf_file_contents
       ansible.builtin.debug:
         var: php_conf_file_contents
-        verbosity: "{% if ansible_check_mode | bool %}0{% else %}1{% endif %}"
+        # verbosity: "{% if ansible_check_mode | bool %}0{% else %}1{% endif %}"
       tags:
         - debug
+
+    - name: "Decode the base64 encoded version of {{ php_conf_file }}"
+      ansible.builtin.set_fact:
+        php_conf_file_contents_section: "{{ php_conf_file_contents | ansible.builtin.json_query(php_conf_section_jpq) }}"
+      vars:
+        php_conf_section_jpq: '["{{ php_conf_section.key }}"]|[0]'
 
     - name: Debug php_conf_file_contents_section
       ansible.builtin.debug:
         var: php_conf_file_contents_section
-        verbosity: "{% if ansible_check_mode | bool %}0{% else %}1{% endif %}"
+        # verbosity: "{% if ansible_check_mode | bool %}0{% else %}1{% endif %}"
       tags:
         - debug
 

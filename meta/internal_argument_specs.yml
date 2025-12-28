@@ -112,6 +112,10 @@ argument_specs:
           - cli
           - fpm
           - null
+      php_conf_file_contents_section:
+        type: dict
+        required: false
+        description: Internal dictionary of the config of a specific ini file section.
       php_conf_file_version:
         type: str
         required: false
