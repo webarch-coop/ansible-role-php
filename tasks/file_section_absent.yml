@@ -56,7 +56,10 @@
     - name: "Decode the base64 encoded version of {{ php_conf_file }}"
       ansible.builtin.set_fact:
         php_conf_file_contents: "{{ php_conf_file_b64encoded['content'] | ansible.builtin.b64decode | community.general.jc('ini') }}"
-        php_conf_file_contents_section: "{{ php_conf_file_b64encoded['content'] | ansible.builtin.b64decode | community.general.jc('ini') | ansible.builtin.json_query(php_conf_section.key) }}"
+        # php_conf_file_contents_section: "{{ php_conf_file_b64encoded['content'] | ansible.builtin.b64decode | community.general.jc('ini') | ansible.builtin.json_query(php_conf_section.key) }}"
+        php_conf_file_contents_section: "{{ php_conf_file_b64encoded['content'] | ansible.builtin.b64decode | community.general.jc('ini') | ansible.builtin.json_query(php_conf_section_key) }}"
+      vars:
+        php_conf_section_key: '["php_conf_section.key"]'
 
     - name: Debug php_conf_file_contents
       ansible.builtin.debug:
