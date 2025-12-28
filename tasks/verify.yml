@@ -11,12 +11,13 @@
 - name: Verify PHP variables
   block:
 
-    - name: Debug php_conf_file_contents_section
-      ansible.builtin.debug:
-        var: php_conf_file_contents_section
-        # verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
-      tags:
-        - debug
+    # - name: Debug php_conf_file_contents_section
+    #   ansible.builtin.debug:
+    #     var: php_conf_file_contents_section
+    #     # verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
+    #   when: php_conf_file_contents_section is defined
+    #   tags:
+    #     - debug
 
     - name: Debug phpvarnames
       ansible.builtin.debug:
