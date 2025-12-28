@@ -135,7 +135,8 @@ php_config:
     files:
       - name: PHP 8.4 JIT configuration
         path: /etc/php/8.4/mods-available/opcache.ini
-        state: templated
+        # state: templated
+        state: edited
         comments:
           - "configuration for php opcache module"
           - "priority=10"
