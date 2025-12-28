@@ -36,15 +36,15 @@
       ansible.builtin.debug:
         msg:
           - "File: {{ php_conf_file }}"
-          - "Line commented: ; {{ php_conf_variable_pair.key }} = {{ php_conf_variable_pair.value }}"
+          - "Line commented: ; {{ php_conf_pair.key }} = {{ php_conf_pair.value }}"
         verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}0{% else %}1{% endif %}"
-      when: php_conf_variable_pair.value != php_conf_file_existing_vars | community.general.json_query(php_conf_variable_json_query)
+      when: php_conf_pair.value != php_conf_file_existing_vars | community.general.json_query(php_conf_variable_json_query)
       vars:
-        php_conf_variable_json_query: '"{{ php_conf_section.key }}"."{{ php_conf_variable_pair.key }}"'
+        php_conf_variable_json_query: '"{{ php_conf_section.key }}"."{{ php_conf_pair.key }}"'
       loop: "{{ php_conf_section.value | ansible.builtin.dict2items }}"
       loop_control:
-        loop_var: php_conf_variable_pair
-        label: "{{ php_conf_variable_pair.key }}"
+        loop_var: php_conf_pair
+        label: "{{ php_conf_pair.key }}"
       tags:
         - debug
 
@@ -76,29 +76,29 @@
       ansible.builtin.debug:
         msg:
           - "php_conf_section.key: {{ php_conf_section.key }}"
-          - "php_conf_variable_pair.key: {{ php_conf_variable_pair.key }}"
-          - "php_conf_variable_pair.value: {{ php_conf_variable_pair.value }}"
+          - "php_conf_pair.key: {{ php_conf_pair.key }}"
+          - "php_conf_pair.value: {{ php_conf_pair.value }}"
           - "php_conf_file_variable_match: {{ php_conf_file_variable_match }}"
           - 'php_conf_file_contents_section | json_query(php_conf_file_variable_match): {{ php_conf_file_contents_section | json_query(php_conf_file_variable_match) }}'
           - 'php_conf_file_contents_section | json_query(php_conf_file_variable_match) | type_debug: {{ php_conf_file_contents_section | ansible.builtin.json_query(php_conf_file_variable_match) | ansible.builtin.type_debug }}'
         verbosity: "{% if ansible_check_mode | bool %}0{% else %}1{% endif %}"
       vars:
-        php_conf_file_variable_match: '["{{ php_conf_variable_pair.key }}"]|[0]'
+        php_conf_file_variable_match: '["{{ php_conf_pair.key }}"]|[0]'
       loop: "{{ php_conf_section.value | ansible.builtin.dict2items }}"
       loop_control:
-        loop_var: php_conf_variable_pair
-        label: "{{ php_conf_variable_pair.key }}"
+        loop_var: php_conf_pair
+        label: "{{ php_conf_pair.key }}"
 
     - name: Include PHP configuration variable absent tasks
       vars:
-        php_conf_file_variable_match: '["{{ php_conf_variable_pair.key }}"]|[0]'
+        php_conf_file_variable_match: '["{{ php_conf_pair.key }}"]|[0]'
       ansible.builtin.include_tasks: file_line_absent.yml
       when:
         - php_conf_file_contents_section | json_query(php_conf_file_variable_match) | ansible.builtin.type_debug != "NoneType"
       loop: "{{ php_conf_section.value | ansible.builtin.dict2items }}"
       loop_control:
-        loop_var: php_conf_variable_pair
-        label: "{{ php_conf_variable_pair.key }}"
+        loop_var: php_conf_pair
+        label: "{{ php_conf_pair.key }}"
 
   tags:
     - php

@@ -261,7 +261,7 @@
         - not php_conf_file_existing_sections | bool
         - not php_conf_file_proposed_sections | bool
 
-    - name: Include the tasks to remove config from the section-less PHP configuration file
+    - name: Include the tasks to comment config from the section-less PHP configuration file
       ansible.builtin.include_tasks: file_edited_absent.yml
       when:
         - php_conf_file_absent_vars is defined

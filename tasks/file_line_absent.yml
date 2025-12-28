@@ -18,9 +18,9 @@
       tags:
         - debug
 
-    - name: Debug php_conf_variable_pair
+    - name: Debug php_conf_pair
       ansible.builtin.debug:
-        var: php_conf_variable_pair
+        var: php_conf_pair
         verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}0{% else %}1{% endif %}"
       tags:
         - debug
@@ -28,8 +28,8 @@
     - name: PHP configuration variables commented
       ansible.builtin.lineinfile:
         path: "{{ php_conf_file }}"
-        regexp: "^{{ php_conf_variable_pair.key }}[ ]{0,1}="
-        line: "; {{ php_conf_variable_pair.key }} = {{ php_conf_variable_pair.value }}"
+        regexp: "^{{ php_conf_pair.key }}[ ]{0,1}="
+        line: "; {{ php_conf_pair.key }} = {{ php_conf_pair.value }}"
         mode: "0644"
         owner: root
         group: root
