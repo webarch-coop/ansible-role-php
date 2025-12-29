@@ -21,7 +21,7 @@
     - name: Debug php_conf_file_absent_vars
       ansible.builtin.debug:
         var: php_conf_file_absent_vars
-        # verbosity: "{% if ansible_check_mode | bool %}0{% else %}1{% endif %}"
+        verbosity: "{% if ansible_check_mode | bool %}0{% else %}1{% endif %}"
       tags:
         - debug
 

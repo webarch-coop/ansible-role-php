@@ -161,7 +161,7 @@
     - name: Debug PHP configuration files which should be absent
       ansible.builtin.debug:
         var: php_conf_files_absent
-        # verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
+        verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
       tags:
         - debug
 
