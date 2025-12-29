@@ -139,7 +139,7 @@ argument_specs:
               conf_absent:
                 type: dict
                 required: false
-                description: A optional YAML dictionary representing the sections, variables and values of a PHP configuration file that should be commented, note the values are ignored.
+                description: A optional YAML dictionary representing the sections, variables and values of a PHP configuration file that should be commented.
               name:
                 type: str
                 required: false

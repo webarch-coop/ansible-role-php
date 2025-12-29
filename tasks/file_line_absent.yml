@@ -14,13 +14,22 @@
     - name: Debug php_conf_file
       ansible.builtin.debug:
         var: php_conf_file
-        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}0{% else %}1{% endif %}"
+        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
       tags:
         - debug
 
     - name: Debug php_conf_pair
       ansible.builtin.debug:
         var: php_conf_pair
+        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
+      tags:
+        - debug
+
+    - name: Debug the absent PHP configuration file variables
+      ansible.builtin.debug:
+        msg:
+          - "File: {{ php_conf_file }}"
+          - "Line to be commented: ; {{ php_conf_pair.key }} = {{ php_conf_pair.value }}"
         verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}0{% else %}1{% endif %}"
       tags:
         - debug
@@ -38,7 +47,6 @@
     - name: Set a fact to indicate that the file has changed  # noqa: no-handler
       ansible.builtin.set_fact:
         php_conf_file_changed: true
-      # when: (php_conf_file_comments_edited.changed ) or ( php_conf_file_edited.changed | bool )
       when: php_conf_file_edited.changed | bool
 
   tags:

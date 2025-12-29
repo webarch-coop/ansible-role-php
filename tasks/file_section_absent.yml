@@ -14,28 +14,28 @@
     - name: Debug php_conf_section.key
       ansible.builtin.debug:
         var: php_conf_section.key
-        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}0{% else %}1{% endif %}"
+        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
       tags:
         - debug
 
     - name: Debug php_conf_section.value
       ansible.builtin.debug:
         var: php_conf_section.value
-        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}0{% else %}1{% endif %}"
+        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
       tags:
         - debug
 
     - name: Debug php_conf_section.value | ansible.builtin.dict2items
       ansible.builtin.debug:
         var: php_conf_section.value
-        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}0{% else %}1{% endif %}"
+        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
       tags:
         - debug
 
     - name: Debug php_conf_section.value | ansible.builtin.type_debug
       ansible.builtin.debug:
         msg: "{{ php_conf_section.value | ansible.builtin.type_debug }}"
-        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}0{% else %}1{% endif %}"
+        verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
       tags:
         - debug
 
@@ -43,7 +43,7 @@
       ansible.builtin.debug:
         msg:
           - "File: {{ php_conf_file }}"
-          - "Line commented: ; {{ php_conf_pair.key }} = {{ php_conf_pair.value }}"
+          - "Line to be commented: ; {{ php_conf_pair.key }} = {{ php_conf_pair.value }}"
         verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}0{% else %}1{% endif %}"
       when: php_conf_pair.value != php_conf_file_existing_vars | community.general.json_query(php_conf_variable_json_query)
       vars:
@@ -80,7 +80,7 @@
     - name: Debug php_conf_file_contents_section
       ansible.builtin.debug:
         var: php_conf_file_contents_section
-        verbosity: "{% if ansible_check_mode | bool %}0{% else %}1{% endif %}"
+        verbosity: "{% if ansible_check_mode | bool %}1{% else %}2{% endif %}"
       tags:
         - debug
 

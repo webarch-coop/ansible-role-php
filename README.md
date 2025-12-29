@@ -24,9 +24,17 @@ This role supports having all the PHP settings in Ansible, to read existing conf
 cat /etc/php/8.2/fpm/php.ini | jc --ini -p | yq -o=yaml -P
 ```
 
-This role can be used to remove config from CONF / INI files using `conf_absent` with `php_config` however it is probably better to template files with the config required when there are variables to remove.
+### Removing configuration
 
-**NOTE** When installing multiple versions of PHP-FPM at the same time the package configuration will fail as the `www` pools for each version will listen on the same port and conflict, when this happens the role can be used to fix the pool names something like this:
+This role can be used to remove config from CONF / INI files using `conf_absent` with `php_config` another options is to template files with the config required when there are variables to remove. Configuration that is set to be absent using `conf_absent` is commented rather than deleted.
+
+### Comments in files
+
+Comments in files, which are required in the `.ini` files in the `mods-available` directories to ensure that the symlinks in the `conf.d` directories are in the right order, are only supported when files are templated.
+
+### Multiple versions of PHP-FPM
+
+When installing multiple versions of PHP-FPM at the same time the package configuration will fail as the `www` pools for each version will listen on the same port and conflict, when this happens the role can be used to fix the pool names something like this:
 
 ```bash
 ansible-playbook all.yml -t php_cfg -l example.org --extra-vars "php_fpm_pool_check_fail=false"
@@ -81,7 +89,7 @@ comments:
 
 The `priority=10` causes the symlink in `/etc/php/8.5/fpm/conf.d/` to be prefixed with `10-` &mdash; [without this comment `20-` symlinks are created](https://codeberg.org/oerdnj/deb.sury.org/issues/54).
 
-The `files` dictionary requires a `path` and `state` for each file, the state can be one of fve options:
+The `files` dictionary requires a `path` and `state` for each file, the state can be one of five options:
 
 ```yaml
 - absent
@@ -94,6 +102,8 @@ The `files` dictionary requires a `path` and `state` for each file, the state ca
 The `edited` state can only be used for existing files, it enables the [Ansible ini module](https://docs.ansible.com/ansible/latest/collections/community/general/ini_file_module.html) to be used to edit configuration files without the need to template them, using a optional dictionary that is converted into a INI dictionary for the configuration to be present and a `conf_absent` optional dictionary that is converted into a INI dictionary for the configuration to be absent.
 
 The `present` state will result in existing files being edited and not existing files to be templated.
+
+The `absent` state will result in the file being moved to a backup path.
 
 The `templated` state can be used to generate new configuration files and to remove configuration through only specifing the configuration to be present.
 
