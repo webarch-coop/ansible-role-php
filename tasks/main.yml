@@ -23,6 +23,11 @@
 - name: PHP
   block:
 
+    - name: Ansible 2.19.0 or greater is required
+      ansible.builtin.fail:
+        fail_msg: "This role requires Ansible 2.19.0 or greater, {{ ansible_version.full }} is not supported."
+      when: ansible_version.full is version('2.19.0', '<')
+
     - name: Gather distribution facts
       ansible.builtin.setup:
         gather_subset:
