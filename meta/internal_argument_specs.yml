@@ -425,10 +425,6 @@ argument_specs:
         type: dict
         required: false
         description: Internal dictionary with the results from gathering systemd service facts.
-      php_validation_conditions:
-        type: list
-        required: true
-        description: Internal list of variable validation conditions.
       php_ver_installed:
         type: list
         elements: str

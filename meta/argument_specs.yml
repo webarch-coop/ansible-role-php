@@ -494,6 +494,10 @@ argument_specs:
         choices:
           - true
         description: Validate role variable conditions.
+      php_validation_conditions:
+        type: list
+        required: true
+        description: List of variable validation conditions.
       php_verify:
         type: bool
         required: false
