@@ -233,6 +233,6 @@ In June 2021 this role was renamed from `phpfpm` to `php` and the URL of the git
 
 ## Copyright
 
-Copyright 2019-2025 Chris Croome, &lt;[chris@webarchitects.co.uk](mailto:chris@webarchitects.co.uk)&gt;.
+Copyright 2019-2026 Chris Croome, &lt;[chris@webarchitects.co.uk](mailto:chris@webarchitects.co.uk)&gt;.
 
 This role is released under [the same terms as Ansible itself](https://github.com/ansible/ansible/blob/devel/COPYING), the [GNU GPLv3](LICENSE).
