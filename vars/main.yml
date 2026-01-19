@@ -3712,6 +3712,7 @@ php_debian_trixie_pkg:
   - php8.5-yac
   - php8.5-yaml
   - php8.5-zip
+  - php8.5-zmq
   - php8.5-zstd
   - php-amqp
   - php-apcu
