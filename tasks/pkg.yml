@@ -164,7 +164,7 @@
 
     - name: Set a fact for PHP packages that should be installed
       ansible.builtin.set_fact:
-        php_pkg_install: "{{ php_pkg_present | ansible.builtin.difference(ansible_local.dpkg.installed) | sort }}"
+        php_pkg_install: "{{ php_pkg_present | ansible.builtin.difference(ansible_facts.ansible_local.dpkg.installed) | sort }}"
 
     - name: Debug PHP packages to install
       ansible.builtin.debug:
