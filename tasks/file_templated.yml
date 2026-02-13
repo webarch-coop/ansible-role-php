@@ -133,7 +133,8 @@
           block:
 
             - name: PHP FPM configtest
-              ansible.builtin.command: "php-fpm{{ php_conf_file_version }} --test"
+              ansible.builtin.command:
+                cmd: "php-fpm{{ php_conf_file_version }} --test"
               check_mode: false
               changed_when: false
               register: php_fpm_test

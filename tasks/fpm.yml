@@ -25,14 +25,18 @@
           check_mode: false
           changed_when: false
           register: php_fpm_test
-          failed_when: ("test is successful" not in php_fpm_test.stderr_lines[-1]) or (php_fpm_test.rc != 0)
+          failed_when: >-
+            (php_fpm_test.rc != 0) or
+            ("Failed" in php_fpm_test.stderr) or
+            ("test is successful" not in php_fpm_test.stderr_lines[-1]) or
+            (php_fpm_test.stderr_lines | length > 1)
+
+      rescue:
 
         - name: "Additional standard error lines from the PHP-FPM config test for {{ php_fpm_version }}"
-          ansible.builtin.debug:
-            var: php_fpm_test.stderr_lines[-1]
+          ansible.builtin.fail:
+            msg: "{{ php_fpm_test.stderr_lines[-1] | join(', ') }}"
           when: php_fpm_test.stderr_lines | length > 1
-          tags:
-            - debug
 
       when: php_fpm_binary.stat.exists | bool
 
