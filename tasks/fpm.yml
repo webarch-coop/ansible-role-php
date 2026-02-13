@@ -16,18 +16,25 @@
         path: "/usr/sbin/php-fpm{{ php_fpm_version }}"
       register: php_fpm_binary
 
-    - name: "Check the PHP-FPM configuration for {{ php_fpm_version }}"
-      ansible.builtin.command: "/usr/sbin/php-fpm{{ php_fpm_version }} --test"
-      check_mode: false
-      changed_when: false
-      register: php_fpm_test
-      failed_when: ("test is successful" not in php_fpm_test.stderr_lines[-1])
-      when: php_fpm_binary.stat.exists | bool
+    - name: Check the PHP-FPM configuration
+      block:
 
-    - name: "Additional standard error lines from the PHP-FPM config test for {{ php_fpm_version }}"
-      ansible.builtin.debug:
-        var: php_fpm_test.stderr_lines[-1]
-      when: php_fpm_test.stderr_lines | length > 1)
+        - name: "Check the PHP-FPM configuration for {{ php_fpm_version }}"
+          ansible.builtin.command:
+            cmd: "/usr/sbin/php-fpm{{ php_fpm_version }} --test"
+          check_mode: false
+          changed_when: false
+          register: php_fpm_test
+          failed_when: ("test is successful" not in php_fpm_test.stderr_lines[-1])
+
+        - name: "Additional standard error lines from the PHP-FPM config test for {{ php_fpm_version }}"
+          ansible.builtin.debug:
+            var: php_fpm_test.stderr_lines[-1]
+          when: php_fpm_test.stderr_lines | length > 1
+          tags:
+            - debug
+
+      when: php_fpm_binary.stat.exists | bool
 
     - name: "Stat {{ php_systemd_service_symlink_path }}"
       ansible.builtin.stat:
