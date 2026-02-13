@@ -25,7 +25,7 @@
           check_mode: false
           changed_when: false
           register: php_fpm_test
-          failed_when: ("test is successful" not in php_fpm_test.stderr_lines[-1])
+          failed_when: ("test is successful" not in php_fpm_test.stderr_lines[-1]) or (php_fpm_test.rc != 0)
 
         - name: "Additional standard error lines from the PHP-FPM config test for {{ php_fpm_version }}"
           ansible.builtin.debug:
