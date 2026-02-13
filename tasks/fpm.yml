@@ -35,7 +35,7 @@
 
         - name: "Additional standard error lines from the PHP-FPM config test for {{ php_fpm_version }}"
           ansible.builtin.fail:
-            msg: "{{ php_fpm_test.stderr_lines[-1] | join(', ') }}"
+            msg: "{{ php_fpm_test.stderr_lines[-1] }}"
           when: php_fpm_test.stderr_lines | length > 1
 
       when: php_fpm_binary.stat.exists | bool
