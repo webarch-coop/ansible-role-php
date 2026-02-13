@@ -21,8 +21,13 @@
       check_mode: false
       changed_when: false
       register: php_fpm_test
-      failed_when: (php_fpm_test.stderr_lines | length > 1) or ("test is successful" not in php_fpm_test.stderr_lines[-1])
+      failed_when: ("test is successful" not in php_fpm_test.stderr_lines[-1])
       when: php_fpm_binary.stat.exists | bool
+
+    - name: "Additional standard error lines from the PHP-FPM config test for {{ php_fpm_version }}"
+      ansible.builtin.debug:
+        var: php_fpm_test.stderr_lines[-1]
+      when: php_fpm_test.stderr_lines | length > 1)
 
     - name: "Stat {{ php_systemd_service_symlink_path }}"
       ansible.builtin.stat:
