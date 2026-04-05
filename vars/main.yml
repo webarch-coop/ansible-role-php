@@ -1290,6 +1290,7 @@ php_debian_bullseye_pkg:
   - php8.5-sqlite3
   - php8.5-ssh2
   - php8.5-stomp
+  - php8.5-swoole
   - php8.5-sybase
   - php8.5-tidy
   - php8.5-uopz
@@ -2502,6 +2503,7 @@ php_debian_bookworm_pkg:
   - php8.5-sqlite3
   - php8.5-ssh2
   - php8.5-stomp
+  - php8.5-swoole
   - php8.5-sybase
   - php8.5-tidy
   - php8.5-uopz
@@ -3658,6 +3660,7 @@ php_debian_trixie_pkg:
   - php8.5-gmagick
   - php8.5-gmp
   - php8.5-gnupg
+  - php8.5-grpc
   - php8.5-http
   - php8.5-igbinary
   - php8.5-imagick
@@ -3698,6 +3701,7 @@ php_debian_trixie_pkg:
   - php8.5-sqlite3
   - php8.5-ssh2
   - php8.5-stomp
+  - php8.5-swoole
   - php8.5-sybase
   - php8.5-tidy
   - php8.5-uploadprogress
