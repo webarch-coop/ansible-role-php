@@ -1675,7 +1675,7 @@ php_systemd_units:
             ReadOnlyPaths: /
             ReadWritePaths: /home /var
         state: templated
-    state: ignore
+    state: enabled
   - name: php8.4-fpm
     files:
       - path: /etc/systemd/system/php8.4-fpm.service.d/override.conf
@@ -1687,7 +1687,7 @@ php_systemd_units:
             ReadOnlyPaths: /
             ReadWritePaths: /home /var
         state: templated
-    state: ignore
+    state: enabled
   - name: php8.3-fpm
     files:
       - path: /etc/systemd/system/php8.3-fpm.service.d/override.conf
@@ -1699,7 +1699,7 @@ php_systemd_units:
             ReadOnlyPaths: /
             ReadWritePaths: /home /var
         state: templated
-    state: ignore
+    state: enabled
   - name: php8.2-fpm
     files:
       - path: /etc/systemd/system/php8.2-fpm.service.d/override.conf
@@ -1711,7 +1711,7 @@ php_systemd_units:
             ReadOnlyPaths: /
             ReadWritePaths: /home /var
         state: templated
-    state: ignore
+    state: enabled
   - name: php8.1-fpm
     files:
       - path: /etc/systemd/system/php8.1-fpm.service.d/override.conf
@@ -1723,7 +1723,7 @@ php_systemd_units:
             ReadOnlyPaths: /
             ReadWritePaths: /home /var
         state: templated
-    state: ignore
+    state: enabled
   - name: php8.0-fpm
     files:
       - path: /etc/systemd/system/php8.0-fpm.service.d/override.conf
@@ -1735,7 +1735,7 @@ php_systemd_units:
             ReadOnlyPaths: /
             ReadWritePaths: /home /var
         state: templated
-    state: ignore
+    state: enabled
   - name: php7.4-fpm
     files:
       - path: /etc/systemd/system/php7.4-fpm.service.d/override.conf
@@ -1747,6 +1747,6 @@ php_systemd_units:
             ReadOnlyPaths: /
             ReadWritePaths: /home /var
         state: templated
-    state: ignore
+    state: enabled
 php_verify: true
 ...

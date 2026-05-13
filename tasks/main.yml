@@ -96,21 +96,6 @@
       tags:
         - php_pkg
 
-    - name: Include PHP systemd tasks
-      ansible.builtin.include_role:
-        name: systemd
-        tasks_from: unit_present.yml
-      loop: "{{ php_systemd_units }}"
-      loop_control:
-        loop_var: systemd_unit
-        label: "{{ systemd_unit.name }}"
-      when:
-        - php_systemd_units is defined
-        - php_systemd_units != []
-      tags:
-        - php_pkg
-        - php_systemd
-
     - name: Include PHP check tasks
       ansible.builtin.include_tasks: checks.yml
       tags:
@@ -199,6 +184,21 @@
       tags:
         - php_cfg
         - php_conf
+
+    - name: Include PHP systemd tasks
+      ansible.builtin.include_role:
+        name: systemd
+        tasks_from: unit_present.yml
+      loop: "{{ php_systemd_units }}"
+      loop_control:
+        loop_var: systemd_unit
+        label: "{{ systemd_unit.name }}"
+      when:
+        - php_systemd_units is defined
+        - php_systemd_units != []
+      tags:
+        - php_pkg
+        - php_systemd
 
     - name: Include PHP verify variables tasks
       ansible.builtin.include_tasks: verify.yml
