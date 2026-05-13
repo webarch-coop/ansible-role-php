@@ -71,6 +71,7 @@
                 cmd: "systemctl status php{{ php_fpm_version }}-fpm.service"
               check_mode: false
               changed_when: false
+              failed_when: false
               register: php_fpm_systemctl_status
 
             - name: Debug php_fpm_systemctl_status
@@ -82,6 +83,7 @@
                 cmd: "journalctl -xeu php{{ php_fpm_version }}-fpm.service"
               check_mode: false
               changed_when: false
+              failed_when: false
               register: php_fpm_journalctl
 
             - name: Debug php_fpm_journalctl
