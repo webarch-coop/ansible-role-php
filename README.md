@@ -182,7 +182,7 @@ List of Systemd unit variables that are used with the [systemd role](https://git
 For example, the following defaults are used to override the [default PHP-FPM systemd settings](https://codeberg.org/oerdnj/deb.sury.org/issues/102):
 
 ```yaml
-php__systemd_units:
+php_systemd_units:
   - name: php8.5-fpm
     files:
       - path: /etc/systemd/system/php8.5-fpm.service.d/override.conf

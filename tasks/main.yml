@@ -200,6 +200,14 @@
         - php_cfg
         - php_conf
 
+    - name: Include PHP verify variables tasks
+      ansible.builtin.include_tasks: verify.yml
+      when:
+        - php_verify is defined
+        - php_verify | bool
+      tags:
+        - php_verify
+
   when: php | bool
   tags:
     - php

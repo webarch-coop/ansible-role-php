@@ -1663,7 +1663,7 @@ php_versions:
   - name: PHP 5.6 packages
     version: "5.6"
     state: absent
-php__systemd_units:
+php_systemd_units:
   - name: php8.5-fpm
     files:
       - path: /etc/systemd/system/php8.5-fpm.service.d/override.conf
