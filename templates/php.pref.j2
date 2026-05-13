@@ -1,29 +1,50 @@
 # {{ ansible_managed }}
 
 {% if ansible_facts.distribution_release == "bookworm" %}
-{%     for pkg in php_debian_bookworm_pkg %}
-Package: {{ pkg }}
+{%     for php_pkg in php_pkg_bookworm %}
+Package: {{ pkg_pkg }}
 Pin: origin packages.sury.org
 Pin-Priority: 500
 
 {%     endfor %}
 {% elif ansible_facts.distribution_release == "bullseye" %}
-{%     for pkg in php_debian_bullseye_pkg %}
-Package: {{ pkg }}
+{%     for pkg_pkg in php_pkg_bullseye %}
+Package: {{ pkg_pkg }}
 Pin: origin packages.sury.org
 Pin-Priority: 500
 
 {%     endfor %}
 {% elif ansible_facts.distribution_release == "trixie" %}
-{%     for pkg in php_debian_trixie_pkg %}
-Package: {{ pkg }}
+{%     for php_pkg in php_pkg_trixie %}
+Package: {{ pkg_pkg }}
 Pin: origin packages.sury.org
 Pin-Priority: 500
 
 {%     endfor %}
 {% elif ansible_facts.distribution_release == "forky" %}
-{%     for pkg in php_debian_forky_pkg %}
-Package: {{ pkg }}
+{%     for pkg_pkg in php_pkg_forky %}
+Package: {{ pkg_pkg }}
+Pin: origin packages.sury.org
+Pin-Priority: 500
+
+{%     endfor %}
+{% elif ansible_facts.distribution_release == "jammy" %}
+{%     for php_pkg in php_pkg_jammy %}
+Package: {{ php_pkg }}
+Pin: origin packages.sury.org
+Pin-Priority: 500
+
+{%     endfor %}
+{% elif ansible_facts.distribution_release == "noble" %}
+{%     for php_pkg in php_pkg_noble %}
+Package: {{ php_pkg }}
+Pin: origin packages.sury.org
+Pin-Priority: 500
+
+{%     endfor %}
+{% elif ansible_facts.distribution_release == "resolute" %}
+{%     for php_pkg in php_pkg_resolute %}
+Package: {{ php_pkg }}
 Pin: origin packages.sury.org
 Pin-Priority: 500
 

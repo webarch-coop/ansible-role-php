@@ -47,8 +47,56 @@
         php_systemd_service_symlink_path: "/lib/systemd/system/php{{ php_fpm_version }}-fpm.service"
       register: php_fpm_system_service
 
-    - name: Enable PHP-FPM systemd seervice
+    - name: Enable PHP-FPM systemd service
       block:
+
+        - name: Start PHP-FPM service in a block to catch errors
+          block:
+
+            - name: "Ensure that PHP-FPM service is enabled and started for {{ php_fpm_version }}"
+              ansible.builtin.systemd_service:
+                name: "php{{ php_fpm_version }}-fpm.service"
+                enabled: true
+                state: started
+              register: php_fpm_service
+
+          rescue:
+
+            - name: Debug php_fpm_service
+              ansible.builtin.debug:
+                var: php_fpm_service
+
+            - name: "Run systemctl status php{{ php_fpm_version }}-fpm.service"  # noqa: name[template]
+              ansible.builtin.command:
+                cmd: "systemctl status php{{ php_fpm_version }}-fpm.service"
+              check_mode: false
+              changed_when: false
+              register: php_fpm_systemctl_status
+
+            - name: Debug php_fpm_systemctl_status
+              ansible.builtin.debug:
+                var: php_fpm_systemctl_status
+
+            - name: "Run journalctl -xeu php{{ php_fpm_version }}-fpm.service"  # noqa: name[template]
+              ansible.builtin.command:
+                cmd: "journalctl -xeu php{{ php_fpm_version }}-fpm.service"
+              check_mode: false
+              changed_when: false
+              register: php_fpm_journalctl
+
+            - name: Debug php_fpm_journalctl
+              ansible.builtin.debug:
+                var: php_fpm_journalctl
+
+            - name: "Fail as enabling and starting the PHP-FPM service failed for {{ php_fpm_version }}"
+              ansible.builtin.fail:
+
+        - name: Debug php_fpm_service
+          ansible.builtin.debug:
+            var: php_fpm_service
+            verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
+          tags:
+            - debug
 
         - name: "Symlink present for PHP-FPM service for {{ php_fpm_version }}"
           ansible.builtin.file:
@@ -60,20 +108,6 @@
             owner: root
             group: root
           register: php_fpm_service_symlink
-
-        - name: "Ensure that PHP-FPM service is enabled and started for {{ php_fpm_version }}"
-          ansible.builtin.systemd_service:
-            name: "php{{ php_fpm_version }}-fpm.service"
-            enabled: true
-            state: started
-          register: php_fpm_service
-
-        - name: Debug php_fpm_service
-          ansible.builtin.debug:
-            var: php_fpm_service
-            verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
-          tags:
-            - debug
 
         - name: Reload systemd  # noqa: no-changed-when
           ansible.builtin.systemd:

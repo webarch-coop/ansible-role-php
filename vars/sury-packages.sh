@@ -13,15 +13,15 @@
 
 set -euo pipefail
 
-# debian_distros=(bullseye bookworm trixie forky)
-debian_distros=(bullseye bookworm trixie)
+# sury_distros=(bullseye bookworm trixie forky jammy noble resolute)
+sury_distros=(bullseye bookworm trixie jammy noble resolute)
 
-for distro in "${debian_distros[@]}"; do
+for distro in "${sury_distros[@]}"; do
   # shellcheck disable=SC2016 disable=SC2086
   packages="$(wget -q https://packages.sury.org/php/dists/${distro}/main/binary-amd64/Packages.gz -O - | gunzip - | grep -e '^Package' | grep -ve '-dbgsym$' -e '-dbg$' -e '-dev$' | sed 's/^Package: /  - /' | sort )"
   echo ""
-  echo "# Debian ${distro} packages"
-  echo "php_debian_${distro}_pkg:"
+  echo "# ${distro} packages"
+  echo "php_pkg_${distro}:"
   echo "${packages}"
 done
 echo "..."

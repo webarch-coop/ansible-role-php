@@ -266,6 +266,14 @@ argument_specs:
         elements: str
         required: false
         description: Internal list of PHP symlinks to remove.
+      php_fpm_journalctl:
+        type: dict
+        required: false
+        description: Results from the ansible.builtin.command module.
+      php_fpm_systemctl_status:
+        type: dict
+        required: false
+        description: Results from the ansible.builtin.command module.
       php_fpm_system_service:
         type: dict
         required: false

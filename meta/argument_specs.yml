@@ -198,26 +198,41 @@ argument_specs:
         type: str
         required: false
         description: Internal variable for a date timestamp for file backups.
-      php_debian_bullseye_pkg:
+      php_pkg_bullseye:
         type: list
         elements: str
         required: false
         description: A list of Debian Bullseye packages to install.
-      php_debian_bookworm_pkg:
+      php_pkg_bookworm:
         type: list
         elements: str
         required: false
         description: A list of Debian Bookworm packages to install.
-      php_debian_trixie_pkg:
+      php_pkg_trixie:
         type: list
         elements: str
         required: false
         description: A list of Debian Trixie packages to install.
-      php_debian_forky_pkg:
+      php_pkg_forky:
         type: list
         elements: str
         required: false
         description: A list of Debian Forky packages to install.
+      php_pkg_jammy:
+        type: list
+        elements: str
+        required: false
+        description: A list of Ubuntu Jammy packages to install.
+      php_pkg_noble:
+        type: list
+        elements: str
+        required: false
+        description: A list of Ubuntu Noble packages to install.
+      php_pkg_resolute:
+        type: list
+        elements: str
+        required: false
+        description: A list of Ubuntu Resolute packages to install.
       php_empty_list:
         type: list
         required: true
