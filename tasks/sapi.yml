@@ -95,7 +95,8 @@
         - php_mods_enable != []
 
     - name: "{{ php_task_name }}"
-      ansible.builtin.command: "phpquery -d -v '{{ php_version.version }}' -s '{{ php_sapi }}' -M"
+      ansible.builtin.command:
+        cmd: "phpquery -d -v '{{ php_version.version }}' -s '{{ php_sapi }}' -M"
       check_mode: false
       changed_when: false
       register: php_mods_existing
@@ -193,7 +194,8 @@
             - debug
 
         - name: "{{ php_task_name }}"
-          ansible.builtin.command: "phpdismod -v '{{ php_version.version }}' -s '{{ php_sapi }}'{% for php_dismod in php_dismods %} {{ php_dismod }}{% endfor %}"
+          ansible.builtin.command:
+            cmd: "phpdismod -v '{{ php_version.version }}' -s '{{ php_sapi }}'{% for php_dismod in php_dismods %} {{ php_dismod }}{% endfor %}"
           vars:
             php_task_name: "Run phpdismod for the PHP {{ php_version.version }} {{ php_sapi }} SAPI mods{% for php_dismod in php_dismods %} {{ php_dismod }}{% endfor %}"
           changed_when: true
@@ -240,7 +242,8 @@
             - debug
 
         - name: "{{ php_task_name }}"
-          ansible.builtin.command: "phpenmod -v '{{ php_version.version }}' -s '{{ php_sapi }}'{% for php_enmod in php_enmods %} {{ php_enmod }}{% endfor %}"
+          ansible.builtin.command:
+            cmd: "phpenmod -v '{{ php_version.version }}' -s '{{ php_sapi }}'{% for php_enmod in php_enmods %} {{ php_enmod }}{% endfor %}"
           vars:
             php_task_name: "Run phpenmod for the PHP {{ php_version.version }} {{ php_sapi }} SAPI mods{% for php_enmod in php_enmods %} {{ php_enmod }}{% endfor %}"
           changed_when: true

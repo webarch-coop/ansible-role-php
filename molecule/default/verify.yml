@@ -19,7 +19,8 @@
   tasks:
 
     - name: Run which php
-      ansible.builtin.command: which php
+      ansible.builtin.command:
+        cmd: which php
       check_mode: false
       changed_when: false
       register: molecule_which_php
@@ -53,7 +54,8 @@
           - "lnk_source: {{ molecule_stat_alt_php.stat.lnk_source }}"
 
     - name: Run php --version
-      ansible.builtin.command: php --version
+      ansible.builtin.command:
+        cmd: php --version
       check_mode: false
       changed_when: false
       register: molecule_php_version
@@ -63,7 +65,8 @@
         var: molecule_php_version.stdout_lines
 
     - name: Run update-alternatives --query php
-      ansible.builtin.command: update-alternatives --query php
+      ansible.builtin.command:
+        cmd: update-alternatives --query php
       check_mode: false
       changed_when: false
       register: molecule_php_update_alternatives_php
@@ -79,27 +82,27 @@
         state: present
 
     - name: Check PHP SAPIs and modules
-      ansible.builtin.shell: |-
-        set -euo pipefail
-        VERSIONS=$(/usr/sbin/phpquery -V | sort -V)
-        jo state=present versions=$(
-          jo $(
-            for v in ${VERSIONS}; do
-              SAPI=$(/usr/sbin/phpquery -v ${v} -S | sort)
-              echo ${v}=$(
-                jo state=present $(
-                  for s in ${SAPI}; do
-                    MODULES=$(/usr/sbin/phpquery -v ${v} -s ${s} -M | sort)
-                    echo sapis[${s}]=$(
-                      jo state=present modules=$(jo -a ${MODULES} )
-                    )
-                  done
+      ansible.builtin.shell:
+        cms: |-
+          set -euo pipefail
+          VERSIONS=$(/usr/sbin/phpquery -V | sort -V)
+          jo state=present versions=$(
+            jo $(
+              for v in ${VERSIONS}; do
+                SAPI=$(/usr/sbin/phpquery -v ${v} -S | sort)
+                echo ${v}=$(
+                  jo state=present $(
+                    for s in ${SAPI}; do
+                      MODULES=$(/usr/sbin/phpquery -v ${v} -s ${s} -M | sort)
+                      echo sapis[${s}]=$(
+                        jo state=present modules=$(jo -a ${MODULES} )
+                      )
+                    done
+                  )
                 )
-              )
-            done
+              done
+            )
           )
-        )
-      args:
         executable: /bin/bash
       check_mode: false
       changed_when: false

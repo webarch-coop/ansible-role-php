@@ -12,7 +12,8 @@
   block:
 
     - name: Check the PHP versions installed
-      ansible.builtin.command: /usr/sbin/phpquery -V
+      ansible.builtin.command:
+        cmd: /usr/sbin/phpquery -V
       check_mode: false
       changed_when: false
       register: php_phpquery_versions

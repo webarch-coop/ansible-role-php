@@ -175,6 +175,28 @@ php_modules:
 
 The optional `php_sury` variable is `true` by default which results in the [Debian PHP repo](https://packages.sury.org/php/) provided by Ondřej Surý being enabled for installing `.deb` packages. When `php_sury` is `false` the Ondřej Surý repo configuration is removed if present.
 
+### php_systemd_units
+
+List of Systemd unit variables that are used with the [systemd role](https://git.coop/webarch/systemd).
+
+For example, the following defaults are used to override the [default PHP-FPM systemd settings](https://codeberg.org/oerdnj/deb.sury.org/issues/102):
+
+```yaml
+php__systemd_units:
+  - name: php8.5-fpm
+    files:
+      - path: /etc/systemd/system/php8.5-fpm.service.d/override.conf
+        conf:
+          Service:
+            ExecStartPost:
+            ExecStopPost:
+            PrivateTmp: false
+            ReadOnlyPaths: /
+            ReadWritePaths: /home /var
+        state: templated
+    state: ignore
+```
+
 ### php_verify
 
 The optional `php_verify` variable is `true` by default which results in all variables that start with `php_` being checked using the [meta/argument_specs.yml](meta/argument_specs.yml), this is a stricter check than Ansible uses by default as non-defined variables, such as `php_foo` cause the verification to fail.

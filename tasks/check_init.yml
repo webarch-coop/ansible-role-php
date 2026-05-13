@@ -13,7 +13,8 @@
 
     # When in a docker container php_init.stdout == "sh" or "bash"
     - name: Check if system has been booted with systemd as init system
-      ansible.builtin.command: ps -p 1 -o comm=
+      ansible.builtin.command:
+        cmd: "ps -p 1 -o comm="
       changed_when: false
       check_mode: false
       register: php_ps

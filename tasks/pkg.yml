@@ -26,7 +26,8 @@
       changed_when: false
 
     - name: Get a list of php packages available
-      ansible.builtin.command: apt-cache search php --names-only
+      ansible.builtin.command:
+        cmd: apt-cache search php --names-only
       check_mode: false
       register: php_apt_cache_search_php
       changed_when: false
@@ -134,10 +135,10 @@
       rescue:
 
         - name: Run apt-cache policy to get enabled repos
-          ansible.builtin.shell: |-
-                                 set -e -o pipefail
-                                 apt-cache policy | grep -e '[ ]http' | sort
-          args:
+          ansible.builtin.shell:
+            cmd: |-
+              set -e -o pipefail
+              apt-cache policy | grep -e '[ ]http' | sort
             executable: "{{ ansible_facts.ansible_local.bash.path }}"
           check_mode: false
           changed_when: false
@@ -260,10 +261,10 @@
     - name: Apt clean
       ansible.builtin.include_tasks: apt_clean.yml
       when: >-
-        ( ansible_version.full is version('2.13', '>=') ) and
-        ( ( ( php_packages_installed.changed  is defined ) and ( php_packages_installed.changed | bool ) ) or
-        ( ( php_packages_removed_first_run.changed is defined ) and ( php_packages_removed_first_run.changed | bool ) ) or
-        ( ( php_packages_removed_second_run.changed is defined ) and ( php_packages_removed_second_run.changed | bool ) ) )
+        (ansible_version.full is version('2.13', '>=')) and
+        (((php_packages_installed.changed  is defined) and (php_packages_installed.changed | bool)) or
+        ((php_packages_removed_first_run.changed is defined) and (php_packages_removed_first_run.changed | bool)) or
+        ((php_packages_removed_second_run.changed is defined) and (php_packages_removed_second_run.changed | bool)))
 
     - name: Ensure that all required PHP packages are present  # noqa: package-latest
       ansible.builtin.apt:
@@ -281,18 +282,18 @@
       ansible.builtin.setup:
         filter: ansible_local
       when: >-
-        ( ( php_packages_removed_first_run.changed is defined ) and
-        ( php_packages_removed_first_run.changed | bool ) ) or
-        ( ( php_packages_installed.changed is defined ) and
-        ( php_packages_installed.changed | bool ) ) or
-        ( ( php_packages_removed_second_run.changed is defined ) and
-        ( php_packages_removed_second_run.changed | bool ) ) or
-        ( ( php_dist_upgrade.changed is defined ) and
-        ( php_dist_upgrade.changed | bool ) ) or
-        ( ( php_apt_clean.changed is defined ) and
-        ( php_apt_clean.changed | bool ) ) or
-        ( ( php_packages_present.changed is defined ) and
-        ( php_packages_present.changed | bool ) )
+        ((php_packages_removed_first_run.changed is defined) and
+        (php_packages_removed_first_run.changed | bool)) or
+        ((php_packages_installed.changed is defined) and
+        (php_packages_installed.changed | bool)) or
+        ((php_packages_removed_second_run.changed is defined) and
+        (php_packages_removed_second_run.changed | bool)) or
+        ((php_dist_upgrade.changed is defined) and
+        (php_dist_upgrade.changed | bool)) or
+        ((php_apt_clean.changed is defined) and
+        (php_apt_clean.changed | bool)) or
+        ((php_packages_present.changed is defined) and
+        (php_packages_present.changed | bool))
 
     - name: Set facts for PHP-FPM versions present
       ansible.builtin.set_fact:

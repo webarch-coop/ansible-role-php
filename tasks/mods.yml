@@ -26,7 +26,8 @@
         - debug
 
     - name: "Get the PHP mods available for {{ php_version.version }}"
-      ansible.builtin.command: "phpquery -v {{ php_version.version }} -M"
+      ansible.builtin.command:
+        cmd: "phpquery -v {{ php_version.version }} -M"
       check_mode: false
       changed_when: false
       register: php_phpquery_mods_available
@@ -43,7 +44,8 @@
         - debug
 
     - name: "Get the PHP SAPIs available for {{ php_version.version }}"
-      ansible.builtin.command: "phpquery -v {{ php_version.version }} -S"
+      ansible.builtin.command:
+        cmd: "phpquery -v {{ php_version.version }} -S"
       check_mode: false
       changed_when: false
       register: php_phpquery_sapis_available

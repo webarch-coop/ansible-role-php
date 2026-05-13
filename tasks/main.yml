@@ -53,10 +53,10 @@
         name: apt
         tasks_from: local_facts.yml
       when: >-
-        ( ansible_facts.ansible_local.dpkg.arch is not defined ) or
-        ( ansible_facts.ansible_local.dpkg.installed is not defined ) or
-        ( ansible_facts.ansible_local.gpg.version is not defined ) or
-        ( ansible_facts.ansible_local.bash.path is not defined )
+        (ansible_facts.ansible_local.dpkg.arch is not defined) or
+        (ansible_facts.ansible_local.dpkg.installed is not defined) or
+        (ansible_facts.ansible_local.gpg.version is not defined) or
+        (ansible_facts.ansible_local.bash.path is not defined)
       tags:
         - php_apt
 
@@ -96,6 +96,21 @@
       tags:
         - php_pkg
 
+    - name: Include PHP systemd tasks
+      ansible.builtin.include_role:
+        name: systemd
+        tasks_from: unit_present.yml
+      loop: "{{ php_systemd_units }}"
+      loop_control:
+        loop_var: systemd_unit
+        label: "{{ systemd_unit.name }}"
+      when:
+        - php_systemd_units is defined
+        - php_systemd_units != []
+      tags:
+        - php_pkg
+        - php_systemd
+
     - name: Include PHP check tasks
       ansible.builtin.include_tasks: checks.yml
       tags:
@@ -126,8 +141,8 @@
             - (ansible_check_mode | bool) or (php_conf_ver_present | difference(php_ver_installed) == [])
 
       when:
-        - ( php_config is defined )
-        - ( php_conf_ver_present != [] ) or ( php_conf_ver_absent != [] )
+        - (php_config is defined)
+        - (php_conf_ver_present != []) or (php_conf_ver_absent != [])
       tags:
         - php_cfg
         - php_conf
@@ -159,8 +174,8 @@
             - php_version.version in php_ver_present
 
       when:
-        - ( php_modules is defined )
-        - ( php_mods_ver_present != [] ) or ( php_mods_ver_absent != [] )
+        - (php_modules is defined)
+        - (php_mods_ver_present != []) or (php_mods_ver_absent != [])
       tags:
         - php_mods
 

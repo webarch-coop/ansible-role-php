@@ -429,6 +429,63 @@ argument_specs:
           - "8.3"
           - "8.4"
           - "8.5"
+      php_systemd_units:
+        type: list
+        required: false
+        description: A list of systemd units and contents.
+        elements: dict
+        options:
+          files:
+            type: list
+            required: false
+            description: A list of systemd unit files and their content.
+            elements: dict
+            options:
+              comment:
+                type: str
+                required: false
+                description: A comment to be included at the top of the systemd unit file.
+              conf:
+                type: dict
+                required: false
+                description: A dictionary of the values for the systemd unit file.
+              path:
+                type: str
+                required: true
+                description: The path of the systemd unit file.
+              state:
+                type: str
+                required: false
+                description: The state of the systemd unit file.
+                choices:
+                  - absent
+                  - edited
+                  - masked
+                  - present
+                  - templated
+          name:
+            type: str
+            required: true
+            description: The name of the systemd service.
+          pkgs:
+            type: list
+            required: false
+            description: A list of packages that should be present.
+          state:
+            type: str
+            required: false
+            description: The state of the systemd unit.
+            choices:
+              - absent
+              - enabled
+              - indirect
+              - ignore
+              - reboot
+              - stopped
+          verify:
+            type: str
+            required: false
+            description: The name of the service to verify using systemd-analyze.
       php_systemd_service_path:
         type: str
         required: false
