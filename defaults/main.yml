@@ -1677,8 +1677,6 @@ php_systemd_units:
             ProtectKernelModules: true
             ProtectKernelTunables: true
             ProtectSystem: full
-            ReadOnlyPaths: /
-            ReadWritePaths: /home /var
             RestrictAddressFamilies: AF_INET AF_INET6 AF_NETLINK AF_UNIX
             RestrictNamespaces: true
             RestrictRealtime: true
@@ -1697,8 +1695,6 @@ php_systemd_units:
             ProtectKernelModules: true
             ProtectKernelTunables: true
             ProtectSystem: full
-            ReadOnlyPaths: /
-            ReadWritePaths: /home /var
             RestrictAddressFamilies: AF_INET AF_INET6 AF_NETLINK AF_UNIX
             RestrictNamespaces: true
             RestrictRealtime: true
@@ -1717,8 +1713,6 @@ php_systemd_units:
             ProtectKernelModules: true
             ProtectKernelTunables: true
             ProtectSystem: full
-            ReadOnlyPaths: /
-            ReadWritePaths: /home /var
             RestrictAddressFamilies: AF_INET AF_INET6 AF_NETLINK AF_UNIX
             RestrictNamespaces: true
             RestrictRealtime: true
@@ -1737,8 +1731,6 @@ php_systemd_units:
             ProtectKernelModules: true
             ProtectKernelTunables: true
             ProtectSystem: full
-            ReadOnlyPaths: /
-            ReadWritePaths: /home /var
             RestrictAddressFamilies: AF_INET AF_INET6 AF_NETLINK AF_UNIX
             RestrictNamespaces: true
             RestrictRealtime: true
@@ -1757,8 +1749,6 @@ php_systemd_units:
             ProtectKernelModules: true
             ProtectKernelTunables: true
             ProtectSystem: full
-            ReadOnlyPaths: /
-            ReadWritePaths: /home /var
             RestrictAddressFamilies: AF_INET AF_INET6 AF_NETLINK AF_UNIX
             RestrictNamespaces: true
             RestrictRealtime: true
@@ -1777,8 +1767,6 @@ php_systemd_units:
             ProtectKernelModules: true
             ProtectKernelTunables: true
             ProtectSystem: full
-            ReadOnlyPaths: /
-            ReadWritePaths: /home /var
             RestrictAddressFamilies: AF_INET AF_INET6 AF_NETLINK AF_UNIX
             RestrictNamespaces: true
             RestrictRealtime: true
@@ -1797,8 +1785,6 @@ php_systemd_units:
             ProtectKernelModules: true
             ProtectKernelTunables: true
             ProtectSystem: full
-            ReadOnlyPaths: /
-            ReadWritePaths: /home /var
             RestrictAddressFamilies: AF_INET AF_INET6 AF_NETLINK AF_UNIX
             RestrictNamespaces: true
             RestrictRealtime: true

@@ -226,7 +226,7 @@
               state: present
       when: ansible_facts.distribution_release == "bookworm"
 
-    - name: Set a fact for the required results of the PHP SAPIs and module checks for Debian Bookworm PHP 8.4
+    - name: Set a fact for the required results of the PHP SAPIs and module checks for Debian Trixie PHP 8.4
       ansible.builtin.set_fact:
         molecule_php_required:
           state: present
@@ -336,6 +336,226 @@
               state: present
       when: ansible_facts.distribution_release == "trixie"
 
+    - name: Set a fact for the required results of the PHP SAPIs and module checks for Ubuntu Noble PHP 8.3
+      ansible.builtin.set_fact:
+        molecule_php_required:
+          state: present
+          versions:
+            "8.3":
+              sapis:
+                cli:
+                  modules:
+                    - apcu
+                    - bcmath
+                    - bz2
+                    - calendar
+                    - ctype
+                    - curl
+                    - dom
+                    - exif
+                    - ffi
+                    - fileinfo
+                    - ftp
+                    - gd
+                    - gettext
+                    - gmp
+                    - iconv
+                    - igbinary
+                    - imagick
+                    - imap
+                    - intl
+                    - ldap
+                    - mbstring
+                    - mysqli
+                    - mysqlnd
+                    - opcache
+                    - pdo
+                    - pdo_mysql
+                    - pdo_sqlite
+                    - phar
+                    - posix
+                    - readline
+                    - redis
+                    - shmop
+                    - simplexml
+                    - soap
+                    - sockets
+                    - sqlite3
+                    - sysvmsg
+                    - sysvsem
+                    - sysvshm
+                    - tokenizer
+                    - uploadprogress
+                    - xml
+                    - xmlreader
+                    - xmlrpc
+                    - xmlwriter
+                    - xsl
+                    - zip
+                  state: present
+                fpm:
+                  modules:
+                    - apcu
+                    - bcmath
+                    - bz2
+                    - calendar
+                    - ctype
+                    - curl
+                    - dom
+                    - exif
+                    - ffi
+                    - fileinfo
+                    - ftp
+                    - gd
+                    - gettext
+                    - gmp
+                    - iconv
+                    - igbinary
+                    - imagick
+                    - imap
+                    - intl
+                    - ldap
+                    - mbstring
+                    - mysqli
+                    - mysqlnd
+                    - opcache
+                    - pdo
+                    - pdo_mysql
+                    - pdo_sqlite
+                    - phar
+                    - posix
+                    - readline
+                    - redis
+                    - shmop
+                    - simplexml
+                    - soap
+                    - sockets
+                    - sqlite3
+                    - sysvmsg
+                    - sysvsem
+                    - sysvshm
+                    - tokenizer
+                    - uploadprogress
+                    - xml
+                    - xmlreader
+                    - xmlrpc
+                    - xmlwriter
+                    - xsl
+                    - zip
+                  state: present
+              state: present
+      when: ansible_facts.distribution_release == "noble"
+
+    - name: Set a fact for the required results of the PHP SAPIs and module checks for Ubuntu Resolute PHP 8.5
+      ansible.builtin.set_fact:
+        molecule_php_required:
+          state: present
+          versions:
+            "8.5":
+              sapis:
+                cli:
+                  modules:
+                    - apcu
+                    - bcmath
+                    - bz2
+                    - calendar
+                    - ctype
+                    - curl
+                    - dom
+                    - exif
+                    - ffi
+                    - fileinfo
+                    - ftp
+                    - gd
+                    - gettext
+                    - gmp
+                    - iconv
+                    - igbinary
+                    - imagick
+                    # - imap
+                    - intl
+                    - ldap
+                    - mbstring
+                    - mysqli
+                    - mysqlnd
+                    - opcache
+                    - pdo
+                    - pdo_mysql
+                    - pdo_sqlite
+                    - phar
+                    - posix
+                    - readline
+                    - redis
+                    - shmop
+                    - simplexml
+                    - soap
+                    - sockets
+                    - sqlite3
+                    - sysvmsg
+                    - sysvsem
+                    - sysvshm
+                    - tokenizer
+                    - uploadprogress
+                    - xml
+                    - xmlreader
+                    - xmlrpc
+                    - xmlwriter
+                    - xsl
+                    - zip
+                  state: present
+                fpm:
+                  modules:
+                    - apcu
+                    - bcmath
+                    - bz2
+                    - calendar
+                    - ctype
+                    - curl
+                    - dom
+                    - exif
+                    - ffi
+                    - fileinfo
+                    - ftp
+                    - gd
+                    - gettext
+                    - gmp
+                    - iconv
+                    - igbinary
+                    - imagick
+                    # - imap
+                    - intl
+                    - ldap
+                    - mbstring
+                    - mysqli
+                    - mysqlnd
+                    - opcache
+                    - pdo
+                    - pdo_mysql
+                    - pdo_sqlite
+                    - phar
+                    - posix
+                    - readline
+                    - redis
+                    - shmop
+                    - simplexml
+                    - soap
+                    - sockets
+                    - sqlite3
+                    - sysvmsg
+                    - sysvsem
+                    - sysvshm
+                    - tokenizer
+                    - uploadprogress
+                    - xml
+                    - xmlreader
+                    - xmlrpc
+                    - xmlwriter
+                    - xsl
+                    - zip
+                  state: present
+              state: present
+      when: ansible_facts.distribution_release == "resolute"
+
     - name: Check the PHP configuration present
       block:
 
@@ -419,4 +639,62 @@
           ansible.builtin.fail:
 
       when: ansible_facts.distribution_release == "trixie"
+
+    - name: Check Ubuntu Noble PHP-FPM 8.3
+      block:
+
+        - name: Check that PHP-FPM 8.3 is running for Ubuntu Noble
+          ansible.builtin.service_facts:
+          vars:
+            molecule_service_jpq: 'ansible_facts.services.["php8.3-fpm.service"]|[0]'
+          register: molecule_service_facts
+          until: (molecule_service_facts | community.general.json_query(molecule_service_jpq)).state == "running"
+          retries: 20
+          delay: 1
+
+      rescue:
+
+        - name: Debug molecule_service_facts
+          ansible.builtin.debug:
+            var: molecule_service_facts
+
+        - name: Debug molecule_service_facts | community.general.json_query('ansible_facts.services.["php8.3-fpm.service"]|[0]')
+          ansible.builtin.debug:
+            msg: "{{ molecule_service_facts | community.general.json_query(molecule_service_jpq) }}"
+          vars:
+            molecule_service_jpq: 'ansible_facts.services.["php8.3-fpm.service"]|[0]'
+
+        - name: Check that PHP-FPM is running failed
+          ansible.builtin.fail:
+
+      when: ansible_facts.distribution_release == "noble"
+
+    - name: Check Debian Trixie PHP-FPM 8.4
+      block:
+
+        - name: Check that PHP-FPM is running for Ubuntu Resolute PHP-FPM 8.5
+          ansible.builtin.service_facts:
+          vars:
+            molecule_service_jpq: 'ansible_facts.services.["php8.5-fpm.service"]|[0]'
+          register: molecule_service_facts
+          until: (molecule_service_facts | community.general.json_query(molecule_service_jpq)).state == "running"
+          retries: 20
+          delay: 1
+
+      rescue:
+
+        - name: Debug ansible_facts.services
+          ansible.builtin.debug:
+            var: ansible_facts.services
+
+        - name: Debug molecule_service_facts | community.general.json_query('ansible_facts.services.["php8.5-fpm.service"]|[0]')
+          ansible.builtin.debug:
+            msg: "{{ molecule_service_facts | community.general.json_query(molecule_service_jpq) }}"
+          vars:
+            molecule_service_jpq: 'ansible_facts.services.["php8.5-fpm.service"]|[0]'
+
+        - name: Check that PHP-FPM is running failed
+          ansible.builtin.fail:
+
+      when: ansible_facts.distribution_release == "resolute"
 ...
