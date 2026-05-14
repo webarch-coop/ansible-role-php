@@ -513,11 +513,19 @@
                   Service:
                     ExecStartPost:
                     ExecStopPost:
+                    PrivateDevices: true
                     PrivateTmp: false
+                    ProtectControlGroups: true
+                    ProtectKernelModules: true
+                    ProtectKernelTunables: true
+                    ProtectSystem: full
                     ReadOnlyPaths: /
                     ReadWritePaths: /home /var
+                    RestrictAddressFamilies: AF_INET AF_INET6 AF_NETLINK AF_UNIX
+                    RestrictNamespaces: true
+                    RestrictRealtime: true
                 state: templated
-            state: enabled
+            state: ignore
 
     - name: Include argument spec checks
       ansible.builtin.include_role:

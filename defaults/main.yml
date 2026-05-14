@@ -1683,7 +1683,7 @@ php_systemd_units:
             RestrictNamespaces: true
             RestrictRealtime: true
         state: templated
-    state: enabled
+    state: ignore
   - name: php8.4-fpm
     files:
       - path: /etc/systemd/system/php8.4-fpm.service.d/override.conf
@@ -1703,7 +1703,7 @@ php_systemd_units:
             RestrictNamespaces: true
             RestrictRealtime: true
         state: templated
-    state: enabled
+    state: ignore
   - name: php8.3-fpm
     files:
       - path: /etc/systemd/system/php8.3-fpm.service.d/override.conf
@@ -1723,7 +1723,7 @@ php_systemd_units:
             RestrictNamespaces: true
             RestrictRealtime: true
         state: templated
-    state: enabled
+    state: ignore
   - name: php8.2-fpm
     files:
       - path: /etc/systemd/system/php8.2-fpm.service.d/override.conf
@@ -1743,7 +1743,7 @@ php_systemd_units:
             RestrictNamespaces: true
             RestrictRealtime: true
         state: templated
-    state: enabled
+    state: ignore
   - name: php8.1-fpm
     files:
       - path: /etc/systemd/system/php8.1-fpm.service.d/override.conf
@@ -1763,7 +1763,7 @@ php_systemd_units:
             RestrictNamespaces: true
             RestrictRealtime: true
         state: templated
-    state: enabled
+    state: ignore
   - name: php8.0-fpm
     files:
       - path: /etc/systemd/system/php8.0-fpm.service.d/override.conf
@@ -1783,7 +1783,7 @@ php_systemd_units:
             RestrictNamespaces: true
             RestrictRealtime: true
         state: templated
-    state: enabled
+    state: ignore
   - name: php7.4-fpm
     files:
       - path: /etc/systemd/system/php7.4-fpm.service.d/override.conf
@@ -1803,6 +1803,6 @@ php_systemd_units:
             RestrictNamespaces: true
             RestrictRealtime: true
         state: templated
-    state: enabled
+    state: ignore
 php_verify: true
 ...
