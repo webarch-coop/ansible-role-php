@@ -1671,9 +1671,17 @@ php_systemd_units:
           Service:
             ExecStartPost:
             ExecStopPost:
+            PrivateDevices: true
             PrivateTmp: false
+            ProtectControlGroups: true
+            ProtectKernelModules: true
+            ProtectKernelTunables: true
+            ProtectSystem: full
             ReadOnlyPaths: /
             ReadWritePaths: /home /var
+            RestrictAddressFamilies: AF_INET AF_INET6 AF_NETLINK AF_UNIX
+            RestrictNamespaces: true
+            RestrictRealtime: true
         state: templated
     state: enabled
   - name: php8.4-fpm
@@ -1683,9 +1691,17 @@ php_systemd_units:
           Service:
             ExecStartPost:
             ExecStopPost:
+            PrivateDevices: true
             PrivateTmp: false
+            ProtectControlGroups: true
+            ProtectKernelModules: true
+            ProtectKernelTunables: true
+            ProtectSystem: full
             ReadOnlyPaths: /
             ReadWritePaths: /home /var
+            RestrictAddressFamilies: AF_INET AF_INET6 AF_NETLINK AF_UNIX
+            RestrictNamespaces: true
+            RestrictRealtime: true
         state: templated
     state: enabled
   - name: php8.3-fpm
@@ -1695,9 +1711,17 @@ php_systemd_units:
           Service:
             ExecStartPost:
             ExecStopPost:
+            PrivateDevices: true
             PrivateTmp: false
+            ProtectControlGroups: true
+            ProtectKernelModules: true
+            ProtectKernelTunables: true
+            ProtectSystem: full
             ReadOnlyPaths: /
             ReadWritePaths: /home /var
+            RestrictAddressFamilies: AF_INET AF_INET6 AF_NETLINK AF_UNIX
+            RestrictNamespaces: true
+            RestrictRealtime: true
         state: templated
     state: enabled
   - name: php8.2-fpm
@@ -1707,9 +1731,17 @@ php_systemd_units:
           Service:
             ExecStartPost:
             ExecStopPost:
+            PrivateDevices: true
             PrivateTmp: false
+            ProtectControlGroups: true
+            ProtectKernelModules: true
+            ProtectKernelTunables: true
+            ProtectSystem: full
             ReadOnlyPaths: /
             ReadWritePaths: /home /var
+            RestrictAddressFamilies: AF_INET AF_INET6 AF_NETLINK AF_UNIX
+            RestrictNamespaces: true
+            RestrictRealtime: true
         state: templated
     state: enabled
   - name: php8.1-fpm
@@ -1719,9 +1751,17 @@ php_systemd_units:
           Service:
             ExecStartPost:
             ExecStopPost:
+            PrivateDevices: true
             PrivateTmp: false
+            ProtectControlGroups: true
+            ProtectKernelModules: true
+            ProtectKernelTunables: true
+            ProtectSystem: full
             ReadOnlyPaths: /
             ReadWritePaths: /home /var
+            RestrictAddressFamilies: AF_INET AF_INET6 AF_NETLINK AF_UNIX
+            RestrictNamespaces: true
+            RestrictRealtime: true
         state: templated
     state: enabled
   - name: php8.0-fpm
@@ -1731,9 +1771,17 @@ php_systemd_units:
           Service:
             ExecStartPost:
             ExecStopPost:
+            PrivateDevices: true
             PrivateTmp: false
+            ProtectControlGroups: true
+            ProtectKernelModules: true
+            ProtectKernelTunables: true
+            ProtectSystem: full
             ReadOnlyPaths: /
             ReadWritePaths: /home /var
+            RestrictAddressFamilies: AF_INET AF_INET6 AF_NETLINK AF_UNIX
+            RestrictNamespaces: true
+            RestrictRealtime: true
         state: templated
     state: enabled
   - name: php7.4-fpm
@@ -1743,9 +1791,17 @@ php_systemd_units:
           Service:
             ExecStartPost:
             ExecStopPost:
+            PrivateDevices: true
             PrivateTmp: false
+            ProtectControlGroups: true
+            ProtectKernelModules: true
+            ProtectKernelTunables: true
+            ProtectSystem: full
             ReadOnlyPaths: /
             ReadWritePaths: /home /var
+            RestrictAddressFamilies: AF_INET AF_INET6 AF_NETLINK AF_UNIX
+            RestrictNamespaces: true
+            RestrictRealtime: true
         state: templated
     state: enabled
 php_verify: true
