@@ -83,7 +83,7 @@
 
     - name: Check PHP SAPIs and modules
       ansible.builtin.shell:
-        cms: |-
+        cmd: |-
           set -euo pipefail
           VERSIONS=$(/usr/sbin/phpquery -V | sort -V)
           jo state=present versions=$(
