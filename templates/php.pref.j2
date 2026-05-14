@@ -2,28 +2,28 @@
 
 {% if ansible_facts.distribution_release == "bookworm" %}
 {%     for php_pkg in php_pkg_bookworm %}
-Package: {{ pkg_pkg }}
+Package: {{ php_pkg }}
 Pin: origin packages.sury.org
 Pin-Priority: 500
 
 {%     endfor %}
 {% elif ansible_facts.distribution_release == "bullseye" %}
-{%     for pkg_pkg in php_pkg_bullseye %}
-Package: {{ pkg_pkg }}
+{%     for php_pkg in php_pkg_bullseye %}
+Package: {{ php_pkg }}
 Pin: origin packages.sury.org
 Pin-Priority: 500
 
 {%     endfor %}
 {% elif ansible_facts.distribution_release == "trixie" %}
 {%     for php_pkg in php_pkg_trixie %}
-Package: {{ pkg_pkg }}
+Package: {{ php_pkg }}
 Pin: origin packages.sury.org
 Pin-Priority: 500
 
 {%     endfor %}
 {% elif ansible_facts.distribution_release == "forky" %}
-{%     for pkg_pkg in php_pkg_forky %}
-Package: {{ pkg_pkg }}
+{%     for php_pkg in php_pkg_forky %}
+Package: {{ php_pkg }}
 Pin: origin packages.sury.org
 Pin-Priority: 500
 
