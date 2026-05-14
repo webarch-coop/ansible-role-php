@@ -40,6 +40,18 @@
 
       when: php_fpm_binary.stat.exists | bool
 
+    - name: Include PHP systemd tasks
+      ansible.builtin.include_role:
+        name: systemd
+        tasks_from: unit_present.yml
+      loop: "{{ php_systemd_units }}"
+      loop_control:
+        loop_var: systemd_unit
+        label: "{{ systemd_unit.name }}"
+      when:
+        - php_systemd_units is defined
+        - php_systemd_units != []
+
     - name: "Stat {{ php_systemd_service_symlink_path }}"
       ansible.builtin.stat:
         path: "{{ php_systemd_service_symlink_path }}"
@@ -134,4 +146,5 @@
   tags:
     - php
     - php_pkg
+    - php_systemd
 ...

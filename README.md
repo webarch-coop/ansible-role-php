@@ -190,9 +190,15 @@ php_systemd_units:
           Service:
             ExecStartPost:
             ExecStopPost:
+            PrivateDevices: true
             PrivateTmp: false
-            ReadOnlyPaths: /
-            ReadWritePaths: /home /var
+            ProtectControlGroups: true
+            ProtectKernelModules: true
+            ProtectKernelTunables: true
+            ProtectSystem: full
+            RestrictAddressFamilies: AF_INET AF_INET6 AF_NETLINK AF_UNIX
+            RestrictNamespaces: true
+            RestrictRealtime: true
         state: templated
     state: ignore
 ```
