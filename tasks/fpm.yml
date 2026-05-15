@@ -43,7 +43,7 @@
     - name: "Set a fact for the PHP-FPM systemd unit name for {{ php_fpm_version }}"
       ansible.builtin.set_fact:
         php_fpm_unit_name: "php{{ php_fpm_version }}-fpm"
-        php_fpm_unit_name_service: "php{{ php_fpm_version }}-fpm.service"
+        php_fpm_unit_service: "php{{ php_fpm_version }}-fpm.service"
 
     - name: "Stat {{ php_systemd_service_symlink_path }}"
       ansible.builtin.stat:
