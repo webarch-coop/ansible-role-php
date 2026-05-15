@@ -285,7 +285,7 @@
                     RestrictNamespaces: true
                     RestrictRealtime: true
                 state: templated
-            state: ignore
+            state: enabled
 
     - name: Include php role for Debian Trixie PHP-FPM configuration
       ansible.builtin.include_role:
@@ -529,7 +529,7 @@
                     RestrictNamespaces: true
                     RestrictRealtime: true
                 state: templated
-            state: ignore
+            state: enabled
 
     - name: Include php role for Ubuntu Noble PHP-FPM configuration
       ansible.builtin.include_role:
@@ -773,7 +773,7 @@
                     RestrictNamespaces: true
                     RestrictRealtime: true
                 state: templated
-            state: ignore
+            state: enabled
 
     - name: Include php role for Ubuntu Resolute PHP-FPM configuration
       ansible.builtin.include_role:
@@ -1017,7 +1017,7 @@
                     RestrictNamespaces: true
                     RestrictRealtime: true
                 state: templated
-            state: ignore
+            state: enabled
 
     - name: Include argument spec checks
       ansible.builtin.include_role:

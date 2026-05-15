@@ -270,6 +270,10 @@ argument_specs:
         type: dict
         required: false
         description: Results from the ansible.builtin.command module.
+      php_fpm_unit_name:
+        type: str
+        required: false
+        description: PHP-FPM systemd unit name.
       php_fpm_systemctl_status:
         type: dict
         required: false
