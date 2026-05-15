@@ -44,7 +44,7 @@
       ansible.builtin.set_fact:
         php_fpm_unit_name: "php{{ php_fpm_version }}-fpm"
 
-    - name: Include PHP systemd tasks
+    - name: "Include PHP-FPM systemd tasks for {{ php_fpm_unit_name }}"
       ansible.builtin.include_role:
         name: systemd
         tasks_from: unit_present.yml
