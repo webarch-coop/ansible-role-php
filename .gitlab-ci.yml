@@ -14,7 +14,8 @@ variables:
   ANSIBLE_DEFAULT_VERBOSITY: "1"
   ANSIBLE_DIFF_ALWAYS: "1"
   ANSIBLE_DISPLAY_SKIPPED_HOSTS: "0"
-  ANSIBLE_DISPLAY_TRACEBACK: error
+  # https://docs.ansible.com/projects/ansible/latest/reference_appendices/config.html#display-traceback
+  ANSIBLE_DISPLAY_TRACEBACK: never
   ANSIBLE_FORCE_COLOR: "1"
   ANSIBLE_INJECT_FACT_VARS: "0"
   ANSIBLE_NOCOWS: "1"
