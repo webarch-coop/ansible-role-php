@@ -274,6 +274,10 @@ argument_specs:
         type: str
         required: false
         description: PHP-FPM systemd unit name.
+      php_fpm_unit_service:
+        type: str
+        required: false
+        description: PHP-FPM systemd unit service.
       php_fpm_systemctl_status:
         type: dict
         required: false

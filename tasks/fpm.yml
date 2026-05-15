@@ -43,26 +43,13 @@
     - name: "Set a fact for the PHP-FPM systemd unit name for {{ php_fpm_version }}"
       ansible.builtin.set_fact:
         php_fpm_unit_name: "php{{ php_fpm_version }}-fpm"
-
-    - name: "Include PHP-FPM systemd tasks for {{ php_fpm_unit_name }}"
-      ansible.builtin.include_role:
-        name: systemd
-        tasks_from: unit_present.yml
-      loop: "{{ php_systemd_units }}"
-      loop_control:
-        loop_var: systemd_unit
-        label: "{{ systemd_unit.name }}"
-      when:
-        - php_systemd_units is defined
-        - php_systemd_units != []
-        - systemd_unit.name is defined
-        - systemd_unit.name == php_fpm_unit_name
+        php_fpm_unit_name_service: "php{{ php_fpm_version }}-fpm.service"
 
     - name: "Stat {{ php_systemd_service_symlink_path }}"
       ansible.builtin.stat:
         path: "{{ php_systemd_service_symlink_path }}"
       vars:
-        php_systemd_service_symlink_path: "/lib/systemd/system/{{ php_fpm_unit_name }}.service"
+        php_systemd_service_symlink_path: "/usr/lib/systemd/system/{{ php_fpm_unit_service }}"
       register: php_fpm_system_service
 
     - name: Enable PHP-FPM systemd service
@@ -73,7 +60,7 @@
 
             - name: "Ensure that PHP-FPM service is enabled and started for {{ php_fpm_version }}"
               ansible.builtin.systemd_service:
-                name: "{{ php_fpm_unit_name }}.service"
+                name: "{{ php_fpm_unit_service }}"
                 enabled: true
                 state: started
               register: php_fpm_service
@@ -84,9 +71,9 @@
               ansible.builtin.debug:
                 var: php_fpm_service
 
-            - name: "Run systemctl status {{ php_fpm_unit_name }}.service"  # noqa: name[template]
+            - name: "Run systemctl status {{ php_fpm_unit_service }}"
               ansible.builtin.command:
-                cmd: "systemctl status {{ php_fpm_unit_name }}.service"
+                cmd: "systemctl status {{ php_fpm_unit_service }}"
               check_mode: false
               changed_when: false
               failed_when: false
@@ -96,9 +83,9 @@
               ansible.builtin.debug:
                 var: php_fpm_systemctl_status
 
-            - name: "Run journalctl -xeu {{ php_fpm_unit_name }}.service"  # noqa: name[template]
+            - name: "Run journalctl -xeu {{ php_fpm_unit_service }}"
               ansible.builtin.command:
-                cmd: "journalctl -xeu {{ php_fpm_unit_name }}.service"
+                cmd: "journalctl -xeu {{ php_fpm_unit_service }}"
               check_mode: false
               changed_when: false
               failed_when: false
@@ -121,8 +108,8 @@
         - name: "Symlink present for PHP-FPM service for {{ php_fpm_version }}"
           ansible.builtin.file:
             state: link
-            src: "/lib/systemd/system/{{ php_fpm_unit_name }}.service"
-            dest: "/etc/systemd/system/multi-user.target.wants/{{ php_fpm_unit_name }}.service"
+            src: "/usr/lib/systemd/system/{{ php_fpm_unit_service }}"
+            dest: "/etc/systemd/system/multi-user.target.wants/{{ php_fpm_unit_service }}"
             follow: false
             mode: "0777"
             owner: root
@@ -136,6 +123,20 @@
             (php_fpm_service_symlink.changed | bool) or
             (php_fpm_service.changed | bool)
 
+        - name: "Include PHP-FPM systemd tasks for {{ php_fpm_unit_name }}"
+          ansible.builtin.include_role:
+            name: systemd
+            tasks_from: unit_present.yml
+          loop: "{{ php_systemd_units }}"
+          loop_control:
+            loop_var: systemd_unit
+            label: "{{ systemd_unit.name }}"
+          when:
+            - php_systemd_units is defined
+            - php_systemd_units != []
+            - systemd_unit.name is defined
+            - systemd_unit.name == php_fpm_unit_name
+
         - name: Check that PHP FPM is running
           ansible.builtin.service_facts:
           register: php_service_facts
@@ -143,7 +144,7 @@
           retries: 20
           delay: 1
           vars:
-            php_service_jpq: 'ansible_facts.services.["{{ php_fpm_unit_name }}.service"]|[0].state'
+            php_service_jpq: 'ansible_facts.services.["{{ php_fpm_unit_service }}"]|[0].state'
 
       when:
         - php_fpm_system_service.stat.exists is defined
