@@ -179,7 +179,7 @@ The optional `php_sury` variable is `true` by default which results in the [Debi
 
 List of Systemd unit variables that are used with the [systemd role](https://git.coop/webarch/systemd).
 
-For example, the following defaults are used to override the [default PHP-FPM systemd settings](https://codeberg.org/oerdnj/deb.sury.org/issues/102):
+For example, the [defaults for PHP-FPM](https://codeberg.org/oerdnj/deb.sury.org/issues/102) could be overridden by editing the defaults:
 
 ```yaml
 php_systemd_units:
@@ -187,20 +187,30 @@ php_systemd_units:
     files:
       - path: /etc/systemd/system/php8.5-fpm.service.d/override.conf
         conf:
+          Unit:
+            Description: The PHP 8.5 FastCGI Process Manager
+            Documentation: man:php-fpm8.5(8)
+            After: network.target
           Service:
-            ExecStartPost:
-            ExecStopPost:
+            Type: notify
+            ExecStart: /usr/sbin/php-fpm8.5 --nodaemonize --fpm-config /etc/php/8.5/fpm/php-fpm.conf
+            ExecStartPost: -/usr/lib/php/php-fpm-socket-helper install /run/php/php-fpm.sock /etc/php/8.5/fpm/pool.d/www.conf 85
+            ExecStopPost: -/usr/lib/php/php-fpm-socket-helper remove /run/php/php-fpm.sock
+              /etc/php/8.5/fpm/pool.d/www.conf 85
+            ExecReload: /bin/kill -USR2 $MAINPID
+            Restart: on-failure
+            ProtectSystem: full
             PrivateDevices: true
-            PrivateTmp: false
-            ProtectControlGroups: true
             ProtectKernelModules: true
             ProtectKernelTunables: true
-            ProtectSystem: full
+            ProtectControlGroups: true
+            RestrictRealtime: true
             RestrictAddressFamilies: AF_INET AF_INET6 AF_NETLINK AF_UNIX
             RestrictNamespaces: true
-            RestrictRealtime: true
+          Install:
+            WantedBy: multi-user.target
         state: templated
-    state: ignore
+    state: enabled
 ```
 
 ### php_verify

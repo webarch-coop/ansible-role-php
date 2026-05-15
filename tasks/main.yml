@@ -185,7 +185,7 @@
         - php_cfg
         - php_conf
 
-    - name: Include PHP systemd tasks for units other than PHP-FPM ones
+    - name: Include PHP systemd tasks for non PHP-FPM units
       ansible.builtin.include_role:
         name: systemd
         tasks_from: unit_present.yml
