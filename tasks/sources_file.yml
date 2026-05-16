@@ -23,11 +23,11 @@
     - name: Print the contents of /etc/apt/sources.list.d/php.sources
       ansible.builtin.debug:
         var: php_sources_contents
-        verbosity: "{% if ansible_check_mode | bool %}0{% else %}1{% endif %}"
+        verbosity: "{% if ansible_check_mode | ansible.builtin.bool %}0{% else %}1{% endif %}"
       tags:
         - debug
 
-  when: php_sources_path.stat.exists | bool
+  when: php_sources_path.stat.exists | ansible.builtin.bool
   tags:
     - php
     - php_apt

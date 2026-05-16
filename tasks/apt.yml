@@ -35,7 +35,7 @@
     - name: The GPG key provided by the debsuryorg-archive-keyring.deb package is required
       ansible.builtin.assert:
         that:
-          - php_apt_key_path.stat.exists | bool
+          - php_apt_key_path.stat.exists | ansible.builtin.bool
         quiet: "{% if ansible_check_mode or ansible_verbosity >= 1 %}false{% else %}true{% endif %}"
         fail_msg: >-
           The GPG key provided by https://packages.sury.org/debsuryorg-archive-keyring.deb is required to configure the Sury PHP repo.
@@ -83,7 +83,7 @@
             - name: Debug proposed php_sources_check.repo
               ansible.builtin.debug:
                 var: php_sources_check.repo
-                verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
+                verbosity: "{% if ansible_check_mode | ansible.builtin.bool or ansible_diff_mode | ansible.builtin.bool %}1{% else %}2{% endif %}"
               tags:
                 - debug
 
@@ -100,7 +100,7 @@
                 php_date_timestamp: "{{ ansible_facts.date_time.iso8601_basic_short }}"
               when: php_sources_contents_prior != php_sources_check.repo | string | community.general.jc('ini')
 
-          when: php_sources_path.stat.exists | bool
+          when: php_sources_path.stat.exists | ansible.builtin.bool
 
         - name: PHP repository sources file present
           ansible.builtin.deb822_repository:
@@ -126,7 +126,7 @@
             - name: Debug updated php_sources.repo
               ansible.builtin.debug:
                 var: php_sources.repo
-                verbosity: "{% if ansible_check_mode | bool or ansible_diff_mode | bool %}1{% else %}2{% endif %}"
+                verbosity: "{% if ansible_check_mode | ansible.builtin.bool or ansible_diff_mode | ansible.builtin.bool %}1{% else %}2{% endif %}"
               tags:
                 - debug
 
@@ -135,11 +135,11 @@
                 before: "{{ php_sources_contents_prior | ansible.builtin.to_nice_yaml }}"
                 after: "{{ php_sources.repo | string | community.general.jc('ini') | ansible.builtin.to_nice_yaml }}"
               when:
-                - (ansible_check_mode | bool) or (ansible_diff_mode | bool)
+                - (ansible_check_mode | ansible.builtin.bool) or (ansible_diff_mode | ansible.builtin.bool)
                 - php_sources_contents_prior is defined
                 - php_sources.repo is defined
 
-          when: php_sources.changed | bool
+          when: php_sources.changed | ansible.builtin.bool
 
         - name: PHP apt preferences present
           ansible.builtin.template:
@@ -168,14 +168,14 @@
                 update_cache: false
 
           when: >-
-            (php_sources.changed | bool) or
-            (php_preferences.changed | bool)
+            (php_sources.changed | ansible.builtin.bool) or
+            (php_preferences.changed | ansible.builtin.bool)
           tags:
             - molecule-idempotence-notest
 
-      when: php_apt_key_path.stat.exists | bool
+      when: php_apt_key_path.stat.exists | ansible.builtin.bool
 
-  when: php_sury | bool
+  when: php_sury | ansible.builtin.bool
   tags:
     - php
     - php_apt
@@ -208,7 +208,7 @@
       tags:
         - molecule-idempotence-notest
 
-  when: not php_sury | bool
+  when: not php_sury | ansible.builtin.bool
   tags:
     - php
     - php_apt

@@ -40,8 +40,8 @@ before_script:
 stages:
   - trixie
   - bookworm
-  # - noble
-  # - resolute
+  - noble
+  - resolute
 trixie:
   image: registry.git.coop/webarch/containers/images/trixie:20260424
   stage: trixie
@@ -54,14 +54,14 @@ bookworm:
   stage: bookworm
   script:
     - molecule test --all
-# noble:
-#   image: registry.git.coop/webarch/containers/images/noble:20260424
-#   stage: noble
-#   script:
-#     - molecule test --all
-# resolute:
-#   image: registry.git.coop/webarch/containers/images/resolute:20260424
-#   stage: resolute
-#   script:
-#     - molecule test --all
+noble:
+  image: registry.git.coop/webarch/containers/images/noble:20260424
+  stage: noble
+  script:
+    - molecule test --all
+resolute:
+  image: registry.git.coop/webarch/containers/images/resolute:20260424
+  stage: resolute
+  script:
+    - molecule test --all
 ...
