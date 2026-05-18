@@ -9,6 +9,12 @@
 # You should have received a copy of the GNU General Public License along with the Webarchitects PHP Ansible role. If not, see <https://www.gnu.org/licenses/>.
 ---
 repos:
+  # https://github.com/Anadea/pre-commit-config-shellcheck/releases
+  - repo: https://github.com/Anadea/pre-commit-config-shellcheck
+    rev: 0.3.4
+    hooks:
+      - id: pre-commit-config-shellcheck
+        name: ShellCheck
   # https://github.com/adrienverge/yamllint/tags
   - repo: https://github.com/adrienverge/yamllint.git
     rev: v1.38.0
