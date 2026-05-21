@@ -260,8 +260,8 @@
                     - gettext
                     - gmp
                     - iconv
-                    - igbinary
-                    - imagick
+                    # - igbinary
+                    # - imagick
                     - imap
                     - intl
                     - ldap
@@ -320,22 +320,22 @@
                     - gettext
                     - gmp
                     - iconv
-                    - igbinary
-                    - imagick
+                    # - igbinary
+                    # - imagick
                     # - imap
                     - intl
                     - ldap
                     - mbstring
                     - mysqli
                     - mysqlnd
-                    - opcache
+                    # - opcache
                     - pdo
                     - pdo_mysql
                     - pdo_sqlite
                     - phar
                     - posix
                     - readline
-                    - redis
+                    # - redis
                     - shmop
                     - simplexml
                     - soap
@@ -345,10 +345,10 @@
                     - sysvsem
                     - sysvshm
                     - tokenizer
-                    - uploadprogress
+                    # - uploadprogress
                     - xml
                     - xmlreader
-                    - xmlrpc
+                    # - xmlrpc
                     - xmlwriter
                     - xsl
                     - zip

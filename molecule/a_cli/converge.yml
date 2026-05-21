@@ -470,22 +470,22 @@
                   - gettext
                   - gmp
                   - iconv
-                  - igbinary
-                  - imagick
+                  # - igbinary
+                  # - imagick
                   - imap
                   - intl
                   - ldap
                   - mbstring
                   - mysqli
                   - mysqlnd
-                  - opcache
+                  # - opcache
                   - pdo
                   - pdo_mysql
                   - pdo_sqlite
                   - phar
                   - posix
                   - readline
-                  - redis
+                  # - redis
                   - shmop
                   - simplexml
                   - soap
@@ -495,10 +495,10 @@
                   - sysvsem
                   - sysvshm
                   - tokenizer
-                  - uploadprogress
+                  # - uploadprogress
                   - xml
                   - xmlreader
-                  - xmlrpc
+                  # - xmlrpc
                   - xmlwriter
                   - xsl
                   - zip
@@ -520,20 +520,20 @@
               - php8.3-curl
               - php8.3-gd
               - php8.3-gmp
-              - php8.3-imagick
+              # - php8.3-imagick
               - php8.3-imap
               - php8.3-intl
               - php8.3-ldap
               - php8.3-mbstring
               - php8.3-mysql
-              - php8.3-opcache
+              # - php8.3-opcache
               - php8.3-readline
-              - php8.3-redis
+              # - php8.3-redis
               - php8.3-sqlite3
               - php8.3-soap
-              - php8.3-uploadprogress
+              # - php8.3-uploadprogress
               - php8.3-xml
-              - php8.3-xmlrpc
+              # - php8.3-xmlrpc
               - php8.3-xsl
               - php8.3-zip
               - php-pear
