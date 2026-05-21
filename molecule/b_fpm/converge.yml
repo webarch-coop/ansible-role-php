@@ -506,30 +506,30 @@
             version: "8.3"
             state: present
             files:
-              - name: PHP 8.3 JIT configuration
-                path: /etc/php/8.3/mods-available/opcache.ini
-                state: templated
-                comments:
-                  - "configuration for php opcache module"
-                  - "priority=10"
-                # conf_absent:
-                #   "opcache.jit": "0"
-                conf:
-                  "zend_extension": "opcache.so"
-              - name: PHP 8.3 FPM opcache symlink
-                path: /etc/php/8.3/fpm/conf.d/10-opcache.ini
-                src: /etc/php/8.3/mods-available/opcache.ini
-                state: symlink
-              - name: PHP 8.3 FPM opcache duplicate symlink absent
-                path: /etc/php/8.3/fpm/conf.d/20-opcache.ini
-                state: absent
-              - name: PHP 8.3 CLI opcache symlink
-                path: /etc/php/8.3/cli/conf.d/10-opcache.ini
-                src: /etc/php/8.3/mods-available/opcache.ini
-                state: symlink
-              - name: PHP 8.3 CLI opcache duplicate symlink absent
-                path: /etc/php/8.3/cli/conf.d/20-opcache.ini
-                state: absent
+              # - name: PHP 8.3 JIT configuration
+              #   path: /etc/php/8.3/mods-available/opcache.ini
+              #   state: templated
+              #   comments:
+              #     - "configuration for php opcache module"
+              #     - "priority=10"
+              #   # conf_absent:
+              #   #   "opcache.jit": "0"
+              #   conf:
+              #     "zend_extension": "opcache.so"
+              # - name: PHP 8.3 FPM opcache symlink
+              #   path: /etc/php/8.3/fpm/conf.d/10-opcache.ini
+              #   src: /etc/php/8.3/mods-available/opcache.ini
+              #   state: symlink
+              # - name: PHP 8.3 FPM opcache duplicate symlink absent
+              #   path: /etc/php/8.3/fpm/conf.d/20-opcache.ini
+              #   state: absent
+              # - name: PHP 8.3 CLI opcache symlink
+              #   path: /etc/php/8.3/cli/conf.d/10-opcache.ini
+              #   src: /etc/php/8.3/mods-available/opcache.ini
+              #   state: symlink
+              # - name: PHP 8.3 CLI opcache duplicate symlink absent
+              #   path: /etc/php/8.3/cli/conf.d/20-opcache.ini
+              #   state: absent
               - name: PHP 8.3 CLI configuration
                 path: /etc/php/8.3/cli/php.ini
                 state: present
@@ -556,19 +556,19 @@
                     "mysqli.max_persistent": "-1"
                     "mysqli.reconnect": "Off"
                     "mysqli.default_socket": "/run/mysqld/mysqld.sock"
-                  opcache:
-                    "opcache.enable": "1"
-                    "opcache.enable_cli": "1"
-                    "opcache.interned_strings_buffer": "64"
-                    "opcache.jit": "0"
-                    "opcache.jit_buffer_size": "0"
-                    "opcache.max_accelerated_files": "100000"
-                    "opcache.memory_consumption": "128"
-                    "opcache.revalidate_freq": "2"
-                    "opcache.use_cwd": "1"
-                    "opcache.validate_permission": "1"
-                    "opcache.validate_root": "1"
-                    "opcache.validate_timestamps": "1"
+                  # opcache:
+                  #   "opcache.enable": "1"
+                  #   "opcache.enable_cli": "1"
+                  #   "opcache.interned_strings_buffer": "64"
+                  #   "opcache.jit": "0"
+                  #   "opcache.jit_buffer_size": "0"
+                  #   "opcache.max_accelerated_files": "100000"
+                  #   "opcache.memory_consumption": "128"
+                  #   "opcache.revalidate_freq": "2"
+                  #   "opcache.use_cwd": "1"
+                  #   "opcache.validate_permission": "1"
+                  #   "opcache.validate_root": "1"
+                  #   "opcache.validate_timestamps": "1"
                   Pdo_mysql:
                     "pdo_mysql.default_socket": "/run/mysqld/mysqld.sock"
               - name: PHP 8.3 FPM configuration
@@ -582,19 +582,19 @@
                     "date.timezone": "Europe/London"
                   MySQLi:
                     "mysqli.allow_local_infile": "Off"
-                  opcache:
-                    "opcache.enable": "1"
-                    "opcache.enable_cli": "1"
-                    "opcache.interned_strings_buffer": "64"
-                    "opcache.jit": "0"
-                    "opcache.jit_buffer_size": "0"
-                    "opcache.max_accelerated_files": "100000"
-                    "opcache.memory_consumption": "128"
-                    "opcache.revalidate_freq": "2"
-                    "opcache.use_cwd": "1"
-                    "opcache.validate_permission": "1"
-                    "opcache.validate_root": "1"
-                    "opcache.validate_timestamps": "1"
+                  # opcache:
+                  #   "opcache.enable": "1"
+                  #   "opcache.enable_cli": "1"
+                  #   "opcache.interned_strings_buffer": "64"
+                  #   "opcache.jit": "0"
+                  #   "opcache.jit_buffer_size": "0"
+                  #   "opcache.max_accelerated_files": "100000"
+                  #   "opcache.memory_consumption": "128"
+                  #   "opcache.revalidate_freq": "2"
+                  #   "opcache.use_cwd": "1"
+                  #   "opcache.validate_permission": "1"
+                  #   "opcache.validate_root": "1"
+                  #   "opcache.validate_timestamps": "1"
                   PHP:
                     allow_url_include: "Off"
                     default_socket_timeout: "600"
@@ -731,30 +731,30 @@
             version: "8.5"
             state: present
             files:
-              - name: PHP 8.5 JIT configuration
-                path: /etc/php/8.5/mods-available/opcache.ini
-                state: templated
-                comments:
-                  - "configuration for php opcache module"
-                  - "priority=10"
-                # conf_absent:
-                #   "opcache.jit": "0"
-                conf:
-                  "zend_extension": "opcache.so"
-              - name: PHP 8.5 FPM opcache symlink
-                path: /etc/php/8.5/fpm/conf.d/10-opcache.ini
-                src: /etc/php/8.5/mods-available/opcache.ini
-                state: symlink
-              - name: PHP 8.5 FPM opcache duplicate symlink absent
-                path: /etc/php/8.5/fpm/conf.d/20-opcache.ini
-                state: absent
-              - name: PHP 8.5 CLI opcache symlink
-                path: /etc/php/8.5/cli/conf.d/10-opcache.ini
-                src: /etc/php/8.5/mods-available/opcache.ini
-                state: symlink
-              - name: PHP 8.5 CLI opcache duplicate symlink absent
-                path: /etc/php/8.5/cli/conf.d/20-opcache.ini
-                state: absent
+              # - name: PHP 8.5 JIT configuration
+              #   path: /etc/php/8.5/mods-available/opcache.ini
+              #   state: templated
+              #   comments:
+              #     - "configuration for php opcache module"
+              #     - "priority=10"
+              #   # conf_absent:
+              #   #   "opcache.jit": "0"
+              #   conf:
+              #     "zend_extension": "opcache.so"
+              # - name: PHP 8.5 FPM opcache symlink
+              #   path: /etc/php/8.5/fpm/conf.d/10-opcache.ini
+              #   src: /etc/php/8.5/mods-available/opcache.ini
+              #   state: symlink
+              # - name: PHP 8.5 FPM opcache duplicate symlink absent
+              #   path: /etc/php/8.5/fpm/conf.d/20-opcache.ini
+              #   state: absent
+              # - name: PHP 8.5 CLI opcache symlink
+              #   path: /etc/php/8.5/cli/conf.d/10-opcache.ini
+              #   src: /etc/php/8.5/mods-available/opcache.ini
+              #   state: symlink
+              # - name: PHP 8.5 CLI opcache duplicate symlink absent
+              #   path: /etc/php/8.5/cli/conf.d/20-opcache.ini
+              #   state: absent
               - name: PHP 8.5 CLI configuration
                 path: /etc/php/8.5/cli/php.ini
                 state: present
@@ -781,19 +781,19 @@
                     "mysqli.max_persistent": "-1"
                     "mysqli.reconnect": "Off"
                     "mysqli.default_socket": "/run/mysqld/mysqld.sock"
-                  opcache:
-                    "opcache.enable": "1"
-                    "opcache.enable_cli": "1"
-                    "opcache.interned_strings_buffer": "64"
-                    "opcache.jit": "0"
-                    "opcache.jit_buffer_size": "0"
-                    "opcache.max_accelerated_files": "100000"
-                    "opcache.memory_consumption": "128"
-                    "opcache.revalidate_freq": "2"
-                    "opcache.use_cwd": "1"
-                    "opcache.validate_permission": "1"
-                    "opcache.validate_root": "1"
-                    "opcache.validate_timestamps": "1"
+                  # opcache:
+                  #   "opcache.enable": "1"
+                  #   "opcache.enable_cli": "1"
+                  #   "opcache.interned_strings_buffer": "64"
+                  #   "opcache.jit": "0"
+                  #   "opcache.jit_buffer_size": "0"
+                  #   "opcache.max_accelerated_files": "100000"
+                  #   "opcache.memory_consumption": "128"
+                  #   "opcache.revalidate_freq": "2"
+                  #   "opcache.use_cwd": "1"
+                  #   "opcache.validate_permission": "1"
+                  #   "opcache.validate_root": "1"
+                  #   "opcache.validate_timestamps": "1"
                   Pdo_mysql:
                     "pdo_mysql.default_socket": "/run/mysqld/mysqld.sock"
               - name: PHP 8.5 FPM configuration
@@ -807,19 +807,19 @@
                     "date.timezone": "Europe/London"
                   MySQLi:
                     "mysqli.allow_local_infile": "Off"
-                  opcache:
-                    "opcache.enable": "1"
-                    "opcache.enable_cli": "1"
-                    "opcache.interned_strings_buffer": "64"
-                    "opcache.jit": "0"
-                    "opcache.jit_buffer_size": "0"
-                    "opcache.max_accelerated_files": "100000"
-                    "opcache.memory_consumption": "128"
-                    "opcache.revalidate_freq": "2"
-                    "opcache.use_cwd": "1"
-                    "opcache.validate_permission": "1"
-                    "opcache.validate_root": "1"
-                    "opcache.validate_timestamps": "1"
+                  # opcache:
+                  #   "opcache.enable": "1"
+                  #   "opcache.enable_cli": "1"
+                  #   "opcache.interned_strings_buffer": "64"
+                  #   "opcache.jit": "0"
+                  #   "opcache.jit_buffer_size": "0"
+                  #   "opcache.max_accelerated_files": "100000"
+                  #   "opcache.memory_consumption": "128"
+                  #   "opcache.revalidate_freq": "2"
+                  #   "opcache.use_cwd": "1"
+                  #   "opcache.validate_permission": "1"
+                  #   "opcache.validate_root": "1"
+                  #   "opcache.validate_timestamps": "1"
                   PHP:
                     allow_url_include: "Off"
                     default_socket_timeout: "600"
