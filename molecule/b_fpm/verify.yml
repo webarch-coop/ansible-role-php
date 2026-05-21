@@ -471,7 +471,7 @@
                     - gmp
                     - iconv
                     - igbinary
-                    - imagick
+                    # - imagick
                     # - imap
                     - intl
                     - ldap
@@ -495,10 +495,10 @@
                     - sysvsem
                     - sysvshm
                     - tokenizer
-                    - uploadprogress
+                    # - uploadprogress
                     - xml
                     - xmlreader
-                    - xmlrpc
+                    # - xmlrpc
                     - xmlwriter
                     - xsl
                     - zip
@@ -521,7 +521,7 @@
                     - gmp
                     - iconv
                     - igbinary
-                    - imagick
+                    # - imagick
                     # - imap
                     - intl
                     - ldap
@@ -545,10 +545,10 @@
                     - sysvsem
                     - sysvshm
                     - tokenizer
-                    - uploadprogress
+                    # - uploadprogress
                     - xml
                     - xmlreader
-                    - xmlrpc
+                    # - xmlrpc
                     - xmlwriter
                     - xsl
                     - zip
