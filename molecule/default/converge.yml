@@ -58,7 +58,6 @@
         - name: Load php_versions variables from ubuntu.yml
           ansible.builtin.include_vars:
             file: ubuntu.yml
-            name: molecule_ubuntu_php_versions
 
         - name: Debug molecule_ubuntu_php_versions
           ansible.builtin.debug:
