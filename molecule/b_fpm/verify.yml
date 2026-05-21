@@ -360,132 +360,22 @@
                     - gettext
                     - gmp
                     - iconv
-                    - igbinary
-                    - imagick
-                    - imap
-                    - intl
-                    - ldap
-                    - mbstring
-                    - mysqli
-                    - mysqlnd
-                    - opcache
-                    - pdo
-                    - pdo_mysql
-                    - pdo_sqlite
-                    - phar
-                    - posix
-                    - readline
-                    - redis
-                    - shmop
-                    - simplexml
-                    - soap
-                    - sockets
-                    - sqlite3
-                    - sysvmsg
-                    - sysvsem
-                    - sysvshm
-                    - tokenizer
-                    - uploadprogress
-                    - xml
-                    - xmlreader
-                    - xmlrpc
-                    - xmlwriter
-                    - xsl
-                    - zip
-                  state: present
-                fpm:
-                  modules:
-                    - apcu
-                    - bcmath
-                    - bz2
-                    - calendar
-                    - ctype
-                    - curl
-                    - dom
-                    - exif
-                    - ffi
-                    - fileinfo
-                    - ftp
-                    - gd
-                    - gettext
-                    - gmp
-                    - iconv
-                    - igbinary
-                    - imagick
-                    - imap
-                    - intl
-                    - ldap
-                    - mbstring
-                    - mysqli
-                    - mysqlnd
-                    - opcache
-                    - pdo
-                    - pdo_mysql
-                    - pdo_sqlite
-                    - phar
-                    - posix
-                    - readline
-                    - redis
-                    - shmop
-                    - simplexml
-                    - soap
-                    - sockets
-                    - sqlite3
-                    - sysvmsg
-                    - sysvsem
-                    - sysvshm
-                    - tokenizer
-                    - uploadprogress
-                    - xml
-                    - xmlreader
-                    - xmlrpc
-                    - xmlwriter
-                    - xsl
-                    - zip
-                  state: present
-              state: present
-      when: ansible_facts.distribution_release == "noble"
-
-    - name: Set a fact for the required results of the PHP SAPIs and module checks for Ubuntu Resolute PHP 8.5
-      ansible.builtin.set_fact:
-        molecule_php_required:
-          state: present
-          versions:
-            "8.5":
-              sapis:
-                cli:
-                  modules:
-                    - apcu
-                    - bcmath
-                    - bz2
-                    - calendar
-                    - ctype
-                    - curl
-                    - dom
-                    - exif
-                    - ffi
-                    - fileinfo
-                    - ftp
-                    - gd
-                    - gettext
-                    - gmp
-                    - iconv
-                    - igbinary
+                    # - igbinary
                     # - imagick
-                    # - imap
+                    - imap
                     - intl
                     - ldap
                     - mbstring
                     - mysqli
                     - mysqlnd
-                    - opcache
+                    # - opcache
                     - pdo
                     - pdo_mysql
                     - pdo_sqlite
                     - phar
                     - posix
                     - readline
-                    - redis
+                    # - redis
                     - shmop
                     - simplexml
                     - soap
@@ -520,7 +410,67 @@
                     - gettext
                     - gmp
                     - iconv
-                    - igbinary
+                    # - igbinary
+                    # - imagick
+                    - imap
+                    - intl
+                    - ldap
+                    - mbstring
+                    - mysqli
+                    - mysqlnd
+                    # - opcache
+                    - pdo
+                    - pdo_mysql
+                    - pdo_sqlite
+                    - phar
+                    - posix
+                    - readline
+                    # - redis
+                    - shmop
+                    - simplexml
+                    - soap
+                    - sockets
+                    - sqlite3
+                    - sysvmsg
+                    - sysvsem
+                    - sysvshm
+                    - tokenizer
+                    # - uploadprogress
+                    - xml
+                    - xmlreader
+                    # - xmlrpc
+                    - xmlwriter
+                    - xsl
+                    - zip
+                  state: present
+              state: present
+      when: ansible_facts.distribution_release == "noble"
+
+    - name: Set a fact for the required results of the PHP SAPIs and module checks for Ubuntu Resolute PHP 8.5
+      ansible.builtin.set_fact:
+        molecule_php_required:
+          state: present
+          versions:
+            "8.5":
+              sapis:
+                cli:
+                  modules:
+                    - apcu
+                    - bcmath
+                    - bz2
+                    - calendar
+                    - ctype
+                    - curl
+                    - dom
+                    - exif
+                    - ffi
+                    - fileinfo
+                    - ftp
+                    - gd
+                    - gettext
+                    - gmp
+                    - iconv
+                    # - igbinary
                     # - imagick
                     # - imap
                     - intl
@@ -528,14 +478,64 @@
                     - mbstring
                     - mysqli
                     - mysqlnd
-                    - opcache
+                    # - opcache
                     - pdo
                     - pdo_mysql
                     - pdo_sqlite
                     - phar
                     - posix
                     - readline
-                    - redis
+                    # - redis
+                    - shmop
+                    - simplexml
+                    - soap
+                    - sockets
+                    - sqlite3
+                    - sysvmsg
+                    - sysvsem
+                    - sysvshm
+                    - tokenizer
+                    # - uploadprogress
+                    - xml
+                    - xmlreader
+                    # - xmlrpc
+                    - xmlwriter
+                    - xsl
+                    - zip
+                  state: present
+                fpm:
+                  modules:
+                    - apcu
+                    - bcmath
+                    - bz2
+                    - calendar
+                    - ctype
+                    - curl
+                    - dom
+                    - exif
+                    - ffi
+                    - fileinfo
+                    - ftp
+                    - gd
+                    - gettext
+                    - gmp
+                    - iconv
+                    # - igbinary
+                    # - imagick
+                    # - imap
+                    - intl
+                    - ldap
+                    - mbstring
+                    - mysqli
+                    - mysqlnd
+                    # - opcache
+                    - pdo
+                    - pdo_mysql
+                    - pdo_sqlite
+                    - phar
+                    - posix
+                    - readline
+                    # - redis
                     - shmop
                     - simplexml
                     - soap
