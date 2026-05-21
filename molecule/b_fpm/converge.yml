@@ -877,7 +877,7 @@
                   - gmp
                   - iconv
                   # - igbinary
-                  - imagick
+                  # - imagick
                   # - imap
                   - intl
                   - ldap
