@@ -50,6 +50,30 @@
         molecule_task_name: "Include php role for Debian {{ ansible_facts.distribution_release }} with Sury apt packages"
         php: true
         php_fpm_pool_check_fail: false
+      when: ansible_facts.distribution == "Debian"
+
+    - name: Ubuntu has different Sury packages
+      block:
+
+        - name: Load php_versions variables from ubuntu.yml
+          ansible.builtin.include_vars:
+            file: ubuntu.yml
+            name: molecule_ubuntu_php_versions
+
+        - name: Debug molecule_ubuntu_php_versions
+          ansible.builtin.debug:
+            var: molecule_ubuntu_php_versions
+
+        - name: "{{ molecule_task_name }}"
+          ansible.builtin.include_role:
+            name: php
+          vars:  # noqa: var-naming[no-role-prefix]
+            molecule_task_name: "Include php role for Ubuntu {{ ansible_facts.distribution_release }} with Sury apt packages"
+            php: true
+            php_fpm_pool_check_fail: false
+            php_versions: "{{ molecule_ubuntu_php_versions }}"
+
+      when: ansible_facts.distribution == "Ubuntu"
 
     - name: Include argument spec checks
       ansible.builtin.include_role:

@@ -8,7 +8,9 @@
 #
 # You should have received a copy of the GNU General Public License along with the Webarchitects PHP Ansible role. If not, see <https://www.gnu.org/licenses/>.
 ---
-# https://ansible-lint.readthedocs.io/rules/
+# https://docs.ansible.com/projects/lint/configuring/#ansible-lint-configuration
+exclude_paths:
+  - molecule/default/ubuntu.yml
 skip_list:
   - key-order[task]
 var_naming_pattern: "^[ansible|php|molecule]_?[a-z0-9_]*$"

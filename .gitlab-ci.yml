@@ -39,9 +39,9 @@ before_script:
   - ansible-galaxy collection list --format=json | yq -o=yaml -P
 stages:
   - resolute
+  - noble
   - bookworm
   - trixie
-  - noble
 trixie:
   image: registry.git.coop/webarch/containers/images/trixie:20260518
   stage: trixie
