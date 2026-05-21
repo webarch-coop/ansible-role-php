@@ -1,5 +1,5 @@
 ---
-molecule_ubuntu_php_packages:
+molecule_ubuntu_php_versions:
   - name: PHP 8.5 packages
     version: "8.5"
     state: present
