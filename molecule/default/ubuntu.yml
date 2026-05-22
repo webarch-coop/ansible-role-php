@@ -881,7 +881,7 @@ molecule_ubuntu_php_modules:
           - gettext
           - gmp
           - iconv
-          - igbinary
+          # - igbinary
           # - imagick
           # - imap
           - intl
@@ -933,7 +933,7 @@ molecule_ubuntu_php_modules:
           - gettext
           - gmp
           - iconv
-          - igbinary
+          # - igbinary
           # - imagick
           # - imap
           - intl
@@ -986,7 +986,7 @@ molecule_ubuntu_php_modules:
           - gettext
           - gmp
           - iconv
-          - igbinary
+          # - igbinary
           # - imagick
           # - imap
           - intl
@@ -1039,7 +1039,7 @@ molecule_ubuntu_php_modules:
           - gettext
           - gmp
           - iconv
-          - igbinary
+          # - igbinary
           # - imagick
           # - imap
           - intl
@@ -1092,7 +1092,7 @@ molecule_ubuntu_php_modules:
           - gettext
           - gmp
           - iconv
-          - igbinary
+          # - igbinary
           # - imagick
           # - imap
           - intl
@@ -1145,7 +1145,7 @@ molecule_ubuntu_php_modules:
           - gettext
           - gmp
           - iconv
-          - igbinary
+          # - igbinary
           # - imagick
           # - imap
           - intl
@@ -1198,7 +1198,7 @@ molecule_ubuntu_php_modules:
           - gettext
           - gmp
           - iconv
-          - igbinary
+          # - igbinary
           # - imagick
           # - imap
           - intl
