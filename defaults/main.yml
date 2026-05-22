@@ -1663,6 +1663,69 @@ php_versions:
   - name: PHP 5.6 packages
     version: "5.6"
     state: absent
-php_systemd_units: []
+php_systemd_units:
+  - name: php8.5-fpm
+    files:
+      - path: /etc/systemd/system/php8.5-fpm.service.d/override.conf
+        conf:
+          Service:
+            ExecStartPost:
+            ExecStopPost:
+        state: templated
+    state: enabled
+  - name: php8.4-fpm
+    files:
+      - path: /etc/systemd/system/php8.4-fpm.service.d/override.conf
+        conf:
+          Service:
+            ExecStartPost:
+            ExecStopPost:
+        state: templated
+    state: enabled
+  - name: php8.3-fpm
+    files:
+      - path: /etc/systemd/system/php8.3-fpm.service.d/override.conf
+        conf:
+          Service:
+            ExecStartPost:
+            ExecStopPost:
+        state: templated
+    state: enabled
+  - name: php8.2-fpm
+    files:
+      - path: /etc/systemd/system/php8.2-fpm.service.d/override.conf
+        conf:
+          Service:
+            ExecStartPost:
+            ExecStopPost:
+        state: templated
+    state: enabled
+  - name: php8.1-fpm
+    files:
+      - path: /etc/systemd/system/php8.1-fpm.service.d/override.conf
+        conf:
+          Service:
+            ExecStartPost:
+            ExecStopPost:
+        state: templated
+    state: enabled
+  - name: php8.0-fpm
+    files:
+      - path: /etc/systemd/system/php8.0-fpm.service.d/override.conf
+        conf:
+          Service:
+            ExecStartPost:
+            ExecStopPost:
+        state: templated
+    state: enabled
+  - name: php7.4-fpm
+    files:
+      - path: /etc/systemd/system/php7.4-fpm.service.d/override.conf
+        conf:
+          Service:
+            ExecStartPost:
+            ExecStopPost:
+        state: templated
+    state: enabled
 php_verify: true
 ...

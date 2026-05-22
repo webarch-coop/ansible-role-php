@@ -267,6 +267,16 @@
               - php8.2-xsl
               - php8.2-zip
               - php-pear
+        php_systemd_units:
+          - name: php8.2-fpm
+            files:
+              - path: /etc/systemd/system/php8.2-fpm.service.d/override.conf
+                conf:
+                  Service:
+                    ExecStartPost:
+                    ExecStopPost:
+                state: templated
+            state: enabled
 
     - name: Include php role for Debian Trixie PHP-FPM configuration
       ansible.builtin.include_role:
@@ -492,6 +502,16 @@
               - php8.4-xsl
               - php8.4-zip
               - php-pear
+        php_systemd_units:
+          - name: php8.4-fpm
+            files:
+              - path: /etc/systemd/system/php8.4-fpm.service.d/override.conf
+                conf:
+                  Service:
+                    ExecStartPost:
+                    ExecStopPost:
+                state: templated
+            state: enabled
 
     - name: Include php role for Ubuntu Noble PHP-FPM configuration
       ansible.builtin.include_role:
@@ -717,6 +737,16 @@
               - php8.3-xsl
               - php8.3-zip
               - php-pear
+        php_systemd_units:
+          - name: php8.3-fpm
+            files:
+              - path: /etc/systemd/system/php8.3-fpm.service.d/override.conf
+                conf:
+                  Service:
+                    ExecStartPost:
+                    ExecStopPost:
+                state: templated
+            state: enabled
 
     - name: Include php role for Ubuntu Resolute PHP-FPM configuration
       ansible.builtin.include_role:
@@ -942,6 +972,16 @@
               - php8.5-xsl
               - php8.5-zip
               - php-pear
+        php_systemd_units:
+          - name: php8.5-fpm
+            files:
+              - path: /etc/systemd/system/php8.5-fpm.service.d/override.conf
+                conf:
+                  Service:
+                    ExecStartPost:
+                    ExecStopPost:
+                state: templated
+            state: enabled
 
     - name: Include argument spec checks
       ansible.builtin.include_role:
