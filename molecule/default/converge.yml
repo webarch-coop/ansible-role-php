@@ -55,9 +55,17 @@
     - name: Ubuntu has different Sury packages
       block:
 
-        - name: Load php_versions variables from ubuntu.yml
+        - name: Load Ubuntu variables from ubuntu.yml
           ansible.builtin.include_vars:
             file: ubuntu.yml
+
+        - name: Debug molecule_ubuntu_php_config
+          ansible.builtin.debug:
+            var: molecule_ubuntu_php_config
+
+        - name: Debug molecule_ubuntu_php_modules
+          ansible.builtin.debug:
+            var: molecule_ubuntu_php_modules
 
         - name: Debug molecule_ubuntu_php_versions
           ansible.builtin.debug:
@@ -70,6 +78,8 @@
             molecule_task_name: "Include php role for Ubuntu {{ ansible_facts.distribution_release }} with Sury apt packages"
             php: true
             php_fpm_pool_check_fail: false
+            php_config: "{{ molecule_ubuntu_php_config }}"
+            php_modules: "{{ molecule_ubuntu_php_modules }}"
             php_versions: "{{ molecule_ubuntu_php_versions }}"
 
       when: ansible_facts.distribution == "Ubuntu"
