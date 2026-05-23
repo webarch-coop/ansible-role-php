@@ -3852,6 +3852,7 @@ php_pkg_jammy:
   - libphp-embed
   - php
   - php5.6
+  - php5.6-amqp
   - php5.6-apcu
   - php5.6-bcmath
   - php5.6-bz2
@@ -3890,6 +3891,7 @@ php_pkg_jammy:
   - php5.6-xsl
   - php5.6-zip
   - php7.0
+  - php7.0-amqp
   - php7.0-bcmath
   - php7.0-bz2
   - php7.0-cgi
@@ -3927,6 +3929,7 @@ php_pkg_jammy:
   - php7.0-xsl
   - php7.0-zip
   - php7.1
+  - php7.1-amqp
   - php7.1-apcu
   - php7.1-bcmath
   - php7.1-bz2
@@ -3965,6 +3968,7 @@ php_pkg_jammy:
   - php7.1-xsl
   - php7.1-zip
   - php7.2
+  - php7.2-amqp
   - php7.2-apcu
   - php7.2-bcmath
   - php7.2-bz2
@@ -4002,6 +4006,7 @@ php_pkg_jammy:
   - php7.2-xsl
   - php7.2-zip
   - php7.3
+  - php7.3-amqp
   - php7.3-apcu
   - php7.3-bcmath
   - php7.3-bz2
@@ -4039,6 +4044,7 @@ php_pkg_jammy:
   - php7.3-xsl
   - php7.3-zip
   - php7.4
+  - php7.4-amqp
   - php7.4-apcu
   - php7.4-bcmath
   - php7.4-bz2
@@ -4075,6 +4081,7 @@ php_pkg_jammy:
   - php7.4-xsl
   - php7.4-zip
   - php8.0
+  - php8.0-amqp
   - php8.0-apcu
   - php8.0-bcmath
   - php8.0-bz2
@@ -4109,6 +4116,7 @@ php_pkg_jammy:
   - php8.0-xsl
   - php8.0-zip
   - php8.1
+  - php8.1-amqp
   - php8.1-apcu
   - php8.1-bcmath
   - php8.1-bz2
@@ -4143,6 +4151,7 @@ php_pkg_jammy:
   - php8.1-xsl
   - php8.1-zip
   - php8.2
+  - php8.2-amqp
   - php8.2-apcu
   - php8.2-bcmath
   - php8.2-bz2
@@ -4177,6 +4186,7 @@ php_pkg_jammy:
   - php8.2-xsl
   - php8.2-zip
   - php8.3
+  - php8.3-amqp
   - php8.3-apcu
   - php8.3-bcmath
   - php8.3-bz2
@@ -4211,6 +4221,7 @@ php_pkg_jammy:
   - php8.3-xsl
   - php8.3-zip
   - php8.4
+  - php8.4-amqp
   - php8.4-apcu
   - php8.4-bcmath
   - php8.4-bz2
@@ -4243,6 +4254,7 @@ php_pkg_jammy:
   - php8.4-xsl
   - php8.4-zip
   - php8.5
+  - php8.5-amqp
   - php8.5-apcu
   - php8.5-bcmath
   - php8.5-bz2
@@ -4273,6 +4285,7 @@ php_pkg_jammy:
   - php8.5-xml
   - php8.5-xsl
   - php8.5-zip
+  - php-amqp
   - php-apcu
   - php-bcmath
   - php-bz2
@@ -4338,6 +4351,7 @@ php_pkg_noble:
   - libphp-embed
   - php
   - php5.6
+  - php5.6-amqp
   - php5.6-apcu
   - php5.6-bcmath
   - php5.6-bz2
@@ -4376,6 +4390,7 @@ php_pkg_noble:
   - php5.6-xsl
   - php5.6-zip
   - php7.0
+  - php7.0-amqp
   - php7.0-bcmath
   - php7.0-bz2
   - php7.0-cgi
@@ -4413,6 +4428,7 @@ php_pkg_noble:
   - php7.0-xsl
   - php7.0-zip
   - php7.1
+  - php7.1-amqp
   - php7.1-apcu
   - php7.1-bcmath
   - php7.1-bz2
@@ -4451,6 +4467,7 @@ php_pkg_noble:
   - php7.1-xsl
   - php7.1-zip
   - php7.2
+  - php7.2-amqp
   - php7.2-apcu
   - php7.2-bcmath
   - php7.2-bz2
@@ -4488,6 +4505,7 @@ php_pkg_noble:
   - php7.2-xsl
   - php7.2-zip
   - php7.3
+  - php7.3-amqp
   - php7.3-apcu
   - php7.3-bcmath
   - php7.3-bz2
@@ -4525,6 +4543,7 @@ php_pkg_noble:
   - php7.3-xsl
   - php7.3-zip
   - php7.4
+  - php7.4-amqp
   - php7.4-apcu
   - php7.4-bcmath
   - php7.4-bz2
@@ -4561,6 +4580,7 @@ php_pkg_noble:
   - php7.4-xsl
   - php7.4-zip
   - php8.0
+  - php8.0-amqp
   - php8.0-apcu
   - php8.0-bcmath
   - php8.0-bz2
@@ -4595,6 +4615,7 @@ php_pkg_noble:
   - php8.0-xsl
   - php8.0-zip
   - php8.1
+  - php8.1-amqp
   - php8.1-apcu
   - php8.1-bcmath
   - php8.1-bz2
@@ -4629,6 +4650,7 @@ php_pkg_noble:
   - php8.1-xsl
   - php8.1-zip
   - php8.2
+  - php8.2-amqp
   - php8.2-apcu
   - php8.2-bcmath
   - php8.2-bz2
@@ -4663,6 +4685,7 @@ php_pkg_noble:
   - php8.2-xsl
   - php8.2-zip
   - php8.3
+  - php8.3-amqp
   - php8.3-apcu
   - php8.3-bcmath
   - php8.3-bz2
@@ -4697,6 +4720,7 @@ php_pkg_noble:
   - php8.3-xsl
   - php8.3-zip
   - php8.4
+  - php8.4-amqp
   - php8.4-apcu
   - php8.4-bcmath
   - php8.4-bz2
@@ -4729,6 +4753,7 @@ php_pkg_noble:
   - php8.4-xsl
   - php8.4-zip
   - php8.5
+  - php8.5-amqp
   - php8.5-apcu
   - php8.5-bcmath
   - php8.5-bz2
@@ -4759,6 +4784,7 @@ php_pkg_noble:
   - php8.5-xml
   - php8.5-xsl
   - php8.5-zip
+  - php-amqp
   - php-apcu
   - php-bcmath
   - php-bz2
@@ -4827,6 +4853,7 @@ php_pkg_resolute:
   - pcregrep
   - php
   - php5.6
+  - php5.6-amqp
   - php5.6-apcu
   - php5.6-bcmath
   - php5.6-bz2
@@ -4865,6 +4892,7 @@ php_pkg_resolute:
   - php5.6-xsl
   - php5.6-zip
   - php7.0
+  - php7.0-amqp
   - php7.0-bcmath
   - php7.0-bz2
   - php7.0-cgi
@@ -4902,6 +4930,7 @@ php_pkg_resolute:
   - php7.0-xsl
   - php7.0-zip
   - php7.1
+  - php7.1-amqp
   - php7.1-apcu
   - php7.1-bcmath
   - php7.1-bz2
@@ -4940,6 +4969,7 @@ php_pkg_resolute:
   - php7.1-xsl
   - php7.1-zip
   - php7.2
+  - php7.2-amqp
   - php7.2-apcu
   - php7.2-bcmath
   - php7.2-bz2
@@ -4977,6 +5007,7 @@ php_pkg_resolute:
   - php7.2-xsl
   - php7.2-zip
   - php7.3
+  - php7.3-amqp
   - php7.3-apcu
   - php7.3-bcmath
   - php7.3-bz2
@@ -5014,6 +5045,7 @@ php_pkg_resolute:
   - php7.3-xsl
   - php7.3-zip
   - php7.4
+  - php7.4-amqp
   - php7.4-apcu
   - php7.4-bcmath
   - php7.4-bz2
@@ -5050,6 +5082,7 @@ php_pkg_resolute:
   - php7.4-xsl
   - php7.4-zip
   - php8.0
+  - php8.0-amqp
   - php8.0-apcu
   - php8.0-bcmath
   - php8.0-bz2
@@ -5084,6 +5117,7 @@ php_pkg_resolute:
   - php8.0-xsl
   - php8.0-zip
   - php8.1
+  - php8.1-amqp
   - php8.1-apcu
   - php8.1-bcmath
   - php8.1-bz2
@@ -5118,6 +5152,7 @@ php_pkg_resolute:
   - php8.1-xsl
   - php8.1-zip
   - php8.2
+  - php8.2-amqp
   - php8.2-apcu
   - php8.2-bcmath
   - php8.2-bz2
@@ -5152,6 +5187,7 @@ php_pkg_resolute:
   - php8.2-xsl
   - php8.2-zip
   - php8.3
+  - php8.3-amqp
   - php8.3-apcu
   - php8.3-bcmath
   - php8.3-bz2
@@ -5186,6 +5222,7 @@ php_pkg_resolute:
   - php8.3-xsl
   - php8.3-zip
   - php8.4
+  - php8.4-amqp
   - php8.4-apcu
   - php8.4-bcmath
   - php8.4-bz2
@@ -5218,6 +5255,7 @@ php_pkg_resolute:
   - php8.4-xsl
   - php8.4-zip
   - php8.5
+  - php8.5-amqp
   - php8.5-apcu
   - php8.5-bcmath
   - php8.5-bz2
@@ -5248,6 +5286,7 @@ php_pkg_resolute:
   - php8.5-xml
   - php8.5-xsl
   - php8.5-zip
+  - php-amqp
   - php-apcu
   - php-bcmath
   - php-bz2
