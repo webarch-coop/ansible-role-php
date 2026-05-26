@@ -867,12 +867,9 @@
                     - fileinfo
                     - ftp
                     - gd
-                    - geoip
                     - gettext
                     - gmp
                     - iconv
-                    # - igbinary
-                    # - imagick
                     - imap
                     - intl
                     - json
@@ -880,14 +877,13 @@
                     - mbstring
                     - mysqli
                     - mysqlnd
-                    # - opcache
+                    - opcache
                     - pdo
                     - pdo_mysql
                     - pdo_sqlite
                     - phar
                     - posix
                     - readline
-                    # - redis
                     - shmop
                     - simplexml
                     - soap
@@ -897,10 +893,9 @@
                     - sysvsem
                     - sysvshm
                     - tokenizer
-                    # - uploadprogress
                     - xml
                     - xmlreader
-                    # - xmlrpc
+                    - xmlrpc
                     - xmlwriter
                     - xsl
                     - zip
@@ -919,12 +914,9 @@
                     - fileinfo
                     - ftp
                     - gd
-                    - geoip
                     - gettext
                     - gmp
                     - iconv
-                    # - igbinary
-                    # - imagick
                     - imap
                     - intl
                     - json
@@ -932,14 +924,13 @@
                     - mbstring
                     - mysqli
                     - mysqlnd
-                    # - opcache
+                    - opcache
                     - pdo
                     - pdo_mysql
                     - pdo_sqlite
                     - phar
                     - posix
                     - readline
-                    # - redis
                     - shmop
                     - simplexml
                     - soap
@@ -949,10 +940,9 @@
                     - sysvsem
                     - sysvshm
                     - tokenizer
-                    # - uploadprogress
                     - xml
                     - xmlreader
-                    # - xmlrpc
+                    - xmlrpc
                     - xmlwriter
                     - xsl
                     - zip
@@ -977,22 +967,19 @@
                     - gettext
                     - gmp
                     - iconv
-                    # - igbinary
-                    # - imagick
                     - imap
                     - intl
                     - ldap
                     - mbstring
                     - mysqli
                     - mysqlnd
-                    # - opcache
+                    - opcache
                     - pdo
                     - pdo_mysql
                     - pdo_sqlite
                     - phar
                     - posix
                     - readline
-                    # - redis
                     - shmop
                     - simplexml
                     - soap
@@ -1002,10 +989,8 @@
                     - sysvsem
                     - sysvshm
                     - tokenizer
-                    # - uploadprogress
                     - xml
                     - xmlreader
-                    # - xmlrpc
                     - xmlwriter
                     - xsl
                     - zip
@@ -1027,22 +1012,19 @@
                     - gettext
                     - gmp
                     - iconv
-                    # - igbinary
-                    # - imagick
                     - imap
                     - intl
                     - ldap
                     - mbstring
                     - mysqli
                     - mysqlnd
-                    # - opcache
+                    - opcache
                     - pdo
                     - pdo_mysql
                     - pdo_sqlite
                     - phar
                     - posix
                     - readline
-                    # - redis
                     - shmop
                     - simplexml
                     - soap
@@ -1052,10 +1034,8 @@
                     - sysvsem
                     - sysvshm
                     - tokenizer
-                    # - uploadprogress
                     - xml
                     - xmlreader
-                    # - xmlrpc
                     - xmlwriter
                     - xsl
                     - zip
@@ -1080,22 +1060,19 @@
                     - gettext
                     - gmp
                     - iconv
-                    # - igbinary
-                    # - imagick
                     - imap
                     - intl
                     - ldap
                     - mbstring
                     - mysqli
                     - mysqlnd
-                    # - opcache
+                    - opcache
                     - pdo
                     - pdo_mysql
                     - pdo_sqlite
                     - phar
                     - posix
                     - readline
-                    # - redis
                     - shmop
                     - simplexml
                     - soap
@@ -1105,10 +1082,8 @@
                     - sysvsem
                     - sysvshm
                     - tokenizer
-                    # - uploadprogress
                     - xml
                     - xmlreader
-                    # - xmlrpc
                     - xmlwriter
                     - xsl
                     - zip
@@ -1130,22 +1105,19 @@
                     - gettext
                     - gmp
                     - iconv
-                    # - igbinary
-                    # - imagick
                     - imap
                     - intl
                     - ldap
                     - mbstring
                     - mysqli
                     - mysqlnd
-                    # - opcache
+                    - opcache
                     - pdo
                     - pdo_mysql
                     - pdo_sqlite
                     - phar
                     - posix
                     - readline
-                    # - redis
                     - shmop
                     - simplexml
                     - soap
@@ -1155,10 +1127,8 @@
                     - sysvsem
                     - sysvshm
                     - tokenizer
-                    # - uploadprogress
                     - xml
                     - xmlreader
-                    # - xmlrpc
                     - xmlwriter
                     - xsl
                     - zip
@@ -1183,22 +1153,19 @@
                     - gettext
                     - gmp
                     - iconv
-                    # - igbinary
-                    # - imagick
                     - imap
                     - intl
                     - ldap
                     - mbstring
                     - mysqli
                     - mysqlnd
-                    # - opcache
+                    - opcache
                     - pdo
                     - pdo_mysql
                     - pdo_sqlite
                     - phar
                     - posix
                     - readline
-                    # - redis
                     - shmop
                     - simplexml
                     - soap
@@ -1208,10 +1175,8 @@
                     - sysvsem
                     - sysvshm
                     - tokenizer
-                    # - uploadprogress
                     - xml
                     - xmlreader
-                    # - xmlrpc
                     - xmlwriter
                     - xsl
                     - zip
@@ -1233,22 +1198,19 @@
                     - gettext
                     - gmp
                     - iconv
-                    # - igbinary
-                    # - imagick
                     - imap
                     - intl
                     - ldap
                     - mbstring
                     - mysqli
                     - mysqlnd
-                    # - opcache
+                    - opcache
                     - pdo
                     - pdo_mysql
                     - pdo_sqlite
                     - phar
                     - posix
                     - readline
-                    # - redis
                     - shmop
                     - simplexml
                     - soap
@@ -1258,10 +1220,8 @@
                     - sysvsem
                     - sysvshm
                     - tokenizer
-                    # - uploadprogress
                     - xml
                     - xmlreader
-                    # - xmlrpc
                     - xmlwriter
                     - xsl
                     - zip
@@ -1286,22 +1246,18 @@
                     - gettext
                     - gmp
                     - iconv
-                    # - igbinary
-                    # - imagick
-                    - imap
                     - intl
                     - ldap
                     - mbstring
                     - mysqli
                     - mysqlnd
-                    # - opcache
+                    - opcache
                     - pdo
                     - pdo_mysql
                     - pdo_sqlite
                     - phar
                     - posix
                     - readline
-                    # - redis
                     - shmop
                     - simplexml
                     - soap
@@ -1311,10 +1267,8 @@
                     - sysvsem
                     - sysvshm
                     - tokenizer
-                    # - uploadprogress
                     - xml
                     - xmlreader
-                    # - xmlrpc
                     - xmlwriter
                     - xsl
                     - zip
@@ -1336,9 +1290,6 @@
                     - gettext
                     - gmp
                     - iconv
-                    # - igbinary
-                    # - imagick
-                    - imap
                     - intl
                     - ldap
                     - mbstring
@@ -1351,7 +1302,6 @@
                     - phar
                     - posix
                     - readline
-                    # - redis
                     - shmop
                     - simplexml
                     - soap
@@ -1361,10 +1311,8 @@
                     - sysvsem
                     - sysvshm
                     - tokenizer
-                    # - uploadprogress
                     - xml
                     - xmlreader
-                    # - xmlrpc
                     - xmlwriter
                     - xsl
                     - zip
@@ -1389,22 +1337,18 @@
                     - gettext
                     - gmp
                     - iconv
-                    # - igbinary
-                    # - imagick
-                    - imap
                     - intl
                     - ldap
                     - mbstring
                     - mysqli
                     - mysqlnd
-                    # - opcache
+                    - opcache
                     - pdo
                     - pdo_mysql
                     - pdo_sqlite
                     - phar
                     - posix
                     - readline
-                    # - redis
                     - shmop
                     - simplexml
                     - soap
@@ -1414,10 +1358,8 @@
                     - sysvsem
                     - sysvshm
                     - tokenizer
-                    # - uploadprogress
                     - xml
                     - xmlreader
-                    # - xmlrpc
                     - xmlwriter
                     - xsl
                     - zip
@@ -1439,22 +1381,18 @@
                     - gettext
                     - gmp
                     - iconv
-                    # - igbinary
-                    # - imagick
-                    - imap
                     - intl
                     - ldap
                     - mbstring
                     - mysqli
                     - mysqlnd
-                    # - opcache
+                    - opcache
                     - pdo
                     - pdo_mysql
                     - pdo_sqlite
                     - phar
                     - posix
                     - readline
-                    # - redis
                     - shmop
                     - simplexml
                     - soap
@@ -1464,10 +1402,8 @@
                     - sysvsem
                     - sysvshm
                     - tokenizer
-                    # - uploadprogress
                     - xml
                     - xmlreader
-                    # - xmlrpc
                     - xmlwriter
                     - xsl
                     - zip
@@ -1492,9 +1428,6 @@
                     - gettext
                     - gmp
                     - iconv
-                    # - igbinary
-                    # - imagick
-                    - imap
                     - intl
                     - ldap
                     - mbstring
@@ -1506,7 +1439,6 @@
                     - phar
                     - posix
                     - readline
-                    # - redis
                     - shmop
                     - simplexml
                     - soap
@@ -1516,10 +1448,8 @@
                     - sysvsem
                     - sysvshm
                     - tokenizer
-                    # - uploadprogress
                     - xml
                     - xmlreader
-                    # - xmlrpc
                     - xmlwriter
                     - xsl
                     - zip
@@ -1541,9 +1471,6 @@
                     - gettext
                     - gmp
                     - iconv
-                    # - igbinary
-                    # - imagick
-                    - imap
                     - intl
                     - ldap
                     - mbstring
@@ -1555,7 +1482,6 @@
                     - phar
                     - posix
                     - readline
-                    # - redis
                     - shmop
                     - simplexml
                     - soap
@@ -1565,16 +1491,13 @@
                     - sysvsem
                     - sysvshm
                     - tokenizer
-                    # - uploadprogress
                     - xml
                     - xmlreader
-                    # - xmlrpc
                     - xmlwriter
                     - xsl
                     - zip
                   state: present
               state: present
-      when: ansible_facts.distribution == "Ubuntu"
 
     - name: Check the PHP configuratioon present
       block:
