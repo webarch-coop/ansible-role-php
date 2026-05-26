@@ -368,7 +368,7 @@
                     - mbstring
                     - mysqli
                     - mysqlnd
-                    # - opcache
+                    - opcache
                     - pdo
                     - pdo_mysql
                     - pdo_sqlite
@@ -418,7 +418,7 @@
                     - mbstring
                     - mysqli
                     - mysqlnd
-                    # - opcache
+                    - opcache
                     - pdo
                     - pdo_mysql
                     - pdo_sqlite
