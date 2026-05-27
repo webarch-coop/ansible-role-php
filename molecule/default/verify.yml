@@ -1246,6 +1246,7 @@
                     - gettext
                     - gmp
                     - iconv
+                    - imap
                     - intl
                     - ldap
                     - mbstring
@@ -1290,6 +1291,7 @@
                     - gettext
                     - gmp
                     - iconv
+                    - imap
                     - intl
                     - ldap
                     - mbstring
