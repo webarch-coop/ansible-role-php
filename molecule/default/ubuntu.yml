@@ -131,25 +131,25 @@ molecule_ubuntu_php_config:
     version: "8.4"
     state: present
     files:
-      # - name: PHP 8.4 JIT configuration
-      #   path: /etc/php/8.4/mods-available/opcache.ini
-      #   state: edited
-      #   conf_absent:
-      #     "opcache.jit": "0"
-      # - name: PHP 8.4 FPM opcache symlink
-      #   path: /etc/php/8.4/fpm/conf.d/10-opcache.ini
-      #   src: /etc/php/8.4/mods-available/opcache.ini
-      #   state: symlink
-      # - name: PHP 8.4 FPM opcache duplicate symlink absent
-      #   path: /etc/php/8.4/fpm/conf.d/20-opcache.ini
-      #   state: absent
-      # - name: PHP 8.4 CLI opcache symlink
-      #   path: /etc/php/8.4/cli/conf.d/10-opcache.ini
-      #   src: /etc/php/8.4/mods-available/opcache.ini
-      #   state: symlink
-      # - name: PHP 8.4 CLI opcache duplicate symlink absent
-      #   path: /etc/php/8.4/cli/conf.d/20-opcache.ini
-      #   state: absent
+      - name: PHP 8.4 JIT configuration
+        path: /etc/php/8.4/mods-available/opcache.ini
+        state: edited
+        conf_absent:
+          "opcache.jit": "0"
+      - name: PHP 8.4 FPM opcache symlink
+        path: /etc/php/8.4/fpm/conf.d/10-opcache.ini
+        src: /etc/php/8.4/mods-available/opcache.ini
+        state: symlink
+      - name: PHP 8.4 FPM opcache duplicate symlink absent
+        path: /etc/php/8.4/fpm/conf.d/20-opcache.ini
+        state: absent
+      - name: PHP 8.4 CLI opcache symlink
+        path: /etc/php/8.4/cli/conf.d/10-opcache.ini
+        src: /etc/php/8.4/mods-available/opcache.ini
+        state: symlink
+      - name: PHP 8.4 CLI opcache duplicate symlink absent
+        path: /etc/php/8.4/cli/conf.d/20-opcache.ini
+        state: absent
       - name: PHP 8.4 CLI configuration
         path: /etc/php/8.4/cli/php.ini
         state: present
@@ -176,20 +176,20 @@ molecule_ubuntu_php_config:
             "mysqli.max_persistent": "-1"
             "mysqli.reconnect": "0"
             "mysqli.default_socket": "/run/mysqld/mysqld.sock"
-          # opcache:
-          #   "opcache.enable": "1"
-          #   "opcache.enable_cli": "1"
-          #   "opcache.file_update_protection": "2"
-          #   "opcache.interned_strings_buffer": "256"
-          #   "opcache.jit": "0"
-          #   "opcache.jit_buffer_size": "0"
-          #   "opcache.max_accelerated_files": "100000"
-          #   "opcache.memory_consumption": "1024"
-          #   "opcache.revalidate_freq": "2"
-          #   "opcache.use_cwd": "1"
-          #   "opcache.validate_permission": "1"
-          #   "opcache.validate_root": "1"
-          #   "opcache.validate_timestamps": "1"
+          opcache:
+            "opcache.enable": "1"
+            "opcache.enable_cli": "1"
+            "opcache.file_update_protection": "2"
+            "opcache.interned_strings_buffer": "256"
+            "opcache.jit": "0"
+            "opcache.jit_buffer_size": "0"
+            "opcache.max_accelerated_files": "100000"
+            "opcache.memory_consumption": "1024"
+            "opcache.revalidate_freq": "2"
+            "opcache.use_cwd": "1"
+            "opcache.validate_permission": "1"
+            "opcache.validate_root": "1"
+            "opcache.validate_timestamps": "1"
           Pdo_mysql:
             "pdo_mysql.default_socket": "/run/mysqld/mysqld.sock"
           PHP:
@@ -205,21 +205,21 @@ molecule_ubuntu_php_config:
             "date.timezone": "Europe/London"
           MySQLi:
             "mysqli.allow_local_infile": "0"
-          # opcache:
-          #   "opcache.enable": "1"
-          #   "opcache.file_update_protection": "2"
-          #   "opcache.interned_strings_buffer": "256"
-          #   # "opcache.jit": "tracing"
-          #   # "opcache.jit_buffer_size": "40961" # minimum size is 40961 bytes
-          #   "opcache.jit": "0"
-          #   "opcache.jit_buffer_size": "0"
-          #   "opcache.max_accelerated_files": "100000"
-          #   "opcache.memory_consumption": "1024"
-          #   "opcache.revalidate_freq": "2"
-          #   "opcache.use_cwd": "1"
-          #   "opcache.validate_permission": "1"
-          #   "opcache.validate_root": "1"
-          #   "opcache.validate_timestamps": "1"
+          opcache:
+            "opcache.enable": "1"
+            "opcache.file_update_protection": "2"
+            "opcache.interned_strings_buffer": "256"
+            # "opcache.jit": "tracing"
+            # "opcache.jit_buffer_size": "40961" # minimum size is 40961 bytes
+            "opcache.jit": "0"
+            "opcache.jit_buffer_size": "0"
+            "opcache.max_accelerated_files": "100000"
+            "opcache.memory_consumption": "1024"
+            "opcache.revalidate_freq": "2"
+            "opcache.use_cwd": "1"
+            "opcache.validate_permission": "1"
+            "opcache.validate_root": "1"
+            "opcache.validate_timestamps": "1"
           PHP:
             allow_url_include: "0"
             default_socket_timeout: "600"
@@ -257,25 +257,25 @@ molecule_ubuntu_php_config:
     version: "8.3"
     state: present
     files:
-      # - name: PHP 8.3 JIT configuration
-      #   path: /etc/php/8.3/mods-available/opcache.ini
-      #   state: edited
-      #   conf_absent:
-      #     "opcache.jit": "0"
-      # - name: PHP 8.3 FPM opcache symlink
-      #   path: /etc/php/8.3/fpm/conf.d/10-opcache.ini
-      #   src: /etc/php/8.3/mods-available/opcache.ini
-      #   state: symlink
-      # - name: PHP 8.3 FPM opcache duplicate symlink absent
-      #   path: /etc/php/8.3/fpm/conf.d/20-opcache.ini
-      #   state: absent
-      # - name: PHP 8.3 CLI opcache symlink
-      #   path: /etc/php/8.3/cli/conf.d/10-opcache.ini
-      #   src: /etc/php/8.3/mods-available/opcache.ini
-      #   state: symlink
-      # - name: PHP 8.3 CLI opcache duplicate symlink absent
-      #   path: /etc/php/8.3/cli/conf.d/20-opcache.ini
-      #   state: absent
+      - name: PHP 8.3 JIT configuration
+        path: /etc/php/8.3/mods-available/opcache.ini
+        state: edited
+        conf_absent:
+          "opcache.jit": "0"
+      - name: PHP 8.3 FPM opcache symlink
+        path: /etc/php/8.3/fpm/conf.d/10-opcache.ini
+        src: /etc/php/8.3/mods-available/opcache.ini
+        state: symlink
+      - name: PHP 8.3 FPM opcache duplicate symlink absent
+        path: /etc/php/8.3/fpm/conf.d/20-opcache.ini
+        state: absent
+      - name: PHP 8.3 CLI opcache symlink
+        path: /etc/php/8.3/cli/conf.d/10-opcache.ini
+        src: /etc/php/8.3/mods-available/opcache.ini
+        state: symlink
+      - name: PHP 8.3 CLI opcache duplicate symlink absent
+        path: /etc/php/8.3/cli/conf.d/20-opcache.ini
+        state: absent
       - name: PHP 8.3 CLI configuration
         path: /etc/php/8.3/cli/php.ini
         state: present
@@ -302,20 +302,20 @@ molecule_ubuntu_php_config:
             "mysqli.max_persistent": "-1"
             "mysqli.reconnect": "0"
             "mysqli.default_socket": "/run/mysqld/mysqld.sock"
-          # opcache:
-          #   "opcache.enable": "1"
-          #   "opcache.enable_cli": "1"
-          #   "opcache.file_update_protection": "2"
-          #   "opcache.interned_strings_buffer": "256"
-          #   "opcache.jit": "0"
-          #   "opcache.jit_buffer_size": "0"
-          #   "opcache.max_accelerated_files": "100000"
-          #   "opcache.memory_consumption": "1024"
-          #   "opcache.revalidate_freq": "2"
-          #   "opcache.use_cwd": "1"
-          #   "opcache.validate_permission": "1"
-          #   "opcache.validate_root": "1"
-          #   "opcache.validate_timestamps": "1"
+          opcache:
+            "opcache.enable": "1"
+            "opcache.enable_cli": "1"
+            "opcache.file_update_protection": "2"
+            "opcache.interned_strings_buffer": "256"
+            "opcache.jit": "0"
+            "opcache.jit_buffer_size": "0"
+            "opcache.max_accelerated_files": "100000"
+            "opcache.memory_consumption": "1024"
+            "opcache.revalidate_freq": "2"
+            "opcache.use_cwd": "1"
+            "opcache.validate_permission": "1"
+            "opcache.validate_root": "1"
+            "opcache.validate_timestamps": "1"
           Pdo_mysql:
             "pdo_mysql.default_socket": "/run/mysqld/mysqld.sock"
           PHP:
@@ -331,21 +331,21 @@ molecule_ubuntu_php_config:
             "date.timezone": "Europe/London"
           MySQLi:
             "mysqli.allow_local_infile": "0"
-          # opcache:
-          #   "opcache.enable": "1"
-          #   "opcache.file_update_protection": "2"
-          #   "opcache.interned_strings_buffer": "256"
-          #   # "opcache.jit": "tracing"
-          #   # "opcache.jit_buffer_size": "40961" # minimum size is 40961 bytes
-          #   "opcache.jit": "0"
-          #   "opcache.jit_buffer_size": "0"
-          #   "opcache.max_accelerated_files": "100000"
-          #   "opcache.memory_consumption": "1024"
-          #   "opcache.revalidate_freq": "2"
-          #   "opcache.use_cwd": "1"
-          #   "opcache.validate_permission": "1"
-          #   "opcache.validate_root": "1"
-          #   "opcache.validate_timestamps": "1"
+          opcache:
+            "opcache.enable": "1"
+            "opcache.file_update_protection": "2"
+            "opcache.interned_strings_buffer": "256"
+            # "opcache.jit": "tracing"
+            # "opcache.jit_buffer_size": "40961" # minimum size is 40961 bytes
+            "opcache.jit": "0"
+            "opcache.jit_buffer_size": "0"
+            "opcache.max_accelerated_files": "100000"
+            "opcache.memory_consumption": "1024"
+            "opcache.revalidate_freq": "2"
+            "opcache.use_cwd": "1"
+            "opcache.validate_permission": "1"
+            "opcache.validate_root": "1"
+            "opcache.validate_timestamps": "1"
           PHP:
             allow_url_include: "0"
             default_socket_timeout: "600"
@@ -383,25 +383,25 @@ molecule_ubuntu_php_config:
     version: "8.2"
     state: present
     files:
-      # - name: PHP 8.2 JIT configuration
-      #   path: /etc/php/8.2/mods-available/opcache.ini
-      #   state: edited
-      #   conf_absent:
-      #     "opcache.jit": "0"
-      # - name: PHP 8.2 FPM opcache symlink
-      #   path: /etc/php/8.2/fpm/conf.d/10-opcache.ini
-      #   src: /etc/php/8.2/mods-available/opcache.ini
-      #   state: symlink
-      # - name: PHP 8.2 FPM opcache duplicate symlink absent
-      #   path: /etc/php/8.2/fpm/conf.d/20-opcache.ini
-      #   state: absent
-      # - name: PHP 8.2 CLI opcache symlink
-      #   path: /etc/php/8.2/cli/conf.d/10-opcache.ini
-      #   src: /etc/php/8.2/mods-available/opcache.ini
-      #   state: symlink
-      # - name: PHP 8.2 CLI opcache duplicate symlink absent
-      #   path: /etc/php/8.2/cli/conf.d/20-opcache.ini
-      #   state: absent
+      - name: PHP 8.2 JIT configuration
+        path: /etc/php/8.2/mods-available/opcache.ini
+        state: edited
+        conf_absent:
+          "opcache.jit": "0"
+      - name: PHP 8.2 FPM opcache symlink
+        path: /etc/php/8.2/fpm/conf.d/10-opcache.ini
+        src: /etc/php/8.2/mods-available/opcache.ini
+        state: symlink
+      - name: PHP 8.2 FPM opcache duplicate symlink absent
+        path: /etc/php/8.2/fpm/conf.d/20-opcache.ini
+        state: absent
+      - name: PHP 8.2 CLI opcache symlink
+        path: /etc/php/8.2/cli/conf.d/10-opcache.ini
+        src: /etc/php/8.2/mods-available/opcache.ini
+        state: symlink
+      - name: PHP 8.2 CLI opcache duplicate symlink absent
+        path: /etc/php/8.2/cli/conf.d/20-opcache.ini
+        state: absent
       - name: PHP 8.2 CLI configuration
         path: /etc/php/8.2/cli/php.ini
         state: present
@@ -428,20 +428,20 @@ molecule_ubuntu_php_config:
             "mysqli.max_persistent": "-1"
             "mysqli.reconnect": "0"
             "mysqli.default_socket": "/run/mysqld/mysqld.sock"
-          # opcache:
-          #   "opcache.enable": "1"
-          #   "opcache.enable_cli": "1"
-          #   "opcache.file_update_protection": "2"
-          #   "opcache.interned_strings_buffer": "256"
-          #   "opcache.jit": "0"
-          #   "opcache.jit_buffer_size": "0"
-          #   "opcache.max_accelerated_files": "100000"
-          #   "opcache.memory_consumption": "1024"
-          #   "opcache.revalidate_freq": "2"
-          #   "opcache.use_cwd": "1"
-          #   "opcache.validate_permission": "1"
-          #   "opcache.validate_root": "1"
-          #   "opcache.validate_timestamps": "1"
+          opcache:
+            "opcache.enable": "1"
+            "opcache.enable_cli": "1"
+            "opcache.file_update_protection": "2"
+            "opcache.interned_strings_buffer": "256"
+            "opcache.jit": "0"
+            "opcache.jit_buffer_size": "0"
+            "opcache.max_accelerated_files": "100000"
+            "opcache.memory_consumption": "1024"
+            "opcache.revalidate_freq": "2"
+            "opcache.use_cwd": "1"
+            "opcache.validate_permission": "1"
+            "opcache.validate_root": "1"
+            "opcache.validate_timestamps": "1"
           Pdo_mysql:
             "pdo_mysql.default_socket": "/run/mysqld/mysqld.sock"
           PHP:
@@ -457,21 +457,21 @@ molecule_ubuntu_php_config:
             "date.timezone": "Europe/London"
           MySQLi:
             "mysqli.allow_local_infile": "0"
-          # opcache:
-          #   "opcache.enable": "1"
-          #   "opcache.file_update_protection": "2"
-          #   "opcache.interned_strings_buffer": "256"
-          #   # "opcache.jit": "tracing"
-          #   # "opcache.jit_buffer_size": "40961" # minimum size is 40961 bytes
-          #   "opcache.jit": "0"
-          #   "opcache.jit_buffer_size": "0"
-          #   "opcache.max_accelerated_files": "100000"
-          #   "opcache.memory_consumption": "1024"
-          #   "opcache.revalidate_freq": "2"
-          #   "opcache.use_cwd": "1"
-          #   "opcache.validate_permission": "1"
-          #   "opcache.validate_root": "1"
-          #   "opcache.validate_timestamps": "1"
+          opcache:
+            "opcache.enable": "1"
+            "opcache.file_update_protection": "2"
+            "opcache.interned_strings_buffer": "256"
+            # "opcache.jit": "tracing"
+            # "opcache.jit_buffer_size": "40961" # minimum size is 40961 bytes
+            "opcache.jit": "0"
+            "opcache.jit_buffer_size": "0"
+            "opcache.max_accelerated_files": "100000"
+            "opcache.memory_consumption": "1024"
+            "opcache.revalidate_freq": "2"
+            "opcache.use_cwd": "1"
+            "opcache.validate_permission": "1"
+            "opcache.validate_root": "1"
+            "opcache.validate_timestamps": "1"
           PHP:
             allow_url_include: "0"
             default_socket_timeout: "600"
@@ -509,25 +509,25 @@ molecule_ubuntu_php_config:
     version: "8.1"
     state: present
     files:
-      # - name: PHP 8.1 JIT configuration
-      #   path: /etc/php/8.1/mods-available/opcache.ini
-      #   state: edited
-      #   conf_absent:
-      #     "opcache.jit": "0"
-      # - name: PHP 8.1 FPM opcache symlink
-      #   path: /etc/php/8.1/fpm/conf.d/10-opcache.ini
-      #   src: /etc/php/8.1/mods-available/opcache.ini
-      #   state: symlink
-      # - name: PHP 8.1 FPM opcache duplicate symlink absent
-      #   path: /etc/php/8.1/fpm/conf.d/20-opcache.ini
-      #   state: absent
-      # - name: PHP 8.1 CLI opcache symlink
-      #   path: /etc/php/8.1/cli/conf.d/10-opcache.ini
-      #   src: /etc/php/8.1/mods-available/opcache.ini
-      #   state: symlink
-      # - name: PHP 8.1 CLI opcache duplicate symlink absent
-      #   path: /etc/php/8.1/cli/conf.d/20-opcache.ini
-      #   state: absent
+      - name: PHP 8.1 JIT configuration
+        path: /etc/php/8.1/mods-available/opcache.ini
+        state: edited
+        conf_absent:
+          "opcache.jit": "0"
+      - name: PHP 8.1 FPM opcache symlink
+        path: /etc/php/8.1/fpm/conf.d/10-opcache.ini
+        src: /etc/php/8.1/mods-available/opcache.ini
+        state: symlink
+      - name: PHP 8.1 FPM opcache duplicate symlink absent
+        path: /etc/php/8.1/fpm/conf.d/20-opcache.ini
+        state: absent
+      - name: PHP 8.1 CLI opcache symlink
+        path: /etc/php/8.1/cli/conf.d/10-opcache.ini
+        src: /etc/php/8.1/mods-available/opcache.ini
+        state: symlink
+      - name: PHP 8.1 CLI opcache duplicate symlink absent
+        path: /etc/php/8.1/cli/conf.d/20-opcache.ini
+        state: absent
       - name: PHP 8.1 CLI configuration
         path: /etc/php/8.1/cli/php.ini
         state: present
@@ -554,20 +554,20 @@ molecule_ubuntu_php_config:
             "mysqli.max_persistent": "-1"
             "mysqli.reconnect": "0"
             "mysqli.default_socket": "/run/mysqld/mysqld.sock"
-          # opcache:
-          #   "opcache.enable": "1"
-          #   "opcache.enable_cli": "1"
-          #   "opcache.file_update_protection": "2"
-          #   "opcache.interned_strings_buffer": "256"
-          #   "opcache.jit": "0"
-          #   "opcache.jit_buffer_size": "0"
-          #   "opcache.max_accelerated_files": "100000"
-          #   "opcache.memory_consumption": "1024"
-          #   "opcache.revalidate_freq": "2"
-          #   "opcache.use_cwd": "1"
-          #   "opcache.validate_permission": "1"
-          #   "opcache.validate_root": "1"
-          #   "opcache.validate_timestamps": "1"
+          opcache:
+            "opcache.enable": "1"
+            "opcache.enable_cli": "1"
+            "opcache.file_update_protection": "2"
+            "opcache.interned_strings_buffer": "256"
+            "opcache.jit": "0"
+            "opcache.jit_buffer_size": "0"
+            "opcache.max_accelerated_files": "100000"
+            "opcache.memory_consumption": "1024"
+            "opcache.revalidate_freq": "2"
+            "opcache.use_cwd": "1"
+            "opcache.validate_permission": "1"
+            "opcache.validate_root": "1"
+            "opcache.validate_timestamps": "1"
           Pdo_mysql:
             "pdo_mysql.default_socket": "/run/mysqld/mysqld.sock"
           PHP:
@@ -583,21 +583,21 @@ molecule_ubuntu_php_config:
             "date.timezone": "Europe/London"
           MySQLi:
             "mysqli.allow_local_infile": "0"
-          # opcache:
-          #   "opcache.enable": "1"
-          #   "opcache.file_update_protection": "2"
-          #   "opcache.interned_strings_buffer": "256"
-          #   # "opcache.jit": "tracing"
-          #   # "opcache.jit_buffer_size": "40961" # minimum size is 40961 bytes
-          #   "opcache.jit": "0"
-          #   "opcache.jit_buffer_size": "0"
-          #   "opcache.max_accelerated_files": "100000"
-          #   "opcache.memory_consumption": "1024"
-          #   "opcache.revalidate_freq": "2"
-          #   "opcache.use_cwd": "1"
-          #   "opcache.validate_permission": "1"
-          #   "opcache.validate_root": "1"
-          #   "opcache.validate_timestamps": "1"
+          opcache:
+            "opcache.enable": "1"
+            "opcache.file_update_protection": "2"
+            "opcache.interned_strings_buffer": "256"
+            # "opcache.jit": "tracing"
+            # "opcache.jit_buffer_size": "40961" # minimum size is 40961 bytes
+            "opcache.jit": "0"
+            "opcache.jit_buffer_size": "0"
+            "opcache.max_accelerated_files": "100000"
+            "opcache.memory_consumption": "1024"
+            "opcache.revalidate_freq": "2"
+            "opcache.use_cwd": "1"
+            "opcache.validate_permission": "1"
+            "opcache.validate_root": "1"
+            "opcache.validate_timestamps": "1"
           PHP:
             allow_url_include: "0"
             default_socket_timeout: "600"
@@ -635,25 +635,25 @@ molecule_ubuntu_php_config:
     version: "8.0"
     state: present
     files:
-      # - name: PHP 8.0 JIT configuration
-      #   path: /etc/php/8.0/mods-available/opcache.ini
-      #   state: edited
-      #   conf_absent:
-      #     "opcache.jit": "0"
-      # - name: PHP 8.0 FPM opcache symlink
-      #   path: /etc/php/8.0/fpm/conf.d/10-opcache.ini
-      #   src: /etc/php/8.0/mods-available/opcache.ini
-      #   state: symlink
-      # - name: PHP 8.0 FPM opcache duplicate symlink absent
-      #   path: /etc/php/8.0/fpm/conf.d/20-opcache.ini
-      #   state: absent
-      # - name: PHP 8.0 CLI opcache symlink
-      #   path: /etc/php/8.0/cli/conf.d/10-opcache.ini
-      #   src: /etc/php/8.0/mods-available/opcache.ini
-      #   state: symlink
-      # - name: PHP 8.0 CLI opcache duplicate symlink absent
-      #   path: /etc/php/8.0/cli/conf.d/20-opcache.ini
-      #   state: absent
+      - name: PHP 8.0 JIT configuration
+        path: /etc/php/8.0/mods-available/opcache.ini
+        state: edited
+        conf_absent:
+          "opcache.jit": "0"
+      - name: PHP 8.0 FPM opcache symlink
+        path: /etc/php/8.0/fpm/conf.d/10-opcache.ini
+        src: /etc/php/8.0/mods-available/opcache.ini
+        state: symlink
+      - name: PHP 8.0 FPM opcache duplicate symlink absent
+        path: /etc/php/8.0/fpm/conf.d/20-opcache.ini
+        state: absent
+      - name: PHP 8.0 CLI opcache symlink
+        path: /etc/php/8.0/cli/conf.d/10-opcache.ini
+        src: /etc/php/8.0/mods-available/opcache.ini
+        state: symlink
+      - name: PHP 8.0 CLI opcache duplicate symlink absent
+        path: /etc/php/8.0/cli/conf.d/20-opcache.ini
+        state: absent
       - name: PHP 8.0 CLI configuration
         path: /etc/php/8.0/cli/php.ini
         state: present
@@ -680,20 +680,20 @@ molecule_ubuntu_php_config:
             "mysqli.max_persistent": "-1"
             "mysqli.reconnect": "0"
             "mysqli.default_socket": "/run/mysqld/mysqld.sock"
-          # opcache:
-          #   "opcache.enable": "1"
-          #   "opcache.enable_cli": "1"
-          #   "opcache.file_update_protection": "2"
-          #   "opcache.interned_strings_buffer": "256"
-          #   "opcache.jit": "0"
-          #   "opcache.jit_buffer_size": "0"
-          #   "opcache.max_accelerated_files": "100000"
-          #   "opcache.memory_consumption": "1024"
-          #   "opcache.revalidate_freq": "2"
-          #   "opcache.use_cwd": "1"
-          #   "opcache.validate_permission": "1"
-          #   "opcache.validate_root": "1"
-          #   "opcache.validate_timestamps": "1"
+          opcache:
+            "opcache.enable": "1"
+            "opcache.enable_cli": "1"
+            "opcache.file_update_protection": "2"
+            "opcache.interned_strings_buffer": "256"
+            "opcache.jit": "0"
+            "opcache.jit_buffer_size": "0"
+            "opcache.max_accelerated_files": "100000"
+            "opcache.memory_consumption": "1024"
+            "opcache.revalidate_freq": "2"
+            "opcache.use_cwd": "1"
+            "opcache.validate_permission": "1"
+            "opcache.validate_root": "1"
+            "opcache.validate_timestamps": "1"
           Pdo_mysql:
             "pdo_mysql.default_socket": "/run/mysqld/mysqld.sock"
           PHP:
@@ -709,21 +709,21 @@ molecule_ubuntu_php_config:
             "date.timezone": "Europe/London"
           MySQLi:
             "mysqli.allow_local_infile": "0"
-          # opcache:
-          #   "opcache.enable": "1"
-          #   "opcache.file_update_protection": "2"
-          #   "opcache.interned_strings_buffer": "256"
-          #   # "opcache.jit": "tracing"
-          #   # "opcache.jit_buffer_size": "40961" # minimum size is 40961 bytes
-          #   "opcache.jit": "0"
-          #   "opcache.jit_buffer_size": "0"
-          #   "opcache.max_accelerated_files": "100000"
-          #   "opcache.memory_consumption": "1024"
-          #   "opcache.revalidate_freq": "2"
-          #   "opcache.use_cwd": "1"
-          #   "opcache.validate_permission": "1"
-          #   "opcache.validate_root": "1"
-          #   "opcache.validate_timestamps": "1"
+          opcache:
+            "opcache.enable": "1"
+            "opcache.file_update_protection": "2"
+            "opcache.interned_strings_buffer": "256"
+            # "opcache.jit": "tracing"
+            # "opcache.jit_buffer_size": "40961" # minimum size is 40961 bytes
+            "opcache.jit": "0"
+            "opcache.jit_buffer_size": "0"
+            "opcache.max_accelerated_files": "100000"
+            "opcache.memory_consumption": "1024"
+            "opcache.revalidate_freq": "2"
+            "opcache.use_cwd": "1"
+            "opcache.validate_permission": "1"
+            "opcache.validate_root": "1"
+            "opcache.validate_timestamps": "1"
           PHP:
             allow_url_include: "0"
             default_socket_timeout: "600"
@@ -787,18 +787,18 @@ molecule_ubuntu_php_config:
             "mysqli.max_persistent": "-1"
             "mysqli.reconnect": "0"
             "mysqli.default_socket": "/run/mysqld/mysqld.sock"
-          # opcache:
-          #   "opcache.enable": "1"
-          #   "opcache.enable_cli": "1"
-          #   "opcache.file_update_protection": "2"
-          #   "opcache.interned_strings_buffer": "256"
-          #   "opcache.max_accelerated_files": "100000"
-          #   "opcache.memory_consumption": "1024"
-          #   "opcache.revalidate_freq": "2"
-          #   "opcache.use_cwd": "1"
-          #   "opcache.validate_permission": "1"
-          #   "opcache.validate_root": "1"
-          #   "opcache.validate_timestamps": "1"
+          opcache:
+            "opcache.enable": "1"
+            "opcache.enable_cli": "1"
+            "opcache.file_update_protection": "2"
+            "opcache.interned_strings_buffer": "256"
+            "opcache.max_accelerated_files": "100000"
+            "opcache.memory_consumption": "1024"
+            "opcache.revalidate_freq": "2"
+            "opcache.use_cwd": "1"
+            "opcache.validate_permission": "1"
+            "opcache.validate_root": "1"
+            "opcache.validate_timestamps": "1"
           Pdo_mysql:
             "pdo_mysql.default_socket": "/run/mysqld/mysqld.sock"
           PHP:
@@ -814,17 +814,17 @@ molecule_ubuntu_php_config:
             "date.timezone": "Europe/London"
           MySQLi:
             "mysqli.allow_local_infile": "0"
-          # opcache:
-          #   "opcache.enable": "1"
-          #   "opcache.file_update_protection": "2"
-          #   "opcache.interned_strings_buffer": "256"
-          #   "opcache.max_accelerated_files": "100000"
-          #   "opcache.memory_consumption": "1024"
-          #   "opcache.revalidate_freq": "2"
-          #   "opcache.use_cwd": "1"
-          #   "opcache.validate_permission": "1"
-          #   "opcache.validate_root": "1"
-          #   "opcache.validate_timestamps": "1"
+          opcache:
+            "opcache.enable": "1"
+            "opcache.file_update_protection": "2"
+            "opcache.interned_strings_buffer": "256"
+            "opcache.max_accelerated_files": "100000"
+            "opcache.memory_consumption": "1024"
+            "opcache.revalidate_freq": "2"
+            "opcache.use_cwd": "1"
+            "opcache.validate_permission": "1"
+            "opcache.validate_root": "1"
+            "opcache.validate_timestamps": "1"
           PHP:
             allow_url_include: "0"
             default_socket_timeout: "600"
@@ -883,7 +883,7 @@ molecule_ubuntu_php_modules:
           - iconv
           # - igbinary
           # - imagick
-          # - imap
+          - imap
           - intl
           - ldap
           - mbstring
@@ -935,13 +935,13 @@ molecule_ubuntu_php_modules:
           - iconv
           # - igbinary
           # - imagick
-          # - imap
+          - imap
           - intl
           - ldap
           - mbstring
           - mysqli
           - mysqlnd
-          # - opcache
+          - opcache
           - pdo
           - pdo_mysql
           - pdo_sqlite
@@ -988,13 +988,13 @@ molecule_ubuntu_php_modules:
           - iconv
           # - igbinary
           # - imagick
-          # - imap
+          - imap
           - intl
           - ldap
           - mbstring
           - mysqli
           - mysqlnd
-          # - opcache
+          - opcache
           - pdo
           - pdo_mysql
           - pdo_sqlite
@@ -1041,7 +1041,7 @@ molecule_ubuntu_php_modules:
           - iconv
           # - igbinary
           # - imagick
-          # - imap
+          - imap
           - intl
           - ldap
           - mbstring
@@ -1094,7 +1094,7 @@ molecule_ubuntu_php_modules:
           - iconv
           # - igbinary
           # - imagick
-          # - imap
+          - imap
           - intl
           - ldap
           - mbstring
@@ -1147,7 +1147,7 @@ molecule_ubuntu_php_modules:
           - iconv
           # - igbinary
           # - imagick
-          # - imap
+          - imap
           - intl
           - ldap
           - mbstring
@@ -1200,7 +1200,7 @@ molecule_ubuntu_php_modules:
           - iconv
           # - igbinary
           # - imagick
-          # - imap
+          - imap
           - intl
           - ldap
           - mbstring
@@ -1247,7 +1247,7 @@ molecule_ubuntu_php_versions:
       - php8.5-gd
       - php8.5-gmp
       # - php8.5-imagick
-      # - php8.5-imap
+      - php8.5-imap
       - php8.5-intl
       - php8.5-ldap
       - php8.5-mbstring
@@ -1279,7 +1279,7 @@ molecule_ubuntu_php_versions:
       - php8.4-gmp
       - php8.4-fpm
       # - php8.4-imagick
-      # - php8.4-imap
+      - php8.4-imap
       - php8.4-intl
       - php8.4-ldap
       - php8.4-mbstring
@@ -1312,12 +1312,12 @@ molecule_ubuntu_php_versions:
       - php8.3-gmp
       - php8.3-fpm
       # - php8.3-imagick
-      # - php8.3-imap
+      - php8.3-imap
       - php8.3-intl
       - php8.3-ldap
       - php8.3-mbstring
       - php8.3-mysql
-      # - php8.3-opcache
+      - php8.3-opcache
       - php8.3-readline
       # - php8.3-redis
       - php8.3-sqlite3
