@@ -1500,8 +1500,9 @@
                     - zip
                   state: present
               state: present
+      when: ansible_facts.distribution == "Ubuntu"
 
-    - name: Check the PHP configuratioon present
+    - name: Check the PHP configuration present
       block:
 
         - name: Verify the results of the PHP SAPIs and module checks
