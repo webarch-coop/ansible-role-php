@@ -1671,7 +1671,7 @@ php_systemd_units:
           Service:
             ExecStartPost: ""
             ExecStopPost: ""
-        state: edited
+        state: present
     state: enabled
   - name: php8.4-fpm
     files:
@@ -1680,7 +1680,7 @@ php_systemd_units:
           Service:
             ExecStartPost: ""
             ExecStopPost: ""
-        state: edited
+        state: present
     state: enabled
   - name: php8.3-fpm
     files:
@@ -1689,7 +1689,7 @@ php_systemd_units:
           Service:
             ExecStartPost: ""
             ExecStopPost: ""
-        state: edited
+        state: present
     state: enabled
   - name: php8.2-fpm
     files:
@@ -1698,7 +1698,7 @@ php_systemd_units:
           Service:
             ExecStartPost: ""
             ExecStopPost: ""
-        state: edited
+        state: present
     state: enabled
   - name: php8.1-fpm
     files:
@@ -1707,7 +1707,7 @@ php_systemd_units:
           Service:
             ExecStartPost: ""
             ExecStopPost: ""
-        state: edited
+        state: present
     state: enabled
   - name: php8.0-fpm
     files:
@@ -1716,7 +1716,7 @@ php_systemd_units:
           Service:
             ExecStartPost: ""
             ExecStopPost: ""
-        state: edited
+        state: present
     state: enabled
   - name: php7.4-fpm
     files:
@@ -1725,7 +1725,7 @@ php_systemd_units:
           Service:
             ExecStartPost: ""
             ExecStopPost: ""
-        state: edited
+        state: present
     state: enabled
 php_verify: true
 ...
