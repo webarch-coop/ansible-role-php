@@ -3864,15 +3864,27 @@ php_pkg_jammy:
   - php5.6-enchant
   - php5.6-fpm
   - php5.6-gd
+  - php5.6-gearman
+  - php5.6-geoip
+  - php5.6-gmagick
   - php5.6-gmp
+  - php5.6-gnupg
+  - php5.6-igbinary
+  - php5.6-imagick
   - php5.6-imap
+  - php5.6-inotify
   - php5.6-interbase
   - php5.6-intl
   - php5.6-json
   - php5.6-ldap
   - php5.6-litespeed
+  - php5.6-lz4
+  - php5.6-mailparse
   - php5.6-mbstring
   - php5.6-mcrypt
+  - php5.6-memcache
+  - php5.6-mongo
+  - php5.6-mongodb
   - php5.6-mysql
   - php5.6-odbc
   - php5.6-opcache
@@ -3899,18 +3911,29 @@ php_pkg_jammy:
   - php7.0-common
   - php7.0-curl
   - php7.0-dba
+  - php7.0-decimal
   - php7.0-enchant
   - php7.0-fpm
   - php7.0-gd
+  - php7.0-gearman
+  - php7.0-geoip
   - php7.0-gmp
+  - php7.0-gnupg
+  - php7.0-imagick
   - php7.0-imap
+  - php7.0-inotify
   - php7.0-interbase
   - php7.0-intl
   - php7.0-json
   - php7.0-ldap
   - php7.0-litespeed
+  - php7.0-lua
+  - php7.0-lz4
+  - php7.0-mailparse
   - php7.0-mbstring
   - php7.0-mcrypt
+  - php7.0-memcache
+  - php7.0-mongodb
   - php7.0-mysql
   - php7.0-odbc
   - php7.0-opcache
@@ -3938,18 +3961,31 @@ php_pkg_jammy:
   - php7.1-common
   - php7.1-curl
   - php7.1-dba
+  - php7.1-decimal
   - php7.1-enchant
+  - php7.1-excimer
   - php7.1-fpm
   - php7.1-gd
+  - php7.1-gearman
+  - php7.1-geoip
+  - php7.1-gmagick
   - php7.1-gmp
+  - php7.1-gnupg
+  - php7.1-imagick
   - php7.1-imap
+  - php7.1-inotify
   - php7.1-interbase
   - php7.1-intl
   - php7.1-json
   - php7.1-ldap
   - php7.1-litespeed
+  - php7.1-lua
+  - php7.1-lz4
+  - php7.1-mailparse
   - php7.1-mbstring
   - php7.1-mcrypt
+  - php7.1-memcache
+  - php7.1-mongodb
   - php7.1-mysql
   - php7.1-odbc
   - php7.1-opcache
@@ -3970,6 +4006,7 @@ php_pkg_jammy:
   - php7.2
   - php7.2-amqp
   - php7.2-apcu
+  - php7.2-ast
   - php7.2-bcmath
   - php7.2-bz2
   - php7.2-cgi
@@ -3977,17 +4014,31 @@ php_pkg_jammy:
   - php7.2-common
   - php7.2-curl
   - php7.2-dba
+  - php7.2-decimal
   - php7.2-enchant
+  - php7.2-excimer
   - php7.2-fpm
   - php7.2-gd
+  - php7.2-gearman
+  - php7.2-geoip
+  - php7.2-gmagick
   - php7.2-gmp
+  - php7.2-gnupg
+  - php7.2-imagick
   - php7.2-imap
+  - php7.2-inotify
   - php7.2-interbase
   - php7.2-intl
   - php7.2-json
   - php7.2-ldap
   - php7.2-litespeed
+  - php7.2-lua
+  - php7.2-lz4
+  - php7.2-mailparse
+  - php7.2-maxminddb
   - php7.2-mbstring
+  - php7.2-mcrypt
+  - php7.2-memcache
   - php7.2-mysql
   - php7.2-odbc
   - php7.2-opcache
@@ -4008,6 +4059,7 @@ php_pkg_jammy:
   - php7.3
   - php7.3-amqp
   - php7.3-apcu
+  - php7.3-ast
   - php7.3-bcmath
   - php7.3-bz2
   - php7.3-cgi
@@ -4015,17 +4067,31 @@ php_pkg_jammy:
   - php7.3-common
   - php7.3-curl
   - php7.3-dba
+  - php7.3-decimal
   - php7.3-enchant
+  - php7.3-excimer
   - php7.3-fpm
   - php7.3-gd
+  - php7.3-gearman
+  - php7.3-geoip
+  - php7.3-gmagick
   - php7.3-gmp
+  - php7.3-gnupg
+  - php7.3-imagick
   - php7.3-imap
+  - php7.3-inotify
   - php7.3-interbase
   - php7.3-intl
   - php7.3-json
   - php7.3-ldap
   - php7.3-litespeed
+  - php7.3-lua
+  - php7.3-lz4
+  - php7.3-mailparse
+  - php7.3-maxminddb
   - php7.3-mbstring
+  - php7.3-mcrypt
+  - php7.3-memcache
   - php7.3-mysql
   - php7.3-odbc
   - php7.3-opcache
@@ -4046,6 +4112,7 @@ php_pkg_jammy:
   - php7.4
   - php7.4-amqp
   - php7.4-apcu
+  - php7.4-ast
   - php7.4-bcmath
   - php7.4-bz2
   - php7.4-cgi
@@ -4053,17 +4120,32 @@ php_pkg_jammy:
   - php7.4-common
   - php7.4-curl
   - php7.4-dba
+  - php7.4-decimal
+  - php7.4-ds
   - php7.4-enchant
+  - php7.4-excimer
   - php7.4-fpm
   - php7.4-gd
+  - php7.4-gearman
+  - php7.4-geoip
+  - php7.4-gmagick
   - php7.4-gmp
+  - php7.4-gnupg
+  - php7.4-imagick
   - php7.4-imap
+  - php7.4-inotify
   - php7.4-interbase
   - php7.4-intl
   - php7.4-json
   - php7.4-ldap
   - php7.4-litespeed
+  - php7.4-lua
+  - php7.4-lz4
+  - php7.4-mailparse
+  - php7.4-maxminddb
   - php7.4-mbstring
+  - php7.4-mcrypt
+  - php7.4-memcache
   - php7.4-mysql
   - php7.4-odbc
   - php7.4-opcache
@@ -4083,6 +4165,7 @@ php_pkg_jammy:
   - php8.0
   - php8.0-amqp
   - php8.0-apcu
+  - php8.0-ast
   - php8.0-bcmath
   - php8.0-bz2
   - php8.0-cgi
@@ -4090,16 +4173,29 @@ php_pkg_jammy:
   - php8.0-common
   - php8.0-curl
   - php8.0-dba
+  - php8.0-decimal
+  - php8.0-dio
+  - php8.0-ds
   - php8.0-enchant
+  - php8.0-excimer
   - php8.0-fpm
   - php8.0-gd
+  - php8.0-gearman
+  - php8.0-gmagick
   - php8.0-gmp
+  - php8.0-gnupg
+  - php8.0-imagick
   - php8.0-imap
+  - php8.0-inotify
   - php8.0-interbase
   - php8.0-intl
   - php8.0-ldap
   - php8.0-litespeed
+  - php8.0-lz4
+  - php8.0-mailparse
+  - php8.0-maxminddb
   - php8.0-mbstring
+  - php8.0-mcrypt
   - php8.0-mysql
   - php8.0-odbc
   - php8.0-opcache
@@ -4112,12 +4208,14 @@ php_pkg_jammy:
   - php8.0-sqlite3
   - php8.0-sybase
   - php8.0-tidy
+  - php8.0-xdebug
   - php8.0-xml
   - php8.0-xsl
   - php8.0-zip
   - php8.1
   - php8.1-amqp
   - php8.1-apcu
+  - php8.1-ast
   - php8.1-bcmath
   - php8.1-bz2
   - php8.1-cgi
@@ -4125,16 +4223,29 @@ php_pkg_jammy:
   - php8.1-common
   - php8.1-curl
   - php8.1-dba
+  - php8.1-decimal
+  - php8.1-dio
+  - php8.1-ds
   - php8.1-enchant
+  - php8.1-excimer
   - php8.1-fpm
   - php8.1-gd
+  - php8.1-gearman
+  - php8.1-gmagick
   - php8.1-gmp
+  - php8.1-gnupg
+  - php8.1-imagick
   - php8.1-imap
+  - php8.1-inotify
   - php8.1-interbase
   - php8.1-intl
   - php8.1-ldap
   - php8.1-litespeed
+  - php8.1-lz4
+  - php8.1-mailparse
+  - php8.1-maxminddb
   - php8.1-mbstring
+  - php8.1-mcrypt
   - php8.1-mysql
   - php8.1-odbc
   - php8.1-opcache
@@ -4147,12 +4258,14 @@ php_pkg_jammy:
   - php8.1-sqlite3
   - php8.1-sybase
   - php8.1-tidy
+  - php8.1-xdebug
   - php8.1-xml
   - php8.1-xsl
   - php8.1-zip
   - php8.2
   - php8.2-amqp
   - php8.2-apcu
+  - php8.2-ast
   - php8.2-bcmath
   - php8.2-bz2
   - php8.2-cgi
@@ -4160,16 +4273,29 @@ php_pkg_jammy:
   - php8.2-common
   - php8.2-curl
   - php8.2-dba
+  - php8.2-decimal
+  - php8.2-dio
+  - php8.2-ds
   - php8.2-enchant
+  - php8.2-excimer
   - php8.2-fpm
   - php8.2-gd
+  - php8.2-gearman
+  - php8.2-gmagick
   - php8.2-gmp
+  - php8.2-gnupg
+  - php8.2-imagick
   - php8.2-imap
+  - php8.2-inotify
   - php8.2-interbase
   - php8.2-intl
   - php8.2-ldap
   - php8.2-litespeed
+  - php8.2-lz4
+  - php8.2-mailparse
+  - php8.2-maxminddb
   - php8.2-mbstring
+  - php8.2-mcrypt
   - php8.2-mysql
   - php8.2-odbc
   - php8.2-opcache
@@ -4182,12 +4308,14 @@ php_pkg_jammy:
   - php8.2-sqlite3
   - php8.2-sybase
   - php8.2-tidy
+  - php8.2-xdebug
   - php8.2-xml
   - php8.2-xsl
   - php8.2-zip
   - php8.3
   - php8.3-amqp
   - php8.3-apcu
+  - php8.3-ast
   - php8.3-bcmath
   - php8.3-bz2
   - php8.3-cgi
@@ -4195,16 +4323,29 @@ php_pkg_jammy:
   - php8.3-common
   - php8.3-curl
   - php8.3-dba
+  - php8.3-decimal
+  - php8.3-dio
+  - php8.3-ds
   - php8.3-enchant
+  - php8.3-excimer
   - php8.3-fpm
   - php8.3-gd
+  - php8.3-gearman
+  - php8.3-gmagick
   - php8.3-gmp
+  - php8.3-gnupg
+  - php8.3-imagick
   - php8.3-imap
+  - php8.3-inotify
   - php8.3-interbase
   - php8.3-intl
   - php8.3-ldap
   - php8.3-litespeed
+  - php8.3-lz4
+  - php8.3-mailparse
+  - php8.3-maxminddb
   - php8.3-mbstring
+  - php8.3-mcrypt
   - php8.3-mysql
   - php8.3-odbc
   - php8.3-opcache
@@ -4217,12 +4358,14 @@ php_pkg_jammy:
   - php8.3-sqlite3
   - php8.3-sybase
   - php8.3-tidy
+  - php8.3-xdebug
   - php8.3-xml
   - php8.3-xsl
   - php8.3-zip
   - php8.4
   - php8.4-amqp
   - php8.4-apcu
+  - php8.4-ast
   - php8.4-bcmath
   - php8.4-bz2
   - php8.4-cgi
@@ -4230,15 +4373,29 @@ php_pkg_jammy:
   - php8.4-common
   - php8.4-curl
   - php8.4-dba
+  - php8.4-decimal
+  - php8.4-dio
+  - php8.4-ds
   - php8.4-enchant
+  - php8.4-excimer
   - php8.4-fpm
   - php8.4-gd
+  - php8.4-gearman
+  - php8.4-gmagick
   - php8.4-gmp
+  - php8.4-gnupg
+  - php8.4-imagick
+  - php8.4-imap
+  - php8.4-inotify
   - php8.4-interbase
   - php8.4-intl
   - php8.4-ldap
   - php8.4-litespeed
+  - php8.4-lz4
+  - php8.4-mailparse
+  - php8.4-maxminddb
   - php8.4-mbstring
+  - php8.4-mcrypt
   - php8.4-mysql
   - php8.4-odbc
   - php8.4-opcache
@@ -4250,12 +4407,14 @@ php_pkg_jammy:
   - php8.4-sqlite3
   - php8.4-sybase
   - php8.4-tidy
+  - php8.4-xdebug
   - php8.4-xml
   - php8.4-xsl
   - php8.4-zip
   - php8.5
   - php8.5-amqp
   - php8.5-apcu
+  - php8.5-ast
   - php8.5-bcmath
   - php8.5-bz2
   - php8.5-cgi
@@ -4263,15 +4422,29 @@ php_pkg_jammy:
   - php8.5-common
   - php8.5-curl
   - php8.5-dba
+  - php8.5-decimal
+  - php8.5-dio
+  - php8.5-ds
   - php8.5-enchant
+  - php8.5-excimer
   - php8.5-fpm
   - php8.5-gd
+  - php8.5-gearman
+  - php8.5-gmagick
   - php8.5-gmp
+  - php8.5-gnupg
+  - php8.5-imagick
+  - php8.5-imap
+  - php8.5-inotify
   - php8.5-interbase
   - php8.5-intl
   - php8.5-ldap
   - php8.5-litespeed
+  - php8.5-lz4
+  - php8.5-mailparse
+  - php8.5-maxminddb
   - php8.5-mbstring
+  - php8.5-mcrypt
   - php8.5-mysql
   - php8.5-odbc
   - php8.5-pgsql
@@ -4282,27 +4455,44 @@ php_pkg_jammy:
   - php8.5-sqlite3
   - php8.5-sybase
   - php8.5-tidy
+  - php8.5-xdebug
   - php8.5-xml
   - php8.5-xsl
   - php8.5-zip
   - php-amqp
   - php-apcu
+  - php-ast
   - php-bcmath
   - php-bz2
   - php-cgi
   - php-cli
   - php-common
   - php-curl
+  - php-decimal
+  - php-dio
+  - php-ds
   - php-enchant
+  - php-excimer
   - php-fpm
   - php-gd
+  - php-gearman
+  - php-geoip
+  - php-gmagick
   - php-gmp
+  - php-gnupg
+  - php-imagick
+  - php-inotify
   - php-interbase
   - php-intl
   - php-json
   - php-ldap
   - php-litespeed
+  - php-lz4
+  - php-mailparse
+  - php-maxminddb
   - php-mbstring
+  - php-mcrypt
+  - php-mongo
   - php-mysql
   - php-odbc
   - php-pgsql
@@ -4313,6 +4503,7 @@ php_pkg_jammy:
   - php-sqlite3
   - php-sybase
   - php-tidy
+  - php-xdebug
   - php-xml
   - php-zip
 
@@ -4363,15 +4554,27 @@ php_pkg_noble:
   - php5.6-enchant
   - php5.6-fpm
   - php5.6-gd
+  - php5.6-gearman
+  - php5.6-geoip
+  - php5.6-gmagick
   - php5.6-gmp
+  - php5.6-gnupg
+  - php5.6-igbinary
+  - php5.6-imagick
   - php5.6-imap
+  - php5.6-inotify
   - php5.6-interbase
   - php5.6-intl
   - php5.6-json
   - php5.6-ldap
   - php5.6-litespeed
+  - php5.6-lz4
+  - php5.6-mailparse
   - php5.6-mbstring
   - php5.6-mcrypt
+  - php5.6-memcache
+  - php5.6-mongo
+  - php5.6-mongodb
   - php5.6-mysql
   - php5.6-odbc
   - php5.6-opcache
@@ -4398,18 +4601,29 @@ php_pkg_noble:
   - php7.0-common
   - php7.0-curl
   - php7.0-dba
+  - php7.0-decimal
   - php7.0-enchant
   - php7.0-fpm
   - php7.0-gd
+  - php7.0-gearman
+  - php7.0-geoip
   - php7.0-gmp
+  - php7.0-gnupg
+  - php7.0-imagick
   - php7.0-imap
+  - php7.0-inotify
   - php7.0-interbase
   - php7.0-intl
   - php7.0-json
   - php7.0-ldap
   - php7.0-litespeed
+  - php7.0-lua
+  - php7.0-lz4
+  - php7.0-mailparse
   - php7.0-mbstring
   - php7.0-mcrypt
+  - php7.0-memcache
+  - php7.0-mongodb
   - php7.0-mysql
   - php7.0-odbc
   - php7.0-opcache
@@ -4437,18 +4651,31 @@ php_pkg_noble:
   - php7.1-common
   - php7.1-curl
   - php7.1-dba
+  - php7.1-decimal
   - php7.1-enchant
+  - php7.1-excimer
   - php7.1-fpm
   - php7.1-gd
+  - php7.1-gearman
+  - php7.1-geoip
+  - php7.1-gmagick
   - php7.1-gmp
+  - php7.1-gnupg
+  - php7.1-imagick
   - php7.1-imap
+  - php7.1-inotify
   - php7.1-interbase
   - php7.1-intl
   - php7.1-json
   - php7.1-ldap
   - php7.1-litespeed
+  - php7.1-lua
+  - php7.1-lz4
+  - php7.1-mailparse
   - php7.1-mbstring
   - php7.1-mcrypt
+  - php7.1-memcache
+  - php7.1-mongodb
   - php7.1-mysql
   - php7.1-odbc
   - php7.1-opcache
@@ -4469,6 +4696,7 @@ php_pkg_noble:
   - php7.2
   - php7.2-amqp
   - php7.2-apcu
+  - php7.2-ast
   - php7.2-bcmath
   - php7.2-bz2
   - php7.2-cgi
@@ -4476,17 +4704,31 @@ php_pkg_noble:
   - php7.2-common
   - php7.2-curl
   - php7.2-dba
+  - php7.2-decimal
   - php7.2-enchant
+  - php7.2-excimer
   - php7.2-fpm
   - php7.2-gd
+  - php7.2-gearman
+  - php7.2-geoip
+  - php7.2-gmagick
   - php7.2-gmp
+  - php7.2-gnupg
+  - php7.2-imagick
   - php7.2-imap
+  - php7.2-inotify
   - php7.2-interbase
   - php7.2-intl
   - php7.2-json
   - php7.2-ldap
   - php7.2-litespeed
+  - php7.2-lua
+  - php7.2-lz4
+  - php7.2-mailparse
+  - php7.2-maxminddb
   - php7.2-mbstring
+  - php7.2-mcrypt
+  - php7.2-memcache
   - php7.2-mysql
   - php7.2-odbc
   - php7.2-opcache
@@ -4507,6 +4749,7 @@ php_pkg_noble:
   - php7.3
   - php7.3-amqp
   - php7.3-apcu
+  - php7.3-ast
   - php7.3-bcmath
   - php7.3-bz2
   - php7.3-cgi
@@ -4514,17 +4757,31 @@ php_pkg_noble:
   - php7.3-common
   - php7.3-curl
   - php7.3-dba
+  - php7.3-decimal
   - php7.3-enchant
+  - php7.3-excimer
   - php7.3-fpm
   - php7.3-gd
+  - php7.3-gearman
+  - php7.3-geoip
+  - php7.3-gmagick
   - php7.3-gmp
+  - php7.3-gnupg
+  - php7.3-imagick
   - php7.3-imap
+  - php7.3-inotify
   - php7.3-interbase
   - php7.3-intl
   - php7.3-json
   - php7.3-ldap
   - php7.3-litespeed
+  - php7.3-lua
+  - php7.3-lz4
+  - php7.3-mailparse
+  - php7.3-maxminddb
   - php7.3-mbstring
+  - php7.3-mcrypt
+  - php7.3-memcache
   - php7.3-mysql
   - php7.3-odbc
   - php7.3-opcache
@@ -4545,6 +4802,7 @@ php_pkg_noble:
   - php7.4
   - php7.4-amqp
   - php7.4-apcu
+  - php7.4-ast
   - php7.4-bcmath
   - php7.4-bz2
   - php7.4-cgi
@@ -4552,17 +4810,32 @@ php_pkg_noble:
   - php7.4-common
   - php7.4-curl
   - php7.4-dba
+  - php7.4-decimal
+  - php7.4-ds
   - php7.4-enchant
+  - php7.4-excimer
   - php7.4-fpm
   - php7.4-gd
+  - php7.4-gearman
+  - php7.4-geoip
+  - php7.4-gmagick
   - php7.4-gmp
+  - php7.4-gnupg
+  - php7.4-imagick
   - php7.4-imap
+  - php7.4-inotify
   - php7.4-interbase
   - php7.4-intl
   - php7.4-json
   - php7.4-ldap
   - php7.4-litespeed
+  - php7.4-lua
+  - php7.4-lz4
+  - php7.4-mailparse
+  - php7.4-maxminddb
   - php7.4-mbstring
+  - php7.4-mcrypt
+  - php7.4-memcache
   - php7.4-mysql
   - php7.4-odbc
   - php7.4-opcache
@@ -4582,6 +4855,7 @@ php_pkg_noble:
   - php8.0
   - php8.0-amqp
   - php8.0-apcu
+  - php8.0-ast
   - php8.0-bcmath
   - php8.0-bz2
   - php8.0-cgi
@@ -4589,16 +4863,29 @@ php_pkg_noble:
   - php8.0-common
   - php8.0-curl
   - php8.0-dba
+  - php8.0-decimal
+  - php8.0-dio
+  - php8.0-ds
   - php8.0-enchant
+  - php8.0-excimer
   - php8.0-fpm
   - php8.0-gd
+  - php8.0-gearman
+  - php8.0-gmagick
   - php8.0-gmp
+  - php8.0-gnupg
+  - php8.0-imagick
   - php8.0-imap
+  - php8.0-inotify
   - php8.0-interbase
   - php8.0-intl
   - php8.0-ldap
   - php8.0-litespeed
+  - php8.0-lz4
+  - php8.0-mailparse
+  - php8.0-maxminddb
   - php8.0-mbstring
+  - php8.0-mcrypt
   - php8.0-mysql
   - php8.0-odbc
   - php8.0-opcache
@@ -4611,12 +4898,14 @@ php_pkg_noble:
   - php8.0-sqlite3
   - php8.0-sybase
   - php8.0-tidy
+  - php8.0-xdebug
   - php8.0-xml
   - php8.0-xsl
   - php8.0-zip
   - php8.1
   - php8.1-amqp
   - php8.1-apcu
+  - php8.1-ast
   - php8.1-bcmath
   - php8.1-bz2
   - php8.1-cgi
@@ -4624,16 +4913,29 @@ php_pkg_noble:
   - php8.1-common
   - php8.1-curl
   - php8.1-dba
+  - php8.1-decimal
+  - php8.1-dio
+  - php8.1-ds
   - php8.1-enchant
+  - php8.1-excimer
   - php8.1-fpm
   - php8.1-gd
+  - php8.1-gearman
+  - php8.1-gmagick
   - php8.1-gmp
+  - php8.1-gnupg
+  - php8.1-imagick
   - php8.1-imap
+  - php8.1-inotify
   - php8.1-interbase
   - php8.1-intl
   - php8.1-ldap
   - php8.1-litespeed
+  - php8.1-lz4
+  - php8.1-mailparse
+  - php8.1-maxminddb
   - php8.1-mbstring
+  - php8.1-mcrypt
   - php8.1-mysql
   - php8.1-odbc
   - php8.1-opcache
@@ -4646,12 +4948,14 @@ php_pkg_noble:
   - php8.1-sqlite3
   - php8.1-sybase
   - php8.1-tidy
+  - php8.1-xdebug
   - php8.1-xml
   - php8.1-xsl
   - php8.1-zip
   - php8.2
   - php8.2-amqp
   - php8.2-apcu
+  - php8.2-ast
   - php8.2-bcmath
   - php8.2-bz2
   - php8.2-cgi
@@ -4659,16 +4963,29 @@ php_pkg_noble:
   - php8.2-common
   - php8.2-curl
   - php8.2-dba
+  - php8.2-decimal
+  - php8.2-dio
+  - php8.2-ds
   - php8.2-enchant
+  - php8.2-excimer
   - php8.2-fpm
   - php8.2-gd
+  - php8.2-gearman
+  - php8.2-gmagick
   - php8.2-gmp
+  - php8.2-gnupg
+  - php8.2-imagick
   - php8.2-imap
+  - php8.2-inotify
   - php8.2-interbase
   - php8.2-intl
   - php8.2-ldap
   - php8.2-litespeed
+  - php8.2-lz4
+  - php8.2-mailparse
+  - php8.2-maxminddb
   - php8.2-mbstring
+  - php8.2-mcrypt
   - php8.2-mysql
   - php8.2-odbc
   - php8.2-opcache
@@ -4681,12 +4998,14 @@ php_pkg_noble:
   - php8.2-sqlite3
   - php8.2-sybase
   - php8.2-tidy
+  - php8.2-xdebug
   - php8.2-xml
   - php8.2-xsl
   - php8.2-zip
   - php8.3
   - php8.3-amqp
   - php8.3-apcu
+  - php8.3-ast
   - php8.3-bcmath
   - php8.3-bz2
   - php8.3-cgi
@@ -4694,16 +5013,29 @@ php_pkg_noble:
   - php8.3-common
   - php8.3-curl
   - php8.3-dba
+  - php8.3-decimal
+  - php8.3-dio
+  - php8.3-ds
   - php8.3-enchant
+  - php8.3-excimer
   - php8.3-fpm
   - php8.3-gd
+  - php8.3-gearman
+  - php8.3-gmagick
   - php8.3-gmp
+  - php8.3-gnupg
+  - php8.3-imagick
   - php8.3-imap
+  - php8.3-inotify
   - php8.3-interbase
   - php8.3-intl
   - php8.3-ldap
   - php8.3-litespeed
+  - php8.3-lz4
+  - php8.3-mailparse
+  - php8.3-maxminddb
   - php8.3-mbstring
+  - php8.3-mcrypt
   - php8.3-mysql
   - php8.3-odbc
   - php8.3-opcache
@@ -4716,12 +5048,14 @@ php_pkg_noble:
   - php8.3-sqlite3
   - php8.3-sybase
   - php8.3-tidy
+  - php8.3-xdebug
   - php8.3-xml
   - php8.3-xsl
   - php8.3-zip
   - php8.4
   - php8.4-amqp
   - php8.4-apcu
+  - php8.4-ast
   - php8.4-bcmath
   - php8.4-bz2
   - php8.4-cgi
@@ -4729,15 +5063,29 @@ php_pkg_noble:
   - php8.4-common
   - php8.4-curl
   - php8.4-dba
+  - php8.4-decimal
+  - php8.4-dio
+  - php8.4-ds
   - php8.4-enchant
+  - php8.4-excimer
   - php8.4-fpm
   - php8.4-gd
+  - php8.4-gearman
+  - php8.4-gmagick
   - php8.4-gmp
+  - php8.4-gnupg
+  - php8.4-imagick
+  - php8.4-imap
+  - php8.4-inotify
   - php8.4-interbase
   - php8.4-intl
   - php8.4-ldap
   - php8.4-litespeed
+  - php8.4-lz4
+  - php8.4-mailparse
+  - php8.4-maxminddb
   - php8.4-mbstring
+  - php8.4-mcrypt
   - php8.4-mysql
   - php8.4-odbc
   - php8.4-opcache
@@ -4749,12 +5097,14 @@ php_pkg_noble:
   - php8.4-sqlite3
   - php8.4-sybase
   - php8.4-tidy
+  - php8.4-xdebug
   - php8.4-xml
   - php8.4-xsl
   - php8.4-zip
   - php8.5
   - php8.5-amqp
   - php8.5-apcu
+  - php8.5-ast
   - php8.5-bcmath
   - php8.5-bz2
   - php8.5-cgi
@@ -4762,15 +5112,29 @@ php_pkg_noble:
   - php8.5-common
   - php8.5-curl
   - php8.5-dba
+  - php8.5-decimal
+  - php8.5-dio
+  - php8.5-ds
   - php8.5-enchant
+  - php8.5-excimer
   - php8.5-fpm
   - php8.5-gd
+  - php8.5-gearman
+  - php8.5-gmagick
   - php8.5-gmp
+  - php8.5-gnupg
+  - php8.5-imagick
+  - php8.5-imap
+  - php8.5-inotify
   - php8.5-interbase
   - php8.5-intl
   - php8.5-ldap
   - php8.5-litespeed
+  - php8.5-lz4
+  - php8.5-mailparse
+  - php8.5-maxminddb
   - php8.5-mbstring
+  - php8.5-mcrypt
   - php8.5-mysql
   - php8.5-odbc
   - php8.5-pgsql
@@ -4781,27 +5145,44 @@ php_pkg_noble:
   - php8.5-sqlite3
   - php8.5-sybase
   - php8.5-tidy
+  - php8.5-xdebug
   - php8.5-xml
   - php8.5-xsl
   - php8.5-zip
   - php-amqp
   - php-apcu
+  - php-ast
   - php-bcmath
   - php-bz2
   - php-cgi
   - php-cli
   - php-common
   - php-curl
+  - php-decimal
+  - php-dio
+  - php-ds
   - php-enchant
+  - php-excimer
   - php-fpm
   - php-gd
+  - php-gearman
+  - php-geoip
+  - php-gmagick
   - php-gmp
+  - php-gnupg
+  - php-imagick
+  - php-inotify
   - php-interbase
   - php-intl
   - php-json
   - php-ldap
   - php-litespeed
+  - php-lz4
+  - php-mailparse
+  - php-maxminddb
   - php-mbstring
+  - php-mcrypt
+  - php-mongo
   - php-mysql
   - php-odbc
   - php-pgsql
@@ -4812,6 +5193,7 @@ php_pkg_noble:
   - php-sqlite3
   - php-sybase
   - php-tidy
+  - php-xdebug
   - php-xml
   - php-zip
 
@@ -4865,15 +5247,27 @@ php_pkg_resolute:
   - php5.6-enchant
   - php5.6-fpm
   - php5.6-gd
+  - php5.6-gearman
+  - php5.6-geoip
+  - php5.6-gmagick
   - php5.6-gmp
+  - php5.6-gnupg
+  - php5.6-igbinary
+  - php5.6-imagick
   - php5.6-imap
+  - php5.6-inotify
   - php5.6-interbase
   - php5.6-intl
   - php5.6-json
   - php5.6-ldap
   - php5.6-litespeed
+  - php5.6-lz4
+  - php5.6-mailparse
   - php5.6-mbstring
   - php5.6-mcrypt
+  - php5.6-memcache
+  - php5.6-mongo
+  - php5.6-mongodb
   - php5.6-mysql
   - php5.6-odbc
   - php5.6-opcache
@@ -4900,18 +5294,29 @@ php_pkg_resolute:
   - php7.0-common
   - php7.0-curl
   - php7.0-dba
+  - php7.0-decimal
   - php7.0-enchant
   - php7.0-fpm
   - php7.0-gd
+  - php7.0-gearman
+  - php7.0-geoip
   - php7.0-gmp
+  - php7.0-gnupg
+  - php7.0-imagick
   - php7.0-imap
+  - php7.0-inotify
   - php7.0-interbase
   - php7.0-intl
   - php7.0-json
   - php7.0-ldap
   - php7.0-litespeed
+  - php7.0-lua
+  - php7.0-lz4
+  - php7.0-mailparse
   - php7.0-mbstring
   - php7.0-mcrypt
+  - php7.0-memcache
+  - php7.0-mongodb
   - php7.0-mysql
   - php7.0-odbc
   - php7.0-opcache
@@ -4939,18 +5344,31 @@ php_pkg_resolute:
   - php7.1-common
   - php7.1-curl
   - php7.1-dba
+  - php7.1-decimal
   - php7.1-enchant
+  - php7.1-excimer
   - php7.1-fpm
   - php7.1-gd
+  - php7.1-gearman
+  - php7.1-geoip
+  - php7.1-gmagick
   - php7.1-gmp
+  - php7.1-gnupg
+  - php7.1-imagick
   - php7.1-imap
+  - php7.1-inotify
   - php7.1-interbase
   - php7.1-intl
   - php7.1-json
   - php7.1-ldap
   - php7.1-litespeed
+  - php7.1-lua
+  - php7.1-lz4
+  - php7.1-mailparse
   - php7.1-mbstring
   - php7.1-mcrypt
+  - php7.1-memcache
+  - php7.1-mongodb
   - php7.1-mysql
   - php7.1-odbc
   - php7.1-opcache
@@ -4971,6 +5389,7 @@ php_pkg_resolute:
   - php7.2
   - php7.2-amqp
   - php7.2-apcu
+  - php7.2-ast
   - php7.2-bcmath
   - php7.2-bz2
   - php7.2-cgi
@@ -4978,17 +5397,31 @@ php_pkg_resolute:
   - php7.2-common
   - php7.2-curl
   - php7.2-dba
+  - php7.2-decimal
   - php7.2-enchant
+  - php7.2-excimer
   - php7.2-fpm
   - php7.2-gd
+  - php7.2-gearman
+  - php7.2-geoip
+  - php7.2-gmagick
   - php7.2-gmp
+  - php7.2-gnupg
+  - php7.2-imagick
   - php7.2-imap
+  - php7.2-inotify
   - php7.2-interbase
   - php7.2-intl
   - php7.2-json
   - php7.2-ldap
   - php7.2-litespeed
+  - php7.2-lua
+  - php7.2-lz4
+  - php7.2-mailparse
+  - php7.2-maxminddb
   - php7.2-mbstring
+  - php7.2-mcrypt
+  - php7.2-memcache
   - php7.2-mysql
   - php7.2-odbc
   - php7.2-opcache
@@ -5009,6 +5442,7 @@ php_pkg_resolute:
   - php7.3
   - php7.3-amqp
   - php7.3-apcu
+  - php7.3-ast
   - php7.3-bcmath
   - php7.3-bz2
   - php7.3-cgi
@@ -5016,17 +5450,31 @@ php_pkg_resolute:
   - php7.3-common
   - php7.3-curl
   - php7.3-dba
+  - php7.3-decimal
   - php7.3-enchant
+  - php7.3-excimer
   - php7.3-fpm
   - php7.3-gd
+  - php7.3-gearman
+  - php7.3-geoip
+  - php7.3-gmagick
   - php7.3-gmp
+  - php7.3-gnupg
+  - php7.3-imagick
   - php7.3-imap
+  - php7.3-inotify
   - php7.3-interbase
   - php7.3-intl
   - php7.3-json
   - php7.3-ldap
   - php7.3-litespeed
+  - php7.3-lua
+  - php7.3-lz4
+  - php7.3-mailparse
+  - php7.3-maxminddb
   - php7.3-mbstring
+  - php7.3-mcrypt
+  - php7.3-memcache
   - php7.3-mysql
   - php7.3-odbc
   - php7.3-opcache
@@ -5047,6 +5495,7 @@ php_pkg_resolute:
   - php7.4
   - php7.4-amqp
   - php7.4-apcu
+  - php7.4-ast
   - php7.4-bcmath
   - php7.4-bz2
   - php7.4-cgi
@@ -5054,17 +5503,32 @@ php_pkg_resolute:
   - php7.4-common
   - php7.4-curl
   - php7.4-dba
+  - php7.4-decimal
+  - php7.4-ds
   - php7.4-enchant
+  - php7.4-excimer
   - php7.4-fpm
   - php7.4-gd
+  - php7.4-gearman
+  - php7.4-geoip
+  - php7.4-gmagick
   - php7.4-gmp
+  - php7.4-gnupg
+  - php7.4-imagick
   - php7.4-imap
+  - php7.4-inotify
   - php7.4-interbase
   - php7.4-intl
   - php7.4-json
   - php7.4-ldap
   - php7.4-litespeed
+  - php7.4-lua
+  - php7.4-lz4
+  - php7.4-mailparse
+  - php7.4-maxminddb
   - php7.4-mbstring
+  - php7.4-mcrypt
+  - php7.4-memcache
   - php7.4-mysql
   - php7.4-odbc
   - php7.4-opcache
@@ -5084,6 +5548,7 @@ php_pkg_resolute:
   - php8.0
   - php8.0-amqp
   - php8.0-apcu
+  - php8.0-ast
   - php8.0-bcmath
   - php8.0-bz2
   - php8.0-cgi
@@ -5091,16 +5556,29 @@ php_pkg_resolute:
   - php8.0-common
   - php8.0-curl
   - php8.0-dba
+  - php8.0-decimal
+  - php8.0-dio
+  - php8.0-ds
   - php8.0-enchant
+  - php8.0-excimer
   - php8.0-fpm
   - php8.0-gd
+  - php8.0-gearman
+  - php8.0-gmagick
   - php8.0-gmp
+  - php8.0-gnupg
+  - php8.0-imagick
   - php8.0-imap
+  - php8.0-inotify
   - php8.0-interbase
   - php8.0-intl
   - php8.0-ldap
   - php8.0-litespeed
+  - php8.0-lz4
+  - php8.0-mailparse
+  - php8.0-maxminddb
   - php8.0-mbstring
+  - php8.0-mcrypt
   - php8.0-mysql
   - php8.0-odbc
   - php8.0-opcache
@@ -5113,12 +5591,14 @@ php_pkg_resolute:
   - php8.0-sqlite3
   - php8.0-sybase
   - php8.0-tidy
+  - php8.0-xdebug
   - php8.0-xml
   - php8.0-xsl
   - php8.0-zip
   - php8.1
   - php8.1-amqp
   - php8.1-apcu
+  - php8.1-ast
   - php8.1-bcmath
   - php8.1-bz2
   - php8.1-cgi
@@ -5126,16 +5606,29 @@ php_pkg_resolute:
   - php8.1-common
   - php8.1-curl
   - php8.1-dba
+  - php8.1-decimal
+  - php8.1-dio
+  - php8.1-ds
   - php8.1-enchant
+  - php8.1-excimer
   - php8.1-fpm
   - php8.1-gd
+  - php8.1-gearman
+  - php8.1-gmagick
   - php8.1-gmp
+  - php8.1-gnupg
+  - php8.1-imagick
   - php8.1-imap
+  - php8.1-inotify
   - php8.1-interbase
   - php8.1-intl
   - php8.1-ldap
   - php8.1-litespeed
+  - php8.1-lz4
+  - php8.1-mailparse
+  - php8.1-maxminddb
   - php8.1-mbstring
+  - php8.1-mcrypt
   - php8.1-mysql
   - php8.1-odbc
   - php8.1-opcache
@@ -5148,12 +5641,14 @@ php_pkg_resolute:
   - php8.1-sqlite3
   - php8.1-sybase
   - php8.1-tidy
+  - php8.1-xdebug
   - php8.1-xml
   - php8.1-xsl
   - php8.1-zip
   - php8.2
   - php8.2-amqp
   - php8.2-apcu
+  - php8.2-ast
   - php8.2-bcmath
   - php8.2-bz2
   - php8.2-cgi
@@ -5161,16 +5656,29 @@ php_pkg_resolute:
   - php8.2-common
   - php8.2-curl
   - php8.2-dba
+  - php8.2-decimal
+  - php8.2-dio
+  - php8.2-ds
   - php8.2-enchant
+  - php8.2-excimer
   - php8.2-fpm
   - php8.2-gd
+  - php8.2-gearman
+  - php8.2-gmagick
   - php8.2-gmp
+  - php8.2-gnupg
+  - php8.2-imagick
   - php8.2-imap
+  - php8.2-inotify
   - php8.2-interbase
   - php8.2-intl
   - php8.2-ldap
   - php8.2-litespeed
+  - php8.2-lz4
+  - php8.2-mailparse
+  - php8.2-maxminddb
   - php8.2-mbstring
+  - php8.2-mcrypt
   - php8.2-mysql
   - php8.2-odbc
   - php8.2-opcache
@@ -5183,12 +5691,14 @@ php_pkg_resolute:
   - php8.2-sqlite3
   - php8.2-sybase
   - php8.2-tidy
+  - php8.2-xdebug
   - php8.2-xml
   - php8.2-xsl
   - php8.2-zip
   - php8.3
   - php8.3-amqp
   - php8.3-apcu
+  - php8.3-ast
   - php8.3-bcmath
   - php8.3-bz2
   - php8.3-cgi
@@ -5196,16 +5706,29 @@ php_pkg_resolute:
   - php8.3-common
   - php8.3-curl
   - php8.3-dba
+  - php8.3-decimal
+  - php8.3-dio
+  - php8.3-ds
   - php8.3-enchant
+  - php8.3-excimer
   - php8.3-fpm
   - php8.3-gd
+  - php8.3-gearman
+  - php8.3-gmagick
   - php8.3-gmp
+  - php8.3-gnupg
+  - php8.3-imagick
   - php8.3-imap
+  - php8.3-inotify
   - php8.3-interbase
   - php8.3-intl
   - php8.3-ldap
   - php8.3-litespeed
+  - php8.3-lz4
+  - php8.3-mailparse
+  - php8.3-maxminddb
   - php8.3-mbstring
+  - php8.3-mcrypt
   - php8.3-mysql
   - php8.3-odbc
   - php8.3-opcache
@@ -5218,12 +5741,14 @@ php_pkg_resolute:
   - php8.3-sqlite3
   - php8.3-sybase
   - php8.3-tidy
+  - php8.3-xdebug
   - php8.3-xml
   - php8.3-xsl
   - php8.3-zip
   - php8.4
   - php8.4-amqp
   - php8.4-apcu
+  - php8.4-ast
   - php8.4-bcmath
   - php8.4-bz2
   - php8.4-cgi
@@ -5231,15 +5756,29 @@ php_pkg_resolute:
   - php8.4-common
   - php8.4-curl
   - php8.4-dba
+  - php8.4-decimal
+  - php8.4-dio
+  - php8.4-ds
   - php8.4-enchant
+  - php8.4-excimer
   - php8.4-fpm
   - php8.4-gd
+  - php8.4-gearman
+  - php8.4-gmagick
   - php8.4-gmp
+  - php8.4-gnupg
+  - php8.4-imagick
+  - php8.4-imap
+  - php8.4-inotify
   - php8.4-interbase
   - php8.4-intl
   - php8.4-ldap
   - php8.4-litespeed
+  - php8.4-lz4
+  - php8.4-mailparse
+  - php8.4-maxminddb
   - php8.4-mbstring
+  - php8.4-mcrypt
   - php8.4-mysql
   - php8.4-odbc
   - php8.4-opcache
@@ -5251,12 +5790,14 @@ php_pkg_resolute:
   - php8.4-sqlite3
   - php8.4-sybase
   - php8.4-tidy
+  - php8.4-xdebug
   - php8.4-xml
   - php8.4-xsl
   - php8.4-zip
   - php8.5
   - php8.5-amqp
   - php8.5-apcu
+  - php8.5-ast
   - php8.5-bcmath
   - php8.5-bz2
   - php8.5-cgi
@@ -5264,15 +5805,29 @@ php_pkg_resolute:
   - php8.5-common
   - php8.5-curl
   - php8.5-dba
+  - php8.5-decimal
+  - php8.5-dio
+  - php8.5-ds
   - php8.5-enchant
+  - php8.5-excimer
   - php8.5-fpm
   - php8.5-gd
+  - php8.5-gearman
+  - php8.5-gmagick
   - php8.5-gmp
+  - php8.5-gnupg
+  - php8.5-imagick
+  - php8.5-imap
+  - php8.5-inotify
   - php8.5-interbase
   - php8.5-intl
   - php8.5-ldap
   - php8.5-litespeed
+  - php8.5-lz4
+  - php8.5-mailparse
+  - php8.5-maxminddb
   - php8.5-mbstring
+  - php8.5-mcrypt
   - php8.5-mysql
   - php8.5-odbc
   - php8.5-pgsql
@@ -5283,27 +5838,44 @@ php_pkg_resolute:
   - php8.5-sqlite3
   - php8.5-sybase
   - php8.5-tidy
+  - php8.5-xdebug
   - php8.5-xml
   - php8.5-xsl
   - php8.5-zip
   - php-amqp
   - php-apcu
+  - php-ast
   - php-bcmath
   - php-bz2
   - php-cgi
   - php-cli
   - php-common
   - php-curl
+  - php-decimal
+  - php-dio
+  - php-ds
   - php-enchant
+  - php-excimer
   - php-fpm
   - php-gd
+  - php-gearman
+  - php-geoip
+  - php-gmagick
   - php-gmp
+  - php-gnupg
+  - php-imagick
+  - php-inotify
   - php-interbase
   - php-intl
   - php-json
   - php-ldap
   - php-litespeed
+  - php-lz4
+  - php-mailparse
+  - php-maxminddb
   - php-mbstring
+  - php-mcrypt
+  - php-mongo
   - php-mysql
   - php-odbc
   - php-pgsql
@@ -5314,6 +5886,7 @@ php_pkg_resolute:
   - php-sqlite3
   - php-sybase
   - php-tidy
+  - php-xdebug
   - php-xml
   - php-zip
 ...
