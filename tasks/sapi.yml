@@ -87,6 +87,12 @@
           vars:
             php_task_name: "Debug PHP {{ php_version.version }} mods enable"
 
+        - name: Diff php_mods_available and php_mods_enable
+          ansible.utils.fact_diff:
+            before: php_mods_available
+            after: php_mods_enable
+          changed_when: false
+
         - name: Fail as mods to be enabled are not available
           ansible.builtin.fail:
 
