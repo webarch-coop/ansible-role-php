@@ -9,6 +9,9 @@
 # You should have received a copy of the GNU General Public License along with the Webarchitects PHP Ansible role. If not, see <https://www.gnu.org/licenses/>.
 ---
 molecule_ubuntu_php_config:
+  - name: PHP 8.6 configuration
+    version: "8.6"
+    state: present
   - name: PHP 8.5 configuration
     version: "8.5"
     state: present

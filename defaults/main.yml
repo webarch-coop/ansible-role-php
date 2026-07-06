@@ -1416,6 +1416,9 @@ php_modules:
   #         - zip
 php_sury: true
 php_versions:
+  - name: PHP 8.6 packages
+    version: "8.6"
+    state: absent
   - name: PHP 8.5 packages
     version: "8.5"
     state: present

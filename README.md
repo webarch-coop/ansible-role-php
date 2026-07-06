@@ -63,6 +63,7 @@ The optional `php_config` list is used to specify the state of the PHP configura
 Each item in the list requires a `state`, which can be `absent` or `present` and a `version` which must be a string from this list of PHP versions:
 
 ```yaml
+- "8.6"
 - "8.5"
 - "8.4"
 - "8.3"
@@ -140,6 +141,7 @@ The optional `php_modules` list can be used to enable and disable PHP modules us
 Each item in the list requires a `state`, which can be `absent` or `present` and a `version` which must be a string from this list of PHP versions:
 
 ```yaml
+- "8.6"
 - "8.5"
 - "8.4"
 - "8.3"
@@ -222,6 +224,7 @@ The optional `php_verify` variable is `true` by default which results in all var
 The optional `php_versions` list is used to install and remove PHP packages, each item in the list requires a `state`, which can be `absent` or `present` and a `version` which must be a string from this list of PHP versions:
 
 ```yaml
+- "8.6"
 - "8.5"
 - "8.4"
 - "8.3"

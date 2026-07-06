@@ -23,6 +23,7 @@ php_sury_versions:
   - "8.3"
   - "8.4"
   - "8.5"
+  - "8.6"
 
 php_empty_list: []
 
@@ -195,6 +196,7 @@ php_pkg_bullseye:
   - libapache2-mod-php8.3
   - libapache2-mod-php8.4
   - libapache2-mod-php8.5
+  - libapache2-mod-php8.6
   - libenchant1c2a
   - libenchant-voikko
   - libgd3
@@ -227,6 +229,7 @@ php_pkg_bullseye:
   - libphp8.3-embed
   - libphp8.4-embed
   - libphp8.5-embed
+  - libphp8.6-embed
   - libphp-embed
   - libxml2
   - libxml2-doc
@@ -1309,6 +1312,36 @@ php_pkg_bullseye:
   - php8.5-zip
   - php8.5-zmq
   - php8.5-zstd
+  - php8.6
+  - php8.6-bcmath
+  - php8.6-bz2
+  - php8.6-cgi
+  - php8.6-cli
+  - php8.6-common
+  - php8.6-curl
+  - php8.6-dba
+  - php8.6-enchant
+  - php8.6-fpm
+  - php8.6-gd
+  - php8.6-gmp
+  - php8.6-interbase
+  - php8.6-intl
+  - php8.6-ldap
+  - php8.6-litespeed
+  - php8.6-mbstring
+  - php8.6-mysql
+  - php8.6-odbc
+  - php8.6-pgsql
+  - php8.6-phpdbg
+  - php8.6-readline
+  - php8.6-snmp
+  - php8.6-soap
+  - php8.6-sqlite3
+  - php8.6-sybase
+  - php8.6-tidy
+  - php8.6-xml
+  - php8.6-xsl
+  - php8.6-zip
   - php-amqp
   - php-apcu
   - php-apcu-bc
@@ -1428,6 +1461,7 @@ php_pkg_bookworm:
   - libapache2-mod-php8.3
   - libapache2-mod-php8.4
   - libapache2-mod-php8.5
+  - libapache2-mod-php8.6
   - libgd3
   - libgd-tools
   - libhashkit2
@@ -1454,6 +1488,7 @@ php_pkg_bookworm:
   - libphp8.3-embed
   - libphp8.4-embed
   - libphp8.5-embed
+  - libphp8.6-embed
   - libphp-embed
   - pcregrep
   - php
@@ -2523,6 +2558,36 @@ php_pkg_bookworm:
   - php8.5-zip
   - php8.5-zmq
   - php8.5-zstd
+  - php8.6
+  - php8.6-bcmath
+  - php8.6-bz2
+  - php8.6-cgi
+  - php8.6-cli
+  - php8.6-common
+  - php8.6-curl
+  - php8.6-dba
+  - php8.6-enchant
+  - php8.6-fpm
+  - php8.6-gd
+  - php8.6-gmp
+  - php8.6-interbase
+  - php8.6-intl
+  - php8.6-ldap
+  - php8.6-litespeed
+  - php8.6-mbstring
+  - php8.6-mysql
+  - php8.6-odbc
+  - php8.6-pgsql
+  - php8.6-phpdbg
+  - php8.6-readline
+  - php8.6-snmp
+  - php8.6-soap
+  - php8.6-sqlite3
+  - php8.6-sybase
+  - php8.6-tidy
+  - php8.6-xml
+  - php8.6-xsl
+  - php8.6-zip
   - php-amqp
   - php-apcu
   - php-apcu-bc
@@ -4298,6 +4363,7 @@ php_pkg_jammy:
   - php7.4-raphf
   - php7.4-rdkafka
   - php7.4-readline
+  - php7.4-redis
   - php7.4-smbclient
   - php7.4-snmp
   - php7.4-soap
@@ -4374,6 +4440,7 @@ php_pkg_jammy:
   - php8.0-raphf
   - php8.0-rdkafka
   - php8.0-readline
+  - php8.0-redis
   - php8.0-smbclient
   - php8.0-snmp
   - php8.0-soap
@@ -4452,6 +4519,7 @@ php_pkg_jammy:
   - php8.1-raphf
   - php8.1-rdkafka
   - php8.1-readline
+  - php8.1-redis
   - php8.1-smbclient
   - php8.1-snmp
   - php8.1-soap
@@ -4531,6 +4599,7 @@ php_pkg_jammy:
   - php8.2-raphf
   - php8.2-rdkafka
   - php8.2-readline
+  - php8.2-redis
   - php8.2-smbclient
   - php8.2-snmp
   - php8.2-soap
@@ -4611,6 +4680,7 @@ php_pkg_jammy:
   - php8.3-raphf
   - php8.3-rdkafka
   - php8.3-readline
+  - php8.3-redis
   - php8.3-smbclient
   - php8.3-snmp
   - php8.3-soap
@@ -4690,6 +4760,7 @@ php_pkg_jammy:
   - php8.4-raphf
   - php8.4-rdkafka
   - php8.4-readline
+  - php8.4-redis
   - php8.4-smbclient
   - php8.4-snmp
   - php8.4-soap
@@ -4767,6 +4838,7 @@ php_pkg_jammy:
   - php8.5-raphf
   - php8.5-rdkafka
   - php8.5-readline
+  - php8.5-redis
   - php8.5-smbclient
   - php8.5-snmp
   - php8.5-soap
@@ -4850,6 +4922,7 @@ php_pkg_jammy:
   - php-raphf
   - php-rdkafka
   - php-readline
+  - php-redis
   - php-smbclient
   - php-snmp
   - php-soap
@@ -4893,6 +4966,7 @@ php_pkg_noble:
   - libapache2-mod-php8.3
   - libapache2-mod-php8.4
   - libapache2-mod-php8.5
+  - libapache2-mod-php8.6
   - libgd3
   - libgd-tools
   - libmpdec++4
@@ -4909,6 +4983,7 @@ php_pkg_noble:
   - libphp8.3-embed
   - libphp8.4-embed
   - libphp8.5-embed
+  - libphp8.6-embed
   - libphp-embed
   - php
   - php5.6
@@ -5848,6 +5923,36 @@ php_pkg_noble:
   - php8.5-zip
   - php8.5-zmq
   - php8.5-zstd
+  - php8.6
+  - php8.6-bcmath
+  - php8.6-bz2
+  - php8.6-cgi
+  - php8.6-cli
+  - php8.6-common
+  - php8.6-curl
+  - php8.6-dba
+  - php8.6-enchant
+  - php8.6-fpm
+  - php8.6-gd
+  - php8.6-gmp
+  - php8.6-interbase
+  - php8.6-intl
+  - php8.6-ldap
+  - php8.6-litespeed
+  - php8.6-mbstring
+  - php8.6-mysql
+  - php8.6-odbc
+  - php8.6-pgsql
+  - php8.6-phpdbg
+  - php8.6-readline
+  - php8.6-snmp
+  - php8.6-soap
+  - php8.6-sqlite3
+  - php8.6-sybase
+  - php8.6-tidy
+  - php8.6-xml
+  - php8.6-xsl
+  - php8.6-zip
   - php-amqp
   - php-apcu
   - php-apcu-bc
@@ -5949,6 +6054,7 @@ php_pkg_resolute:
   - libapache2-mod-php8.3
   - libapache2-mod-php8.4
   - libapache2-mod-php8.5
+  - libapache2-mod-php8.6
   - libgd3
   - libgd-tools
   - libpcre16-3
@@ -5967,6 +6073,7 @@ php_pkg_resolute:
   - libphp8.3-embed
   - libphp8.4-embed
   - libphp8.5-embed
+  - libphp8.6-embed
   - libphp-embed
   - pcregrep
   - php
@@ -6884,6 +6991,36 @@ php_pkg_resolute:
   - php8.5-yaml
   - php8.5-zip
   - php8.5-zstd
+  - php8.6
+  - php8.6-bcmath
+  - php8.6-bz2
+  - php8.6-cgi
+  - php8.6-cli
+  - php8.6-common
+  - php8.6-curl
+  - php8.6-dba
+  - php8.6-enchant
+  - php8.6-fpm
+  - php8.6-gd
+  - php8.6-gmp
+  - php8.6-interbase
+  - php8.6-intl
+  - php8.6-ldap
+  - php8.6-litespeed
+  - php8.6-mbstring
+  - php8.6-mysql
+  - php8.6-odbc
+  - php8.6-pgsql
+  - php8.6-phpdbg
+  - php8.6-readline
+  - php8.6-snmp
+  - php8.6-soap
+  - php8.6-sqlite3
+  - php8.6-sybase
+  - php8.6-tidy
+  - php8.6-xml
+  - php8.6-xsl
+  - php8.6-zip
   - php-amqp
   - php-apcu
   - php-apcu-bc
