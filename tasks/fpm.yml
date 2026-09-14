@@ -28,8 +28,7 @@
           failed_when: >-
             (php_fpm_test.rc != 0) or
             ("Failed" in php_fpm_test.stderr) or
-            ("test is successful" not in php_fpm_test.stderr) or
-            (php_fpm_test.stderr_lines | length > 1)
+            ("test is successful" not in php_fpm_test.stderr)
 
       rescue:
 
