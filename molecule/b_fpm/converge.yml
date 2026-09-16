@@ -757,9 +757,9 @@
         php_sury: false
         php_fpm_pool_check_fail: true
         php_config:
-          - name: PHP 8.6 configuration
-            version: "8.6"
-            state: absent
+          # - name: PHP 8.6 configuration
+          #   version: "8.6"
+          #   state: absent
           - name: PHP 8.5 configuration
             version: "8.5"
             state: present
