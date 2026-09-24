@@ -3235,6 +3235,7 @@ php_pkg_trixie:
   - php7.4-mcrypt
   - php7.4-memcache
   - php7.4-memcached
+  - php7.4-mongodb
   - php7.4-msgpack
   - php7.4-mysql
   - php7.4-oauth
@@ -3322,6 +3323,7 @@ php_pkg_trixie:
   - php8.0-mcrypt
   - php8.0-memcache
   - php8.0-memcached
+  - php8.0-mongodb
   - php8.0-msgpack
   - php8.0-mysql
   - php8.0-oauth
@@ -4457,6 +4459,7 @@ php_pkg_jammy:
   - php7.4-mcrypt
   - php7.4-memcache
   - php7.4-memcached
+  - php7.4-mongodb
   - php7.4-msgpack
   - php7.4-mysql
   - php7.4-oauth
@@ -4542,6 +4545,7 @@ php_pkg_jammy:
   - php8.0-mcrypt
   - php8.0-memcache
   - php8.0-memcached
+  - php8.0-mongodb
   - php8.0-msgpack
   - php8.0-mysql
   - php8.0-oauth
@@ -5661,6 +5665,7 @@ php_pkg_noble:
   - php7.4-mcrypt
   - php7.4-memcache
   - php7.4-memcached
+  - php7.4-mongodb
   - php7.4-msgpack
   - php7.4-mysql
   - php7.4-oauth
@@ -5746,6 +5751,7 @@ php_pkg_noble:
   - php8.0-mcrypt
   - php8.0-memcache
   - php8.0-memcached
+  - php8.0-mongodb
   - php8.0-msgpack
   - php8.0-mysql
   - php8.0-oauth
@@ -6854,6 +6860,7 @@ php_pkg_resolute:
   - php7.4-mcrypt
   - php7.4-memcache
   - php7.4-memcached
+  - php7.4-mongodb
   - php7.4-msgpack
   - php7.4-mysql
   - php7.4-oauth
@@ -6938,6 +6945,7 @@ php_pkg_resolute:
   - php8.0-mcrypt
   - php8.0-memcache
   - php8.0-memcached
+  - php8.0-mongodb
   - php8.0-msgpack
   - php8.0-mysql
   - php8.0-oauth

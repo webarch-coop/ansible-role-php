@@ -40,7 +40,7 @@ repos:
           - README.md
   # https://github.com/ansible/ansible-lint/releases
   - repo: https://github.com/ansible/ansible-lint.git
-    rev: v26.8.0
+    rev: v26.9.0
     hooks:
       - id: ansible-lint
         name: Ansible Lint
@@ -50,7 +50,7 @@ repos:
           # https://pypi.org/project/ansible/
           - ansible==14.4.0
          # https://github.com/kellyjonbrazil/jc/releases
-          - jc==1.25.7
+          - jc==1.26.0
           # https://github.com/jmespath/jmespath.py/tags
           - jmespath==1.0.1
 ...
