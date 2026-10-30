@@ -50,7 +50,7 @@ repos:
           # https://pypi.org/project/ansible/
           - ansible==14.5.0
          # https://github.com/kellyjonbrazil/jc/releases
-          - jc==1.26.1
+          - jc==1.26.2
           # https://github.com/jmespath/jmespath.py/tags
           - jmespath==1.0.1
 ...
